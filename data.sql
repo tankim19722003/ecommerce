@@ -51,6 +51,10 @@ CREATE TABLE users (
     avatar TEXT
 );
 
+ALTER TABLE users
+ADD COLUMN role_id INT,
+ADD CONSTRAINT fk_users_roles FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE;
+
 CREATE TABLE shop_banned (
     id SERIAL PRIMARY KEY,
     ban_reason TEXT NOT NULL,
