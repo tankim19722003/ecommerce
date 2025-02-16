@@ -16,10 +16,14 @@ public class ShopRejection {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "rejected_reason")
     private String rejectedReason;
+
+    @Column(name = "rejected_date")
     private LocalDateTime rejectedDate;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "shop_id", nullable = false)
     private Shop shop;
 }

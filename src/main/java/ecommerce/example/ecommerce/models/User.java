@@ -42,11 +42,27 @@ public class User {
     @Column(name = "avatar")
     private String avatar;
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE
-            , CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, mappedBy = "user")
     private List<Order> orders;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    private Shop shop;
+
+    @OneToOne(cascade =  CascadeType.ALL, mappedBy = "user")
+    private UserBanned userBanned;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    private List <Payment> payments;
+
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.REMOVE},
+            mappedBy = "user")
+    private List<CartItem> cartItems;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Feedback> feedbacks;
 }

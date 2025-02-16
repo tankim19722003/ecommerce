@@ -17,14 +17,18 @@ public class ProductRejection {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "rejected_reason", nullable = false, columnDefinition = "TEXT")
+    @Column(name = "rejected_reason", nullable = false)
     private String rejectedReason;
 
-    @Column(name = "rejected_date", nullable = false, updatable = false)
+    @Column(name = "rejected_date", nullable = false)
     private LocalDateTime rejectedDate;
 
     @PrePersist
     protected void onCreate() {
         rejectedDate = LocalDateTime.now();
     }
+
+    @OneToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 }

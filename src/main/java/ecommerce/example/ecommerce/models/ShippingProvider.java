@@ -46,4 +46,7 @@ public class ShippingProvider {
     @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}
             , fetch = FetchType.LAZY, mappedBy = "shippingProvider")
     private List<Order> orders;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "shippingProvider")
+    private ShippingProviderReject shippingProviderReject;
 }

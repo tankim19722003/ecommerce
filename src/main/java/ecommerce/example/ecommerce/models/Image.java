@@ -25,4 +25,8 @@ public class Image {
 
     @Column(name = "updated_date", nullable = false)
     private LocalDateTime updatedDate;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 }

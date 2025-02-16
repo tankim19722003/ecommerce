@@ -13,12 +13,19 @@ import lombok.NoArgsConstructor;
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+
+    @Column(name = "bank_name")
     private String bankName;
+
+    @Column(name = "bank_account")
     private String bankAccount;
+
+    @Column(name = "account_holder_name")
     private String accountHolderName;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE, CascadeType.DETACH})
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 }

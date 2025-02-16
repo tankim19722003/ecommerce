@@ -27,12 +27,28 @@ CREATE TABLE products_rejections (
     rejected_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+ALTER TABLE products_rejections ADD COLUMN product_id BIGINT NOT NULL;
+ALTER TABLE products_rejections
+ADD CONSTRAINT fk_products_rejections_product
+FOREIGN KEY (product_id) REFERENCES products(id)
+ON DELETE CASCADE;
+
+ALTER TABLE products_rejections RENAME TO product_rejections;
+
+
 CREATE TABLE images (
     id SERIAL PRIMARY KEY,
     image_name TEXT NOT NULL,
     created_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+ALTER TABLE images ADD COLUMN product_id BIGINT NOT NULL;
+ALTER TABLE images
+ADD CONSTRAINT fk_image_product
+FOREIGN KEY (product_id) REFERENCES products(id)
+ON DELETE CASCADE;
+
 
 CREATE TABLE roles (
     id SERIAL PRIMARY KEY,
@@ -91,6 +107,9 @@ CREATE TABLE orders (
     FOREIGN KEY (shipping_provider_id) REFERENCES shipping_providers(id) ON UPDATE CASCADE
 );
 
+ALTER TABLE orders
+ADD COLUMN status VARCHAR(30) DEFAULT 'pending';
+
 
 CREATE TABLE shops (
     id SERIAL PRIMARY KEY,
@@ -127,14 +146,33 @@ CREATE TABLE products (
     FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+ALTER TABLE products
+DROP COLUMN color,
+DROP COLUMN price,
+DROP COLUMN quantity,
+DROP COLUMN size;
 
+
+ALTER TABLE products ADD COLUMN status VARCHAR(10) NOT NULL DEFAULT 'pending';
+ALTER TABLE products ADD CONSTRAINT chk_status CHECK (status IN ('pending', 'reject', 'completed'));
+
+
+
+--CREATE TABLE product_discounts (
+--    product_id INTEGER PRIMARY KEY,
+--    discount_percent FLOAT NOT NULL,
+--    date_start TIMESTAMP NOT NULL,
+--    date_end TIMESTAMP NOT NULL,
+--    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE ON UPDATE CASCADE
+--);
 
 CREATE TABLE product_discounts (
-    product_id INTEGER PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     discount_percent FLOAT NOT NULL,
     date_start TIMESTAMP NOT NULL,
     date_end TIMESTAMP NOT NULL,
-    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE ON UPDATE CASCADE
+    product_id INTEGER NOT NULL,
+    CONSTRAINT fk_product FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 );
 
 
@@ -148,6 +186,8 @@ CREATE TABLE carts (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 );
+
+ALTER TABLE cart RENAME TO cart_items;
 
 CREATE TABLE order_details (
     id SERIAL PRIMARY KEY,
@@ -221,6 +261,47 @@ CREATE TABLE shipping_provider_rejects (
         REFERENCES shipping_providers(id)
         ON DELETE CASCADE
 );
+
+CREATE TABLE sizes (
+    id SERIAL PRIMARY KEY,
+    size VARCHAR(20) NOT NULL,
+    category_id INT,
+    FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
+);
+
+CREATE TABLE product_sizes (
+    id SERIAL PRIMARY KEY,
+    product_id INT NOT NULL,
+    size_id INT NOT NULL,
+    price INT NOT NULL,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
+    FOREIGN KEY (size_id) REFERENCES sizes(id) ON DELETE CASCADE
+);
+
+ALTER TABLE product_sizes
+ADD CONSTRAINT unique_size_product UNIQUE (size_id, product_id);
+
+CREATE TABLE color_prices (
+    id SERIAL PRIMARY KEY,
+    product_size_id INT NOT NULL,
+    image_name TEXT NOT NULL,
+    quantity INT NOT NULL,
+    color TEXT CHECK (LENGTH(color) <= 30),
+    FOREIGN KEY (product_size_id) REFERENCES product_sizes(id) ON DELETE CASCADE
+);
+
+ALTER TABLE color_prices ADD CONSTRAINT unique_product_size_color UNIQUE (product_size_id, color);
+
+-- to make sure no row have the same value category = 1 size = small
+ALTER TABLE sizes
+ADD CONSTRAINT unique_category_size UNIQUE (category_id, size);
+
+
+
+
+
+
+
 
 
 

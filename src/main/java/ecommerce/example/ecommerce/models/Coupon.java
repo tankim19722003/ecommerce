@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "coupons")
@@ -20,18 +21,22 @@ public class Coupon {
     @Column(nullable = false, unique = true, length = 50)
     private String code;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "description")
     private String description;
 
-    @Column(nullable = false)
+    @Column(name = "discount_value", nullable = false)
     private Float discountValue;
 
-    @Column(nullable = false)
+    @Column(name = "start_date", nullable = false)
     private LocalDateTime startDate;
 
-    @Column(nullable = false)
+    @Column(name = "end_date", nullable = false)
     private LocalDateTime endDate;
 
-    @Column(nullable = false)
+    @Column(name = "minimum_order_value", nullable = false)
     private Integer minimumOrderValue;
+
+    @ManyToOne
+    @JoinColumn(name = "shop_id")
+    private Shop shop;
 }
