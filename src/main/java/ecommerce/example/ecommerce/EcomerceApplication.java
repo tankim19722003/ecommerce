@@ -41,7 +41,7 @@ public class EcomerceApplication {
 			ProductSizeRepo productSizeRepo,
 			ColorPriceRepo colorPriceRepo) {
 		return runner -> {
-			createColorPrice(colorPriceRepo, productSizeRepo);
+//			createRole(roleRepo);
 		};
 	}
 
@@ -418,7 +418,6 @@ public class EcomerceApplication {
 		user.setGender(true); // true for male, false for female
 		user.setBirthdate(LocalDate.of(1995, 5, 20));
 		user.setAvatar("avatar.jpg");
-		user.setRole(role);
 
 		System.out.println("Saving user...");
 		userRepo.save(user);
@@ -439,7 +438,7 @@ public class EcomerceApplication {
 
 	public void createRole(RoleRepo roleRepo) {
 		Role role = new Role();
-		role.setName("Admin");
+		role.setName("user");
 		role = roleRepo.save(role);
 		System.out.println("Role: " + role);
 	}

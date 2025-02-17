@@ -55,6 +55,10 @@ CREATE TABLE roles (
     name VARCHAR(256) NOT NULL
 );
 
+ALTER TABLE roles ADD CONSTRAINT unique_role_name UNIQUE (name);
+
+
+
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     fullname varchar(255) NOT NULL,
@@ -67,9 +71,26 @@ CREATE TABLE users (
     avatar TEXT
 );
 
+ALTER TABLE users ALTER COLUMN fullname DROP NOT NULL;
+
+
 ALTER TABLE users
 ADD COLUMN role_id INT,
 ADD CONSTRAINT fk_users_roles FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE;
+
+ALTER TABLE users DROP CONSTRAINT fk_users_roles;
+ALTER TABLE users DROP COLUMN role_id;
+
+ALTER TABLE users ADD COLUMN phone_number VARCHAR(20);
+
+CREATE TABLE user_roles (
+    id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    role_id INT NOT NULL,
+    CONSTRAINT fk_user_roles_users FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    CONSTRAINT fk_user_roles_roles FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE
+);
+
 
 CREATE TABLE shop_banned (
     id SERIAL PRIMARY KEY,

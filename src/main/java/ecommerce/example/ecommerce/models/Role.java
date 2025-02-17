@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 import ecommerce.example.ecommerce.models.User;
 @Entity
@@ -18,10 +19,24 @@ public class Role {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     private String name;
 
-    @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE
-            , CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy = "role", fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {
+            CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH
+    })
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
     private List<User> users;
+
+    public void add(User user) {
+        if (users == null) {
+            users = new ArrayList<>();
+        }
+         users.add(user);
+    }
+
 }
