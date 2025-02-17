@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
-import HeaderTop from "../components/header/HeaderTop";
-import Header from "../components/header/Header";
-import { useTheme } from "../Provider/ThemeProvider";
-import sanpham1 from "../assets/images/sanpham1.webp";
-import sanpham2 from "../assets/images/sanpham2.webp";
-import sanpham3 from "../assets/images/sanpham3.jpg";
-import InfoShop from "../components/Products/InfoShop";
-import CoupouList from "../components/features/CoupouList";
-import QuanlityProduct from "../components/header/QuanlityProduct";
-import SuggestionsSlide from "../components/header/SuggestionsSlide";
-import AttributeProduct from "../components/features/AttributeProduct";
-import PathAccess from "../components/features/PathAccess";
-import { useAuth } from "../Provider/AuthProvider";
+import HeaderTop from "../../../components/Header/HeaderTop";
+import Header from "../../../components/Header/Header";
+import { useTheme } from "../../../Provider/ThemeProvider";
+import sanpham1 from "../../../assets/images/sanpham1.webp";
+import sanpham2 from "../../../assets/images/sanpham2.webp";
+import sanpham3 from "../../../assets/images/sanpham3.jpg";
+import InfoShop from "../../../components/Products/InfoShop";
+import CoupouList from "../../../components/features/CoupouList";
+import QuanlityProduct from "../../../components/header/QuanlityProduct";
+import SuggestionsSlide from "../../../components/header/SuggestionsSlide";
+import AttributeProduct from "../../../components/features/AttributeProduct";
+import PathAccess from "../../../components/features/PathAccess";
+import { useAuth } from "../../../Provider/AuthProvider";
 import { useNavigate } from "react-router-dom";
 
 const Cart = () => {

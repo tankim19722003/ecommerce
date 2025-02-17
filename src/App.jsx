@@ -1,15 +1,15 @@
 import "./App.css";
 import { Suspense, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
-import Loading from "./pages/Loading";
+import Loading from "./views/client/pages/Loading";
 import ScrollButton from "./components/features/ScrollButton";
-import UserInfo from "./pages/UserInfo";
+import UserInfo from "./views/client/pages/UserInfo";
 
-const Home = lazy(() => import("./pages/Home"));
-const Login = lazy(() => import("./components/auth/Login"));
-const Register = lazy(() => import("./components/auth/Register"));
-const Cart = lazy(() => import("./pages/Cart"));
-const ProductDetail = lazy(() => import("./pages/ProductDetail"));
+const Home = lazy(() => import("./views/client/pages/Home"));
+const Login = lazy(() => import("./views/client/auth/Login"));
+const Register = lazy(() => import("./views/client/auth/Register"));
+const Cart = lazy(() => import("./views/client/pages/Cart"));
+const ProductDetail = lazy(() => import("./views/client/pages/ProductDetail"));
 
 function App() {
   return (

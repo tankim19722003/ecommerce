@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import logo_snapbuy from "../../assets/images/logo_snapbuy.png";
-import logo_google from "../../assets/images/logo_google.png";
-import logo_facebook from "../../assets/images/logo_facebook.png";
-import { useTheme } from "../../Provider/ThemeProvider";
+import logo_snapbuy from "../../../assets/images/logo_snapbuy.png";
+import logo_google from "../../../assets/images/logo_google.png";
+import logo_facebook from "../../../assets/images/logo_facebook.png";
+import { useTheme } from "../../../Provider/ThemeProvider";
 const Register = () => {
   const { isDarkMode, toggleTheme } = useTheme();
   const navigate = useNavigate();

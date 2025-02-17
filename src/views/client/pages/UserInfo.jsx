@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useAuth } from "../Provider/AuthProvider";
+import { useAuth } from "../../../Provider/AuthProvider";
 import { useNavigate } from "react-router-dom";
 
 const UserInfo = () => {

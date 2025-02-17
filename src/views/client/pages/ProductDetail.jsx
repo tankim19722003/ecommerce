@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import Loading from "./Loading";
 
 function ProductDetail() {
   const { id } = useParams();
