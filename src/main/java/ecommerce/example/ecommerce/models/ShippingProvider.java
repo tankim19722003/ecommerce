@@ -19,7 +19,7 @@ public class ShippingProvider {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "account")
+    @Column(name = "account", unique = true)
     private String account;
 
     @Column(name = "password")

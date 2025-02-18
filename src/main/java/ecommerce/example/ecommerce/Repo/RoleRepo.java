@@ -1,7 +1,7 @@
 package ecommerce.example.ecommerce.Repo;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import ecommerce.example.ecommerce.models.Role;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 

@@ -41,8 +41,16 @@ public class EcomerceApplication {
 			ProductSizeRepo productSizeRepo,
 			ColorPriceRepo colorPriceRepo) {
 		return runner -> {
-//			createRole(roleRepo);
+//			createProduct(productRepo, shopRepo, categoryRepo);
+//			findUserByEmailOrPhoneNumber(userRepo);
 		};
+	}
+
+	private void findUserByEmailOrPhoneNumber(UserRepo userRepo) {
+		String account = "johndoe@example.com";
+		System.out.println("Finding user: " + account);
+//		User user = userRepo.findUserByEmailOrPhoneNumber(account);
+//		System.out.println(user);
 	}
 
 	private void createColorPrice(ColorPriceRepo colorPriceRepo, ProductSizeRepo productSizeRepo) {
@@ -337,11 +345,10 @@ public class EcomerceApplication {
 
 	private void createProduct(ProductRepo productRepo, ShopRepo shopRepo, CategoryRepo categoryRepo) {
 
-		Shop shop = shopRepo.findById(2L).orElseThrow(() -> new RuntimeException("Shop does not exist!"));
+		Shop shop = shopRepo.findById(1L).orElseThrow(() -> new RuntimeException("Shop does not exist!"));
 		Category category = categoryRepo.findById(1L).orElseThrow(() -> new RuntimeException("Category does not exist"));
 
 		Product product = new Product();
-		product.setId(1L);
 		product.setName("Smartphone");
 		product.setDescription("Latest 5G smartphone with AMOLED display");// Assuming 'M' is a valid size
 		product.setRating(5);

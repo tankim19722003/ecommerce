@@ -27,7 +27,7 @@ public class ShopBanned {
     private LocalDateTime banEndDate;
 
     @OneToOne
-    @JoinColumn(name = "shop_id", nullable = false)
+    @JoinColumn(name = "shop_id", nullable = false, unique = true)
     private Shop shop;
 }
 

@@ -6,7 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "color_prices")
+@Table(name = "color_prices",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"color", "product_size_id"}))
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

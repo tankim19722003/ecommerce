@@ -24,6 +24,6 @@ public class ShopRejection {
     private LocalDateTime rejectedDate;
 
     @OneToOne
-    @JoinColumn(name = "shop_id", nullable = false)
+    @JoinColumn(name = "shop_id", nullable = false, unique = true)
     private Shop shop;
 }

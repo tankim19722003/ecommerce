@@ -22,31 +22,31 @@ public class User {
     @Column(name = "fullname")
     private String fullname;
 
-    @Column(name = "account", nullable = false)
+    @Column(name = "account")
     private String account;
 
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "address", nullable = false)
+    @Column(name = "address", nullable = true)
     private String address;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @Column(name = "gender")
     private Boolean gender;
 
-    @Column(name = "birthdate")
+    @Column(name = "birth_date")
     private LocalDate birthdate;
 
     @Column(name = "avatar")
     private String avatar;
 
-    @Column(name = "phoneNumber", nullable = false)
+    @Column(name = "phone_number", nullable = false, unique = true)
     private String phoneNumber;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {
             CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH
     })
     @JoinTable(
@@ -83,4 +83,5 @@ public class User {
 
         roles.add(role);
     }
+
 }

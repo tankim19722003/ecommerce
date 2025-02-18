@@ -26,6 +26,6 @@ public class ShippingProviderReject {
     private LocalDateTime rejectedDate;
 
     @ManyToOne
-    @JoinColumn(name = "shipping_provider_id", nullable = false)
+    @JoinColumn(name = "shipping_provider_id", nullable = false, unique = true)
     private ShippingProvider shippingProvider;
 }

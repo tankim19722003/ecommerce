@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@Table(name = "product_sizes")
+@Table(name = "product_sizes",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"product_id","size_id"})
+)
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
