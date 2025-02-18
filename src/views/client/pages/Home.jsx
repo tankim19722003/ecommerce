@@ -7,7 +7,7 @@ import CardList from "../../../components/Products/CardList";
 import { useTheme } from "../../../Provider/ThemeProvider";
 
 const Home = () => {
-  const { isDarkMode, toggleTheme } = useTheme();
+  const { isDarkMode } = useTheme();
   return (
     <div
       className={`flex flex-col justify-center   ${

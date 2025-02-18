@@ -20,7 +20,7 @@ const Cart = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate("/login");
+      navigate("/");
     }
   }, [isAuthenticated, navigate]);
 
@@ -41,10 +41,6 @@ const Cart = () => {
               isDarkMode ? "bg-white" : "bg-dark-200 text-white"
             }  py-[10px] pc:px-[20px] tl:px-[10px] mb:px-[10px] rounded-[5px]`}
           >
-            {/* <div className="w-full flex items-center gap-[10px] font-nunito font-bold ">
-              <span className="text-[2rem]">Giỏ hàng</span>
-              <i className="text-[1.6rem] fa-solid fa-cart-shopping"></i>
-            </div> */}
             <ul className="w-full flex flex-col items-center gap-[20px] mt-[20px] ">
               {cardContent.map((item) => (
                 <li
@@ -74,7 +70,7 @@ const Cart = () => {
                     <CoupouList coupouList={item.coupous} />
                   </div>
                   <div className="w-full h-full flex mb:flex-col  gap-[20px] mb:gap-[10px]  ">
-                    <div className="pc:max-w-[140px] pc:max-h-[140px] tl:max-w-[120px] tl:max-h-[140px]  mb:min-w-full  flex justify-between  ">
+                    <div className="pc:max-w-[100px] pc:max-h-[100px] tl:max-w-[120px] tl:max-h-[140px]  mb:min-w-full  flex justify-between  ">
                       <img
                         className=" w-full h-full aspect-square   rounded-[5px] object-cover"
                         src={item.thumbnail[0]}

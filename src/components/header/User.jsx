@@ -23,7 +23,6 @@ const User = () => {
 
   const handleLogoutAccount = async () => {
     await logout();
-    navigate(0);
   };
 
   useEffect(() => {
@@ -66,14 +65,16 @@ const User = () => {
                     isDarkMode ? "hover:bg-dark-900 " : "hover:bg-dark-500 "
                   } rounded-[5px]`}
                 >
-                  <Link to="/userinfo">Thông tin tài khoản</Link>
+                  <Link to="/userinfo/account/profile">
+                    Thông tin tài khoản
+                  </Link>
                 </li>
                 <li
                   className={`w-full flex items-center py-[6px] px-[10px] ${
                     isDarkMode ? "hover:bg-dark-900 " : "hover:bg-dark-500 "
                   } rounded-[5px]`}
                 >
-                  <span>Đơn hàng của tôi</span>
+                  <Link to="/userinfo/order">Đơn hàng</Link>
                 </li>
                 <li
                   className={`w-full flex items-center py-[6px] px-[10px] ${

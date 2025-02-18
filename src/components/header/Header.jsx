@@ -21,7 +21,9 @@ const Header = () => {
   return (
     <div
       className={` w-full flex justify-center ${
-        isDarkMode ? "bg-white text-black " : "bg-dark-200 text-white"
+        isDarkMode
+          ? "bg-white text-black  border-b-[1px] border-dashed border-border-light"
+          : "bg-dark-200 text-white  border-b-[1px] border-dashed border-border-dark "
       }`}
     >
       <div className="pc:w-[90%] tl:w-full mb:w-full h-[90px] flex items-center gap-[20px] justify-between tl:px-[10px] mb:px-[10px]">
@@ -33,7 +35,7 @@ const Header = () => {
           </div>
         </Link>
         <Nav />
-        <div className="pc:w-5/12 tl:w-7/12 flex items-center justify-end  pc:gap-[20px] tl:gap-[10px] mb:gap-[10px]">
+        <div className="pc:w-6/12 tl:w-7/12 flex items-center justify-end  pc:gap-[20px] tl:gap-[10px] mb:gap-[10px]">
           <Search
             handleChangeStatusSearchModal={handleChangeStatusSearchModal}
           />

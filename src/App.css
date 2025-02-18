@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+.height-screen-minus-header {
+  min-height: calc(100vh - 160px);
+}
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -272,4 +276,10 @@ input[type="number"]::-webkit-outer-spin-button {
   color: white;
   border: none;
   font-weight: 800;
+}
+
+.bg-user {
+  background-image: url("../src/assets/images/sanpham3.jpg");
+  background-size: cover;
+  background-position: center;
 }
