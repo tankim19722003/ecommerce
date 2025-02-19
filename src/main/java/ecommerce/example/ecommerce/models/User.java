@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -38,7 +39,7 @@ public class User {
     private Boolean gender;
 
     @Column(name = "birth_date")
-    private LocalDate birthdate;
+    private Date birthdate;
 
     @Column(name = "avatar")
     private String avatar;
@@ -83,5 +84,6 @@ public class User {
 
         roles.add(role);
     }
+
 
 }

@@ -1,23 +1,21 @@
 package ecommerce.example.ecommerce.controllers;
 
 import ecommerce.example.ecommerce.Repo.UserRepo;
+import ecommerce.example.ecommerce.dtos.UserInfoUpdating;
 import ecommerce.example.ecommerce.dtos.UserLoginDTO;
 import ecommerce.example.ecommerce.dtos.UserResgisterDTO;
-import ecommerce.example.ecommerce.models.User;
 import ecommerce.example.ecommerce.responses.EResponse;
 import ecommerce.example.ecommerce.responses.UserLoginResponse;
+import ecommerce.example.ecommerce.responses.UserResponse;
 import ecommerce.example.ecommerce.services.UserService;
 import ecommerce.example.ecommerce.services.ValidataDataService;
 import jakarta.validation.Valid;
-import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("${api.prefix}user")
@@ -77,8 +75,42 @@ public class UserController {
         return ResponseEntity.ok().body(userLoginResponse);
     }
 
-//    @GetMapping("/{account}")
-//    public User findUserByEmailOrPhoneNumber(@PathVariable("account") String account) {
-//        return userRepo.findUserByEmailOrPhoneNumber(account);
-//    }
+
+    @GetMapping("get_user_info/{token}")
+    public ResponseEntity<?> getUserInfo(
+            @PathVariable("token") String token
+    ) {
+
+        try {
+            UserResponse userResponse = userService.getUserInfo(token);
+            return ResponseEntity.ok().body(userResponse);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(
+                    EResponse.builder()
+                            .name("Error")
+                            .message(e.getMessage())
+                            .build()
+            );
+        }
+
+    }
+
+    @PutMapping("/update_user_info/{userId}")
+    public ResponseEntity<?> updateUserInfo(
+            @RequestBody UserInfoUpdating userInfoUpdating,
+            @PathVariable("userId") long userId
+    ) {
+        try {
+            UserResponse userResponse =  userService.updateUserInfo(userInfoUpdating, userId);
+            return ResponseEntity.ok(userResponse);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(
+                    EResponse.builder()
+                            .name("Error")
+                            .message(e.getMessage())
+                            .build()
+            );
+        }
+
+    }
 }

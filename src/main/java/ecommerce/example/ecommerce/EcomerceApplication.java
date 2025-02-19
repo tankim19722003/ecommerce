@@ -41,9 +41,13 @@ public class EcomerceApplication {
 			ProductSizeRepo productSizeRepo,
 			ColorPriceRepo colorPriceRepo) {
 		return runner -> {
-//			createProduct(productRepo, shopRepo, categoryRepo);
-//			findUserByEmailOrPhoneNumber(userRepo);
+//			checkExisting(userRepo);
 		};
+	}
+
+	private void checkExisting(UserRepo userRepo) {
+		Boolean isEmailExisting = userRepo.existsByEmail("tankim1976");
+		System.out.println("Email existing: " + isEmailExisting);
 	}
 
 	private void findUserByEmailOrPhoneNumber(UserRepo userRepo) {
@@ -423,7 +427,7 @@ public class EcomerceApplication {
 		user.setAddress("123 Street, City");
 		user.setEmail("tankim1972@example.com");
 		user.setGender(true); // true for male, false for female
-		user.setBirthdate(LocalDate.of(1995, 5, 20));
+//		user.setBirthdate(LocalDate.of(1995, 5, 20));
 		user.setAvatar("avatar.jpg");
 
 		System.out.println("Saving user...");

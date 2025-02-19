@@ -1,13 +1,10 @@
 package ecommerce.example.ecommerce.Repo;
 
-import ecommerce.example.ecommerce.models.Role;
-import org.springframework.data.jpa.repository.JpaRepository;
 import ecommerce.example.ecommerce.models.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import javax.swing.text.html.Option;
-import java.util.List;
 import java.util.Optional;
 
 public interface UserRepo extends JpaRepository<User, Long> {
@@ -16,4 +13,10 @@ public interface UserRepo extends JpaRepository<User, Long> {
     Optional<User> findUserByEmailOrPhoneNumberOrAccount(@Param("account") String account);
 
     Optional<User> findByPhoneNumber(String phoneNumber);
+
+    Boolean existsByAccount(String account);
+
+    Boolean existsByEmail(String email);
+
+    Boolean existsByPhoneNumber(String phoneNumber);
 }

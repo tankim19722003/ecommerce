@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -22,8 +23,6 @@ public class UserResponse {
 
     private String account;
 
-    private String password;
-
     private String address;
 
     private String email;
@@ -31,13 +30,12 @@ public class UserResponse {
     private Boolean gender;
 
     @JsonProperty("birth_date")
-    private LocalDate birthdate;
+    private Date birthdate;
 
     private String avatar;
 
     @JsonProperty("phone_number")
     private String phoneNumber;
 
-    private List<Role> roles;
 
 }
