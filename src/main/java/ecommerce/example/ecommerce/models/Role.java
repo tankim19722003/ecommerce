@@ -22,6 +22,10 @@ public class Role {
     @Column(name = "name", unique = true)
     private String name;
 
+    public static final String USER = "USER";
+    public static final String SHOP = "SHOP";
+    public static final String ADMIN = "ADMIN";
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = {
             CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH
     })

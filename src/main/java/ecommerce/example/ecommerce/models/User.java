@@ -77,6 +77,9 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     private List<Feedback> feedbacks;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    private List <UserVillage> userVillages;
+
     public void addRole(Role role) {
         if (roles == null) {
             roles = new ArrayList<>();

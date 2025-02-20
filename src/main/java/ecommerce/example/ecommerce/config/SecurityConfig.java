@@ -1,6 +1,8 @@
 package ecommerce.example.ecommerce.config;
 
+import ecommerce.example.ecommerce.models.Role;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,11 +16,14 @@ import org.springframework.security.config.annotation.web.configurers.CorsConfig
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 import java.util.List;
+
+import static org.springframework.http.HttpMethod.*;
 
 @Configuration
 @EnableWebSecurity
@@ -26,6 +31,12 @@ public class SecurityConfig {
 
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private JwtFilter jwtFilter;
+
+    @Value("${api.prefix}")
+    private String apiPrefix;
 
     @Bean
     public AuthenticationProvider authProvider() {
@@ -39,7 +50,37 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(customizer -> customizer.disable())
-                .authorizeHttpRequests(request -> request.anyRequest().permitAll());
+                .authorizeHttpRequests(request -> {
+                    request
+                            // for user
+                            .requestMatchers(POST,
+                                    String.format("%s/user/login/**", apiPrefix)).permitAll()
+
+                            .requestMatchers(PUT,
+                                    String.format("%s/user/register/**", apiPrefix)).permitAll()
+
+                            .requestMatchers(GET,
+                                    String.format("%s/user/get_user_info/**", apiPrefix)).hasRole(Role.USER)
+
+                            .requestMatchers(PUT,
+                                    String.format("%s/user/update_user_info/**", apiPrefix)).hasRole(Role.USER)
+
+                            // for address
+                            .requestMatchers(POST,
+                                    String.format("%s/user_village/add_user_address", apiPrefix)).hasRole(Role.USER)
+
+                            .requestMatchers(PUT,
+                                    String.format("%s/user_village/update_user_address/**", apiPrefix)).hasRole(Role.USER)
+
+                            .requestMatchers(PUT,
+                                    String.format("%s/user_village/get_all_address/**", apiPrefix)).hasRole(Role.USER)
+                            .anyRequest().permitAll();
+                    }
+
+                )
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
+
 
 
         http.cors(new Customizer<CorsConfigurer<HttpSecurity>>() {
