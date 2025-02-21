@@ -1,15 +1,12 @@
 package ecommerce.example.ecommerce.responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import ecommerce.example.ecommerce.models.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.util.Date;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,7 +20,7 @@ public class UserResponse {
 
     private String account;
 
-    private String address;
+//    private String address;
 
     private String email;
 

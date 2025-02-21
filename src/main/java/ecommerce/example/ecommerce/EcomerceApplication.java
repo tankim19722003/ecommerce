@@ -41,8 +41,16 @@ public class EcomerceApplication {
 			ProductSizeRepo productSizeRepo,
 			ColorPriceRepo colorPriceRepo) {
 		return runner -> {
-//			checkExisting(userRepo);
+			findingUser(userRepo);
 		};
+	}
+
+	private void findingUser(UserRepo userRepo) {
+		long userId = 3;
+		String email = "alicesmith";
+		System.out.println("check existing user with email " + email + "and has differ id with " + userId);
+//		System.out.println(userRepo.existsByAccountAndDifferentUser(email, userId));
+		System.out.println("Done!!");
 	}
 
 	private void checkExisting(UserRepo userRepo) {
@@ -424,7 +432,7 @@ public class EcomerceApplication {
 		user.setFullname("John Doe");
 		user.setAccount("tankim1972");
 		user.setPassword("securepassword");
-		user.setAddress("123 Street, City");
+//		user.setAddress("123 Street, City");
 		user.setEmail("tankim1972@example.com");
 		user.setGender(true); // true for male, false for female
 //		user.setBirthdate(LocalDate.of(1995, 5, 20));

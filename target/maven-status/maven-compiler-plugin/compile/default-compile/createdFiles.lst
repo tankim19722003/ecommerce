@@ -57,6 +57,7 @@ ecommerce\example\ecommerce\responses\UserResponse$UserResponseBuilder.class
 ecommerce\example\ecommerce\dtos\UserVillageDTO$UserVillageDTOBuilder.class
 ecommerce\example\ecommerce\dtos\UserLoginDTO$UserLoginDTOBuilder.class
 ecommerce\example\ecommerce\models\Feedback.class
+ecommerce\example\ecommerce\Exceptions\ValidationException.class
 ecommerce\example\ecommerce\models\UserBanned.class
 ecommerce\example\ecommerce\Repo\FeedBackRepo.class
 ecommerce\example\ecommerce\Repo\ImageRepo.class

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "user_villages",
-        uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "village_id", "specific_address"}))
+        uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "village_id", "specific_village"}))
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

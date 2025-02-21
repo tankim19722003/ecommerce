@@ -9,14 +9,23 @@ import java.util.Optional;
 
 public interface UserRepo extends JpaRepository<User, Long> {
 
-    @Query("SELECT u FROM User u WHERE u.email = :account OR u.phoneNumber = :account OR u.account= :account")
-    Optional<User> findUserByEmailOrPhoneNumberOrAccount(@Param("account") String account);
+    @Query("SELECT u FROM User u WHERE u.phoneNumber = :account OR u.account= :account")
+    Optional<User> findUserByPhoneNumberOrAccount(@Param("account") String account);
 
     Optional<User> findByPhoneNumber(String phoneNumber);
 
     Boolean existsByAccount(String account);
+    @Query("SELECT COUNT(u) > 0 FROM User u WHERE u.account = :account AND u.id <> :id")
+    boolean existsByAccountAndDifferentUserId(@Param("account") String email, @Param("id") Long id);
+
 
     Boolean existsByEmail(String email);
+    @Query("SELECT COUNT(u) > 0 FROM User u WHERE u.email = :email AND u.id <> :id")
+    boolean existsByEmailAndDifferentUserId(@Param("email") String email, @Param("id") Long id);
+
 
     Boolean existsByPhoneNumber(String phoneNumber);
+
+    @Query("SELECT COUNT(u) > 0 FROM User u WHERE u.phoneNumber = :phoneNumber AND u.id <> :id")
+    boolean existsByPhoneNumberAndDifferentUserId(@Param("phoneNumber") String phoneNumber, @Param("id") Long id);
 }

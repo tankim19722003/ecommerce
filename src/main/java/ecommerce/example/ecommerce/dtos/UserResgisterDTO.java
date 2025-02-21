@@ -10,10 +10,6 @@ import lombok.*;
 @Builder
 public class UserResgisterDTO {
 
-    @JsonProperty("email")
-    @NotBlank(message = "Email can't be empty")
-    private String email;
-
     @JsonProperty("phone_number")
     @NotBlank(message = "Phone number can't be epty")
     private String phoneNumber;

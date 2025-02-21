@@ -1,5 +1,6 @@
 package ecommerce.example.ecommerce.controllers;
 
+import ecommerce.example.ecommerce.Exceptions.ValidationException;
 import ecommerce.example.ecommerce.Repo.UserRepo;
 import ecommerce.example.ecommerce.dtos.UserInfoUpdating;
 import ecommerce.example.ecommerce.dtos.UserLoginDTO;
@@ -34,14 +35,11 @@ public class UserController {
     ) {
 
         try {
-            List <EResponse> eResponses = ValidataDataService.handleFieldError(result);
-
-            if (eResponses == null) return ResponseEntity.ok().body(eResponses);
 
             userService.createUser(userResgisterDTO);
 
             return ResponseEntity.ok().body(EResponse.builder()
-                            .name("Login")
+                            .name("register")
                             .message("Create User successfully!!")
                             .build());
         } catch (Exception e) {
@@ -61,18 +59,18 @@ public class UserController {
             BindingResult result
     ) {
 
-        UserLoginResponse userLoginResponse = userService.login(userLoginDTO);
+        try {
+            UserLoginResponse userLoginResponse = userService.login(userLoginDTO);
 
-        if (userLoginResponse == null) {
+            return ResponseEntity.ok().body(userLoginResponse);
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(
                     EResponse.builder()
-                            .name("error")
-                            .message("Failed to login")
+                            .name("Error")
+                            .message(e.getMessage())
                             .build()
             );
         }
-
-        return ResponseEntity.ok().body(userLoginResponse);
     }
 
 
@@ -103,14 +101,12 @@ public class UserController {
         try {
             UserResponse userResponse =  userService.updateUserInfo(userInfoUpdating, userId);
             return ResponseEntity.ok(userResponse);
-        } catch (Exception e) {
+        } catch (ValidationException e) {
             return ResponseEntity.badRequest().body(
-                    EResponse.builder()
-                            .name("Error")
-                            .message(e.getMessage())
-                            .build()
+                    e.getErrors()
             );
         }
 
     }
+
 }

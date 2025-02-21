@@ -1,5 +1,6 @@
 package ecommerce.example.ecommerce.services;
 
+import ecommerce.example.ecommerce.Exceptions.ValidationException;
 import ecommerce.example.ecommerce.Repo.RoleRepo;
 import ecommerce.example.ecommerce.Repo.UserRepo;
 import ecommerce.example.ecommerce.dtos.UserInfoUpdating;
@@ -8,6 +9,7 @@ import ecommerce.example.ecommerce.dtos.UserResgisterDTO;
 import ecommerce.example.ecommerce.models.Role;
 import ecommerce.example.ecommerce.models.User;
 import ecommerce.example.ecommerce.models.UserPrincipal;
+import ecommerce.example.ecommerce.responses.EResponse;
 import ecommerce.example.ecommerce.responses.UserLoginResponse;
 import ecommerce.example.ecommerce.responses.UserResponse;
 import org.modelmapper.ModelMapper;
@@ -19,6 +21,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -47,10 +52,10 @@ public class UserServiceImpl implements UserService {
 
         Role role = roleRepo.findByName("user").orElseThrow(() -> new RuntimeException("Role does not found"));
 
+//        boolean isEmail
         User user = new User();
         user.setAvatar("user.png");
         user.setAccount("user" + System.currentTimeMillis());
-        user.setEmail(userResgisterDTO.getEmail());
         user.setPassword(encoder.encode(userResgisterDTO.getPassword()));
         user.setPhoneNumber(userResgisterDTO.getPhoneNumber());
         user.addRole(role);
@@ -63,12 +68,12 @@ public class UserServiceImpl implements UserService {
     public UserLoginResponse login(UserLoginDTO userLoginDTO) {
 
         // get user email or phone_number
-        User user = userRepo.findUserByEmailOrPhoneNumberOrAccount(userLoginDTO.getAccount()).orElseThrow(() ->
-                new RuntimeException("User does not found"));
+        User user = userRepo.findUserByPhoneNumberOrAccount(userLoginDTO.getAccount()).orElseThrow(() ->
+                new RuntimeException("Failed to login"));
 
         // check valid password
         if (!encoder.matches(userLoginDTO.getPassword(), user.getPassword())) {
-            throw new UsernameNotFoundException("Invalid user");
+            throw new UsernameNotFoundException("Failed to login");
         }
 
         Authentication authentication = authenticationManager
@@ -100,23 +105,43 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserResponse updateUserInfo(UserInfoUpdating userInfoUpdating, long userId) {
 
+        List<EResponse> errors = new ArrayList<>();
         User user = userRepo.findById(userId).orElseThrow(() ->
                 new RuntimeException("User does not found"));
 
         // check account existing
-        Boolean isAccountExisting = userRepo.existsByAccount(userInfoUpdating.getAccount());
-        if (isAccountExisting)
-            throw new RuntimeException("Account is existing!!");
+        Boolean isAccountExisting = userRepo
+                .existsByAccountAndDifferentUserId(userInfoUpdating.getAccount(), userId);
+        if (isAccountExisting) errors.add(
+                EResponse.builder()
+                        .name("account")
+                        .message("Account is existing")
+                        .build()
+        );
 
 
         // check email existing
-        Boolean isEmailExisting = userRepo.existsByEmail(userInfoUpdating.getEmail());
-        if (isEmailExisting) throw new RuntimeException("Email is existing!!");
+        Boolean isEmailExisting = userRepo
+                .existsByEmailAndDifferentUserId(userInfoUpdating.getEmail(), userId);
+        if (isEmailExisting) errors.add(
+                EResponse.builder()
+                        .name("email")
+                        .message("Email is existing!!")
+                        .build()
+        );
+//            throw new RuntimeException("Email is existing!!");
 
         // check phone number existing
-        Boolean isPhoneNumberExisting = userRepo.existsByPhoneNumber(userInfoUpdating.getPhoneNumber());
-        if (isPhoneNumberExisting) throw  new RuntimeException("Phone number is existing!!");
+        Boolean isPhoneNumberExisting = userRepo
+                .existsByPhoneNumberAndDifferentUserId(userInfoUpdating.getPhoneNumber(), userId);
+        if (isPhoneNumberExisting) errors.add(
+                EResponse.builder()
+                        .name("phone_number")
+                        .message("Phone number is existing!!")
+                        .build()
+        );
 
+        if (!errors.isEmpty()) throw new ValidationException(errors);
 
         // convert User updating to user
         modelMapper.map(userInfoUpdating, user);
