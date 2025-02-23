@@ -83,8 +83,8 @@ public class JwtFilter extends OncePerRequestFilter {
 
     public boolean isByPassToken(HttpServletRequest request) {
         List<String> requests = new ArrayList<>();
-        requests.add("user/register");
-        requests.add("user/login");
+        requests.add("/user/register");
+        requests.add("/user/login");
 
         for (String requestItem : requests ) {
             if (request.getRequestURI().equals(apiPrefix + requestItem)) return true;

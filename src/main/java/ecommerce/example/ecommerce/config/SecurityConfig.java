@@ -54,10 +54,10 @@ public class SecurityConfig {
                     request
                             // for user
                             .requestMatchers(POST,
-                                    String.format("%s/user/login/**", apiPrefix)).permitAll()
+                                    String.format("%s/user/login", apiPrefix)).permitAll()
 
-                            .requestMatchers(PUT,
-                                    String.format("%s/user/register/**", apiPrefix)).permitAll()
+                            .requestMatchers(POST,
+                                    String.format("%s/user/register", apiPrefix)).permitAll()
 
                             .requestMatchers(GET,
                                     String.format("%s/user/get_user_info/**", apiPrefix)).hasRole(Role.USER)
@@ -77,7 +77,14 @@ public class SecurityConfig {
 
                             .requestMatchers(GET,
                                     String.format("%s/user_village/get_all_province", apiPrefix)).hasAnyRole(Role.USER, Role.ADMIN, Role.SHOP)
-                            .anyRequest().permitAll();
+
+                            .requestMatchers(GET,
+                                    String.format("%s/user_village/get_all_districts/**", apiPrefix)).hasAnyRole(Role.USER, Role.ADMIN, Role.SHOP)
+
+                            .requestMatchers(GET,
+                                    String.format("%s/user_village/get_all_villages/**", apiPrefix)).hasAnyRole(Role.USER, Role.ADMIN, Role.SHOP)
+
+                            .anyRequest().authenticated();
                     }
 
                 )

@@ -1,9 +1,6 @@
 package ecommerce.example.ecommerce.services;
 
-import ecommerce.example.ecommerce.Repo.ProvinceRepo;
-import ecommerce.example.ecommerce.Repo.UserRepo;
-import ecommerce.example.ecommerce.Repo.UserVillageRepo;
-import ecommerce.example.ecommerce.Repo.VillageRepo;
+import ecommerce.example.ecommerce.Repo.*;
 import ecommerce.example.ecommerce.dtos.UserVillageDTO;
 import ecommerce.example.ecommerce.models.User;
 import ecommerce.example.ecommerce.models.UserVillage;
@@ -30,6 +27,10 @@ public class UserVillageServiceImpl implements UserVillageService{
 
     @Autowired
     private ProvinceRepo provinceRepo;
+
+    @Autowired
+    private DistrictRepo districtRepo;
+
 
     @Autowired
     private ModelMapper modelMapper;
@@ -108,12 +109,18 @@ public class UserVillageServiceImpl implements UserVillageService{
 
     @Override
     public List<DistrictResponse> getDistrictByProvinceId(long provinceId) {
-        return List.of();
+        return districtRepo.findAllDistrictsByProvinceId(provinceId).stream().map(district -> {
+            return modelMapper.map(district, DistrictResponse.class);
+        }).toList();
     }
 
     @Override
     public List<VillageResponse> getVillageByDistrictId(long districtId) {
-        return List.of();
+
+        return villageRepo.findAllVillagesByDistrictId(districtId)
+                .stream()
+                .map(district -> modelMapper.map(district, VillageResponse.class))
+                .toList();
     }
 
 

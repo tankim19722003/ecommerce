@@ -1,10 +1,7 @@
 package ecommerce.example.ecommerce.controllers;
 
 import ecommerce.example.ecommerce.dtos.UserVillageDTO;
-import ecommerce.example.ecommerce.responses.EResponse;
-import ecommerce.example.ecommerce.responses.ProvinceResponse;
-import ecommerce.example.ecommerce.responses.UserAddressListResponse;
-import ecommerce.example.ecommerce.responses.UserAddressResponse;
+import ecommerce.example.ecommerce.responses.*;
 import ecommerce.example.ecommerce.services.UserVillageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("${api.prefix}user_village")
+@RequestMapping("${api.prefix}/user_village")
 public class UserVillageController {
 
     @Autowired
@@ -74,9 +71,30 @@ public class UserVillageController {
 
     }
 
-    @GetMapping("/get_all_province")
+    @GetMapping("/get_all_provinces")
     public ResponseEntity<?> getAllProvinces() {
         List<ProvinceResponse> provinceResponseList = userVillageService.getAllProvinces();
         return ResponseEntity.ok(provinceResponseList);
+    }
+
+    @GetMapping("/get_all_districts/{provinceId}")
+    public ResponseEntity<?> getAllDistrictByProvinceId(
+        @PathVariable("provinceId") long provinceId
+    ) {
+        List<DistrictResponse> districtResponses = userVillageService.getDistrictByProvinceId(provinceId);
+
+        return ResponseEntity.ok(districtResponses);
+    }
+
+    @GetMapping("/get_all_villages/{districtId}")
+    public ResponseEntity<?> getAllVillageByDistrictId(
+            @PathVariable("districtId") long districtId
+    ) {
+
+        List<VillageResponse> villageResponses = userVillageService
+                .getVillageByDistrictId(districtId);
+
+        return ResponseEntity.ok(villageResponses);
+
     }
 }
