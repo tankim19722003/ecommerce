@@ -1,5 +1,6 @@
 package ecommerce.example.ecommerce.services;
 
+import ecommerce.example.ecommerce.Repo.ProvinceRepo;
 import ecommerce.example.ecommerce.Repo.UserRepo;
 import ecommerce.example.ecommerce.Repo.UserVillageRepo;
 import ecommerce.example.ecommerce.Repo.VillageRepo;
@@ -7,9 +8,8 @@ import ecommerce.example.ecommerce.dtos.UserVillageDTO;
 import ecommerce.example.ecommerce.models.User;
 import ecommerce.example.ecommerce.models.UserVillage;
 import ecommerce.example.ecommerce.models.Village;
-import ecommerce.example.ecommerce.responses.AddressResponse;
-import ecommerce.example.ecommerce.responses.UserAddressListResponse;
-import ecommerce.example.ecommerce.responses.UserAddressResponse;
+import ecommerce.example.ecommerce.responses.*;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -27,6 +27,12 @@ public class UserVillageServiceImpl implements UserVillageService{
 
     @Autowired
     private UserVillageRepo userVillageRepo;
+
+    @Autowired
+    private ProvinceRepo provinceRepo;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public UserAddressResponse addUserAddress(UserVillageDTO userVillageDTO) {
@@ -92,4 +98,23 @@ public class UserVillageServiceImpl implements UserVillageService{
                 .build();
 
     }
+
+    @Override
+    public List<ProvinceResponse> getAllProvinces() {
+        return provinceRepo.findAll().stream().map( province ->
+                modelMapper.map(province, ProvinceResponse.class)
+        ).toList();
+    }
+
+    @Override
+    public List<DistrictResponse> getDistrictByProvinceId(long provinceId) {
+        return List.of();
+    }
+
+    @Override
+    public List<VillageResponse> getVillageByDistrictId(long districtId) {
+        return List.of();
+    }
+
+
 }

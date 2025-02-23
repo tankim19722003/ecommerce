@@ -2,12 +2,15 @@ package ecommerce.example.ecommerce.controllers;
 
 import ecommerce.example.ecommerce.dtos.UserVillageDTO;
 import ecommerce.example.ecommerce.responses.EResponse;
+import ecommerce.example.ecommerce.responses.ProvinceResponse;
 import ecommerce.example.ecommerce.responses.UserAddressListResponse;
 import ecommerce.example.ecommerce.responses.UserAddressResponse;
 import ecommerce.example.ecommerce.services.UserVillageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("${api.prefix}user_village")
@@ -69,5 +72,11 @@ public class UserVillageController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
 
+    }
+
+    @GetMapping("/get_all_province")
+    public ResponseEntity<?> getAllProvinces() {
+        List<ProvinceResponse> provinceResponseList = userVillageService.getAllProvinces();
+        return ResponseEntity.ok(provinceResponseList);
     }
 }

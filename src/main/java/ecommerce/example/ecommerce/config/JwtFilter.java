@@ -1,5 +1,6 @@
 package ecommerce.example.ecommerce.config;
 
+import ecommerce.example.ecommerce.Repo.UserRepo;
 import ecommerce.example.ecommerce.services.JwtService;
 import ecommerce.example.ecommerce.services.MyUserDetailService;
 import jakarta.servlet.FilterChain;
@@ -32,6 +33,9 @@ public class JwtFilter extends OncePerRequestFilter {
     @Value("${api.prefix}")
     private String apiPrefix;
 
+    @Autowired
+    private UserRepo userRepo;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
@@ -51,6 +55,12 @@ public class JwtFilter extends OncePerRequestFilter {
 
         token = header.substring(7);
         username = jwtService.extractUserName(token);
+
+        Boolean isPhoneExisting = userRepo.existsByPhoneNumber(username);
+        if (!isPhoneExisting) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"Invalid token");
+            return;
+        }
 
         // haven't authenticate with spring security
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {

@@ -17,7 +17,8 @@ VALUES
 ('John Doe', 'johndoe', 'hashed_password_1', 'johndoe@example.com', TRUE, '1990-05-15', 'avatar1.png', '0123456789'),
 ('Alice Smith', 'alicesmith', 'hashed_password_2', 'alicesmith@example.com', FALSE, '1995-08-22', 'avatar2.png', '0987654321'),
 ('Bob Johnson', 'bobjohnson', 'hashed_password_3', 'bobjohnson@example.com', TRUE, '1988-11-10', 'avatar3.png', '0345678912'),
-('Emily Davis', 'emilydavis', 'hashed_password_4', 'emilydavis@example.com', FALSE, '1992-02-28', 'avatar4.png', '0765432109');
+('Emily Davis', 'emilydavis', 'hashed_password_4', 'emilydavis@example.com', FALSE, '1992-02-28', 'avatar4.png', '0765432109'),
+('Emily Davis', 'tankim19723', '$2a$10$J.CXFDd2CAMjyysovBHXcufdLnNAPxURM5si7phOYqNAgdR2vZbRW', 'tankim1972', FALSE, '1992-02-28', 'avatar4.png', '0548868986');;
 
 -- Assign roles to users
 INSERT INTO user_roles (user_id, role_id)

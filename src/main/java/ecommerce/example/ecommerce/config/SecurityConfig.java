@@ -74,6 +74,9 @@ public class SecurityConfig {
 
                             .requestMatchers(PUT,
                                     String.format("%s/user_village/get_all_address/**", apiPrefix)).hasRole(Role.USER)
+
+                            .requestMatchers(GET,
+                                    String.format("%s/user_village/get_all_province", apiPrefix)).hasAnyRole(Role.USER, Role.ADMIN, Role.SHOP)
                             .anyRequest().permitAll();
                     }
 

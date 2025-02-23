@@ -6,6 +6,7 @@ import ecommerce.example.ecommerce.dtos.UserInfoUpdating;
 import ecommerce.example.ecommerce.dtos.UserLoginDTO;
 import ecommerce.example.ecommerce.dtos.UserResgisterDTO;
 import ecommerce.example.ecommerce.responses.EResponse;
+import ecommerce.example.ecommerce.responses.IUserResponse;
 import ecommerce.example.ecommerce.responses.UserLoginResponse;
 import ecommerce.example.ecommerce.responses.UserResponse;
 import ecommerce.example.ecommerce.services.UserService;
@@ -99,7 +100,7 @@ public class UserController {
             @PathVariable("userId") long userId
     ) {
         try {
-            UserResponse userResponse =  userService.updateUserInfo(userInfoUpdating, userId);
+            IUserResponse userResponse =  userService.updateUserInfo(userInfoUpdating, userId);
             return ResponseEntity.ok(userResponse);
         } catch (ValidationException e) {
             return ResponseEntity.badRequest().body(

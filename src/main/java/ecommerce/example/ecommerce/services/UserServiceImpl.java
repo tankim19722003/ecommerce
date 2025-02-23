@@ -9,14 +9,13 @@ import ecommerce.example.ecommerce.dtos.UserResgisterDTO;
 import ecommerce.example.ecommerce.models.Role;
 import ecommerce.example.ecommerce.models.User;
 import ecommerce.example.ecommerce.models.UserPrincipal;
-import ecommerce.example.ecommerce.responses.EResponse;
-import ecommerce.example.ecommerce.responses.UserLoginResponse;
-import ecommerce.example.ecommerce.responses.UserResponse;
+import ecommerce.example.ecommerce.responses.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -51,6 +50,10 @@ public class UserServiceImpl implements UserService {
     public void createUser(UserResgisterDTO userResgisterDTO) {
 
         Role role = roleRepo.findByName("user").orElseThrow(() -> new RuntimeException("Role does not found"));
+
+//        check existing phoneNumber
+        Boolean isExistingPhoneNumber = userRepo.existsByPhoneNumber(userResgisterDTO.getPhoneNumber());
+        if (isExistingPhoneNumber) throw new RuntimeException("Phone number is existing!!");
 
 //        boolean isEmail
         User user = new User();
@@ -103,7 +106,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserResponse updateUserInfo(UserInfoUpdating userInfoUpdating, long userId) {
+    public IUserResponse updateUserInfo(UserInfoUpdating userInfoUpdating, long userId) {
 
         List<EResponse> errors = new ArrayList<>();
         User user = userRepo.findById(userId).orElseThrow(() ->
@@ -112,6 +115,7 @@ public class UserServiceImpl implements UserService {
         // check account existing
         Boolean isAccountExisting = userRepo
                 .existsByAccountAndDifferentUserId(userInfoUpdating.getAccount(), userId);
+
         if (isAccountExisting) errors.add(
                 EResponse.builder()
                         .name("account")
@@ -134,6 +138,7 @@ public class UserServiceImpl implements UserService {
         // check phone number existing
         Boolean isPhoneNumberExisting = userRepo
                 .existsByPhoneNumberAndDifferentUserId(userInfoUpdating.getPhoneNumber(), userId);
+
         if (isPhoneNumberExisting) errors.add(
                 EResponse.builder()
                         .name("phone_number")
@@ -143,12 +148,27 @@ public class UserServiceImpl implements UserService {
 
         if (!errors.isEmpty()) throw new ValidationException(errors);
 
-        // convert User updating to user
-        modelMapper.map(userInfoUpdating, user);
 
+        // check phone number is update
+        String token = null;
+        if (!userInfoUpdating.getPhoneNumber().equals(user.getPhoneNumber())) {
+            token = jwtService.generateToken(userInfoUpdating.getPhoneNumber());
+        }
+        // save user
+        modelMapper.map(userInfoUpdating, user);
         User userSaved = userRepo.save(user);
 
-        return modelMapper.map(userSaved, UserResponse.class);
+
+        // create Response
+        if (token != null) {
+            UserUpdatedResponse userUpdatedResponse =  modelMapper.map(userSaved, UserUpdatedResponse.class);
+            userUpdatedResponse.setToken(token);
+
+            return userUpdatedResponse;
+        } else {
+            return modelMapper.map(userSaved, UserResponse.class);
+        }
+
     }
 
 
