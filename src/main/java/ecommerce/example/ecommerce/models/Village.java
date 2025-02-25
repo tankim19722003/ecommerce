@@ -31,4 +31,6 @@ public class Village {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "village")
     private List<UserVillage> userVillages;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "village")
+    private List<Order> orders;
 }

@@ -50,6 +50,8 @@ public class UserVillageServiceImpl implements UserVillageService{
                     .village(village)
                     .user(user)
                     .specificVillage(userVillageDTO.getSpecificAddress())
+                    .receiverName(userVillageDTO.getReceiverName())
+                    .phoneNumber(userVillageDTO.getPhoneNumber())
                     .build());
             return userVillage.toUserVillageResponse();
         } catch (Exception e) {
@@ -72,6 +74,8 @@ public class UserVillageServiceImpl implements UserVillageService{
 
         userVillage.setVillage(village);
         userVillage.setSpecificVillage(userVillageDTO.getSpecificAddress());
+        userVillage.setPhoneNumber(userVillageDTO.getPhoneNumber());
+        userVillage.setReceiverName(userVillageDTO.getReceiverName());
 
         try {
             UserVillage userVillageSaved =  userVillageRepo.save(userVillage);

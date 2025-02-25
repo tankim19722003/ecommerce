@@ -1,5 +1,6 @@
 package ecommerce.example.ecommerce.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -52,6 +53,12 @@ public class Order {
     @Column(name = "expected_receive_date")
     private LocalDate expectedReceiveDate;
 
+    @Column(name = "specific_address")
+    private String specificAddress;
+
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -62,5 +69,9 @@ public class Order {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "order")
     private List<OrderDetail> orderDetails;
+
+    @ManyToOne
+    @JoinColumn(name = "village_id")
+    private Village village;
 
 }

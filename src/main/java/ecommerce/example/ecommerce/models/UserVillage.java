@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Entity
 @Table(name = "user_villages",
@@ -24,6 +25,12 @@ public class UserVillage {
 
     @Column(name = "specific_village")
     private String specificVillage;
+
+    @Column(name = "receiver_name")
+    private String receiverName;
+
+    @Column(name = "phone_number")
+    private String phoneNumber;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -44,6 +51,8 @@ public class UserVillage {
                 .villageId(village.getId())
                 .villageName(village.getName())
                 .specificVillage(getSpecificVillage())
+                .phoneNumber(getPhoneNumber())
+                .receiverName(getReceiverName())
                 .build();
     }
 
@@ -57,6 +66,8 @@ public class UserVillage {
                 .villageId(village.getId())
                 .villageName(village.getName())
                 .specificVillage(getSpecificVillage())
+                .phoneNumber(getPhoneNumber())
+                .receiverName(getReceiverName())
                 .build();
     }
 }

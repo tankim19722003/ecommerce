@@ -18,6 +18,13 @@ public class UserVillageDTO {
     @JsonProperty("user_id")
     private long userId;
 
+    @JsonProperty("receiver_name")
+    private String receiverName;
+
+    @JsonProperty("phone_number")
+    private String phoneNumber;
+
+
     @JsonProperty("specific_address")
     private String specificAddress;
 }

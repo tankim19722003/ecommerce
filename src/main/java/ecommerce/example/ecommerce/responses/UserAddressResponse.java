@@ -38,4 +38,10 @@ public class UserAddressResponse {
 
     @JsonProperty("specific_village")
     private String specificVillage;
+
+    @JsonProperty("receiver_name")
+    private String receiverName;
+
+    @JsonProperty("phone_number")
+    private String phoneNumber;
 }
