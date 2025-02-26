@@ -2,19 +2,15 @@ package ecommerce.example.ecommerce.responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@Data
 public class AddressResponse {
-    @JsonProperty("address_id")
-    private long addressId;
 
     @JsonProperty("province_id")
     private long provinceId;
@@ -34,18 +30,4 @@ public class AddressResponse {
     @JsonProperty("village_name")
     private String villageName;
 
-    @JsonProperty("specific_village")
-    private String specificVillage;
-
-    @JsonProperty("receiver_name")
-    private String receiverName;
-
-    @JsonProperty("phone_number")
-    private String phoneNumber;
-
-    @JsonProperty("created_at")
-    private LocalDateTime createdAt;
-
-    @JsonProperty("updated_at")
-    private LocalDateTime updatedAt;
 }

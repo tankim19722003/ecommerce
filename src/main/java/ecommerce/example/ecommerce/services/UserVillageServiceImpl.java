@@ -93,7 +93,7 @@ public class UserVillageServiceImpl implements UserVillageService{
 
         List<UserVillage> userVillages = userVillageRepo.getAllUserAddress(userId);
 
-        List<AddressResponse> userAddressResponses = userVillages.stream().map(userVillage -> {
+        List<UserVillageResponse> userAddressResponses = userVillages.stream().map(userVillage -> {
                 return userVillage.toUserAddressResponse();
             }).toList();
 

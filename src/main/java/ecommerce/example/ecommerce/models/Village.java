@@ -1,5 +1,6 @@
 package ecommerce.example.ecommerce.models;
 
+import ecommerce.example.ecommerce.responses.AddressResponse;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,4 +41,17 @@ public class Village {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "village")
     private List<Shop> shops;
+
+    public AddressResponse toAddressResponse() {
+        AddressResponse addressResponse = new AddressResponse();
+
+        addressResponse.setVillageId(id);
+        addressResponse.setVillageName(name);
+        addressResponse.setDistrictId(district.getId());
+        addressResponse.setDistrictName(district.getName());
+        addressResponse.setProvinceId(district.getProvince().getId());
+        addressResponse.setProvinceName(district.getProvince().getName());
+
+        return addressResponse;
+    }
 }

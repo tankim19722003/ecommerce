@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -49,7 +50,6 @@ public class Shop {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "status" ,columnDefinition = "VARCHAR(20) DEFAULT 'PENDING'")
     @Pattern(regexp = "PENDING|REJECT|COMPLETION", message = "Invalid status value")
     private String status;
 
@@ -71,5 +71,19 @@ public class Shop {
 
     @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ShopAddress> shopAddress;
+
+    @PrePersist
+    public void setDefaultStatus() {
+        if (this.status == null) {
+            this.status = "PENDING";
+        }
+
+        if (this.logo == null) {
+            this.logo = "shop.png";
+        }
+    }
+
+
+
 
 }

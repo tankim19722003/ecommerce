@@ -12,31 +12,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserAddressResponse {
+public class UserAddressResponse extends AddressResponse{
 
     @JsonProperty("address_id")
     private long addressId;
 
     @JsonProperty("user_id")
     private long userId;
-
-    @JsonProperty("province_id")
-    private long provinceId;
-
-    @JsonProperty("province_name")
-    private String provinceName;
-
-    @JsonProperty("district_id")
-    private long districtId;
-
-    @JsonProperty("district_name")
-    private String districtName;
-
-    @JsonProperty("village_id")
-    private long villageId;
-
-    @JsonProperty("village_name")
-    private String villageName;
 
     @JsonProperty("specific_village")
     private String specificVillage;

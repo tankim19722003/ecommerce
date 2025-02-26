@@ -1,7 +1,5 @@
 package ecommerce.example.ecommerce.responses;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import ecommerce.example.ecommerce.models.Village;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,6 +15,6 @@ public class UserAddressListResponse {
 
     private long userId;
 
-    private List<AddressResponse> addressResponses;
+    private List<UserVillageResponse> addressResponses;
 
 }

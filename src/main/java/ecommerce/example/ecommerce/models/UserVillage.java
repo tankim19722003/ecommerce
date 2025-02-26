@@ -1,6 +1,6 @@
 package ecommerce.example.ecommerce.models;
 
-import ecommerce.example.ecommerce.responses.AddressResponse;
+import ecommerce.example.ecommerce.responses.UserVillageResponse;
 import ecommerce.example.ecommerce.responses.UserAddressResponse;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -52,37 +52,42 @@ public class UserVillage {
     private LocalDateTime updateAt;
 
     public UserAddressResponse toUserVillageResponse() {
-        return UserAddressResponse.builder()
-                .addressId(user.getId())
-                .userId(user.getId())
-                .provinceId(village.getDistrict().getProvince().getId())
-                .provinceName(village.getDistrict().getProvince().getName())
-                .districtId(village.getDistrict().getId())
-                .districtName(village.getName())
-                .villageId(village.getId())
-                .villageName(village.getName())
-                .specificVillage(getSpecificVillage())
-                .phoneNumber(getPhoneNumber())
-                .receiverName(getReceiverName())
-                .createdAt(createdAt)
-                .updatedAt(updateAt)
-                .build();
+
+        UserAddressResponse userAddressResponse = new UserAddressResponse();
+        userAddressResponse.setAddressId(user.getId());
+        userAddressResponse.setUserId(user.getId());
+        userAddressResponse.setProvinceId(village.getDistrict().getProvince().getId());
+        userAddressResponse.setProvinceName(village.getDistrict().getProvince().getName());
+        userAddressResponse.setDistrictId(village.getDistrict().getId());
+        userAddressResponse.setDistrictName(village.getDistrict().getName());
+        userAddressResponse.setVillageId(village.getId());
+        userAddressResponse.setVillageName(village.getName());
+        userAddressResponse.setSpecificVillage(getSpecificVillage());
+        userAddressResponse.setPhoneNumber(getPhoneNumber());
+        userAddressResponse.setReceiverName(getReceiverName());
+        userAddressResponse.setCreatedAt(createdAt);
+        userAddressResponse.setUpdatedAt(updateAt);
+
+
+        return userAddressResponse;
     }
 
-    public AddressResponse toUserAddressResponse() {
-        return AddressResponse.builder()
-                .addressId(getId())
-                .provinceId(village.getDistrict().getProvince().getId())
-                .provinceName(village.getDistrict().getProvince().getName())
-                .districtId(village.getDistrict().getId())
-                .districtName(village.getName())
-                .villageId(village.getId())
-                .villageName(village.getName())
-                .specificVillage(getSpecificVillage())
-                .phoneNumber(getPhoneNumber())
-                .receiverName(getReceiverName())
-                .createdAt(createdAt)
-                .updatedAt(updateAt)
-                .build();
+    public UserVillageResponse toUserAddressResponse() {
+        UserVillageResponse userVillageResponse = new UserVillageResponse();
+
+        userVillageResponse.setAddressId(id);
+        userVillageResponse.setProvinceId(village.getDistrict().getProvince().getId());
+        userVillageResponse.setProvinceName(village.getDistrict().getProvince().getName());
+        userVillageResponse.setDistrictId(village.getDistrict().getId());
+        userVillageResponse.setDistrictName(village.getName());
+        userVillageResponse.setVillageId(village.getId());
+        userVillageResponse.setVillageName(village.getName());
+        userVillageResponse.setSpecificAddress(getSpecificVillage());
+        userVillageResponse.setPhoneNumber(getPhoneNumber());
+        userVillageResponse.setReceiverName(getReceiverName());
+        userVillageResponse.setCreatedAt(createdAt);
+        userVillageResponse.setUpdatedAt(updateAt);
+
+        return userVillageResponse;
     }
 }

@@ -18,7 +18,8 @@ VALUES
 ('Alice Smith', 'alicesmith', 'hashed_password_2', 'alicesmith@example.com', FALSE, '1995-08-22', 'avatar2.png', '0987654321'),
 ('Bob Johnson', 'bobjohnson', 'hashed_password_3', 'bobjohnson@example.com', TRUE, '1988-11-10', 'avatar3.png', '0345678912'),
 ('Emily Davis', 'emilydavis', 'hashed_password_4', 'emilydavis@example.com', FALSE, '1992-02-28', 'avatar4.png', '0765432109'),
-('Emily Davis', 'tankim19723', '$2a$10$J.CXFDd2CAMjyysovBHXcufdLnNAPxURM5si7phOYqNAgdR2vZbRW', 'tankim1972', FALSE, '1992-02-28', 'avatar4.png', '0548868986');;
+('Emily Davis', 'tankim19723', '$2a$10$J.CXFDd2CAMjyysovBHXcufdLnNAPxURM5si7phOYqNAgdR2vZbRW', 'tankim1972', FALSE, '1992-02-28', 'avatar4.png', '0548868986'),
+('Emily Davis', 'admin', '$2a$10$J.CXFDd2CAMjyysovBHXcufdLnNAPxURM5si7phOYqNAgdR2vZbRW', 'tanadmin123', FALSE, '1992-02-28', 'avatar4.png', '0548868987');;
 
 -- Assign roles to users
 INSERT INTO user_roles (user_id, role_id)
@@ -27,12 +28,8 @@ VALUES
 ((SELECT id FROM users WHERE account = 'alicesmith'), (SELECT id FROM roles WHERE name = 'user')),
 ((SELECT id FROM users WHERE account = 'bobjohnson'), (SELECT id FROM roles WHERE name = 'shop')),
 ((SELECT id FROM users WHERE account = 'emilydavis'), (SELECT id FROM roles WHERE name = 'user')),
-((SELECT id FROM users WHERE account = 'tankim19723'), (SELECT id FROM roles WHERE name = 'user'));
-
-INSERT INTO shops (shop_name, description, created_at, logo, address, phone_number, status, user_id)
-VALUES
-('Tech Haven', 'A store for all tech gadgets', '2024-02-18', 'tech_haven_logo.png', '123 Tech Street', '0123456789', 'active',
-(SELECT id FROM users WHERE account = 'bobjohnson'));
+((SELECT id FROM users WHERE account = 'tankim19723'), (SELECT id FROM roles WHERE name = 'user')),
+((SELECT id FROM users WHERE account = 'admin'), (SELECT id FROM roles WHERE name = 'admin'));
 
 INSERT INTO provinces (id, name) VALUES
 (1, 'An Giang'),
@@ -275,3 +272,7 @@ INSERT INTO villages (id, district_id, name) VALUES
 (41, 84, 'Lê Bình'),
 (42, 84, 'Tân Phú');
 
+INSERT INTO shops (shop_name, description, created_at, logo, specific_address, village_id, phone_number, status, user_id)
+VALUES
+('Tech Haven', 'A store for all tech gadgets', '2024-02-18', 'tech_haven_logo.png', '123 Tech Street', 40, '0123456789', 'COMPLETION',
+(SELECT id FROM users WHERE account = 'tankim19723'));

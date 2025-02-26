@@ -72,7 +72,7 @@ public class SecurityConfig {
                             .requestMatchers(PUT,
                                     String.format("%s/user_village/update_user_address/**", apiPrefix)).hasRole(Role.USER)
 
-                            .requestMatchers(PUT,
+                            .requestMatchers(GET,
                                     String.format("%s/user_village/get_all_address/**", apiPrefix)).hasRole(Role.USER)
 
                             .requestMatchers(GET,
@@ -83,6 +83,17 @@ public class SecurityConfig {
 
                             .requestMatchers(GET,
                                     String.format("%s/user_village/get_all_villages/**", apiPrefix)).hasAnyRole(Role.USER, Role.ADMIN, Role.SHOP)
+
+                            .requestMatchers(DELETE,
+                                    String.format("%s/user_village/**", apiPrefix)).hasAnyRole(Role.USER)
+
+
+                            // shop
+                            .requestMatchers(POST,
+                                    String.format("%s/shop/register/**", apiPrefix)).hasRole(Role.USER)
+
+                            .requestMatchers(PUT,
+                                    String.format("%s/shop/**", apiPrefix)).hasRole(Role.USER)
 
                             .anyRequest().authenticated();
                     }

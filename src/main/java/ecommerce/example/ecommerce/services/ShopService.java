@@ -1,13 +1,15 @@
 package ecommerce.example.ecommerce.services;
 
 import ecommerce.example.ecommerce.dtos.ShopDTO;
+import ecommerce.example.ecommerce.responses.ShopResponse;
 
 public interface ShopService {
 
-    void registerShop(ShopDTO shopDTO);
+    ShopResponse registerShop(ShopDTO shopDTO, long userId);
 
-    void getShopInfo(ShopDTO shopDTO, Long shopId);
+    ShopResponse getShopInfo(long userId);
 
-    void updateShopInfo(ShopDTO shopDTO, long shopId);
+
+    ShopResponse updateShopInfo(ShopDTO shopDTO, long userId);
 
 }
