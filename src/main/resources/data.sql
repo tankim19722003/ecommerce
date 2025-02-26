@@ -29,7 +29,7 @@ VALUES
 ((SELECT id FROM users WHERE account = 'emilydavis'), (SELECT id FROM roles WHERE name = 'user')),
 ((SELECT id FROM users WHERE account = 'tankim19723'), (SELECT id FROM roles WHERE name = 'user'));
 
-INSERT INTO shops (name, description, created_at, logo, address, phone_number, status, user_id)
+INSERT INTO shops (shop_name, description, created_at, logo, address, phone_number, status, user_id)
 VALUES
 ('Tech Haven', 'A store for all tech gadgets', '2024-02-18', 'tech_haven_logo.png', '123 Tech Street', '0123456789', 'active',
 (SELECT id FROM users WHERE account = 'bobjohnson'));

@@ -9,6 +9,7 @@ public interface UserVillageService {
     UserAddressResponse addUserAddress(UserVillageDTO userVillageDTO);
     UserAddressResponse updateUserAddress(UserVillageDTO userVillageDTO, long addressId);
     UserAddressListResponse getAllUserAddresses(long userId);
+    void deleteUserAddress(long addressId);
 
     List<ProvinceResponse> getAllProvinces();
     List<DistrictResponse> getDistrictByProvinceId(long provinceId);

@@ -33,4 +33,11 @@ public class Village {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "village")
     private List<Order> orders;
+
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "village")
+    private List<ShopAddress> shopAddress;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "village")
+    private List<Shop> shops;
 }

@@ -70,7 +70,7 @@ public class UserVillageServiceImpl implements UserVillageService{
                 new RuntimeException("Village does not found"));
 
         UserVillage userVillage = userVillageRepo.findById(addressId).orElseThrow(() ->
-                new RuntimeException("Old Address does not found"));
+                new RuntimeException("Current Id Address does not found"));
 
         userVillage.setVillage(village);
         userVillage.setSpecificVillage(userVillageDTO.getSpecificAddress());
@@ -128,4 +128,14 @@ public class UserVillageServiceImpl implements UserVillageService{
     }
 
 
+    @Override
+    public void deleteUserAddress(long addressId) {
+        UserVillage userVillage = userVillageRepo.findById(addressId).orElseThrow( ()
+                -> new RuntimeException("User address does not found")
+        );
+
+        userVillage.setUser(null);
+        userVillage.setSpecificVillage(null);
+        userVillageRepo.deleteById(addressId);
+    }
 }

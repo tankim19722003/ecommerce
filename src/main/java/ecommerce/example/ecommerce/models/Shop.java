@@ -1,9 +1,12 @@
 package ecommerce.example.ecommerce.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -19,25 +22,35 @@ public class Shop {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "shop_name", unique = true)
+    private String shopName;
 
     @Column(name = "description")
     private String description;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", updatable = false)
+    @CreationTimestamp
     private LocalDate createdAt;
+
+    @Column(name = "updated_at")
+    @UpdateTimestamp
+    private LocalDate updatedAt;
 
     @Column(name = "logo")
     private String logo;
 
-    @Column(name = "address")
-    private String address;
+    @ManyToOne
+    @JoinColumn(name = "village_id")
+    private Village village;
+
+    @Column(name = "specific_address")
+    private String specificAddress;
 
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "status")
+    @Column(name = "status" ,columnDefinition = "VARCHAR(20) DEFAULT 'PENDING'")
+    @Pattern(regexp = "PENDING|REJECT|COMPLETION", message = "Invalid status value")
     private String status;
 
     @OneToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
@@ -55,5 +68,8 @@ public class Shop {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "shop")
     private List<Coupon>coupons;
+
+    @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ShopAddress> shopAddress;
 
 }

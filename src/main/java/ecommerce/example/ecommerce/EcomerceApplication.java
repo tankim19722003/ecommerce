@@ -341,7 +341,7 @@ public class EcomerceApplication {
 
 		Shop shop = new Shop();
 		shop.setId(1L);
-		shop.setName("Tech Haven");
+//		shop.setName("Tech Haven");
 		shop.setDescription("A store for the latest electronics and gadgets");
 		shop.setCreatedAt(LocalDate.now());
 		shop.setLogo("tech_haven_logo.png");

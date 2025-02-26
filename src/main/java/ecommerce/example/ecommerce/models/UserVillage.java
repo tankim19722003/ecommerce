@@ -7,7 +7,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "user_villages",
@@ -40,6 +43,14 @@ public class UserVillage {
     @JoinColumn(name = "village_id", nullable = false)
     private Village village;
 
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private LocalDateTime updateAt;
+
     public UserAddressResponse toUserVillageResponse() {
         return UserAddressResponse.builder()
                 .addressId(user.getId())
@@ -53,12 +64,14 @@ public class UserVillage {
                 .specificVillage(getSpecificVillage())
                 .phoneNumber(getPhoneNumber())
                 .receiverName(getReceiverName())
+                .createdAt(createdAt)
+                .updatedAt(updateAt)
                 .build();
     }
 
     public AddressResponse toUserAddressResponse() {
         return AddressResponse.builder()
-                .addressId(user.getId())
+                .addressId(getId())
                 .provinceId(village.getDistrict().getProvince().getId())
                 .provinceName(village.getDistrict().getProvince().getName())
                 .districtId(village.getDistrict().getId())
@@ -68,6 +81,8 @@ public class UserVillage {
                 .specificVillage(getSpecificVillage())
                 .phoneNumber(getPhoneNumber())
                 .receiverName(getReceiverName())
+                .createdAt(createdAt)
+                .updatedAt(updateAt)
                 .build();
     }
 }

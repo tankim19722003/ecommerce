@@ -97,4 +97,11 @@ public class UserVillageController {
         return ResponseEntity.ok(villageResponses);
 
     }
+
+    @DeleteMapping("/{userAddressId}")
+    public void deleteUserAddress(
+        @PathVariable("userAddressId") long userAddressId
+    ) {
+        userVillageService.deleteUserAddress(userAddressId);
+    }
 }
