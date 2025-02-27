@@ -1,3 +1,4 @@
+ecommerce\example\ecommerce\dtos\ProductDTO.class
 ecommerce\example\ecommerce\models\Shop.class
 ecommerce\example\ecommerce\models\ColorPrice.class
 ecommerce\example\ecommerce\responses\VillageResponse.class
@@ -50,6 +51,7 @@ ecommerce\example\ecommerce\dtos\UserInfoUpdating.class
 ecommerce\example\ecommerce\services\ShopServiceImpl.class
 ecommerce\example\ecommerce\responses\EResponse$EResponseBuilder.class
 ecommerce\example\ecommerce\dtos\UserResgisterDTO$UserResgisterDTOBuilder.class
+ecommerce\example\ecommerce\models\Shop$ShopBuilder.class
 ecommerce\example\ecommerce\Repo\OrderDetailRepo.class
 ecommerce\example\ecommerce\models\ProductDiscount.class
 ecommerce\example\ecommerce\models\Payment.class

@@ -83,6 +83,7 @@ public class ShopServiceImpl implements ShopService{
         Shop shop = shopRepo.findByUserId(userId).orElseThrow(() ->
                 new RuntimeException("Shop does not found"));
 
+
         if (shop.getStatus().equals("REJECT")) {
             throw new RuntimeException("Shop is rejected");
         }
@@ -90,12 +91,19 @@ public class ShopServiceImpl implements ShopService{
         if (shop.getStatus().equals("PENDING")) {
             throw new RuntimeException("Shop is processing");
         }
-        modelMapper.map(shopDTO, shop);
+//        modelMapper.map(shopDTO, shop);
+
+
         Village village = villageRepo.findById(shopDTO.getVillageId()).orElseThrow(
                 () ->  new RuntimeException("Address does not found")
         );
 
+        shop.setShopName(shopDTO.getShopName());
+        shop.setDescription(shopDTO.getDescription());
+        shop.setSpecificAddress(shopDTO.getSpecificAddress());
         shop.setVillage(village);
+        shop.setPhoneNumber(shopDTO.getPhoneNumber());
+        shop.setEmail(shopDTO.getEmail());
 
         shopRepo.save(shop);
 

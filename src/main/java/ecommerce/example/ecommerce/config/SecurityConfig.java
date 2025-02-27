@@ -93,7 +93,7 @@ public class SecurityConfig {
                                     String.format("%s/shop/register/**", apiPrefix)).hasRole(Role.USER)
 
                             .requestMatchers(PUT,
-                                    String.format("%s/shop/**", apiPrefix)).hasRole(Role.USER)
+                                    String.format("%s/shop/**", apiPrefix)).hasRole(Role.SHOP)
 
                             .anyRequest().authenticated();
                     }

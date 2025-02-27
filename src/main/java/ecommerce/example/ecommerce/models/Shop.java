@@ -1,8 +1,11 @@
 package ecommerce.example.ecommerce.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import ecommerce.example.ecommerce.dtos.ShopDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -17,6 +20,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +44,7 @@ public class Shop {
     @Column(name = "logo")
     private String logo;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "village_id")
     private Village village;
 
@@ -56,6 +60,9 @@ public class Shop {
     @OneToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
     @JoinColumn(name = "user_id")
     private User user;
+
+    @JsonProperty("email")
+    private String email;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "shop")
     private List<Product> products;
@@ -84,6 +91,15 @@ public class Shop {
     }
 
 
-
+    public Shop fromShopDTO(ShopDTO shopDTO, Village village) {
+        return Shop.builder()
+                .shopName(shopDTO.getShopName())
+                .description(shopDTO.getDescription())
+                .specificAddress(shopDTO.getSpecificAddress())
+                .village(village)
+                .phoneNumber(shopDTO.getPhoneNumber())
+                .email(shopDTO.getEmail())
+                .build();
+    }
 
 }

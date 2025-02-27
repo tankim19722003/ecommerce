@@ -1,11 +1,3 @@
-INSERT INTO categories (name, created_at, description)
-VALUES
-('Electronics', '2024-02-18', 'All kinds of electronic devices'),
-('Fashion', '2024-02-18', 'Clothing, shoes, and accessories'),
-('Home & Kitchen', '2024-02-18', 'Appliances, furniture, and decor'),
-('Books', '2024-02-18', 'Novels, textbooks, and magazines'),
-('Sports', '2024-02-18', 'Sporting goods and fitness equipment');
-
 INSERT INTO roles (name)
 VALUES
 ('admin'),
@@ -29,7 +21,9 @@ VALUES
 ((SELECT id FROM users WHERE account = 'bobjohnson'), (SELECT id FROM roles WHERE name = 'shop')),
 ((SELECT id FROM users WHERE account = 'emilydavis'), (SELECT id FROM roles WHERE name = 'user')),
 ((SELECT id FROM users WHERE account = 'tankim19723'), (SELECT id FROM roles WHERE name = 'user')),
-((SELECT id FROM users WHERE account = 'admin'), (SELECT id FROM roles WHERE name = 'admin'));
+((SELECT id FROM users WHERE account = 'admin'), (SELECT id FROM roles WHERE name = 'admin')),
+((SELECT id FROM users WHERE account = 'tankim19723'), (SELECT id FROM roles WHERE name = 'shop'));
+;
 
 INSERT INTO provinces (id, name) VALUES
 (1, 'An Giang'),
@@ -276,3 +270,19 @@ INSERT INTO shops (shop_name, description, created_at, logo, specific_address, v
 VALUES
 ('Tech Haven', 'A store for all tech gadgets', '2024-02-18', 'tech_haven_logo.png', '123 Tech Street', 40, '0123456789', 'COMPLETION',
 (SELECT id FROM users WHERE account = 'tankim19723'));
+
+
+INSERT INTO categories (id, created_at, description, name) VALUES
+(1, '2024-02-27', 'Clothing items for men', 'Men''s Wear'),
+(2, '2024-02-27', 'Clothing items for women', 'Women''s Wear'),
+(3, '2024-02-27', 'Casual and sports shoes', 'Footwear'),
+(4, '2024-02-27', 'Fashion and daily use accessories', 'Accessories'),
+(5, '2024-02-27', 'Electronic gadgets and devices', 'Electronics');
+
+INSERT INTO sizes (id, size, category_id) VALUES
+(1, 'Small', 1),      -- Size for Men's Wear
+(2, 'Medium', 1),     -- Size for Men's Wear
+(3, 'Large', 2),      -- Size for Women's Wear
+(4, 'X-Large', 3),    -- Size for Footwear
+(5, 'XX-Large', 3);   -- Size for Footwear
+
