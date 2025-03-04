@@ -1,40 +1,34 @@
-//package ecommerce.example.ecommerce.controllers;
-//
-//import org.springframework.data.domain.PageRequest;
-//import org.springframework.data.domain.Sort;
-//import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RequestParam;
-//import org.springframework.web.bind.annotation.RestController;
-//
-//@RestController
-//@RequestMapping("${api.prefix}product")
-//public class ProductController {
-//
-//    @GetMapping("")
-//    public ResponseEntity<ProductListResponse> getProducts(
-//            @RequestParam(defaultValue = "") String keyword,
-//            @RequestParam(defaultValue = "0", name = "category_id" ) Long categoryId,
-//            @RequestParam(defaultValue = "0") int page,
-//            @RequestParam(defaultValue = "10") int limit
-//    )    {
-//        PageRequest pageRequest = PageRequest.of(
-//                page,limit,
-//                Sort.by("rating").ascending()
-//        );
-//
-//        logger.info(String.format("keyword = %s, category_id = %d, page %d, limit = %d",
-//                keyword, categoryId, page, limit));
-//        Page<ProductResponse> productPage = productService.getAllProducts(keyword,categoryId,pageRequest);
-//        int totalPages = productPage.getTotalPages();
-//        List <ProductResponse> products = productPage.getContent();
-//
-//        return ResponseEntity.ok(
-//                ProductListResponse.builder()
-//                        .products(products)
-//                        .totalPage(totalPages)
-//                        .build()
-//        );
-//    }
-//
-//}
+package ecommerce.example.ecommerce.controllers;
+
+import ecommerce.example.ecommerce.dtos.ProductCreatingDTO;
+import ecommerce.example.ecommerce.responses.ProductCreatingResponse;
+import ecommerce.example.ecommerce.services.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("${api.prefix}product")
+public class ProductController {
+
+    @Autowired
+    private ProductService productService;
+
+    @PostMapping("/create_product")
+    private ResponseEntity<?> createProduct(
+            @RequestBody ProductCreatingDTO productCreatingDTO
+    ) {
+
+        try {
+            ProductCreatingResponse productCreatingResponse= productService.createProduct(productCreatingDTO);
+            return ResponseEntity.ok(productCreatingResponse);
+        } catch(Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
+    }
+
+}

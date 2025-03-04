@@ -266,23 +266,39 @@ INSERT INTO villages (id, district_id, name) VALUES
 (41, 84, 'Lê Bình'),
 (42, 84, 'Tân Phú');
 
-INSERT INTO shops (shop_name, description, created_at, logo, specific_address, village_id, phone_number, status, user_id)
-VALUES
-('Tech Haven', 'A store for all tech gadgets', '2024-02-18', 'tech_haven_logo.png', '123 Tech Street', 40, '0123456789', 'COMPLETION',
-(SELECT id FROM users WHERE account = 'tankim19723'));
 
+INSERT INTO categories (id, name, created_at, description) VALUES
+(1,'Electronics', '2024-03-03', 'Devices, gadgets, and accessories'),
+(2, 'Fashion', '2024-03-03', 'Clothing, footwear, and accessories'),
+(3, 'Home & Kitchen', '2024-03-03', 'Furniture, appliances, and kitchenware'),
+(4, 'Beauty & Personal Care', '2024-03-03', 'Cosmetics, skincare, and grooming products'),
+(5, 'Sports & Outdoors', '2024-03-03', 'Fitness, outdoor gear, and sportswear'),
+(6,'Books', '2024-03-03', 'Fiction, non-fiction, and educational materials'),
+(7, 'Toys & Games', '2024-03-03', 'Children’s toys, puzzles, and board games'),
+(8, 'Automotive', '2024-03-03', 'Car accessories, tools, and spare parts'),
+(9, 'Health & Wellness', '2024-03-03', 'Medical supplies, supplements, and fitness equipment'),
+(10,'Groceries', '2024-03-03', 'Food, beverages, and household essentials');
 
-INSERT INTO categories (id, created_at, description, name) VALUES
-(1, '2024-02-27', 'Clothing items for men', 'Men''s Wear'),
-(2, '2024-02-27', 'Clothing items for women', 'Women''s Wear'),
-(3, '2024-02-27', 'Casual and sports shoes', 'Footwear'),
-(4, '2024-02-27', 'Fashion and daily use accessories', 'Accessories'),
-(5, '2024-02-27', 'Electronic gadgets and devices', 'Electronics');
+INSERT INTO attributes (id, name) VALUES
+(1, 'Color'),
+(2, 'Size'),
+(3, 'Material'),
+(4, 'Brand'),
+(5, 'Weight'),
+(6, 'Dimensions'),
+(7, 'Battery Life'),
+(8, 'Warranty'),
+(9, 'Compatibility'),
+(10, 'Capacity');
 
-INSERT INTO sizes (id, size, category_id) VALUES
-(1, 'Small', 1),      -- Size for Men's Wear
-(2, 'Medium', 1),     -- Size for Men's Wear
-(3, 'Large', 2),      -- Size for Women's Wear
-(4, 'X-Large', 3),    -- Size for Footwear
-(5, 'XX-Large', 3);   -- Size for Footwear
+INSERT INTO category_attributes (id, attribute_id, category_id) VALUES
+(1, 1, 1), (2, 2, 1), (3, 3, 1), (4, 4, 1), (5, 5, 1),
+(6, 1, 2), (7, 2, 2), (8, 3, 2), (9, 4, 2), (10, 5, 2),
+(11, 1, 3), (12, 6, 3), (13, 7, 3), (14, 8, 3), (15, 9, 3),
+(16, 1, 4), (17, 3, 4), (18, 5, 4), (19, 7, 4), (20, 10, 4),
+(21, 2, 5), (22, 4, 5), (23, 6, 5), (24, 8, 5), (25, 9, 5),
+(26, 1, 6), (27, 2, 6), (28, 3, 6), (29, 4, 6), (30, 5, 6),
+(31, 6, 7), (32, 7, 7), (33, 8, 7), (34, 9, 7), (35, 10, 7),
+(36, 1, 8), (37, 3, 8), (38, 5, 8), (39, 7, 8), (40, 10, 8);
+
 

@@ -95,6 +95,19 @@ public class SecurityConfig {
                             .requestMatchers(PUT,
                                     String.format("%s/shop/**", apiPrefix)).hasRole(Role.SHOP)
 
+                            // otp
+//                            .requestMatchers(POST,
+//                                    String.format("%s/otp/send/sms/**", apiPrefix)).permitAll()
+
+
+                            // attribute
+                            .requestMatchers(GET,
+                                    String.format("%s/attribute/**", apiPrefix)).hasAnyRole(Role.USER,Role.ADMIN, Role.SHOP)
+
+                            // categories
+                            .requestMatchers(GET,
+                                    String.format("%s/category/get_all_categories", apiPrefix)).hasAnyRole(Role.USER,Role.ADMIN, Role.SHOP)
+
                             .anyRequest().authenticated();
                     }
 

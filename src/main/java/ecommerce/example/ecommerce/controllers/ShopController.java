@@ -39,7 +39,12 @@ public class ShopController {
             ShopResponse shopResponse = shopService.registerShop(shopDTO, userId);
             return ResponseEntity.ok(shopResponse);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(
+                    EResponse.builder()
+                            .name("Error")
+                            .message(e.getMessage())
+                            .build()
+            );
         }
     }
 

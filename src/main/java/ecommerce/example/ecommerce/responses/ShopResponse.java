@@ -46,4 +46,7 @@ public class ShopResponse {
 
     @JsonProperty("user_id")
     private long userId;
+
+    @JsonProperty("cmnd")
+    private String cmnd;
 }

@@ -36,10 +36,7 @@ public class EcomerceApplication {
 			ShippingProviderRejectRepo shippingProviderRejectRepo,
 			ProductRejectionRepo productRejectionRepo,
 			ImageRepo imageRepo,
-			ProductDiscountRepo productDiscountRepo,
-			SizeRepo sizeRepo,
-			ProductSizeRepo productSizeRepo,
-			ColorPriceRepo colorPriceRepo) {
+			ProductDiscountRepo productDiscountRepo) {
 		return runner -> {
 			findingUser(userRepo);
 		};
@@ -65,53 +62,53 @@ public class EcomerceApplication {
 //		System.out.println(user);
 	}
 
-	private void createColorPrice(ColorPriceRepo colorPriceRepo, ProductSizeRepo productSizeRepo) {
-
-		ProductSize productSize = productSizeRepo.findById(3L).orElseThrow(() ->
-				new RuntimeException("Product with size does not found"));
-
-		ColorPrice colorPrice = new ColorPrice();
-
-		// Set values using setters
-		colorPrice.setId(null);                // Auto-generated, so can be null
-		colorPrice.setImageName("red_shirt.png");
-		colorPrice.setQuantity(50);
-		colorPrice.setColor("Red");
-		colorPrice.setProductSize(productSize);
-		System.out.println("Saving product size");
-		colorPriceRepo.save(colorPrice);
-		System.out.println("Done!!!");
-	}
-
-	private void createProductSize(ProductSizeRepo productSizeRepo, ProductRepo productRepo, SizeRepo sizeRepo) {
-
-		Product product = productRepo.findById(1L).orElseThrow(() -> new RuntimeException("product does not found"));
-		Size size = sizeRepo.findById(5L).orElseThrow(() -> new RuntimeException("size does not found"));
-
-		ProductSize productSize = new ProductSize();
-		productSize.setProduct(product);
-		productSize.setSize(size);
-		productSize.setPrice(100);
-
-		System.out.println("Saving product size...");
-		productSizeRepo.save(productSize);
-		System.out.println("Done!!");
-
-	}
-
-	private void createSize(SizeRepo sizeRepo, CategoryRepo categoryRepo) {
-
-		Category category = categoryRepo.findById(1L).orElseThrow(() ->
-				new RuntimeException("Category does not found"));
-
-		// Create a new Size object
-		Size size = new Size();
-		size.setSize("Small");
-		size.setCategory(category);
-		System.out.println("Saving size...");
-		sizeRepo.save(size);
-		System.out.println("Done!!	");
-	}
+//	private void createColorPrice(ColorPriceRepo colorPriceRepo, ProductSizeRepo productSizeRepo) {
+//
+//		ProductSize productSize = productSizeRepo.findById(3L).orElseThrow(() ->
+//				new RuntimeException("Product with size does not found"));
+//
+//		ColorPrice colorPrice = new ColorPrice();
+//
+//		// Set values using setters
+//		colorPrice.setId(null);                // Auto-generated, so can be null
+//		colorPrice.setImageName("red_shirt.png");
+//		colorPrice.setQuantity(50);
+//		colorPrice.setColor("Red");
+//		colorPrice.setProductSize(productSize);
+//		System.out.println("Saving product size");
+//		colorPriceRepo.save(colorPrice);
+//		System.out.println("Done!!!");
+//	}
+//
+//	private void createProductSize(ProductSizeRepo productSizeRepo, ProductRepo productRepo, SizeRepo sizeRepo) {
+//
+//		Product product = productRepo.findById(1L).orElseThrow(() -> new RuntimeException("product does not found"));
+//		Size size = sizeRepo.findById(5L).orElseThrow(() -> new RuntimeException("size does not found"));
+//
+//		ProductSize productSize = new ProductSize();
+//		productSize.setProduct(product);
+//		productSize.setSize(size);
+//		productSize.setPrice(100);
+//
+//		System.out.println("Saving product size...");
+//		productSizeRepo.save(productSize);
+//		System.out.println("Done!!");
+//
+//	}
+//
+//	private void createSize(SizeRepo sizeRepo, CategoryRepo categoryRepo) {
+//
+//		Category category = categoryRepo.findById(1L).orElseThrow(() ->
+//				new RuntimeException("Category does not found"));
+//
+//		// Create a new Size object
+//		Size size = new Size();
+//		size.setSize("Small");
+//		size.setCategory(category);
+//		System.out.println("Saving size...");
+//		sizeRepo.save(size);
+//		System.out.println("Done!!	");
+//	}
 
 	private void createProductDiscount(ProductRepo productRepo, ProductDiscountRepo productDiscountRepo) {
 

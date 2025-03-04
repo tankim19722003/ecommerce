@@ -44,16 +44,21 @@ public class ShopServiceImpl implements ShopService{
 
         if (isShopExisting) throw new RuntimeException("Shop name is existing");
 
-
+        if (!isAllDigits(shopDTO.getCmnd())) throw new RuntimeException("CMND must contain only digits");
         // saving shop
         Shop shop = new Shop();
         modelMapper.map(shopDTO, shop);
         shop.setUser(user);
         shop.setVillage(village);
+        shop.setCmnd(shopDTO.getCmnd());
         Shop savedShop = shopRepo.save(shop);
 
         return convertShopToShopResponse(savedShop);
 
+    }
+
+    public static boolean isAllDigits(String str) {
+        return str != null && str.matches("\\d+");
     }
 
     @Override

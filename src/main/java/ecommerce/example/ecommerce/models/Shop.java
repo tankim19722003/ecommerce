@@ -54,6 +54,9 @@ public class Shop {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Column(name = "cmnd")
+    private String cmnd;
+
     @Pattern(regexp = "PENDING|REJECT|COMPLETION", message = "Invalid status value")
     private String status;
 

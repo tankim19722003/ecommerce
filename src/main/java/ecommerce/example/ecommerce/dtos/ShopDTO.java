@@ -2,6 +2,7 @@ package ecommerce.example.ecommerce.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,6 +23,9 @@ public class ShopDTO {
 
     @JsonProperty("village_id")
     private long villageId;
+
+    @JsonProperty("cmnd")
+    private String cmnd;
 
     @JsonProperty("specific_address")
     private String specificAddress;
