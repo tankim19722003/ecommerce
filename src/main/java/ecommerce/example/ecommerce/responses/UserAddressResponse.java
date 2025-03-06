@@ -20,7 +20,7 @@ public class UserAddressResponse extends AddressResponse{
     @JsonProperty("user_id")
     private long userId;
 
-    @JsonProperty("specific_village")
+    @JsonProperty("specific_address")
     private String specificVillage;
 
     @JsonProperty("receiver_name")

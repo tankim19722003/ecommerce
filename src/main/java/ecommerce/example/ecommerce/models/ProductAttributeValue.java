@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.security.PrivateKey;
 import java.util.List;
 
 @Entity
@@ -32,9 +33,7 @@ public class ProductAttributeValue {
     @JoinColumn(name = "category_attribute_id")
     private CategoryAttribute categoryAttribute;
 
-//    @OneToMany(mappedBy = "firstProductAttributeValue")
-//    private List<Quantity> firstQuantity;
-//
-//    @OneToMany(mappedBy = "secondProductAttributeValue")
-//    private List<Quantity> secondQuantity;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "productAttributeValue")
+    private ProductImage productImage;
 }

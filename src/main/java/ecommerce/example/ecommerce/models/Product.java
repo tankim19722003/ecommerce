@@ -66,7 +66,7 @@ public class Product {
     private ProductRejection productRejection;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.LAZY)
-    private List<Image> images;
+    private List<ProductImage> images;
 
     @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "product")
     private List<ProductDiscount> productDiscounts;

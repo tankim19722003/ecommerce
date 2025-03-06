@@ -35,7 +35,7 @@ public class EcomerceApplication {
 			CouponRepo couponRepo,
 			ShippingProviderRejectRepo shippingProviderRejectRepo,
 			ProductRejectionRepo productRejectionRepo,
-			ImageRepo imageRepo,
+			ProductImageRepo imageRepo,
 			ProductDiscountRepo productDiscountRepo) {
 		return runner -> {
 			findingUser(userRepo);
@@ -128,13 +128,13 @@ public class EcomerceApplication {
 		System.out.println("Done");
 	}
 
-	private void createImage(ImageRepo imageRepo, ProductRepo productRepo) {
+	private void createImage(ProductImageRepo imageRepo, ProductRepo productRepo) {
 		Product product = productRepo.findById(1L).orElseThrow(() ->
 				new RuntimeException("Product does found"));
 
-		Image image = new Image();
+		ProductImage image = new ProductImage();
 		image.setId(100L);
-		image.setImageName("product_image.jpg");
+//		image.setImageName("product_image.jpg");
 		image.setCreatedDate(LocalDateTime.now()); // Set creation date
 		image.setUpdatedDate(LocalDateTime.now()); // Set update date
 		image.setProduct(product);

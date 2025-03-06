@@ -116,6 +116,10 @@ public class SecurityConfig {
                             // product attribute value
                             .requestMatchers(POST,
                                     String.format("%s/product_attribute_value/**", apiPrefix)).hasAnyRole(Role.ADMIN, Role.SHOP)
+
+                            // image
+                            .requestMatchers(POST,
+                                     String.format("%s/image", apiPrefix)).hasAnyRole(Role.SHOP)
                             .anyRequest().authenticated();
 
                     }
