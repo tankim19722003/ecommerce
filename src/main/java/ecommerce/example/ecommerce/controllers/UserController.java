@@ -10,18 +10,16 @@ import ecommerce.example.ecommerce.responses.IUserResponse;
 import ecommerce.example.ecommerce.responses.UserLoginResponse;
 import ecommerce.example.ecommerce.responses.UserResponse;
 import ecommerce.example.ecommerce.services.UserService;
-import ecommerce.example.ecommerce.services.ValidataDataService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("${api.prefix}/user")
-public class UserController {
+public class
+UserController {
 
     @Autowired
     private UserService userService;

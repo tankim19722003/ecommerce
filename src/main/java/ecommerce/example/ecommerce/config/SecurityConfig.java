@@ -108,7 +108,16 @@ public class SecurityConfig {
                             .requestMatchers(GET,
                                     String.format("%s/category/get_all_categories", apiPrefix)).hasAnyRole(Role.USER,Role.ADMIN, Role.SHOP)
 
+                            // product
+                            .requestMatchers(POST,
+                                    String.format("%s/product/create_product", apiPrefix)).hasAnyRole(Role.ADMIN, Role.SHOP)
+
+
+                            // product attribute value
+                            .requestMatchers(POST,
+                                    String.format("%s/product_attribute_value/**", apiPrefix)).hasAnyRole(Role.ADMIN, Role.SHOP)
                             .anyRequest().authenticated();
+
                     }
 
                 )

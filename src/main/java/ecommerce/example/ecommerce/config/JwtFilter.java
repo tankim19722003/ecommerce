@@ -1,8 +1,8 @@
 package ecommerce.example.ecommerce.config;
 
 import ecommerce.example.ecommerce.Repo.UserRepo;
-import ecommerce.example.ecommerce.services.JwtService;
-import ecommerce.example.ecommerce.services.MyUserDetailService;
+import ecommerce.example.ecommerce.services.Impl.JwtService;
+import ecommerce.example.ecommerce.services.Impl.MyUserDetailService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

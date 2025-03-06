@@ -54,7 +54,7 @@ public class UserVillage {
     public UserAddressResponse toUserVillageResponse() {
 
         UserAddressResponse userAddressResponse = new UserAddressResponse();
-        userAddressResponse.setAddressId(user.getId());
+        userAddressResponse.setAddressId(id);
         userAddressResponse.setUserId(user.getId());
         userAddressResponse.setProvinceId(village.getDistrict().getProvince().getId());
         userAddressResponse.setProvinceName(village.getDistrict().getProvince().getName());
