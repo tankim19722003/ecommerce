@@ -27,7 +27,7 @@ public class ProductServiceImpl implements ProductService {
     private ModelMapper mapper;
 
     @Autowired
-    private CategoryRepo categoryRepo;
+    private SubCategoryRepo categoryRepo;
 
     @Autowired
     private ShopRepo shopRepo;
@@ -45,7 +45,7 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     public ProductCreatingResponse createProduct(ProductCreatingDTO productCreatingDTO) {
 
-        Category category = categoryRepo.findById(productCreatingDTO.getCategoryId()).orElseThrow(
+        SubCategory category = categoryRepo.findById(productCreatingDTO.getCategoryId()).orElseThrow(
                 () -> new RuntimeException("Category does not found")
         );
 
@@ -56,7 +56,7 @@ public class ProductServiceImpl implements ProductService {
         Product product = Product.builder()
                 .name(productCreatingDTO.getName())
                 .description(productCreatingDTO.getDescription())
-                .category(category)
+                .subCategory(category)
                 .shop(shop)
                 .build();
 

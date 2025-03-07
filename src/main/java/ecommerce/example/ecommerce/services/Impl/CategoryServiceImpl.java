@@ -1,6 +1,7 @@
 package ecommerce.example.ecommerce.services.Impl;
 
 import ecommerce.example.ecommerce.Repo.CategoryRepo;
+import ecommerce.example.ecommerce.dtos.CategoryDTO;
 import ecommerce.example.ecommerce.models.Category;
 import ecommerce.example.ecommerce.responses.CategoryResponse;
 import ecommerce.example.ecommerce.services.CategoryService;
@@ -30,5 +31,49 @@ public class CategoryServiceImpl implements CategoryService {
 
         return categoryResponses;
     }
+
+
+    @Override
+    public CategoryResponse createCategory(CategoryDTO categoryDTO) {
+
+        Category category = Category.builder()
+                .name(categoryDTO.getName())
+                .description(categoryDTO.getDescription())
+                .build();
+
+        categoryRepo.save(category);
+
+
+        return mapper.map(category, CategoryResponse.class);
+
+    }
+
+    @Override
+    public CategoryResponse updateCategory(CategoryDTO categoryDTO, Long categoryId) {
+        // Check if category exists
+        Category existingCategory = categoryRepo.findById(categoryId).orElseThrow(
+                () -> new RuntimeException("Category does not found")
+        );
+
+            // Update category with new values from categoryDTO
+        existingCategory.setName(categoryDTO.getName());
+        existingCategory.setDescription(categoryDTO.getDescription());
+
+        // Save the updated category
+        categoryRepo.save(existingCategory);
+
+        return mapper.map(existingCategory, CategoryResponse.class);
+    }
+
+    @Override
+    public void deleteCategoryById(Long categoryId) {
+        boolean isExistingCategory = categoryRepo.existsById(categoryId);
+
+        if (!isExistingCategory)
+            throw new RuntimeException("Category does not existing!");
+        categoryRepo.deleteById(categoryId);
+    }
+
+
 
 }

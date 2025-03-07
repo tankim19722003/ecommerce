@@ -1,7 +1,10 @@
 package ecommerce.example.ecommerce.services;
 
 import ecommerce.example.ecommerce.dtos.ShopDTO;
+import ecommerce.example.ecommerce.models.Shop;
 import ecommerce.example.ecommerce.responses.ShopResponse;
+
+import java.util.List;
 
 public interface ShopService {
 
@@ -11,5 +14,7 @@ public interface ShopService {
 
 
     ShopResponse updateShopInfo(ShopDTO shopDTO, long userId);
+
+    List<ShopResponse> getShopsStatus(String status);
 
 }

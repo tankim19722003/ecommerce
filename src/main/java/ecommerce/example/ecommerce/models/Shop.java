@@ -22,6 +22,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class Shop {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

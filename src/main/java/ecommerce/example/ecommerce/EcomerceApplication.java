@@ -23,7 +23,7 @@ public class EcomerceApplication {
 			UserRepo userRepo,
 			ShippingProviderRepo shippingProviderRepo,
 			RoleRepo roleRepo,
-			CategoryRepo categoryRepo,
+			SubCategoryRepo categoryRepo,
 			OrderDetailRepo orderDetailRepo,
 			ProductRepo productRepo,
 			ShopRepo shopRepo,
@@ -352,10 +352,10 @@ public class EcomerceApplication {
 
 	}
 
-	private void createProduct(ProductRepo productRepo, ShopRepo shopRepo, CategoryRepo categoryRepo) {
+	private void createProduct(ProductRepo productRepo, ShopRepo shopRepo, SubCategoryRepo categoryRepo) {
 
 		Shop shop = shopRepo.findById(1L).orElseThrow(() -> new RuntimeException("Shop does not exist!"));
-		Category category = categoryRepo.findById(1L).orElseThrow(() -> new RuntimeException("Category does not exist"));
+		SubCategory category = categoryRepo.findById(1L).orElseThrow(() -> new RuntimeException("Category does not exist"));
 
 		Product product = new Product();
 		product.setName("Smartphone");
@@ -363,15 +363,15 @@ public class EcomerceApplication {
 		product.setRating(5);
 		product.setThumbnail("smartphone.jpg");
 		product.setShop(shop);
-		product.setCategory(category);
+		product.setSubCategory(category);
 
 		System.out.println("Saving product....");
 		productRepo.save(product);
 		System.out.println("Done!!!");
 	}
 
-	private void createCategory(CategoryRepo categoryRepo) {
-		Category category = new Category();
+	private void createCategory(SubCategoryRepo categoryRepo) {
+		SubCategory category = new SubCategory();
 		category.setName("Sandals");
 		category.setCreatedAt(LocalDate.now());
 		category.setDescription("All kinds of electronic gadgets");

@@ -1,6 +1,7 @@
 package ecommerce.example.ecommerce.controllers;
 
 import ecommerce.example.ecommerce.dtos.ShopDTO;
+import ecommerce.example.ecommerce.models.Status;
 import ecommerce.example.ecommerce.responses.EResponse;
 import ecommerce.example.ecommerce.responses.ShopResponse;
 import ecommerce.example.ecommerce.services.ShopService;
@@ -90,5 +91,11 @@ public class ShopController {
                             .build()
             );
         }
+    }
+
+    @GetMapping("/get_all_pending_shops")
+    public List<ShopResponse> getAllPendingShops() {
+        Status status = Status.PENDING;
+        return shopService.getShopsStatus(status.getStatus());
     }
 }

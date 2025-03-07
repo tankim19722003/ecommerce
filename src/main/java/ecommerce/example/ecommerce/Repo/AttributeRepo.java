@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface AttributeRepo extends JpaRepository<Attribute, Long> {
 
-    @Query("SELECT ca.attribute FROM CategoryAttribute ca WHERE ca.category.id = :categoryId")
+    @Query("SELECT ca.attribute FROM CategoryAttribute ca WHERE ca.subCategory.id = :categoryId")
     List<Attribute> findAttributesByCategoryId(@Param("categoryId") Long categoryId);
 }

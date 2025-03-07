@@ -95,6 +95,11 @@ public class SecurityConfig {
                             .requestMatchers(PUT,
                                     String.format("%s/shop/**", apiPrefix)).hasRole(Role.SHOP)
 
+                            .requestMatchers(GET,
+                                    String.format("%s/shop/**", apiPrefix)).hasAnyRole(Role.SHOP, Role.USER)
+
+                            .requestMatchers(GET,
+                                    String.format("%s/shop/get_all_pending_shops", apiPrefix)).hasAnyRole(Role.ADMIN)
                             // otp
 //                            .requestMatchers(POST,
 //                                    String.format("%s/otp/send/sms/**", apiPrefix)).permitAll()
@@ -107,6 +112,29 @@ public class SecurityConfig {
                             // categories
                             .requestMatchers(GET,
                                     String.format("%s/category/get_all_categories", apiPrefix)).hasAnyRole(Role.USER,Role.ADMIN, Role.SHOP)
+
+                            .requestMatchers(POST,
+                                    String.format("%s/category/create", apiPrefix)).hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(PUT,
+                                    String.format("%s/category/**", apiPrefix)).hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(DELETE,
+                                    String.format("%s/category/**", apiPrefix)).hasAnyRole(Role.ADMIN)
+
+                            // sub-category
+                            .requestMatchers(GET,
+                                    String.format("%s/sub_category/get_all_categories", apiPrefix)).hasAnyRole(Role.USER,Role.ADMIN, Role.SHOP)
+
+                            .requestMatchers(POST,
+                                    String.format("%s/sub_category/create", apiPrefix)).hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(PUT,
+                                    String.format("%s/sub_category/**", apiPrefix)).hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(DELETE,
+                                    String.format("%s/sub_category/**", apiPrefix)).hasAnyRole(Role.ADMIN)
+
 
                             // product
                             .requestMatchers(POST,

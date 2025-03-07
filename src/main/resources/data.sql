@@ -267,17 +267,30 @@ INSERT INTO villages (id, district_id, name) VALUES
 (42, 84, 'Tân Phú');
 
 
-INSERT INTO categories (id, name, created_at, description) VALUES
-(1,'Electronics', '2024-03-03', 'Devices, gadgets, and accessories'),
-(2, 'Fashion', '2024-03-03', 'Clothing, footwear, and accessories'),
-(3, 'Home & Kitchen', '2024-03-03', 'Furniture, appliances, and kitchenware'),
-(4, 'Beauty & Personal Care', '2024-03-03', 'Cosmetics, skincare, and grooming products'),
-(5, 'Sports & Outdoors', '2024-03-03', 'Fitness, outdoor gear, and sportswear'),
-(6,'Books', '2024-03-03', 'Fiction, non-fiction, and educational materials'),
-(7, 'Toys & Games', '2024-03-03', 'Children’s toys, puzzles, and board games'),
-(8, 'Automotive', '2024-03-03', 'Car accessories, tools, and spare parts'),
-(9, 'Health & Wellness', '2024-03-03', 'Medical supplies, supplements, and fitness equipment'),
-(10,'Groceries', '2024-03-03', 'Food, beverages, and household essentials');
+--INSERT INTO sub_categories (id, name, created_at, description) VALUES
+--(1,'Electronics', '2024-03-03', 'Devices, gadgets, and accessories'),
+--(2, 'Fashion', '2024-03-03', 'Clothing, footwear, and accessories'),
+--(3, 'Home & Kitchen', '2024-03-03', 'Furniture, appliances, and kitchenware'),
+--(4, 'Beauty & Personal Care', '2024-03-03', 'Cosmetics, skincare, and grooming products'),
+--(5, 'Sports & Outdoors', '2024-03-03', 'Fitness, outdoor gear, and sportswear'),
+--(6,'Books', '2024-03-03', 'Fiction, non-fiction, and educational materials'),
+--(7, 'Toys & Games', '2024-03-03', 'Children’s toys, puzzles, and board games'),
+--(8, 'Automotive', '2024-03-03', 'Car accessories, tools, and spare parts'),
+--(9, 'Health & Wellness', '2024-03-03', 'Medical supplies, supplements, and fitness equipment'),
+--(10,'Groceries', '2024-03-03', 'Food, beverages, and household essentials');
+
+INSERT INTO categories (created_at, updated_at, id, description, name) VALUES
+('2025-03-07', '2025-03-07', 2, 'Devices for office use', 'Office Equipment'),
+('2025-03-07', '2025-03-07', 3, 'Mobile and communication devices', 'Smartphones'),
+('2025-03-07', '2025-03-07', 4, 'Accessories for computers and laptops', 'Computer Accessories'),
+('2025-03-07', '2025-03-07', 5, 'Home and entertainment electronics', 'Home Electronics'),
+('2025-03-07', '2025-03-07', 6, 'Gaming consoles and accessories', 'Gaming'),
+('2025-03-07', '2025-03-07', 7, 'Networking devices such as routers', 'Networking'),
+('2025-03-07', '2025-03-07', 8, 'Storage devices like HDDs and SSDs', 'Storage'),
+('2025-03-07', '2025-03-07', 9, 'Wearable technology and smart gadgets', 'Wearables'),
+('2025-03-07', '2025-03-07', 10, 'Computer software and applications', 'Software'),
+('2025-03-07', '2025-03-07', 11, 'Peripherals like printers and scanners', 'Peripherals');
+
 
 INSERT INTO attributes (id, name) VALUES
 (1, 'Color'),
@@ -291,15 +304,15 @@ INSERT INTO attributes (id, name) VALUES
 (9, 'Compatibility'),
 (10, 'Capacity');
 
-INSERT INTO category_attributes (id, attribute_id, category_id) VALUES
-(1, 1, 1), (2, 2, 1), (3, 3, 1), (4, 4, 1), (5, 5, 1),
-(6, 1, 2), (7, 2, 2), (8, 3, 2), (9, 4, 2), (10, 5, 2),
-(11, 1, 3), (12, 6, 3), (13, 7, 3), (14, 8, 3), (15, 9, 3),
-(16, 1, 4), (17, 3, 4), (18, 5, 4), (19, 7, 4), (20, 10, 4),
-(21, 2, 5), (22, 4, 5), (23, 6, 5), (24, 8, 5), (25, 9, 5),
-(26, 1, 6), (27, 2, 6), (28, 3, 6), (29, 4, 6), (30, 5, 6),
-(31, 6, 7), (32, 7, 7), (33, 8, 7), (34, 9, 7), (35, 10, 7),
-(36, 1, 8), (37, 3, 8), (38, 5, 8), (39, 7, 8), (40, 10, 8);
+--INSERT INTO category_attributes (id, attribute_id, category_id) VALUES
+--(1, 1, 1), (2, 2, 1), (3, 3, 1), (4, 4, 1), (5, 5, 1),
+--(6, 1, 2), (7, 2, 2), (8, 3, 2), (9, 4, 2), (10, 5, 2),
+--(11, 1, 3), (12, 6, 3), (13, 7, 3), (14, 8, 3), (15, 9, 3),
+--(16, 1, 4), (17, 3, 4), (18, 5, 4), (19, 7, 4), (20, 10, 4),
+--(21, 2, 5), (22, 4, 5), (23, 6, 5), (24, 8, 5), (25, 9, 5),
+--(26, 1, 6), (27, 2, 6), (28, 3, 6), (29, 4, 6), (30, 5, 6),
+--(31, 6, 7), (32, 7, 7), (33, 8, 7), (34, 9, 7), (35, 10, 7),
+--(36, 1, 8), (37, 3, 8), (38, 5, 8), (39, 7, 8), (40, 10, 8);
 
 
 

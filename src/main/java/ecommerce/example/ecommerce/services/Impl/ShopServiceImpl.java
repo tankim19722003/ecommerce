@@ -7,11 +7,14 @@ import ecommerce.example.ecommerce.dtos.ShopDTO;
 import ecommerce.example.ecommerce.models.Shop;
 import ecommerce.example.ecommerce.models.User;
 import ecommerce.example.ecommerce.models.Village;
+import ecommerce.example.ecommerce.responses.AddressResponse;
 import ecommerce.example.ecommerce.responses.ShopResponse;
 import ecommerce.example.ecommerce.services.ShopService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ShopServiceImpl implements ShopService {
@@ -114,6 +117,19 @@ public class ShopServiceImpl implements ShopService {
         shopRepo.save(shop);
 
         return convertShopToShopResponse(shop);
+
+    }
+
+
+    @Override
+    public List<ShopResponse> getShopsStatus(String status) {
+
+        List<Shop> shops = shopRepo.findByStatus(status);
+
+        List<ShopResponse> shopResponses = shops.stream().map(shop -> convertShopToShopResponse(shop)
+        ).toList();
+
+        return shopResponses;
 
     }
 

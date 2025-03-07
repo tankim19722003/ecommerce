@@ -27,7 +27,7 @@ public class CategoryAttribute {
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    private Category category;
+    private SubCategory subCategory;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "categoryAttribute")
     private List<ProductAttributeValue> productAttributeValues;

@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.cglib.core.Local;
+
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
@@ -20,4 +23,10 @@ public class CategoryResponse {
 
     @JsonProperty("description")
     private String description;
+
+    @JsonProperty("created_at")
+    private LocalDate createdAt;
+
+    @JsonProperty("updated_at")
+    private LocalDate updatedAt;
 }

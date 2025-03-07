@@ -45,7 +45,7 @@ public class Product {
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "category_id", nullable = false)
-    private Category category;
+    private SubCategory subCategory;
 
     @Column(name = "created_at",nullable = false, updatable = false)
     private LocalDateTime createdAt;
