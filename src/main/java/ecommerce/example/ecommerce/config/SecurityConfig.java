@@ -60,7 +60,7 @@ public class SecurityConfig {
                                     String.format("%s/user/register", apiPrefix)).permitAll()
 
                             .requestMatchers(GET,
-                                    String.format("%s/user/get_user_info/**", apiPrefix)).hasRole(Role.USER)
+                                    String.format("%s/user/get_user_info/**", apiPrefix)).hasAnyRole(Role.USER, Role.ADMIN)
 
                             .requestMatchers(PUT,
                                     String.format("%s/user/update_user_info/**", apiPrefix)).hasRole(Role.USER)
