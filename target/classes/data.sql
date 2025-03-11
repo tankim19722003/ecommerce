@@ -319,7 +319,7 @@ INSERT INTO attributes (id, name) VALUES
 INSERT INTO shops
     (shop_name, description, created_at, updated_at, logo, village_id, specific_address, phone_number, cmnd, status, user_id, email)
 VALUES
-    ('Tech Store', 'A store specializing in tech gadgets', '2024-03-04', '2024-03-04', 'tech_store_logo.png', 1, '123 Tech Street', '0123456789', '123456789', 'PENDING', 5, 'techstore@example.com');
+    ('Tech Store', 'A store specializing in tech gadgets', '2024-03-04', '2024-03-04', 'tech_store_logo.png', 1, '123 Tech Street', '0123456789', '123456789', 'PENDING', 5, 'tankim1972@gmail.com');
 
 
 

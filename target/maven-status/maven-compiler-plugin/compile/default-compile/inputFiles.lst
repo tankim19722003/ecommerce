@@ -7,6 +7,7 @@ D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\mai
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\controllers\ProductAttributeValueController.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\controllers\ProductController.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\controllers\ProductImageController.java
+D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\controllers\ShopCodeController.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\controllers\ShopController.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\controllers\SubCategoryController.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\controllers\UserController.java
@@ -45,6 +46,7 @@ D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\mai
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\models\Shop.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\models\ShopAddress.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\models\ShopBanned.java
+D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\models\ShopCode.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\models\ShopRejection.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\models\Status.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\models\SubCategory.java
@@ -73,6 +75,7 @@ D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\mai
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\Repo\ShippingProviderRejectRepo.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\Repo\ShippingProviderRepo.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\Repo\ShopBannedRepo.java
+D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\Repo\ShopCodeRepo.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\Repo\ShopRejectionRepo.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\Repo\ShopRepo.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\Repo\SubCategoryRepo.java
@@ -108,11 +111,13 @@ D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\mai
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\services\Impl\AttributeServiceImpl.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\services\Impl\CategoryServiceImpl.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\services\Impl\CloudinaryService.java
+D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\services\Impl\EmailServiceImpl.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\services\Impl\JwtService.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\services\Impl\MyUserDetailService.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\services\Impl\ProductAttributeValueServiceImpl.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\services\Impl\ProductImageServiceImpl.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\services\Impl\ProductServiceImpl.java
+D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\services\Impl\ShopCodeServiceImpl.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\services\Impl\ShopServiceImpl.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\services\Impl\SubCategoryServiceImpl.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\services\Impl\UserServiceImpl.java
@@ -121,6 +126,7 @@ D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\mai
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\services\ProductAttributeValueService.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\services\ProductImageService.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\services\ProductService.java
+D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\services\ShopCodeService.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\services\ShopService.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\services\SubCategoryService.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\services\UserService.java

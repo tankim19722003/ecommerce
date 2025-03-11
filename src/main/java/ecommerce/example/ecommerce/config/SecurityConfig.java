@@ -158,6 +158,11 @@ public class SecurityConfig {
                             .requestMatchers(DELETE,
                                     String.format("%s/image/get_all_product_images/**", apiPrefix)).hasAnyRole(Role.USER, Role.SHOP, Role.ADMIN)
 
+
+//                            Shop code
+                            .requestMatchers(GET,
+                                    String.format("%s/shop_code/**", apiPrefix)).hasAnyRole(Role.USER, Role.SHOP, Role.ADMIN)
+
                             .anyRequest().authenticated();
 
                     }

@@ -73,6 +73,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepo.findUserByPhoneNumberOrAccount(userLoginDTO.getAccount()).orElseThrow(() ->
                 new RuntimeException("Failed to login"));
 
+        List<Role> roles = roleRepo.findAllByUserId(user.getId());
         // check valid password
         if (!encoder.matches(userLoginDTO.getPassword(), user.getPassword())) {
             throw new UsernameNotFoundException("Failed to login");
@@ -82,11 +83,18 @@ public class UserServiceImpl implements UserService {
                 .authenticate(new UsernamePasswordAuthenticationToken(user.getPhoneNumber(),
                         userLoginDTO.getPassword()));
 
-        if (authentication.isAuthenticated())
-            return UserLoginResponse.builder()
-                    .name("token")
-                    .token(jwtService.generateToken(user.getPhoneNumber()))
-                    .build();
+        if (authentication.isAuthenticated()) {
+            UserLoginResponse userLoginResponse = new UserLoginResponse();
+
+            userLoginResponse.setToken(jwtService.generateToken(user.getPhoneNumber()));
+
+            for (Role role : roles) {
+                userLoginResponse.addRole(role.getName());
+            }
+
+            return userLoginResponse;
+        }
+
 
         return null;
     }

@@ -47,6 +47,9 @@ public class User {
     @Column(name = "phone_number", nullable = false, unique = true)
     private String phoneNumber;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    private List<ShopCode> codes;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = {
             CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH
     })
