@@ -1,10 +1,12 @@
 package ecommerce.example.ecommerce.models;
 
+import ecommerce.example.ecommerce.responses.ProductImageResponse;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,7 +15,7 @@ import java.util.List;
 @Entity
 @Table(
         name = "products",
-        uniqueConstraints = @UniqueConstraint(columnNames = {"shop_id", "name", "category_id"})
+        uniqueConstraints = @UniqueConstraint(columnNames = {"shop_id", "name", "sub_category_id"})
 )
 @Data
 @NoArgsConstructor
@@ -44,7 +46,7 @@ public class Product {
     private Shop shop;
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinColumn(name = "category_id", nullable = false)
+    @JoinColumn(name = "sub_category_id", nullable = false)
     private SubCategory subCategory;
 
     @Column(name = "created_at",nullable = false, updatable = false)
@@ -99,4 +101,14 @@ public class Product {
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
+
+    public void deleteProductImages(Long id) {
+        for (ProductImage productImage : images) {
+            if (productImage.getId() == id) {
+                images.remove(productImage);
+                break;
+            }
+        }
+    }
+
 }

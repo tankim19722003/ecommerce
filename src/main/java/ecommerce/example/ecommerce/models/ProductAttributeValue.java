@@ -6,9 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.security.PrivateKey;
-import java.util.List;
-
 @Entity
 @Table(name = "product_attribute_value")
 @AllArgsConstructor
@@ -26,12 +23,12 @@ public class ProductAttributeValue {
     private String value;
 
     @ManyToOne
-    @JoinColumn(name = "product")
+    @JoinColumn(name = "product_id")
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "category_attribute_id")
-    private CategoryAttribute categoryAttribute;
+    @JoinColumn(name = "sub_category_attribute_id")
+    private SubCategoryAttribute categoryAttribute;
 
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "productAttributeValue")

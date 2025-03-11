@@ -1,5 +1,7 @@
 package ecommerce.example.ecommerce.models;
 
+import ecommerce.example.ecommerce.responses.ProductImageResponse;
+import ecommerce.example.ecommerce.responses.ProductImageResponseInList;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,11 +27,11 @@ public class ProductImage {
     @Column(name = "public_id", nullable = false)
     private String publicId;
 
-    @Column(name = "created_date", nullable = false, updatable = false)
-    private LocalDateTime createdDate;
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
-    @Column(name = "updated_date", nullable = false)
-    private LocalDateTime updatedDate;
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
@@ -38,4 +40,45 @@ public class ProductImage {
     @OneToOne
     @JoinColumn(name = "product_attribute_id")
     private ProductAttributeValue productAttributeValue;
+
+
+    public ProductImageResponse toProductImageResponse() {
+        ProductImageResponse productImageResponse = ProductImageResponse.builder()
+                .id(getId())
+                .imageUrl(getUrl())
+                .attributeId(getProductAttributeValue().getCategoryAttribute().getId())
+                .attributeName(getProductAttributeValue().getCategoryAttribute().getAttribute().getName())
+                .attributeValue(getProductAttributeValue().getValue())
+                .attributeValueId(getProductAttributeValue().getId())
+                .publicId(getPublicId())
+                .productId(getProduct().getId())
+                .build();
+        return productImageResponse;
+    }
+
+    public ProductImageResponseInList toProductImageResponseInList() {
+        ProductImageResponseInList productImageResponse = ProductImageResponseInList.builder()
+                .id(getId())
+                .imageUrl(getUrl())
+                .attributeId(getProductAttributeValue().getCategoryAttribute().getId())
+                .attributeName(getProductAttributeValue().getCategoryAttribute().getAttribute().getName())
+                .attributeValue(getProductAttributeValue().getValue())
+                .attributeValueId(getProductAttributeValue().getId())
+                .publicId(getPublicId())
+                .build();
+        return productImageResponse;
+    }
+
+    @PrePersist
+    public void prePersist() {
+
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
 }

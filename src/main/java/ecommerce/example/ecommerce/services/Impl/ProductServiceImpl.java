@@ -65,7 +65,7 @@ public class ProductServiceImpl implements ProductService {
 
         // handle saving attribute
         for (ProductAttributeValueDTO attributeValue : productCreatingDTO.getAttributes()) {
-            CategoryAttribute attribute = categoryAttributeRepo.findById(attributeValue.getId())
+            SubCategoryAttribute attribute = categoryAttributeRepo.findById(attributeValue.getId())
                     .orElseThrow(() -> new RuntimeException("Attribute does not found"));
 
             ProductAttributeValue productAttributeValue = ProductAttributeValue.builder()

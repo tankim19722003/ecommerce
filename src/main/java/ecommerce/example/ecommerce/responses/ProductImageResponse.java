@@ -24,11 +24,15 @@ public class ProductImageResponse {
     @JsonProperty("attribute_value_id")
     private Long attributeValueId;
 
+    @JsonProperty("attribute_id")
     private Long attributeId;
 
+    @JsonProperty("attribute_name")
     private String attributeName;
 
+    @JsonProperty("attribute_value")
     private String attributeValue;
 
-
+    @JsonProperty("product_id")
+    private long productId;
 }

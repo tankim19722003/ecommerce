@@ -68,12 +68,14 @@ ecommerce\example\ecommerce\services\Impl\MyUserDetailService.class
 ecommerce\example\ecommerce\services\ShopService.class
 ecommerce\example\ecommerce\models\Order.class
 ecommerce\example\ecommerce\Repo\RoleRepo.class
+ecommerce\example\ecommerce\responses\ProductImageResponseInList.class
 ecommerce\example\ecommerce\controllers\AttributeController.class
 ecommerce\example\ecommerce\controllers\UserController.class
 ecommerce\example\ecommerce\responses\UserAddressResponse.class
 ecommerce\example\ecommerce\Repo\VillageRepo.class
 ecommerce\example\ecommerce\models\Village$VillageBuilder.class
 ecommerce\example\ecommerce\responses\AttributeValueResponse.class
+ecommerce\example\ecommerce\responses\ProductImageListResponse$ProductImageListResponseBuilder.class
 ecommerce\example\ecommerce\services\Impl\ProductImageServiceImpl.class
 ecommerce\example\ecommerce\dtos\CategoryDTO.class
 ecommerce\example\ecommerce\dtos\ShopDTO$ShopDTOBuilder.class
@@ -95,7 +97,6 @@ ecommerce\example\ecommerce\models\Product.class
 ecommerce\example\ecommerce\Repo\ProductRepo.class
 ecommerce\example\ecommerce\services\Impl\ProductAttributeValueServiceImpl.class
 ecommerce\example\ecommerce\models\UserPrincipal.class
-ecommerce\example\ecommerce\models\CategoryAttribute$CategoryAttributeBuilder.class
 ecommerce\example\ecommerce\models\Village.class
 ecommerce\example\ecommerce\controllers\UserVillageController.class
 ecommerce\example\ecommerce\dtos\QuantityDTO.class
@@ -108,7 +109,6 @@ ecommerce\example\ecommerce\responses\DistrictResponse$DistrictResponseBuilder.c
 ecommerce\example\ecommerce\responses\CategoryResponse$CategoryResponseBuilder.class
 ecommerce\example\ecommerce\Repo\UserRepo.class
 ecommerce\example\ecommerce\config\ModelMapperConfig.class
-ecommerce\example\ecommerce\models\CategoryAttribute.class
 ecommerce\example\ecommerce\models\Province$ProvinceBuilder.class
 ecommerce\example\ecommerce\dtos\ProductCreatingDTO$ProductCreatingDTOBuilder.class
 ecommerce\example\ecommerce\models\ShopAddress.class
@@ -121,9 +121,11 @@ ecommerce\example\ecommerce\dtos\UserVillageDTO.class
 ecommerce\example\ecommerce\services\Impl\CategoryServiceImpl.class
 ecommerce\example\ecommerce\Repo\UserBannedRepo.class
 ecommerce\example\ecommerce\responses\AddressResponse.class
+ecommerce\example\ecommerce\responses\ProductImageListResponse.class
 ecommerce\example\ecommerce\dtos\CategoryDTO$CategoryDTOBuilder.class
 ecommerce\example\ecommerce\models\ProductAttributeValue.class
 ecommerce\example\ecommerce\models\ProductImage$ProductImageBuilder.class
+ecommerce\example\ecommerce\responses\ProductImageResponseInList$ProductImageResponseInListBuilder.class
 ecommerce\example\ecommerce\responses\UserAddressListResponse$UserAddressListResponseBuilder.class
 ecommerce\example\ecommerce\responses\ProductImageResponse$ProductImageResponseBuilder.class
 ecommerce\example\ecommerce\config\CloudinaryConfig.class
@@ -132,6 +134,7 @@ ecommerce\example\ecommerce\models\District$DistrictBuilder.class
 ecommerce\example\ecommerce\responses\SubCategoryResponse$SubCategoryResponseBuilder.class
 ecommerce\example\ecommerce\responses\ProvinceResponse$ProvinceResponseBuilder.class
 ecommerce\example\ecommerce\services\Impl\ValidataDataService.class
+ecommerce\example\ecommerce\models\SubCategoryAttribute$SubCategoryAttributeBuilder.class
 ecommerce\example\ecommerce\models\OrderDetail.class
 ecommerce\example\ecommerce\responses\AttributeResponse.class
 ecommerce\example\ecommerce\responses\CategoryResponse.class
@@ -156,6 +159,7 @@ ecommerce\example\ecommerce\responses\UserUpdatedResponse$UserUpdatedResponseBui
 ecommerce\example\ecommerce\responses\ProductImageResponse.class
 ecommerce\example\ecommerce\Repo\ProductAttributeValueRepo.class
 ecommerce\example\ecommerce\responses\IUserResponse.class
+ecommerce\example\ecommerce\models\SubCategoryAttribute.class
 ecommerce\example\ecommerce\dtos\ProductAttributeValueDTO$ProductAttributeValueDTOBuilder.class
 ecommerce\example\ecommerce\models\Category.class
 ecommerce\example\ecommerce\Repo\DistrictRepo.class

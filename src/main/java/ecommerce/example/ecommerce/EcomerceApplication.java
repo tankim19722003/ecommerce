@@ -36,10 +36,15 @@ public class EcomerceApplication {
 			ShippingProviderRejectRepo shippingProviderRejectRepo,
 			ProductRejectionRepo productRejectionRepo,
 			ProductImageRepo imageRepo,
-			ProductDiscountRepo productDiscountRepo) {
+			ProductDiscountRepo productDiscountRepo,
+			ProductImageRepo productImageRepo) {
 		return runner -> {
-			findingUser(userRepo);
+//			deleteImage(productImageRepo);
 		};
+	}
+
+	private void deleteImage(ProductImageRepo productImageRepo) {
+		productImageRepo.deleteById(1L);
 	}
 
 	private void findingUser(UserRepo userRepo) {
@@ -135,8 +140,8 @@ public class EcomerceApplication {
 		ProductImage image = new ProductImage();
 		image.setId(100L);
 //		image.setImageName("product_image.jpg");
-		image.setCreatedDate(LocalDateTime.now()); // Set creation date
-		image.setUpdatedDate(LocalDateTime.now()); // Set update date
+//		image.setCreatedDate(LocalDateTime.now()); // Set creation date
+//		image.setUpdatedDate(LocalDateTime.now()); // Set update date
 		image.setProduct(product);
 
 		System.out.println("Saving images...");

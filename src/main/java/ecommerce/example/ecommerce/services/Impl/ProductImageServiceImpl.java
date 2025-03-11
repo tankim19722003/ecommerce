@@ -6,10 +6,13 @@ import ecommerce.example.ecommerce.Repo.ProductRepo;
 import ecommerce.example.ecommerce.models.Product;
 import ecommerce.example.ecommerce.models.ProductAttributeValue;
 import ecommerce.example.ecommerce.models.ProductImage;
+import ecommerce.example.ecommerce.responses.ProductImageListResponse;
 import ecommerce.example.ecommerce.responses.ProductImageResponse;
+import ecommerce.example.ecommerce.responses.ProductImageResponseInList;
 import ecommerce.example.ecommerce.services.ProductImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -32,6 +35,7 @@ public class ProductImageServiceImpl implements ProductImageService {
     private ProductAttributeValueRepo productAttributeValueRepo;
 
     @Override
+    @Transactional
     public ProductImageResponse addImageToProduct(MultipartFile file, Long productId, long productAttributeValueId) throws IOException {
 
         Product product = productRepo.findById(productId).orElseThrow(
@@ -58,16 +62,13 @@ public class ProductImageServiceImpl implements ProductImageService {
                     .product(product)
                     .build();
 
-            productImageRepo.save(productImage);
+            try {
+                productImageRepo.save(productImage);
+            } catch (Exception e) {
+                throw new RuntimeException(e.getMessage());
+            }
 
-            ProductImageResponse productImageResponse = ProductImageResponse.builder()
-                    .id(productImage.getId())
-                    .imageUrl(productImage.getUrl())
-                    .attributeId(productAttributeValue.getCategoryAttribute().getId())
-                    .attributeName(productAttributeValue.getCategoryAttribute().getAttribute().getName())
-                    .attributeValue(productAttributeValue.getValue())
-                    .publicId(productImage.getPublicId())
-                    .build();
+            ProductImageResponse productImageResponse = productImage.toProductImageResponse();
 
             return productImageResponse;
 
@@ -87,16 +88,41 @@ public class ProductImageServiceImpl implements ProductImageService {
 
     @Override
     public ProductImageResponse findImageById(Long imageId) {
-        return null;
+        ProductImage productImage =  productImageRepo.findById(imageId).orElseThrow();
+        return productImage.toProductImageResponse();
     }
 
     @Override
-    public List<ProductImageResponse> findImageByProductId(Long ProductId) {
-        return List.of();
+    public ProductImageListResponse findImageByProductId(Long productId) {
+        List<ProductImage> productImages = productImageRepo.findByProductId(productId);
+
+        List<ProductImageResponseInList> productImageResponse = productImages
+                .stream()
+                .map(productImage -> productImage.toProductImageResponseInList()
+        ).toList();
+
+        return ProductImageListResponse.builder()
+                .productId(productId)
+                .productImageResponseInLists(productImageResponse)
+                .build();
     }
 
     @Override
-    public void deleteImage(Long imageId) {
+    @Transactional
+    public void deleteImage(Long imageId, String publicId) {
+
+        ProductImage productImageExisting = productImageRepo.findById(imageId).orElseThrow(
+                () -> new RuntimeException("Image does not found")
+        );
+
+        productImageExisting.getProductAttributeValue().setProductImage(null);
+        productImageExisting.getProduct().deleteProductImages(imageId);
+
+
+        productImageRepo.delete(productImageExisting);
+
+        String response = cloudinaryService.deleteImage(publicId);
+        System.out.println(response);
 
     }
 }

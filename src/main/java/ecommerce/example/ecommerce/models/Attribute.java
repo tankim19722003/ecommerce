@@ -25,6 +25,6 @@ public class Attribute {
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "attribute")
-    private List<CategoryAttribute> categoryAttribute;
+    private List<SubCategoryAttribute> categoryAttribute;
 
 }

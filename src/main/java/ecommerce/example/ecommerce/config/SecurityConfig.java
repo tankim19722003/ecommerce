@@ -147,7 +147,17 @@ public class SecurityConfig {
 
                             // image
                             .requestMatchers(POST,
-                                     String.format("%s/image", apiPrefix)).hasAnyRole(Role.SHOP)
+                                     String.format("%s/image/product_image/upload", apiPrefix)).hasRole(Role.SHOP)
+
+                            .requestMatchers(GET,
+                                    String.format("%s/image/**", apiPrefix)).hasAnyRole(Role.USER, Role.SHOP, Role.ADMIN)
+
+                            .requestMatchers(DELETE,
+                                    String.format("%s/image/**", apiPrefix)).hasAnyRole(Role.SHOP)
+
+                            .requestMatchers(DELETE,
+                                    String.format("%s/image/get_all_product_images/**", apiPrefix)).hasAnyRole(Role.USER, Role.SHOP, Role.ADMIN)
+
                             .anyRequest().authenticated();
 
                     }

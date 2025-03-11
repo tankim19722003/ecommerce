@@ -24,4 +24,13 @@ public class CloudinaryService {
         return Map.of("publicId", publicId, "imageUrl", imageUrl);
     }
 
+    public String deleteImage(String publicId) {
+        try {
+            Map result = cloudinary.uploader().destroy(publicId, ObjectUtils.emptyMap());
+            return result.get("result").toString();
+        } catch (Exception e) {
+            return "Error: " + e.getMessage();
+        }
+    }
+
 }

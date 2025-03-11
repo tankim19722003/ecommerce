@@ -12,6 +12,7 @@ import ecommerce.example.ecommerce.responses.ShopResponse;
 import ecommerce.example.ecommerce.services.ShopService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -55,9 +56,14 @@ public class ShopServiceImpl implements ShopService {
         shop.setUser(user);
         shop.setVillage(village);
         shop.setCmnd(shopDTO.getCmnd());
-        Shop savedShop = shopRepo.save(shop);
 
-        return convertShopToShopResponse(savedShop);
+        try {
+            shopRepo.save(shop);
+        } catch (DataIntegrityViolationException e) {
+            throw new RuntimeException("Shop is existing");
+        }
+
+        return convertShopToShopResponse(shop);
 
     }
 
