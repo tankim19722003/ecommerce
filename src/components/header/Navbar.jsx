@@ -1,5 +1,6 @@
 import React from "react";
 import { useTheme } from "../../Provider/ThemeProvider";
+import { Link } from "react-router-dom";
 
 const Navbar = ({ navId, items }) => {
   const { isDarkMode, toggleTheme } = useTheme();
@@ -18,10 +19,10 @@ const Navbar = ({ navId, items }) => {
               isDarkMode ? "hover:bg-[#e1e1e1]" : "hover:bg-[#646464]"
             } transition-colors duration-200`}
           >
-            <a className="flex items-center gap-[5px]" href={item.href}>
+            <Link className="flex items-center gap-[5px]" to={item.href}>
               <i className="mb-[2px] text-[0.5rem] fa-solid fa-angle-right"></i>
               <span>{item.label}</span>
-            </a>
+            </Link>
           </li>
         ))}
       </ul>

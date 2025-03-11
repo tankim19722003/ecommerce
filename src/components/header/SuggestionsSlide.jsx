@@ -45,7 +45,7 @@ const SuggestionsSlide = () => {
       }   `}
     >
       <div className="w-[100%] flex justify-center  overflow-hidden ">
-        <div className="w-full flex gap-[20px] suggestions-wrapper animate-slide text-[0.9rem] cursor-pointer">
+        <div className="w-full flex gap-[20px] suggestions-wrapper animate-slide text-[0.8rem] cursor-pointer">
           {items.map((item, index) => (
             <span
               key={index}

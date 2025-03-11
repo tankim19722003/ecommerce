@@ -1,19 +1,15 @@
 import Banner from "../../../components/display/Banner";
 import ProductsSlide from "../../../components/display/ProductsSlide";
+import ScrollButton from "../../../components/features/ScrollButton";
 import Header from "../../../components/Header/Header";
 import HeaderTop from "../../../components/Header/HeaderTop";
 import SuggestionsSlide from "../../../components/header/SuggestionsSlide";
 import CardList from "../../../components/Products/CardList";
-import { useTheme } from "../../../Provider/ThemeProvider";
+import LayoutModeBackground from "../layout/LayoutModeBackground";
 
 const Home = () => {
-  const { isDarkMode } = useTheme();
   return (
-    <div
-      className={`flex flex-col justify-center   ${
-        isDarkMode ? "bg-background" : "bg-[#515151]"
-      }`}
-    >
+    <LayoutModeBackground>
       <HeaderTop />
       <Header />
       <SuggestionsSlide />
@@ -21,7 +17,8 @@ const Home = () => {
       <ProductsSlide />
       <CardList />
       <ProductsSlide />
-    </div>
+      <ScrollButton />
+    </LayoutModeBackground>
   );
 };
 

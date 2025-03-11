@@ -1,7 +1,6 @@
 import React from "react";
 
 const Rank = ({ score }) => {
-  console.log(score);
   let rank = "";
   let colorClass = "";
   let rankIcon = null;

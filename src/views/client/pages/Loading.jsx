@@ -1,8 +1,14 @@
 import React from "react";
+import { useTheme } from "../../../Provider/ThemeProvider";
 
 const Loading = () => {
+  const { isDarkMode } = useTheme();
   return (
-    <div className="fixed top-0 bottom-0 right-0 left-0 flex items-center justify-center">
+    <div
+      className={`fixed top-0 bottom-0 right-0 left-0 flex items-center justify-center z-[100] ${
+        isDarkMode ? "bg-white" : "bg-dark-200 text-white"
+      } `}
+    >
       <div className="flex flex-col items-center ">
         <div className="w-[100px] h-[100px] flex justify-center items-center">
           <div className="shapes-5"></div>

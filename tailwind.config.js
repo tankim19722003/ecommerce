@@ -1,3 +1,5 @@
+import { light } from "@cloudinary/url-gen/qualifiers/fontWeight";
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
@@ -19,6 +21,18 @@ export default {
           800: "#cccccc",
           900: "#e6e6e6",
           1000: "#ffffff",
+        },
+        light: {
+          100: "#ffffff",
+          200: "#e6e6e6",
+          300: "#cccccc",
+          400: "#b2b2b2",
+          500: "#9b9b9b",
+          600: "#747474",
+          700: "#494949",
+          800: "#353535",
+          900: "#2b2b2b",
+          1000: "#000000",
         },
         "border-dark": "#353535",
         "text-white": "#fffff",

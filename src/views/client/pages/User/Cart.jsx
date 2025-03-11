@@ -1,35 +1,29 @@
-import React, { useEffect } from "react";
-import HeaderTop from "../../../components/Header/HeaderTop";
-import Header from "../../../components/Header/Header";
-import { useTheme } from "../../../Provider/ThemeProvider";
-import sanpham1 from "../../../assets/images/sanpham1.webp";
-import sanpham2 from "../../../assets/images/sanpham2.webp";
-import sanpham3 from "../../../assets/images/sanpham3.jpg";
-import InfoShop from "../../../components/Products/InfoShop";
-import CoupouList from "../../../components/features/CoupouList";
-import QuanlityProduct from "../../../components/header/QuanlityProduct";
-import SuggestionsSlide from "../../../components/header/SuggestionsSlide";
-import AttributeProduct from "../../../components/features/AttributeProduct";
-import PathAccess from "../../../components/features/PathAccess";
-import { useAuth } from "../../../Provider/AuthProvider";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import HeaderTop from "../../../../components/Header/HeaderTop";
+import Header from "../../../../components/Header/Header";
+import { useTheme } from "../../../../Provider/ThemeProvider";
+import sanpham1 from "../../../../assets/images/sanpham1.webp";
+import sanpham2 from "../../../../assets/images/sanpham2.webp";
+import sanpham3 from "../../../../assets/images/sanpham3.jpg";
+import InfoShop from "../../../../components/Products/InfoShop";
+import CoupouList from "../../../../components/features/CoupouList";
+import QuanlityProduct from "../../../../components/header/QuanlityProduct";
+import SuggestionsSlide from "../../../../components/header/SuggestionsSlide";
+import AttributeProduct from "../../../../components/features/AttributeProduct";
+import PathAccess from "../../../../components/features/PathAccess";
+import LayoutModeBackground from "../../layout/LayoutModeBackground";
+import { useAuth } from "../../../../contexts/User/AuthContext";
 
 const Cart = () => {
-  const { isDarkMode, toggleTheme } = useTheme();
-  const { isAuthenticated } = useAuth();
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/");
-    }
-  }, [isAuthenticated, navigate]);
+  const { isDarkMode } = useTheme();
+  const {
+    authState: { user },
+  } = useAuth();
+
+  console.log(user);
 
   return (
-    <div
-      className={`flex flex-col justify-center   ${
-        isDarkMode ? "bg-background" : "bg-[#515151]"
-      }`}
-    >
+    <LayoutModeBackground>
       <HeaderTop />
       <Header />
       <SuggestionsSlide />
@@ -90,7 +84,6 @@ const Cart = () => {
                             const discountVoucher = item.coupous.find(
                               (coupou) => coupou.tag === "discount"
                             );
-                            console.log(discountVoucher);
 
                             const discountedPrice = discountVoucher
                               ? item.price *
@@ -130,7 +123,6 @@ const Cart = () => {
                             const discountVoucher = item.coupous.find(
                               (coupou) => coupou.tag === "discount"
                             );
-                            console.log(discountVoucher);
 
                             const discountedPrice = discountVoucher
                               ? item.price *
@@ -170,7 +162,7 @@ const Cart = () => {
           </div>
         </div>
       </div>
-    </div>
+    </LayoutModeBackground>
   );
 };
 

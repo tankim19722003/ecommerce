@@ -1,4 +1,3 @@
-import React from "react";
 import { useTheme } from "../../Provider/ThemeProvider";
 
 const ModeLayoutButton = () => {
@@ -7,13 +6,21 @@ const ModeLayoutButton = () => {
   return (
     <div
       onClick={toggleTheme}
-      className="w-[28px] h-[28px] flex items-center justify-center border-[1px] border-[#767676]  rounded-full cursor-pointer transition-all duration-300"
+      className={`w-[42px] h-[22px] flex items-center  rounded-full p-1 cursor-pointer transition-all relative  ${
+        isDarkMode ? "bg-dark-400 text-white" : "bg-white text-dark-900"
+      } shadow-md transition-all duration-300 ease}`}
     >
-      {isDarkMode ? (
-        <i className="fa-solid fa-moon"></i>
-      ) : (
-        <i className="fa-solid fa-sun"></i>
-      )}
+      <div
+        className={`w-[18px] h-[18px] bg-white text-[0.6rem] dark:bg-black rounded-full flex items-center justify-center shadow-md absolute transition-transform duration-300 ${
+          isDarkMode ? "translate-x-[18px]" : "translate-x-0"
+        }`}
+      >
+        {isDarkMode ? (
+          <i className="fa-solid fa-sun text-yellow-500"></i>
+        ) : (
+          <i className="fa-solid fa-moon text-white"></i>
+        )}
+      </div>
     </div>
   );
 };

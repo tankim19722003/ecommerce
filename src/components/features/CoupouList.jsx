@@ -6,7 +6,7 @@ const CoupouList = ({ coupouList }) => {
       {coupouList.map((coupou) => (
         <div
           key={coupou.id}
-          className=" flex items-center justify-center z-20 bg-[#d81c1c] text-white font-nunito font-bold text-[0.8rem] whitespace-nowrap py-[2px] px-[8px] rounded-[5px] "
+          className=" flex items-center justify-center z-20 bg-[#d81c1c] text-white font-nunito font-bold text-[0.7rem] whitespace-nowrap py-[2px] px-[8px] rounded-[5px] "
         >
           <span>
             {coupou.nameVoucher} -{coupou.treatment}%

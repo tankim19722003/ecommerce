@@ -7,6 +7,7 @@ import banner3 from "../../assets/images/banner2.png";
 import banner4 from "../../assets/images/banner4.png";
 import banner5 from "../../assets/images/banner5.png";
 import { useTheme } from "../../Provider/ThemeProvider";
+import { useAuth } from "../../contexts/User/AuthContext";
 
 const Banner = () => {
   const { isDarkMode, toggleTheme } = useTheme();
@@ -17,6 +18,10 @@ const Banner = () => {
     { id: 4, src: banner4 },
     { id: 5, src: banner5 },
   ];
+
+  const {
+    authState: { user },
+  } = useAuth();
 
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -267,7 +272,6 @@ const Banner = () => {
                           ? " bg-white  border-[1px]"
                           : "bg-dark-300 border-[#494949]"
                       } text-[1rem] rounded-[5px]`}
-                      z
                     >
                       <i className="leading-[25px] fa-solid fa-money-check-dollar"></i>
                     </div>
@@ -280,89 +284,101 @@ const Banner = () => {
               </div>
             </div>
           </div>
-          <div className="pc:w-4/12 tl:w-4/12 mb:w-full min-h-full  pl-[10px] flex flex-col items-center  rounded-[5px]">
-            <div
-              className={`w-full pt-[10px] pb-[20px] sticky  top-0 ${
-                isDarkMode
-                  ? " bg-white shadow-sm"
-                  : "bg-dark-200 border-[1px] border-border-dark"
-              }  rounded-[5px] p-[10px]`}
-            >
-              {" "}
-              <div className="w-full flex items-center gap-[10px] ">
-                <div
-                  className={`w-full font-nunito flex flex-col justify-center items-center  ${
-                    isDarkMode ? "text-black" : "text-white"
-                  }`}
-                >
-                  <h1 className="text-[1.2rem] font-bold">Hãy đăng nhập</h1>
-                  <span className=" text-[1rem] font-light ">
-                    Để sử dụng nhiều dịch vụ hơn
-                  </span>
-                </div>
-              </div>
-              <div className="w-full flex items-center justify-between gap-[10px] py-[20px]">
-                <Link
-                  to="/login"
-                  className={`w-full px-[10px] py-[6px]  rounded-[5px] bg-primary text-white`}
-                >
-                  {" "}
-                  <div className="font-nunito flex items-center justify-center gap-[10px] ">
-                    <span className="pc:text-[1.1rem] mb:text-[1rem] font-bold ">
-                      Đăng nhập ngay
-                    </span>
-                    <i className="pc:text-[1.4rem] mb:text-[1rem] fa-solid fa-right-to-bracket"></i>
-                  </div>{" "}
-                </Link>
-              </div>
+          {user ? (
+            <div className="pc:w-4/12 tl:w-4/12 mb:w-full min-h-full  pl-[10px] flex flex-col items-center  rounded-[5px]">
               <div
-                className={`w-full flex items-center gap-[10px] mt-[10px] ${
-                  isDarkMode ? "text-black" : " text-white"
-                } `}
+                className={`w-full pt-[10px] pb-[20px] sticky  top-0 ${
+                  isDarkMode
+                    ? " bg-white shadow-sm"
+                    : "bg-dark-200 border-[1px] border-border-dark"
+                }  rounded-[5px] p-[10px]`}
+              ></div>
+            </div>
+          ) : (
+            <div className="pc:w-4/12 tl:w-4/12 mb:w-full min-h-full  pl-[10px] flex flex-col items-center  rounded-[5px]">
+              <div
+                className={`w-full pt-[10px] pb-[20px] sticky  top-0 ${
+                  isDarkMode
+                    ? " bg-white shadow-sm"
+                    : "bg-dark-200 border-[1px] border-border-dark"
+                }  rounded-[5px] p-[10px]`}
               >
-                <div
-                  className={`relative w-3/12 flex items-center justify-center p-[10px] ${
-                    isDarkMode ? "border-[1px]" : "bg-[#383838]"
-                  }  rounded-[5px] group cursor-pointer`}
-                >
-                  <i className="fa-solid fa-cart-shopping"></i>
-                  <div className="absolute group-hover:flex hidden top-[110%] left-1/2 transform -translate-x-1/2 bg-[#ccc] whitespace-nowrap px-[10px] py-[5px] rounded-[5px] text-[#fff] ">
-                    Giỏ hàng
+                {" "}
+                <div className="w-full flex items-center gap-[10px] ">
+                  <div
+                    className={`w-full font-nunito flex flex-col justify-center items-center  ${
+                      isDarkMode ? "text-black" : "text-white"
+                    }`}
+                  >
+                    <h1 className="text-[1.2rem] font-bold">Hãy đăng nhập</h1>
+                    <span className=" text-[1rem] font-light ">
+                      Để sử dụng nhiều dịch vụ hơn
+                    </span>
                   </div>
                 </div>
-                <div
-                  className={`relative w-3/12 flex items-center justify-center p-[10px] ${
-                    isDarkMode ? "border-[1px]" : "bg-[#383838]"
-                  }  rounded-[5px] group cursor-pointer`}
-                >
-                  <i className="fa-solid fa-star"></i>
-                  <div className="absolute group-hover:flex hidden top-[110%] left-1/2 transform -translate-x-1/2 bg-[#ccc] whitespace-nowrap px-[10px] py-[5px] rounded-[5px] text-[#fff]">
-                    Yêu thích
-                  </div>
+                <div className="w-full flex items-center justify-between gap-[10px] py-[20px]">
+                  <Link
+                    to="/login"
+                    className={`w-full px-[10px] py-[6px]  rounded-[5px] bg-primary text-white`}
+                  >
+                    {" "}
+                    <div className="font-nunito flex items-center justify-center gap-[10px] ">
+                      <span className="pc:text-[1.1rem] mb:text-[1rem] font-bold ">
+                        Đăng nhập ngay
+                      </span>
+                      <i className="pc:text-[1.4rem] mb:text-[1rem] fa-solid fa-right-to-bracket"></i>
+                    </div>{" "}
+                  </Link>
                 </div>
                 <div
-                  className={`relative w-3/12 flex items-center justify-center p-[10px] ${
-                    isDarkMode ? "border-[1px]" : "bg-[#383838]"
-                  }  rounded-[5px] group cursor-pointer`}
+                  className={`w-full flex items-center gap-[10px] mt-[10px] ${
+                    isDarkMode ? "text-black" : " text-white"
+                  } `}
                 >
-                  <i className="fa-solid fa-shop"></i>
-                  <div className="absolute group-hover:flex hidden top-[110%] left-1/2 transform -translate-x-1/2 bg-[#ccc] whitespace-nowrap px-[10px] py-[5px] rounded-[5px] text-[#fff]">
-                    Cửa hàng
+                  <div
+                    className={`relative w-3/12 flex items-center justify-center p-[10px] ${
+                      isDarkMode ? "border-[1px]" : "bg-[#383838]"
+                    }  rounded-[5px] group cursor-pointer`}
+                  >
+                    <i className="fa-solid fa-cart-shopping"></i>
+                    <div className="absolute group-hover:flex hidden top-[110%] left-1/2 transform -translate-x-1/2 bg-[#ccc] whitespace-nowrap px-[10px] py-[5px] rounded-[5px] text-[#fff] ">
+                      Giỏ hàng
+                    </div>
                   </div>
-                </div>
-                <div
-                  className={`relative w-3/12 flex items-center justify-center p-[10px] ${
-                    isDarkMode ? "border-[1px]" : "bg-[#383838]"
-                  }  rounded-[5px] group cursor-pointer`}
-                >
-                  <i className="fa-solid fa-clipboard"></i>
-                  <div className="absolute group-hover:flex hidden top-[110%] left-1/2 transform -translate-x-1/2 bg-[#ccc] whitespace-nowrap px-[10px] py-[5px] rounded-[5px] text-[#fff]">
-                    Lịch sử mua
+                  <div
+                    className={`relative w-3/12 flex items-center justify-center p-[10px] ${
+                      isDarkMode ? "border-[1px]" : "bg-[#383838]"
+                    }  rounded-[5px] group cursor-pointer`}
+                  >
+                    <i className="fa-solid fa-star"></i>
+                    <div className="absolute group-hover:flex hidden top-[110%] left-1/2 transform -translate-x-1/2 bg-[#ccc] whitespace-nowrap px-[10px] py-[5px] rounded-[5px] text-[#fff]">
+                      Yêu thích
+                    </div>
+                  </div>
+                  <div
+                    className={`relative w-3/12 flex items-center justify-center p-[10px] ${
+                      isDarkMode ? "border-[1px]" : "bg-[#383838]"
+                    }  rounded-[5px] group cursor-pointer`}
+                  >
+                    <i className="fa-solid fa-shop"></i>
+                    <div className="absolute group-hover:flex hidden top-[110%] left-1/2 transform -translate-x-1/2 bg-[#ccc] whitespace-nowrap px-[10px] py-[5px] rounded-[5px] text-[#fff]">
+                      Cửa hàng
+                    </div>
+                  </div>
+                  <div
+                    className={`relative w-3/12 flex items-center justify-center p-[10px] ${
+                      isDarkMode ? "border-[1px]" : "bg-[#383838]"
+                    }  rounded-[5px] group cursor-pointer`}
+                  >
+                    <i className="fa-solid fa-clipboard"></i>
+                    <div className="absolute group-hover:flex hidden top-[110%] left-1/2 transform -translate-x-1/2 bg-[#ccc] whitespace-nowrap px-[10px] py-[5px] rounded-[5px] text-[#fff]">
+                      Lịch sử mua
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

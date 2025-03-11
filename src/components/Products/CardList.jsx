@@ -35,7 +35,7 @@ const CardList = () => {
               Gợi ý sản phẩm dành cho bạn
             </span>
           </div>
-          <div className="flex-1 flex items-center gap-[10px] px-[10px] overflow-hidden mb:py-[10px] mb:px-[2px] overflow-hidden">
+          <div className="flex-1 flex items-center gap-[10px] px-[10px] overflow-hidden mb:py-[10px] mb:px-[2px] ">
             <div
               className={`active  border-[1px] border-[#ccc] rounded-full cursor-pointer px-[10px] py-[5px] font-nunito font-semibold text-[0.9rem] ${
                 isDarkMode

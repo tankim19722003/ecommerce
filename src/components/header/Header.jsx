@@ -6,6 +6,7 @@ import CartButton from "./CartButton";
 import SearchModal from "../Searchs/SearchModal";
 import { useTheme } from "../../Provider/ThemeProvider";
 import { Link } from "react-router-dom";
+
 const Header = () => {
   const { isDarkMode, toggleTheme } = useTheme();
   const [searchModal, setSearchModal] = useState(false);
@@ -27,15 +28,20 @@ const Header = () => {
       }`}
     >
       <div className="pc:w-[90%] tl:w-full mb:w-full h-[90px] flex items-center gap-[20px] justify-between tl:px-[10px] mb:px-[10px]">
-        <Link to="/" className=" flex items-center gap-[5px]" href="/">
+        <Link
+          to="/"
+          className=" flex items-center gap-[5px] mb:hidden"
+          href="/"
+        >
           <img className="w-[40px] object-contain" src={logo} alt="" />
           <div className="font-jersey15 font-black text-[2rem] mt-[10px]">
             <span className="text-primary">SNAP</span>
             <span>BUY</span>
           </div>
         </Link>
+
         <Nav />
-        <div className="pc:w-6/12 tl:w-7/12 flex items-center justify-end  pc:gap-[20px] tl:gap-[10px] mb:gap-[10px]">
+        <div className="pc:w-6/12 tl:w-7/12 mb:w-full  flex items-center justify-end  pc:gap-[20px] tl:gap-[10px] mb:gap-[10px]">
           <Search
             handleChangeStatusSearchModal={handleChangeStatusSearchModal}
           />
