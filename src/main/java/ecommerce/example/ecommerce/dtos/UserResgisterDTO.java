@@ -12,7 +12,7 @@ public class UserResgisterDTO {
 
     @JsonProperty("phone_number")
     @NotBlank(message = "Phone number can't be epty")
-    private String phoneNumber;
+    private String account;
 
     @JsonProperty("password")
     @NotBlank(message = "Password can't be epty")

@@ -1,5 +1,6 @@
 package ecommerce.example.ecommerce.models;
 
+import ecommerce.example.ecommerce.responses.UserResponse;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -91,5 +92,17 @@ public class User {
         roles.add(role);
     }
 
+    public UserResponse toUserResponse() {
+        return UserResponse.builder()
+                .id(id)
+                .fullname(fullname)
+                .avatar(avatar)
+                .account(account)
+                .email(email)
+                .gender(gender)
+                .birthdate(birthdate)
+                .phoneNumber(phoneNumber)
+                .build();
+    }
 
 }

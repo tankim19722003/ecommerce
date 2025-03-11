@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -50,17 +51,32 @@ public class UserServiceImpl implements UserService {
 
         Role role = roleRepo.findByName("user").orElseThrow(() -> new RuntimeException("Role does not found"));
 
-//        check existing phoneNumber
-        Boolean isExistingPhoneNumber = userRepo.existsByPhoneNumber(userResgisterDTO.getPhoneNumber());
-        if (isExistingPhoneNumber) throw new RuntimeException("Phone number is existing!!");
+//        check is phone  number
+        boolean isPhoneNumber = isPhoneNumber(userResgisterDTO.getAccount());
 
-//        boolean isEmail
         User user = new User();
         user.setAvatar("user.png");
         user.setAccount("user" + System.currentTimeMillis());
         user.setPassword(encoder.encode(userResgisterDTO.getPassword()));
-        user.setPhoneNumber(userResgisterDTO.getPhoneNumber());
         user.addRole(role);
+
+        if (isPhoneNumber) {
+            //        check existing phoneNumber
+            Boolean isPhoneNumberExisting = userRepo.existsByPhoneNumber(userResgisterDTO.getAccount());
+            if (isPhoneNumberExisting) throw new RuntimeException("Phone number is existing!!");
+
+            user.setPhoneNumber(userResgisterDTO.getAccount());
+        } else {
+
+            //        check existing phoneNumber
+            Boolean isEmailExisting = userRepo.existsByEmail(userResgisterDTO.getAccount());
+            if (isEmailExisting) throw new RuntimeException("Email is existing!!");
+
+            user.setEmail(user.getAccount());
+        }
+
+
+//        boolean isEmail
 
         userRepo.save(user);
 
@@ -99,6 +115,15 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+
+    private boolean isPhoneNumber(String phoneNumber) {
+        // Regex for Vietnam phone numbers
+        String regex = "^(\\+84|0)(3[2-9]|5[2689]|7[06-9]|8[1-9]|9[0-9])[0-9]{7}$";
+
+        // Check if the phone number matches the regex
+        return Pattern.matches(regex, phoneNumber);
+    }
+
     @Override
     public UserResponse getUserInfo(String token) {
         String phoneNumber = jwtService.extractUserName(token);
@@ -106,7 +131,13 @@ public class UserServiceImpl implements UserService {
         User user = userRepo.findByPhoneNumber(phoneNumber).orElseThrow(() ->
                 new RuntimeException("User does not found"));
 
-        UserResponse userResponse = modelMapper.map(user, UserResponse.class);
+        List<Role> roles = roleRepo.findAllByUserId(user.getId());
+
+        UserResponse userResponse = user.toUserResponse();
+
+        for (Role role : roles) {
+            userResponse.addRole(role.getName());
+        }
 
         return userResponse;
     }

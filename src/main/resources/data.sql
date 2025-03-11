@@ -22,8 +22,9 @@ VALUES
 ((SELECT id FROM users WHERE account = 'emilydavis'), (SELECT id FROM roles WHERE name = 'user')),
 ((SELECT id FROM users WHERE account = 'tankim19723'), (SELECT id FROM roles WHERE name = 'user')),
 ((SELECT id FROM users WHERE account = 'admin'), (SELECT id FROM roles WHERE name = 'admin')),
-((SELECT id FROM users WHERE account = 'tankim19723'), (SELECT id FROM roles WHERE name = 'shop'));
-;
+((SELECT id FROM users WHERE account = 'tankim19723'), (SELECT id FROM roles WHERE name = 'shop')),
+((SELECT id FROM users WHERE account = 'admin'), (SELECT id FROM roles WHERE name = 'shop'));
+
 
 INSERT INTO provinces (id, name) VALUES
 (1, 'An Giang'),
