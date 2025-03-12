@@ -12,6 +12,7 @@ import ecommerce.example.ecommerce.responses.*;
 import ecommerce.example.ecommerce.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -53,6 +54,7 @@ public class UserServiceImpl implements UserService {
 
 //        check is phone  number
         boolean isPhoneNumber = isPhoneNumber(userResgisterDTO.getAccount());
+        boolean isEmail = isEmail(userResgisterDTO.getAccount());
 
         User user = new User();
         user.setAvatar("user.png");
@@ -66,17 +68,17 @@ public class UserServiceImpl implements UserService {
             if (isPhoneNumberExisting) throw new RuntimeException("Phone number is existing!!");
 
             user.setPhoneNumber(userResgisterDTO.getAccount());
-        } else {
+        } else if(isEmail) {
 
             //        check existing phoneNumber
             Boolean isEmailExisting = userRepo.existsByEmail(userResgisterDTO.getAccount());
             if (isEmailExisting) throw new RuntimeException("Email is existing!!");
 
-            user.setEmail(user.getAccount());
+            user.setEmail(userResgisterDTO.getAccount());
+        } else {
+            throw new RuntimeException("Invalid phone number or password!!");
         }
 
-
-//        boolean isEmail
 
         userRepo.save(user);
 
@@ -123,6 +125,15 @@ public class UserServiceImpl implements UserService {
         // Check if the phone number matches the regex
         return Pattern.matches(regex, phoneNumber);
     }
+
+    private boolean isEmail(String email) {
+
+        String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        // Check if the phone number matches the regex
+        return Pattern.matches(regex, email);
+
+    }
+
 
     @Override
     public UserResponse getUserInfo(String token) {

@@ -10,7 +10,7 @@ import lombok.*;
 @Builder
 public class UserResgisterDTO {
 
-    @JsonProperty("phone_number")
+    @JsonProperty("account")
     @NotBlank(message = "Phone number can't be epty")
     private String account;
 
