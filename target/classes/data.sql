@@ -318,9 +318,9 @@ INSERT INTO attributes (id, name) VALUES
 
 
 INSERT INTO shops
-    (shop_name, description, created_at, updated_at, logo, village_id, specific_address, phone_number, cmnd, status, user_id, email)
+    (shop_name, description, created_at, updated_at, logo, village_id, specific_address, phone_number, user_id, email)
 VALUES
-    ('Tech Store', 'A store specializing in tech gadgets', '2024-03-04', '2024-03-04', 'tech_store_logo.png', 1, '123 Tech Street', '0123456789', '123456789', 'PENDING', 5, 'tankim1972@gmail.com');
+    ('Tech Store', 'A store specializing in tech gadgets', '2024-03-04', '2024-03-04', 'tech_store_logo.png', 1, '123 Tech Street', '0123456789', 5, 'tankim1972@gmail.com');
 
 
 
@@ -442,3 +442,13 @@ INSERT INTO product_attribute_value (id, product_id, sub_category_attribute_id, 
 (28, 6, 3, 'LED Display'),
 (29, 6, 4, 'Samsung'),
 (30, 6, 5, '15kg');
+
+INSERT INTO code_purposes (id, name, created_at, updated_at) VALUES
+(1, 'Email confirmation', '2025-03-13', '2025-03-13'),
+(2, 'User confirmation', '2025-03-13', '2025-03-13'),
+ (3, 'Discount Code', '2025-03-13', '2025-03-13');
+
+INSERT INTO user_codes (code, date_start, date_end, user_id, active, code_purpose_id)
+VALUES (123456, NOW(), NOW() + INTERVAL '2 minutes', 2, FALSE, 1);
+
+

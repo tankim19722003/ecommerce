@@ -159,10 +159,12 @@ public class SecurityConfig {
                                     String.format("%s/image/get_all_product_images/**", apiPrefix)).hasAnyRole(Role.USER, Role.SHOP, Role.ADMIN)
 
 
-//                            Shop code
+//                            User code
                             .requestMatchers(GET,
-                                    String.format("%s/shop_code/**", apiPrefix)).hasAnyRole(Role.USER, Role.SHOP, Role.ADMIN)
+                                    String.format("%s/user_code/send_code/**", apiPrefix)).hasAnyRole(Role.USER)
 
+                            .requestMatchers(GET,
+                                    String.format("%s/user_code/confirm_code/**", apiPrefix)).hasAnyRole(Role.USER)
                             .anyRequest().authenticated();
 
                     }

@@ -349,7 +349,7 @@ public class EcomerceApplication {
 		shop.setLogo("tech_haven_logo.png");
 //		shop.setAddress("123 Main Street, New York, NY");
 		shop.setPhoneNumber("+1 123-456-7890");
-		shop.setStatus("Active");
+//		shop.setStatus("Active");
 		shop.setUser(user);
 		System.out.println("Saving shop...");
 		shopRepo.save(shop);

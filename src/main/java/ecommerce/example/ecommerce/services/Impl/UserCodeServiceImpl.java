@@ -1,68 +1,96 @@
 package ecommerce.example.ecommerce.services.Impl;
 
+import ecommerce.example.ecommerce.Repo.CodePurposeRepo;
 import ecommerce.example.ecommerce.Repo.UserCodeRepo;
-import ecommerce.example.ecommerce.Repo.ShopRepo;
 import ecommerce.example.ecommerce.Repo.UserRepo;
-import ecommerce.example.ecommerce.models.Shop;
-import ecommerce.example.ecommerce.models.UserCode;
+import ecommerce.example.ecommerce.dtos.UserCodeDTO;
+import ecommerce.example.ecommerce.models.CodePurpose;
 import ecommerce.example.ecommerce.models.User;
-import ecommerce.example.ecommerce.services.ShopCodeService;
+import ecommerce.example.ecommerce.models.UserCode;
+import ecommerce.example.ecommerce.services.UserCodeService;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Random;
 
 @Service
-public class ShopCodeServiceImpl implements ShopCodeService {
+public class UserCodeServiceImpl implements UserCodeService {
 
     @Autowired
     private EmailServiceImpl emailService;
 
     @Autowired
-    private ShopRepo shopRepo;
-
-    @Autowired
-    private UserCodeRepo shopCodeRepo;
+    private UserCodeRepo userCodeRepo;
 
     @Autowired
     private UserRepo userRepo;
 
+    @Autowired
+    private CodePurposeRepo codePurposeRepo;
+
     @Override
     @Transactional
-    public void createAndSendCode(Long userId) throws MessagingException {
-//        String to = "tankim1972@gmail.com";
+    public void createAndSendCode(Long userId, String email) throws MessagingException {
         String subject = "Shop confirmation";
 
         User user = userRepo.findById(userId).orElseThrow(
                 () ->  new RuntimeException("User does not found")
         );
 
-        Shop shop = shopRepo.findByUserId(userId).orElseThrow(
-                () -> new RuntimeException("Shop does not found")
+        CodePurpose codePurpose = codePurposeRepo.findById(1L).orElseThrow(
+                () -> new RuntimeException("Code purpose does not found")
         );
 
-//        if (shop.getStatus().equals(Status.COMPLETED.getStatus())) {
-//            throw new RuntimeException("Shop is activated!");
-//        }
 
         int code = generateCode();
-        String html = generateHTMLMailContent(code, shop.getShopName());
+        String html = generateHTMLMailContent(code, user.getAccount());
 
         UserCode shopCode = UserCode.builder()
                 .code(code)
                 .user(user)
+                .codePurpose(codePurpose)
                 .build();
 
-        shopCodeRepo.save(shopCode);
+        userCodeRepo.save(shopCode);
 
-        emailService.sendEmail(shop.getEmail(), subject, html );
+        emailService.sendEmail(email, subject, html );
     }
 
     @Override
-    public String getCodeByShopId(Long shopId) {
-        return "";
+    public void confirmCode(
+            @RequestBody UserCodeDTO userCodeDTO
+    ) {
+
+        boolean isUserExisting = userRepo.existsById(userCodeDTO.getUserId());
+
+        if (!isUserExisting) {
+            throw new RuntimeException("User does not found");
+        }
+
+        UserCode userCode = userCodeRepo
+                .findLatestByCodePurposeIdAndUserId(1L, userCodeDTO.getUserId())
+                .orElseThrow(() -> new RuntimeException("Code does not found"));
+
+        if (userCode.getActive()) {
+            throw new RuntimeException("Code is used");
+        }
+        if (userCode.getUser().getId() != userCodeDTO.getUserId()) {
+            throw new RuntimeException("Invalid code!");
+        }
+
+        if (userCode.getDateEnd().isBefore(LocalDateTime.now())) {
+            throw new RuntimeException("Invalid code");
+        }
+
+        userCode.setActive(true);
+
+        userCodeRepo.save(userCode);
+
     }
 
     private int generateCode() {
@@ -110,3 +138,5 @@ public class ShopCodeServiceImpl implements ShopCodeService {
         return html;
     }
 }
+
+

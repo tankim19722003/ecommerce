@@ -14,6 +14,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -56,11 +57,14 @@ public class Shop {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "cmnd")
-    private String cmnd;
+    @Column(name = "cmnd_url")
+    private String cmndUrl;
 
-    @Pattern(regexp = "PENDING|REJECT|COMPLETION", message = "Invalid status value")
-    private String status;
+    @Column(name = "cmnd_public_id")
+    private String cmndPublicId;
+
+//    @Pattern(regexp = "PENDING|REJECT|COMPLETION", message = "Invalid status value")
+//    private String status;
 
     @OneToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
     @JoinColumn(name = "user_id")
@@ -86,13 +90,17 @@ public class Shop {
 
     @PrePersist
     public void setDefaultStatus() {
-        if (this.status == null) {
-            this.status = "PENDING";
-        }
-
         if (this.logo == null) {
             this.logo = "shop.png";
         }
+
+        this.createdAt = LocalDate.now();
+        this.updatedAt = LocalDate.now();
+    }
+
+    @PreUpdate
+    public void setUpdate() {
+        this.updatedAt = LocalDate.now();
     }
 
 

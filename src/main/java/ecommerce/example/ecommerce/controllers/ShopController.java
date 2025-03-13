@@ -7,6 +7,7 @@ import ecommerce.example.ecommerce.responses.ShopResponse;
 import ecommerce.example.ecommerce.services.ShopService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -22,9 +23,9 @@ public class ShopController {
     private ShopService shopService;
 
 
-    @PostMapping("/register/{userId}")
+    @PostMapping(value = "/register/{userId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> register(
-            @Valid @RequestBody ShopDTO shopDTO,
+            @Valid @ModelAttribute ShopDTO shopDTO,
             @PathVariable("userId") long userId,
             BindingResult result
     ) {
@@ -95,7 +96,8 @@ public class ShopController {
 
     @GetMapping("/get_all_pending_shops")
     public List<ShopResponse> getAllPendingShops() {
-        Status status = Status.PENDING;
-        return shopService.getShopsStatus(status.getStatus());
+//        Status status = Status.PENDING;
+//        return shopService.getShopsStatus(status.getStatus());
+        return null;
     }
 }

@@ -41,8 +41,6 @@ public class ShopResponse {
     @JsonProperty("phone_number")
     private String phoneNumber;
 
-    @JsonProperty("status")
-    private String status;
 
     @JsonProperty("user_id")
     private long userId;
