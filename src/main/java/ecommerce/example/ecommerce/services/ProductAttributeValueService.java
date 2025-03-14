@@ -7,4 +7,5 @@ import java.util.List;
 public interface ProductAttributeValueService {
 
     List<AttributeValueResponse> getAllProductAttributeValuesByProductId(Long productId);
+
 }

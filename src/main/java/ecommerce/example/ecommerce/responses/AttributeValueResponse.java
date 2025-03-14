@@ -24,4 +24,12 @@ public class AttributeValueResponse {
     @JsonProperty("value")
     private String value;
 
+    @JsonProperty("image_id")
+    private Long imageId;
+
+    @JsonProperty("public_id")
+    private String publicId ;
+
+    @JsonProperty("image_url")
+    private String imageUrl;
 }

@@ -12,12 +12,13 @@ import lombok.NoArgsConstructor;
 @Builder
 public class QuantityDTO {
 
-    @JsonProperty("first_product_attribute_value_id")
+    @JsonProperty("first_attribute_value_id")
     private long firstProductAttributeValueId;
 
-    @JsonProperty("second_product_attribute_value_id")
+    @JsonProperty("second_attribute_value_id")
     private long secondProductAttributeValueId;
 
     @JsonProperty("quantity")
-    private int quantity;
+    private Long quantity;
+
 }

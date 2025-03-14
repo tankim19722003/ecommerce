@@ -1,5 +1,6 @@
 package ecommerce.example.ecommerce.models;
 
+import ecommerce.example.ecommerce.responses.AttributeValueResponse;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,4 +34,5 @@ public class ProductAttributeValue {
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "productAttributeValue")
     private ProductImage productImage;
+
 }
