@@ -60,6 +60,7 @@ public class QuantityServiceImpl implements QuantityService {
                         .product(product)
                         .firstProductAttributeValue(firstProductAttributeValue)
                         .secondProductAttributeValue(secondProductAttributeValue)
+                        .quantity(quantityDTO.getQuantity())
                         .build();
                 quantityRepo.save(quantity);
             }catch (DataIntegrityViolationException e) {
@@ -72,18 +73,21 @@ public class QuantityServiceImpl implements QuantityService {
 
     }
 
-//    @Override
-//    public List<QuantityResponse> getAllAttributeValueById(Long productId) {
-//
-//        List<Quantity> quantities = quantityRepo.findByProductId(productId);
-//
-//        quantities.stream().map(quantity -> {
-//            AttributeValueResponse attributeValueResponse = attr
-//            QuantityResponse quantityResponse = QuantityResponse.builder()
-//                    .id(quantity.getId())
-//                    .firstAttributeValue()
-//                    .
-//                    .build();
-//        })
-//    }
+    @Override
+    public List<QuantityResponse> getAllAttributeQuantityById(Long productId) {
+
+        List<Quantity> quantities = quantityRepo.findAllByProductId(productId);
+
+        return quantities.stream().map(quantity -> {
+            AttributeValueResponse firstAttributeValueResponse = quantity.getFirstProductAttributeValue().toProductAttributeResponse();
+            AttributeValueResponse secondAttributeValueResponse = quantity.getSecondProductAttributeValue().toProductAttributeResponse();
+            return QuantityResponse.builder()
+                    .id(quantity.getId())
+                    .firstAttributeValue(firstAttributeValueResponse)
+                    .secondAttributeValue(secondAttributeValueResponse)
+                    .quantity(quantity.getQuantity())
+                    .build();
+        }).toList();
+
+    }
 }

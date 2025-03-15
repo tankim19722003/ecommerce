@@ -4,15 +4,15 @@ VALUES
 ('user'),
 ('shop');
 
-INSERT INTO users (fullname, account, password, email, gender, birth_date, avatar, phone_number)
+INSERT INTO users (fullname, account, password, email, gender, birth_date, phone_number)
 VALUES
-('John Doe', 'johndoe', 'hashed_password_1', 'johndoe@example.com', TRUE, '1990-05-15', 'avatar1.png', '0123456789'),
-('Alice Smith', 'alicesmith', 'hashed_password_2', 'alicesmith@example.com', FALSE, '1995-08-22', 'avatar2.png', '0987654321'),
-('Bob Johnson', 'bobjohnson', 'hashed_password_3', 'bobjohnson@example.com', TRUE, '1988-11-10', 'avatar3.png', '0345678912'),
-('Emily Davis', 'emilydavis', 'hashed_password_4', 'emilydavis@example.com', FALSE, '1992-02-28', 'avatar4.png', '0765432109'),
-('Emily Davis', 'tankim19723', '$2a$10$J.CXFDd2CAMjyysovBHXcufdLnNAPxURM5si7phOYqNAgdR2vZbRW', 'tankim1972', FALSE, '1992-02-28', 'avatar4.png', '0548868986'),
-('Emily Davis', 'admin', '$2a$10$J.CXFDd2CAMjyysovBHXcufdLnNAPxURM5si7phOYqNAgdR2vZbRW', 'tanadmin123', FALSE, '1992-02-28', 'avatar4.png', '0548868987');;
-
+('John Doe', 'johndoe', 'hashed_password_1', 'johndoe@example.com', TRUE, '1990-05-15', '0123456789'),
+('Alice Smith', 'alicesmith', 'hashed_password_2', 'alicesmith@example.com', FALSE, '1995-08-22', '0987654321'),
+('Bob Johnson', 'bobjohnson', 'hashed_password_3', 'bobjohnson@example.com', TRUE, '1988-11-10', '0345678912'),
+('Emily Davis', 'emilydavis', 'hashed_password_4', 'emilydavis@example.com', FALSE, '1992-02-28', '0765432109'),
+('Emily Davis', 'tankim19723', '$2a$10$J.CXFDd2CAMjyysovBHXcufdLnNAPxURM5si7phOYqNAgdR2vZbRW', 'tankim1972', FALSE, '1992-02-28', '0548868986'),
+('Emily Davis', 'admin', '$2a$10$J.CXFDd2CAMjyysovBHXcufdLnNAPxURM5si7phOYqNAgdR2vZbRW', 'tanadmin123', FALSE, '1992-02-28', '0548868987'),
+('Emily Davis', 'tankim197233333', '$2a$10$J.CXFDd2CAMjyysovBHXcufdLnNAPxURM5si7phOYqNAgdR2vZbRW', 'tankim1972333333', FALSE, '1992-02-28', '0328869982');
 -- Assign roles to users
 INSERT INTO user_roles (user_id, role_id)
 VALUES
@@ -23,8 +23,8 @@ VALUES
 ((SELECT id FROM users WHERE account = 'tankim19723'), (SELECT id FROM roles WHERE name = 'user')),
 ((SELECT id FROM users WHERE account = 'admin'), (SELECT id FROM roles WHERE name = 'admin')),
 ((SELECT id FROM users WHERE account = 'tankim19723'), (SELECT id FROM roles WHERE name = 'shop')),
-((SELECT id FROM users WHERE account = 'admin'), (SELECT id FROM roles WHERE name = 'shop'));
-
+((SELECT id FROM users WHERE account = 'admin'), (SELECT id FROM roles WHERE name = 'shop')),
+((SELECT id FROM users WHERE account = 'tankim197233333'), (SELECT id FROM roles WHERE name = 'user'));
 
 INSERT INTO provinces (id, name) VALUES
 (1, 'An Giang'),

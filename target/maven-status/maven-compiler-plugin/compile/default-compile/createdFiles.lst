@@ -47,12 +47,14 @@ ecommerce\example\ecommerce\models\ShopRejection.class
 ecommerce\example\ecommerce\Repo\UserCodeRepo.class
 ecommerce\example\ecommerce\controllers\ProductController.class
 ecommerce\example\ecommerce\models\Product.class
+ecommerce\example\ecommerce\responses\ImageResponse$ImageResponseBuilder.class
 ecommerce\example\ecommerce\controllers\UserVillageController.class
 ecommerce\example\ecommerce\dtos\QuantityDTO.class
 ecommerce\example\ecommerce\responses\DistrictResponse$DistrictResponseBuilder.class
 ecommerce\example\ecommerce\dtos\ProductCreatingDTO$ProductCreatingDTOBuilder.class
 ecommerce\example\ecommerce\models\ShopAddress.class
 ecommerce\example\ecommerce\Repo\CategoryRepo.class
+ecommerce\example\ecommerce\responses\AttributeValueImageResponse.class
 ecommerce\example\ecommerce\services\Impl\CategoryServiceImpl.class
 ecommerce\example\ecommerce\responses\ProductImageListResponse.class
 ecommerce\example\ecommerce\models\ProductImage$ProductImageBuilder.class
@@ -68,9 +70,11 @@ ecommerce\example\ecommerce\models\SubCategoryAttribute$SubCategoryAttributeBuil
 ecommerce\example\ecommerce\models\OrderDetail.class
 ecommerce\example\ecommerce\responses\AttributeResponse.class
 ecommerce\example\ecommerce\responses\EResponse.class
+ecommerce\example\ecommerce\responses\ImageResponse.class
 ecommerce\example\ecommerce\responses\UserLoginResponse.class
 ecommerce\example\ecommerce\responses\UserVillageResponse.class
 ecommerce\example\ecommerce\models\UserVillage.class
+ecommerce\example\ecommerce\services\Impl\OwnerService.class
 ecommerce\example\ecommerce\models\Coupon.class
 ecommerce\example\ecommerce\Repo\ShopRejectionRepo.class
 ecommerce\example\ecommerce\responses\UserAddressListResponse.class

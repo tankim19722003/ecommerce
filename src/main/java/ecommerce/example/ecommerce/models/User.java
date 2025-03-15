@@ -41,8 +41,12 @@ public class User {
     @Column(name = "birth_date")
     private Date birthdate;
 
-    @Column(name = "avatar")
-    private String avatar;
+    @Column(name = "avatar_url")
+    private String avatarUrl;
+
+    @Column(name = "public_id")
+    private String publicId;
+
 
     @Column(name = "phone_number", unique = true)
     private String phoneNumber;
@@ -95,7 +99,8 @@ public class User {
         return UserResponse.builder()
                 .id(id)
                 .fullname(fullname)
-                .avatar(avatar)
+                .avatarUrl(avatarUrl)
+                .publicId(publicId)
                 .account(account)
                 .email(email)
                 .gender(gender)

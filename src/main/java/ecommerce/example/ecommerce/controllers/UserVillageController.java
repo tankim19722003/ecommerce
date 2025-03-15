@@ -2,8 +2,10 @@ package ecommerce.example.ecommerce.controllers;
 
 import ecommerce.example.ecommerce.dtos.UserVillageDTO;
 import ecommerce.example.ecommerce.responses.*;
+import ecommerce.example.ecommerce.services.Impl.OwnerService;
 import ecommerce.example.ecommerce.services.UserVillageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,11 +18,16 @@ public class UserVillageController {
     @Autowired
     private UserVillageService userVillageService;
 
+    @Autowired
+    private OwnerService ownerService;
+
     @PostMapping("/add_user_address")
     public ResponseEntity<?> addUserAddress (
             @RequestBody UserVillageDTO userVillageDTO
     ) {
         try {
+
+            ownerService.checkValidUser(userVillageDTO.getUserId());
 
             UserAddressResponse userAddressResponse = userVillageService
                     .addUserAddress(userVillageDTO);
@@ -43,6 +50,8 @@ public class UserVillageController {
             @PathVariable("addressId") long addressId
     ) {
         try {
+            ownerService.checkValidUser(userVillageDTO.getUserId());
+
             UserAddressResponse userAddressResponse =  userVillageService
                     .updateUserAddress(userVillageDTO, addressId);
 
@@ -61,12 +70,17 @@ public class UserVillageController {
     public ResponseEntity<?> getUserAllAddresses(
             @PathVariable("userId") long userId
     ) {
-
         try {
+            ownerService.checkValidUser(userId);
             UserAddressListResponse userAddressListResponse =  userVillageService.getAllUserAddresses(userId);
             return ResponseEntity.ok().body(userAddressListResponse);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(
+                    EResponse.builder()
+                            .name("ERROR")
+                            .message(e.getMessage())
+                            .build()
+            );
         }
 
     }
@@ -98,10 +112,22 @@ public class UserVillageController {
 
     }
 
-    @DeleteMapping("/{userAddressId}")
-    public void deleteUserAddress(
-        @PathVariable("userAddressId") long userAddressId
+    @DeleteMapping("")
+    public ResponseEntity<?> deleteUserAddress(
+        @RequestParam("userAddressId") long userAddressId,
+        @RequestParam("userId") long userId
     ) {
-        userVillageService.deleteUserAddress(userAddressId);
+        try {
+            ownerService.checkValidUser(userId);
+            userVillageService.deleteUserAddress(userAddressId);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(
+                    EResponse.builder()
+                            .name("ERROR")
+                            .message(e.getMessage())
+                            .build()
+            );
+        }
     }
 }

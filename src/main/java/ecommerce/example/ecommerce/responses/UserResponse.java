@@ -33,10 +33,15 @@ public class UserResponse implements IUserResponse{
     @JsonProperty("birth_date")
     private Date birthdate;
 
-    private String avatar;
+    @JsonProperty("avatar_url")
+    private String avatarUrl;
+
+    @JsonProperty("public_id")
+    private String publicId;
 
     @JsonProperty("phone_number")
     private String phoneNumber;
+
 
     private List<String> roles;
 

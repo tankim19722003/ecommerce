@@ -65,6 +65,9 @@ public class SecurityConfig {
                             .requestMatchers(PUT,
                                     String.format("%s/user/update_user_info/**", apiPrefix)).hasRole(Role.USER)
 
+                            .requestMatchers(POST,
+                                    String.format("%s/user/update_avatar/**", apiPrefix)).hasRole(Role.USER)
+
                             // for address
                             .requestMatchers(POST,
                                     String.format("%s/user_village/add_user_address", apiPrefix)).hasRole(Role.USER)
@@ -149,6 +152,8 @@ public class SecurityConfig {
                             .requestMatchers(POST,
                                     String.format("%s/quantity", apiPrefix)).hasAnyRole(Role.SHOP)
 
+                            .requestMatchers(GET,
+                                    String.format("%s/quantity/**", apiPrefix)).hasAnyRole(Role.USER, Role.SHOP, Role.ADMIN)
                             // image
                             .requestMatchers(POST,
                                      String.format("%s/image/product_image/upload", apiPrefix)).hasRole(Role.SHOP)

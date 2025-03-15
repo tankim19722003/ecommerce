@@ -1,5 +1,6 @@
 package ecommerce.example.ecommerce.models;
 
+import ecommerce.example.ecommerce.responses.AttributeValueImageResponse;
 import ecommerce.example.ecommerce.responses.AttributeValueResponse;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -32,7 +33,32 @@ public class ProductAttributeValue {
     private SubCategoryAttribute categoryAttribute;
 
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "productAttributeValue")
+    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL, mappedBy = "productAttributeValue")
     private ProductImage productImage;
+
+    public AttributeValueResponse toProductAttributeResponse() {
+
+        if (productImage != null) {
+            AttributeValueImageResponse attributeValueResponse = new AttributeValueImageResponse();
+            attributeValueResponse.setImageId(productImage.getId());
+            attributeValueResponse.setImageUrl(productImage.getUrl());
+            attributeValueResponse.setPublicId(productImage.getPublicId());
+            attributeValueResponse.setAttributeId(categoryAttribute.getAttribute().getId());
+            attributeValueResponse.setAttributeName(categoryAttribute.getAttribute().getName());
+            attributeValueResponse.setValue(value);
+            attributeValueResponse.setProductAttributeValueId(id);
+            return attributeValueResponse;
+        }
+        AttributeValueResponse attributeValueResponse = AttributeValueResponse.builder()
+                .attributeId(categoryAttribute.getAttribute().getId())
+                .attributeName(categoryAttribute.getAttribute().getName())
+                .value(value)
+                .productAttributeValueId(id)
+                .build();
+
+
+
+        return attributeValueResponse;
+    }
 
 }

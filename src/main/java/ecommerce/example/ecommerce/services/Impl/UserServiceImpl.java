@@ -20,9 +20,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 @Service
@@ -47,6 +50,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private CloudinaryService cloudinaryService;
+
     @Override
     public void createUser(UserResgisterDTO userResgisterDTO) {
 
@@ -57,7 +63,6 @@ public class UserServiceImpl implements UserService {
         boolean isEmail = isEmail(userResgisterDTO.getAccount());
 
         User user = new User();
-        user.setAvatar("user.png");
         user.setAccount("user" + System.currentTimeMillis());
         user.setPassword(encoder.encode(userResgisterDTO.getPassword()));
         user.addRole(role);
@@ -218,6 +223,28 @@ public class UserServiceImpl implements UserService {
             return modelMapper.map(userSaved, UserResponse.class);
         }
 
+    }
+
+    @Override
+    @Transactional
+    public ImageResponse updateAvatar(MultipartFile file, Long userId) throws IOException {
+
+        User user = userRepo.findById(userId).orElseThrow(
+                () ->  new RuntimeException("User does not found")
+        );
+
+        Map<String, String> image = cloudinaryService.uploadImage(file);
+
+        user.setAvatarUrl(image.get("imageUrl"));
+        user.setPublicId(image.get("publicId"));
+
+        userRepo.save(user);
+
+        return ImageResponse
+                .builder()
+                .avatarUrl(user.getAvatarUrl())
+                .publicId(user.getPublicId())
+                .build();
     }
 
 

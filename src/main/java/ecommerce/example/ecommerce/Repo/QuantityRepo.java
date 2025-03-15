@@ -10,5 +10,5 @@ import java.util.List;
 public interface QuantityRepo extends JpaRepository<Quantity, Long> {
 
     @Query("SELECT q FROM Quantity q WHERE q.product.id = :productId")
-    List<Quantity> findByProductId(@Param("productId") Long productId);
+    List<Quantity> findAllByProductId(@Param("productId") Long productId);
 }

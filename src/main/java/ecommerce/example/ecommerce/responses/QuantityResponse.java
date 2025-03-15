@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class QuantityResponse {
 
     @JsonProperty("id")
-    private int id;
+    private Long id;
 
     @JsonProperty("first_attribute_value")
     private AttributeValueResponse firstAttributeValue;

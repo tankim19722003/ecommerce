@@ -19,6 +19,6 @@ public class QuantityDTO {
     private long secondProductAttributeValueId;
 
     @JsonProperty("quantity")
-    private Long quantity;
+    private int quantity;
 
 }

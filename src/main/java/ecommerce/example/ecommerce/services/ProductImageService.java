@@ -20,4 +20,5 @@ public interface ProductImageService {
     ProductImageListResponse findImageByProductId(Long productId);
 
     void deleteImage(Long imageId, String publicId);
+
 }

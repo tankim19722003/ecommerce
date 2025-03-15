@@ -6,9 +6,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @SpringBootApplication
 public class EcomerceApplication {
@@ -19,28 +21,21 @@ public class EcomerceApplication {
 
 	@Bean
 	public CommandLineRunner commandLineRunner(
-			OrderRepo orderRepo,
-			UserRepo userRepo,
-			ShippingProviderRepo shippingProviderRepo,
-			RoleRepo roleRepo,
-			SubCategoryRepo categoryRepo,
-			OrderDetailRepo orderDetailRepo,
-			ProductRepo productRepo,
-			ShopRepo shopRepo,
-			UserBannedRepo userBannedRepo,
-			PaymentRepo paymentRepo,
-			FeedBackRepo feedBackRepo,
-			ShopBannedRepo shopBannedRepo,
-			ShopRejectionRepo shopRejectionRepo,
-			CouponRepo couponRepo,
-			ShippingProviderRejectRepo shippingProviderRejectRepo,
-			ProductRejectionRepo productRejectionRepo,
-			ProductImageRepo imageRepo,
-			ProductDiscountRepo productDiscountRepo,
-			ProductImageRepo productImageRepo) {
+			QuantityRepo quantityRepo
+	) {
 		return runner -> {
-//			deleteImage(productImageRepo);
+			findAllQuantity(quantityRepo);
 		};
+	}
+
+	private void findAllQuantity(QuantityRepo quantityRepo) {
+
+		Long productId = 1L;
+
+		List<Quantity> quanties = quantityRepo.findAllByProductId(productId);
+
+		System.out.println(quanties.size());
+
 	}
 
 	private void deleteImage(ProductImageRepo productImageRepo) {
@@ -438,7 +433,7 @@ public class EcomerceApplication {
 		user.setEmail("tankim1972@example.com");
 		user.setGender(true); // true for male, false for female
 //		user.setBirthdate(LocalDate.of(1995, 5, 20));
-		user.setAvatar("avatar.jpg");
+//		usert.setAvatar("avatar.jpg");
 
 		System.out.println("Saving user...");
 		userRepo.save(user);
