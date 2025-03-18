@@ -114,7 +114,7 @@ public class SecurityConfig {
 
                             // categories
                             .requestMatchers(GET,
-                                    String.format("%s/category/get_all_categories", apiPrefix)).hasAnyRole(Role.USER,Role.ADMIN, Role.SHOP)
+                                    String.format("%s/category/get_all_categories", apiPrefix)).permitAll()
 
                             .requestMatchers(POST,
                                     String.format("%s/category/create", apiPrefix)).hasAnyRole(Role.ADMIN)

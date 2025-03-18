@@ -128,7 +128,6 @@ ecommerce\example\ecommerce\models\ShippingProviderReject.class
 ecommerce\example\ecommerce\dtos\UserCodeDTO.class
 ecommerce\example\ecommerce\services\AttributeService.class
 ecommerce\example\ecommerce\Repo\AttributeRepo.class
-ecommerce\example\ecommerce\responses\UserLoginResponse$UserLoginResponseBuilder.class
 ecommerce\example\ecommerce\config\SecurityConfig$1.class
 ecommerce\example\ecommerce\models\ShopAddress$ShopAddressBuilder.class
 ecommerce\example\ecommerce\controllers\SubCategoryController.class

@@ -1,5 +1,6 @@
 package ecommerce.example.ecommerce.models;
 
+import ecommerce.example.ecommerce.responses.UserLoginResponse;
 import ecommerce.example.ecommerce.responses.UserResponse;
 import ecommerce.example.ecommerce.responses.UserUpdatedResponse;
 import jakarta.persistence.*;
@@ -137,5 +138,28 @@ public class User {
         return userUpdatedResponse;
 
     }
+
+//    public UserLoginResponse toUserLoginResponse() {
+//
+//        List<String> roles = getRoles().stream().map(
+//                Role::getName
+//        ).toList();
+//
+//        UserLoginResponse userLoginResponse = new UserLoginResponse();
+//
+//        userLoginResponse.setId(id);
+//        userLoginResponse.setFullname(fullname);
+//        userLoginResponse.setAvatarUrl(avatarUrl);
+//        userLoginResponse.setPublicId(publicId);
+//        userLoginResponse.setAccount(account);
+//        userLoginResponse.setEmail(email);
+//        userLoginResponse.setGender(gender);
+//        userLoginResponse.setBirthdate(birthdate);
+//        userLoginResponse.setPhoneNumber(phoneNumber);
+//        userLoginResponse.setRoles(roles);
+//
+//        return userLoginResponse;
+//
+//    }
 
 }

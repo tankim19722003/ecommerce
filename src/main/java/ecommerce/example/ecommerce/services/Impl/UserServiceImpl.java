@@ -108,11 +108,8 @@ public class UserServiceImpl implements UserService {
         if (authentication.isAuthenticated()) {
             UserLoginResponse userLoginResponse = new UserLoginResponse();
 
+            userLoginResponse.setUserResponse(user.toUserResponse());
             userLoginResponse.setToken(jwtService.generateToken(user.getAccount()));
-
-            for (Role role : roles) {
-                userLoginResponse.addRole(role.getName());
-            }
 
             return userLoginResponse;
         }
@@ -140,19 +137,14 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public UserResponse getUserInfo(String token) {
-        String userAccount = jwtService.extractUserName(token);
+    public UserResponse getUserInfo(Long id) {
 
-        User user = userRepo.findByAccount(userAccount).orElseThrow(() ->
+        User user = userRepo.findById(id).orElseThrow(() ->
                 new RuntimeException("User does not found"));
 
         List<Role> roles = roleRepo.findAllByUserId(user.getId());
 
         UserResponse userResponse = user.toUserResponse();
-
-        for (Role role : roles) {
-            userResponse.addRole(role.getName());
-        }
 
         return userResponse;
     }

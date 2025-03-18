@@ -11,7 +11,7 @@ public interface UserService {
 
     UserLoginResponse login(UserLoginDTO userLoginDTO);
 
-    UserResponse getUserInfo(String token);
+    UserResponse getUserInfo(Long id);
 
     IUserResponse updateUserInfo(UserInfoUpdating userInfoUpdating, long userId);
 

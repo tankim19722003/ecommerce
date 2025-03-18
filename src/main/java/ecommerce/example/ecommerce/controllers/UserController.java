@@ -74,13 +74,14 @@ UserController {
         }
     }
 
-    @GetMapping("get_user_info/{token}")
+    @GetMapping("get_user_info/{userId}")
     public ResponseEntity<?> getUserInfo(
-            @PathVariable("token") String token
+            @PathVariable("userId") Long userId
     ) {
 
         try {
-            UserResponse userResponse = userService.getUserInfo(token);
+            ownerService.checkValidUser(userId);
+            UserResponse userResponse = userService.getUserInfo(userId);
             return ResponseEntity.ok().body(userResponse);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(
