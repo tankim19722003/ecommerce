@@ -21,10 +21,12 @@ public class EcomerceApplication {
 
 	@Bean
 	public CommandLineRunner commandLineRunner(
-			QuantityRepo quantityRepo
+			QuantityRepo quantityRepo,
+			UserRepo userRepo
 	) {
 		return runner -> {
-			findAllQuantity(quantityRepo);
+//			findAllQuantity(quantityRepo);
+//			findUserByEmailOrPhoneNumber(userRepo);
 		};
 	}
 
@@ -56,10 +58,10 @@ public class EcomerceApplication {
 	}
 
 	private void findUserByEmailOrPhoneNumber(UserRepo userRepo) {
-		String account = "johndoe@example.com";
+		String account = "truongchinguyen002@gmail.com";
 		System.out.println("Finding user: " + account);
-//		User user = userRepo.findUserByEmailOrPhoneNumber(account);
-//		System.out.println(user);
+		User user = userRepo.findUserByPhoneNumberOrAccountOrEmail(account).get();
+		System.out.println(user.getId());
 	}
 
 //	private void createColorPrice(ColorPriceRepo colorPriceRepo, ProductSizeRepo productSizeRepo) {

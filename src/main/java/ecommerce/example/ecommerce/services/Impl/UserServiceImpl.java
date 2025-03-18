@@ -12,7 +12,6 @@ import ecommerce.example.ecommerce.responses.*;
 import ecommerce.example.ecommerce.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -93,7 +92,7 @@ public class UserServiceImpl implements UserService {
     public UserLoginResponse login(UserLoginDTO userLoginDTO) {
 
         // get user email or phone_number
-        User user = userRepo.findUserByPhoneNumberOrAccount(userLoginDTO.getAccount()).orElseThrow(() ->
+        User user = userRepo.findUserByPhoneNumberOrAccountOrEmail(userLoginDTO.getAccount()).orElseThrow(() ->
                 new RuntimeException("Failed to login"));
 
         List<Role> roles = roleRepo.findAllByUserId(user.getId());
@@ -179,35 +178,35 @@ public class UserServiceImpl implements UserService {
 
 
         // check email existing
-        Boolean isEmailExisting = userRepo
-                .existsByEmailAndDifferentUserId(userInfoUpdating.getEmail(), userId);
-        if (isEmailExisting) errors.add(
-                EResponse.builder()
-                        .name("email")
-                        .message("Email is existing!!")
-                        .build()
-        );
+//        Boolean isEmailExisting = userRepo
+//                .existsByEmailAndDifferentUserId(userInfoUpdating.getEmail(), userId);
+//        if (isEmailExisting) errors.add(
+//                EResponse.builder()
+//                        .name("email")
+//                        .message("Email is existing!!")
+//                        .build()
+//        );
 //            throw new RuntimeException("Email is existing!!");
 
         // check phone number existing
-        Boolean isPhoneNumberExisting = userRepo
-                .existsByPhoneNumberAndDifferentUserId(userInfoUpdating.getPhoneNumber(), userId);
+//        Boolean isPhoneNumberExisting = userRepo
+//                .existsByPhoneNumberAndDifferentUserId(userInfoUpdating.getPhoneNumber(), userId);
 
-        if (isPhoneNumberExisting) errors.add(
-                EResponse.builder()
-                        .name("phone_number")
-                        .message("Phone number is existing!!")
-                        .build()
-        );
+//        if (isPhoneNumberExisting) errors.add(
+//                EResponse.builder()
+//                        .name("phone_number")
+//                        .message("Phone number is existing!!")
+//                        .build()
+//        );
 
         if (!errors.isEmpty()) throw new ValidationException(errors);
 
 
         // check phone number is update
         String token = null;
-        if (!userInfoUpdating.getPhoneNumber().equals(user.getPhoneNumber())) {
-            token = jwtService.generateToken(userInfoUpdating.getPhoneNumber());
-        }
+//        if (!userInfoUpdating.getPhoneNumber().equals(user.getPhoneNumber())) {
+//            token = jwtService.generateToken(userInfoUpdating.getPhoneNumber());
+//        }
         // save user
         modelMapper.map(userInfoUpdating, user);
         User userSaved = userRepo.save(user);

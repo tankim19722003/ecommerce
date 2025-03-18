@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface UserRepo extends JpaRepository<User, Long> {
 
     @Query("SELECT u FROM User u WHERE u.phoneNumber = :account OR u.account= :account OR u.email = :account")
-    Optional<User> findUserByPhoneNumberOrAccount(@Param("account") String account);
+    Optional<User> findUserByPhoneNumberOrAccountOrEmail(@Param("account") String account);
 
     Optional<User> findByPhoneNumber(String phoneNumber);
 

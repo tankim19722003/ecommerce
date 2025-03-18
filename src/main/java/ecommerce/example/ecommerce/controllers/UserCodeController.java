@@ -2,6 +2,7 @@ package ecommerce.example.ecommerce.controllers;
 
 import ecommerce.example.ecommerce.dtos.UserCodeDTO;
 import ecommerce.example.ecommerce.responses.EResponse;
+import ecommerce.example.ecommerce.services.Impl.OwnerService;
 import ecommerce.example.ecommerce.services.UserCodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -15,12 +16,16 @@ public class UserCodeController {
     @Autowired
     private UserCodeService userCodeService;
 
+    @Autowired
+    private OwnerService ownerService;
+
     @GetMapping("/send_code")
     public ResponseEntity<?> getShopCodeConConfirmation(
             @Param("userId") Long userId,
             @Param("email") String email
     )  {
         try {
+            ownerService.checkValidUser(userId);
             userCodeService.createAndSendCode(userId,email);
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
@@ -41,6 +46,7 @@ public class UserCodeController {
     ) {
 
         try {
+            ownerService.checkValidUser(userCodeDTO.getUserId());
             userCodeService.confirmCode(userCodeDTO);
             return ResponseEntity.noContent().build();
         } catch (Exception e) {

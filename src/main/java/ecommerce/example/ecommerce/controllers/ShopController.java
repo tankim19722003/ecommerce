@@ -4,6 +4,7 @@ import ecommerce.example.ecommerce.dtos.ShopDTO;
 import ecommerce.example.ecommerce.models.Status;
 import ecommerce.example.ecommerce.responses.EResponse;
 import ecommerce.example.ecommerce.responses.ShopResponse;
+import ecommerce.example.ecommerce.services.Impl.OwnerService;
 import ecommerce.example.ecommerce.services.ShopService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class ShopController {
     @Autowired
     private ShopService shopService;
 
+    @Autowired
+    private OwnerService ownerService;
+
 
     @PostMapping(value = "/register/{userId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> register(
@@ -38,6 +42,7 @@ public class ShopController {
         }
 
         try {
+            ownerService.checkValidUser(userId);
             ShopResponse shopResponse = shopService.registerShop(shopDTO, userId);
             return ResponseEntity.ok(shopResponse);
         } catch (Exception e) {
@@ -55,6 +60,7 @@ public class ShopController {
             @PathVariable("userId") long userId
     ) {
         try {
+            ownerService.checkValidUser(userId);
             ShopResponse shopResponse = shopService.getShopInfo(userId);
             return ResponseEntity.ok(shopResponse);
         } catch (Exception e) {
@@ -82,6 +88,7 @@ public class ShopController {
         }
 
         try {
+            ownerService.checkValidUser(userId);
             ShopResponse shopResponse = shopService.updateShopInfo(shopDTO, userId);
             return ResponseEntity.ok().body(shopResponse);
         } catch (Exception e) {

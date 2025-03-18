@@ -13,6 +13,7 @@ VALUES
 ('Emily Davis', 'tankim19723', '$2a$10$J.CXFDd2CAMjyysovBHXcufdLnNAPxURM5si7phOYqNAgdR2vZbRW', 'tankim1972', FALSE, '1992-02-28', '0548868986'),
 ('Emily Davis', 'admin', '$2a$10$J.CXFDd2CAMjyysovBHXcufdLnNAPxURM5si7phOYqNAgdR2vZbRW', 'tanadmin123', FALSE, '1992-02-28', '0548868987'),
 ('Emily Davis', 'tankim197233333', '$2a$10$J.CXFDd2CAMjyysovBHXcufdLnNAPxURM5si7phOYqNAgdR2vZbRW', 'tankim1972333333', FALSE, '1992-02-28', '0328869982');
+--('Chi Nguyehn', 'tankim19423423', '$2a$10$J.CXFDd2CAMjyysovBHXcufdLnNAPxURM5si7phOYqNAgdR2vZbRW', 'truongchinguyen002@gmail.com', FALSE, '1992-02-28', '0328869323');
 -- Assign roles to users
 INSERT INTO user_roles (user_id, role_id)
 VALUES
