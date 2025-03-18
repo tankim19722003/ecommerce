@@ -137,7 +137,8 @@ public class SecurityConfig {
 
                             .requestMatchers(DELETE,
                                     String.format("%s/sub_category/**", apiPrefix)).hasAnyRole(Role.ADMIN)
-
+                            .requestMatchers(GET,
+                                    String.format("%s/sub_category/**", apiPrefix)).permitAll()
 
                             // product
                             .requestMatchers(POST,
