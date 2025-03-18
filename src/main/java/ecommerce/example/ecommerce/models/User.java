@@ -1,6 +1,7 @@
 package ecommerce.example.ecommerce.models;
 
 import ecommerce.example.ecommerce.responses.UserResponse;
+import ecommerce.example.ecommerce.responses.UserUpdatedResponse;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -96,6 +97,11 @@ public class User {
     }
 
     public UserResponse toUserResponse() {
+
+        List<String> roles = getRoles().stream().map(
+                Role::getName
+        ).toList();
+
         return UserResponse.builder()
                 .id(id)
                 .fullname(fullname)
@@ -106,7 +112,30 @@ public class User {
                 .gender(gender)
                 .birthdate(birthdate)
                 .phoneNumber(phoneNumber)
+                .roles(roles)
                 .build();
+    }
+    public UserUpdatedResponse toUserUpdatedResponse() {
+
+        List<String> roles = getRoles().stream().map(
+                Role::getName
+        ).toList();
+
+        UserUpdatedResponse userUpdatedResponse = new UserUpdatedResponse();
+
+        userUpdatedResponse.setId(id);
+        userUpdatedResponse.setFullname(fullname);
+        userUpdatedResponse.setAvatarUrl(avatarUrl);
+        userUpdatedResponse.setPublicId(publicId);
+        userUpdatedResponse.setAccount(account);
+        userUpdatedResponse.setEmail(email);
+        userUpdatedResponse.setGender(gender);
+        userUpdatedResponse.setBirthdate(birthdate);
+        userUpdatedResponse.setPhoneNumber(phoneNumber);
+        userUpdatedResponse.setRoles(roles);
+
+        return userUpdatedResponse;
+
     }
 
 }

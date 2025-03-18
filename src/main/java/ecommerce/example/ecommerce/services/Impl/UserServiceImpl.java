@@ -102,13 +102,13 @@ public class UserServiceImpl implements UserService {
         }
 
         Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(user.getPhoneNumber(),
+                .authenticate(new UsernamePasswordAuthenticationToken(user.getAccount(),
                         userLoginDTO.getPassword()));
 
         if (authentication.isAuthenticated()) {
             UserLoginResponse userLoginResponse = new UserLoginResponse();
 
-            userLoginResponse.setToken(jwtService.generateToken(user.getPhoneNumber()));
+            userLoginResponse.setToken(jwtService.generateToken(user.getAccount()));
 
             for (Role role : roles) {
                 userLoginResponse.addRole(role.getName());
@@ -141,9 +141,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse getUserInfo(String token) {
-        String phoneNumber = jwtService.extractUserName(token);
+        String userAccount = jwtService.extractUserName(token);
 
-        User user = userRepo.findByPhoneNumber(phoneNumber).orElseThrow(() ->
+        User user = userRepo.findByAccount(userAccount).orElseThrow(() ->
                 new RuntimeException("User does not found"));
 
         List<Role> roles = roleRepo.findAllByUserId(user.getId());
@@ -159,7 +159,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public IUserResponse updateUserInfo(UserInfoUpdating userInfoUpdating, long userId) {
+    public UserResponse updateUserInfo(UserInfoUpdating userInfoUpdating, long userId) {
 
         List<EResponse> errors = new ArrayList<>();
         User user = userRepo.findById(userId).orElseThrow(() ->
@@ -177,36 +177,11 @@ public class UserServiceImpl implements UserService {
         );
 
 
-        // check email existing
-//        Boolean isEmailExisting = userRepo
-//                .existsByEmailAndDifferentUserId(userInfoUpdating.getEmail(), userId);
-//        if (isEmailExisting) errors.add(
-//                EResponse.builder()
-//                        .name("email")
-//                        .message("Email is existing!!")
-//                        .build()
-//        );
-//            throw new RuntimeException("Email is existing!!");
-
-        // check phone number existing
-//        Boolean isPhoneNumberExisting = userRepo
-//                .existsByPhoneNumberAndDifferentUserId(userInfoUpdating.getPhoneNumber(), userId);
-
-//        if (isPhoneNumberExisting) errors.add(
-//                EResponse.builder()
-//                        .name("phone_number")
-//                        .message("Phone number is existing!!")
-//                        .build()
-//        );
-
-        if (!errors.isEmpty()) throw new ValidationException(errors);
-
-
         // check phone number is update
         String token = null;
-//        if (!userInfoUpdating.getPhoneNumber().equals(user.getPhoneNumber())) {
-//            token = jwtService.generateToken(userInfoUpdating.getPhoneNumber());
-//        }
+        if (!userInfoUpdating.getAccount().equals(user.getAccount())) {
+            token = jwtService.generateToken(userInfoUpdating.getAccount());
+        }
         // save user
         modelMapper.map(userInfoUpdating, user);
         User userSaved = userRepo.save(user);
@@ -214,14 +189,13 @@ public class UserServiceImpl implements UserService {
 
         // create Response
         if (token != null) {
-            UserUpdatedResponse userUpdatedResponse =  modelMapper.map(userSaved, UserUpdatedResponse.class);
+            UserUpdatedResponse userUpdatedResponse = user.toUserUpdatedResponse();
             userUpdatedResponse.setToken(token);
 
             return userUpdatedResponse;
-        } else {
-            return modelMapper.map(userSaved, UserResponse.class);
         }
 
+        return user.toUserResponse();
     }
 
     @Override
@@ -231,6 +205,10 @@ public class UserServiceImpl implements UserService {
         User user = userRepo.findById(userId).orElseThrow(
                 () ->  new RuntimeException("User does not found")
         );
+
+        if (user.getPublicId() != null) {
+            cloudinaryService.deleteImage(user.getPublicId());
+        }
 
         Map<String, String> image = cloudinaryService.uploadImage(file);
 

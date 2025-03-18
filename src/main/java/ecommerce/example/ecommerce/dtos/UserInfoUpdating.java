@@ -19,12 +19,6 @@ public class UserInfoUpdating {
     @JsonProperty("account")
     private String account;
 
-//    @JsonProperty("email")
-//    private String email;
-//
-//    @JsonProperty("phone_number")
-//    private String phoneNumber;
-
     @JsonProperty("address")
     private String address;
 
@@ -34,6 +28,4 @@ public class UserInfoUpdating {
     @JsonProperty("birth_date")
     private Date birthdate;
 
-//    @JsonProperty("avatar")
-//    private String avatar;
 }

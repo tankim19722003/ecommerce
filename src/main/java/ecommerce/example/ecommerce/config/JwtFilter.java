@@ -56,7 +56,7 @@ public class JwtFilter extends OncePerRequestFilter {
         token = header.substring(7);
         username = jwtService.extractUserName(token);
 
-        Boolean isPhoneExisting = userRepo.existsByPhoneNumber(username);
+        Boolean isPhoneExisting = userRepo.existsByAccount(username);
         if (!isPhoneExisting) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"Invalid token");
             return;

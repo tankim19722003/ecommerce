@@ -27,7 +27,7 @@ public class UserCodeController {
         try {
             ownerService.checkValidUser(userId);
             userCodeService.createAndSendCode(userId,email);
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok("");
         } catch (Exception e) {
 
             return ResponseEntity.badRequest().body(
@@ -48,7 +48,7 @@ public class UserCodeController {
         try {
             ownerService.checkValidUser(userCodeDTO.getUserId());
             userCodeService.confirmCode(userCodeDTO);
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok("");
         } catch (Exception e) {
             return ResponseEntity
                     .badRequest()

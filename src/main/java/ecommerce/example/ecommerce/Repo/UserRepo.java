@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
 
 public interface UserRepo extends JpaRepository<User, Long> {
@@ -28,4 +29,6 @@ public interface UserRepo extends JpaRepository<User, Long> {
 
     @Query("SELECT COUNT(u) > 0 FROM User u WHERE u.phoneNumber = :phoneNumber AND u.id <> :id")
     boolean existsByPhoneNumberAndDifferentUserId(@Param("phoneNumber") String phoneNumber, @Param("id") Long id);
+
+    Optional<User> findByAccount(String account);
 }

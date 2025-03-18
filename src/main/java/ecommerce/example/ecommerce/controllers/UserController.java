@@ -105,7 +105,7 @@ UserController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(
                     EResponse.builder()
-                            .name("Unauthorized")
+                            .name("ERROR")
                             .message(e.getMessage())
                             .build()
             );

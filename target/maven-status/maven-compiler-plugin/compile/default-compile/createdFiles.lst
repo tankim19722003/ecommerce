@@ -187,7 +187,6 @@ ecommerce\example\ecommerce\dtos\SubCategoryDTO.class
 ecommerce\example\ecommerce\responses\UserUpdatedResponse.class
 ecommerce\example\ecommerce\dtos\UserResgisterDTO.class
 ecommerce\example\ecommerce\services\Impl\UserCodeServiceImpl.class
-ecommerce\example\ecommerce\responses\UserUpdatedResponse$UserUpdatedResponseBuilder.class
 ecommerce\example\ecommerce\responses\ProductImageResponse.class
 ecommerce\example\ecommerce\dtos\ProductAttributeValueDTO$ProductAttributeValueDTOBuilder.class
 ecommerce\example\ecommerce\services\Impl\ShopCodeServiceImpl.class

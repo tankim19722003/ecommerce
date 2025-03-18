@@ -19,7 +19,7 @@ public class OwnerService {
 
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
 
-        User user = userRepo.findByPhoneNumber(userPrincipal.getUsername()).orElseThrow(
+        User user = userRepo.findByAccount(userPrincipal.getUsername()).orElseThrow(
                 () -> new RuntimeException("User does not found")
         );
 

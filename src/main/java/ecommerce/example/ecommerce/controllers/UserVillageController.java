@@ -120,7 +120,7 @@ public class UserVillageController {
         try {
             ownerService.checkValidUser(userId);
             userVillageService.deleteUserAddress(userAddressId);
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok("");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(
                     EResponse.builder()
