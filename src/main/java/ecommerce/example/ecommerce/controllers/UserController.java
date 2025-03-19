@@ -135,5 +135,25 @@ UserController {
     }
 
 
+    @PutMapping("/update_email/{userId}")
+    public ResponseEntity<?> updateEmail(
+            @PathVariable("userId") Long userId,
+            @RequestParam("email") String email
+    ) {
+
+        try {
+            ownerService.checkValidUser(userId);
+            UserResponse userResponse = userService.updateEmail(userId, email);
+            return ResponseEntity.ok().body(userResponse);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(
+                    EResponse.builder()
+                            .name("ERROR")
+                            .message(e.getMessage())
+                            .build()
+            );
+        }
+    }
+
 
 }

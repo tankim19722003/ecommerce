@@ -26,7 +26,7 @@ public class UserCodeController {
     )  {
         try {
             ownerService.checkValidUser(userId);
-            userCodeService.createAndSendCode(userId,email);
+            userCodeService.createAndSendCode(userId,email, 1L);
             return ResponseEntity.ok("");
         } catch (Exception e) {
 
@@ -40,8 +40,10 @@ public class UserCodeController {
         }
     }
 
+
+
     @PostMapping("/confirm_code")
-    public ResponseEntity<?> confirmUserCode(
+    public ResponseEntity<?> confirmUserEmailCode(
             @RequestBody UserCodeDTO userCodeDTO
     ) {
 

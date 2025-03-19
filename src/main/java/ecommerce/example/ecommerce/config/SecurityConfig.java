@@ -65,6 +65,9 @@ public class SecurityConfig {
                             .requestMatchers(PUT,
                                     String.format("%s/user/update_user_info/**", apiPrefix)).hasRole(Role.USER)
 
+                            .requestMatchers(PUT,
+                                    String.format("%s/user/update_email/**", apiPrefix)).hasRole(Role.USER)
+
                             .requestMatchers(POST,
                                     String.format("%s/user/update_avatar/**", apiPrefix)).hasRole(Role.USER)
 

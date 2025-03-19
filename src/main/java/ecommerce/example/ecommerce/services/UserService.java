@@ -16,4 +16,6 @@ public interface UserService {
     IUserResponse updateUserInfo(UserInfoUpdating userInfoUpdating, long userId);
 
     ImageResponse updateAvatar(MultipartFile file, Long userId) throws IOException;
+
+    UserResponse updateEmail(Long userId, String email);
 }

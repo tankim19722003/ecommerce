@@ -35,14 +35,14 @@ public class UserCodeServiceImpl implements UserCodeService {
 
     @Override
     @Transactional
-    public void createAndSendCode(Long userId, String email) throws MessagingException {
+    public void createAndSendCode(Long userId, String email, Long codePurposeId) throws MessagingException {
         String subject = "Shop confirmation";
 
         User user = userRepo.findById(userId).orElseThrow(
                 () ->  new RuntimeException("User does not found")
         );
 
-        CodePurpose codePurpose = codePurposeRepo.findById(1L).orElseThrow(
+        CodePurpose codePurpose = codePurposeRepo.findById(codePurposeId).orElseThrow(
                 () -> new RuntimeException("Code purpose does not found")
         );
 
@@ -86,6 +86,7 @@ public class UserCodeServiceImpl implements UserCodeService {
         if (userCode.getDateEnd().isBefore(LocalDateTime.now())) {
             throw new RuntimeException("Invalid code");
         }
+        
 
         userCode.setActive(true);
 

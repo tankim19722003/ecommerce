@@ -2,12 +2,14 @@ package ecommerce.example.ecommerce.services.Impl;
 
 import ecommerce.example.ecommerce.Exceptions.ValidationException;
 import ecommerce.example.ecommerce.Repo.RoleRepo;
+import ecommerce.example.ecommerce.Repo.UserCodeRepo;
 import ecommerce.example.ecommerce.Repo.UserRepo;
 import ecommerce.example.ecommerce.dtos.UserInfoUpdating;
 import ecommerce.example.ecommerce.dtos.UserLoginDTO;
 import ecommerce.example.ecommerce.dtos.UserResgisterDTO;
 import ecommerce.example.ecommerce.models.Role;
 import ecommerce.example.ecommerce.models.User;
+import ecommerce.example.ecommerce.models.UserCode;
 import ecommerce.example.ecommerce.responses.*;
 import ecommerce.example.ecommerce.services.UserService;
 import org.modelmapper.ModelMapper;
@@ -22,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -51,6 +54,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private CloudinaryService cloudinaryService;
+
+    @Autowired
+    private UserCodeRepo userCodeRepo;
 
     @Override
     public void createUser(UserResgisterDTO userResgisterDTO) {
@@ -214,6 +220,33 @@ public class UserServiceImpl implements UserService {
                 .avatarUrl(user.getAvatarUrl())
                 .publicId(user.getPublicId())
                 .build();
+    }
+
+    @Override
+    public UserResponse updateEmail(Long userId, String email) {
+
+        User user = userRepo.findById(userId).orElseThrow(
+                () -> new RuntimeException("User does not found")
+        );
+
+
+        boolean isValidEmail = isEmail(email);
+        if (!isValidEmail) {
+            throw new RuntimeException("Invalid email");
+        }
+
+        UserCode userCode = userCodeRepo
+                .findLatestByCodePurposeIdAndUserId(1L, userId)
+                .orElseThrow(() -> new RuntimeException("Code not found"));
+
+        if (userCode.getDateEnd().isBefore(LocalDateTime.now())) {
+            throw new RuntimeException("Code is expired !! request new one!!");
+        }
+
+        user.setEmail(email);
+        userRepo.save(user);
+
+        return user.toUserResponse();
     }
 
 

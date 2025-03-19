@@ -13,6 +13,10 @@ import java.time.LocalDate;
 @Builder
 @Data
 public class SubCategoryInListResponse {
+
+    @JsonProperty("id")
+    private long id;
+
     @JsonProperty("name")
     private String name;
 
