@@ -113,7 +113,20 @@ public class SecurityConfig {
 
                             // attribute
                             .requestMatchers(GET,
-                                    String.format("%s/attribute/**", apiPrefix)).hasAnyRole(Role.USER,Role.ADMIN, Role.SHOP)
+                                    String.format("%s/attribute/**", apiPrefix)).permitAll()
+
+                            .requestMatchers(POST,
+                                    String.format("%s/attribute/add_attribute/**", apiPrefix)).hasRole(Role.ADMIN)
+
+                            .requestMatchers(POST,
+                                    String.format("%s/attribute/add_multiple_attribute/**", apiPrefix)).hasRole(Role.ADMIN)
+
+                            .requestMatchers(PUT,
+                                    String.format("%s/attribute/**", apiPrefix)).hasRole(Role.ADMIN)
+
+                            .requestMatchers(DELETE,
+                                    String.format("%s/attribute/**", apiPrefix)).hasRole(Role.ADMIN)
+
 
                             // categories
                             .requestMatchers(GET,
@@ -174,10 +187,16 @@ public class SecurityConfig {
 
 //                            User code
                             .requestMatchers(GET,
-                                    String.format("%s/user_code/send_code/**", apiPrefix)).hasAnyRole(Role.USER)
+                                    String.format("%s/user_code/user/send_code/**", apiPrefix)).hasAnyRole(Role.USER)
+
+                            .requestMatchers(POST,
+                                    String.format("%s/user_code/user/confirm_code/**", apiPrefix)).hasAnyRole(Role.USER)
 
                             .requestMatchers(GET,
-                                    String.format("%s/user_code/confirm_code/**", apiPrefix)).hasAnyRole(Role.USER)
+                                    String.format("%s/user_code/send_code/**", apiPrefix)).permitAll()
+
+                            .requestMatchers(POST,
+                                    String.format("%s/user_code/confirm_code/**", apiPrefix)).permitAll()
                             .anyRequest().authenticated();
 
                     }

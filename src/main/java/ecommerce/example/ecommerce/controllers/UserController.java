@@ -1,10 +1,10 @@
 package ecommerce.example.ecommerce.controllers;
 
-import ecommerce.example.ecommerce.Exceptions.ValidationException;
 import ecommerce.example.ecommerce.Repo.UserRepo;
+import ecommerce.example.ecommerce.dtos.UserCodeDTO;
 import ecommerce.example.ecommerce.dtos.UserInfoUpdating;
 import ecommerce.example.ecommerce.dtos.UserLoginDTO;
-import ecommerce.example.ecommerce.dtos.UserResgisterDTO;
+import ecommerce.example.ecommerce.dtos.UserRegisterDTO;
 import ecommerce.example.ecommerce.responses.*;
 import ecommerce.example.ecommerce.services.Impl.OwnerService;
 import ecommerce.example.ecommerce.services.UserService;
@@ -31,7 +31,7 @@ UserController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(
-            @Valid @RequestBody UserResgisterDTO userResgisterDTO,
+            @Valid @RequestBody UserRegisterDTO userResgisterDTO,
             BindingResult result
     ) {
 
@@ -135,9 +135,9 @@ UserController {
     }
 
 
-    @PutMapping("/update_email/{userId}")
+    @PutMapping("/update_email")
     public ResponseEntity<?> updateEmail(
-            @PathVariable("userId") Long userId,
+            @RequestParam("userId") Long userId,
             @RequestParam("email") String email
     ) {
 

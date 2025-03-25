@@ -43,9 +43,10 @@ public class ShopServiceImpl implements ShopService {
     @Transactional
     public ShopResponse registerShop(ShopDTO shopDTO, long userId) {
 
-        UserCode shopCode = userCodeRepo.findLatestByCodePurposeIdAndUserId(1L, userId).orElseThrow(
+        UserCode shopCode = userCodeRepo.findUserCode(1L, shopDTO.getEmail()).orElseThrow(
                 () -> new RuntimeException("Please confirm your email!!")
         );
+
 
         if (!shopCode.getActive()) {
             throw new RuntimeException("Please confirm your email!!");
@@ -71,20 +72,28 @@ public class ShopServiceImpl implements ShopService {
         modelMapper.map(shopDTO, shop);
         shop.setUser(user);
         shop.setVillage(village);
-        Map<String, String> cmnd;
+        Map<String, String> frontCmnd;
+        Map<String, String> behindCmnd;
 
         try {
-            cmnd = cloudinaryService.uploadImage(shopDTO.getCmnd());
+
+            // use ai to check is cccd
+            frontCmnd = cloudinaryService.uploadImage(shopDTO.getFrontCccd());
+            behindCmnd = cloudinaryService.uploadImage(shopDTO.getBehindCccd());
         } catch (IOException e) {
             throw new RuntimeException("Can't save avatar!!");
         }
 
-        shop.setCmndUrl(cmnd.get("imageUrl"));
-        shop.setCmndPublicId(cmnd.get("publicId"));
+        shop.setBehindCmndUrl(behindCmnd.get("imageUrl"));
+        shop.setBehindCmndPublicId(behindCmnd.get("publicId"));
+
+        shop.setFrontCmndUrl(frontCmnd.get("imageUrl"));
+        shop.setFrontCmndPublicId(frontCmnd.get("publicId"));
 
         Shop savedShop;
         try {
             savedShop = shopRepo.save(shop);
+//            userCodeRepo.deleteById(shopCode.getId());
         } catch (DataIntegrityViolationException e) {
             throw new RuntimeException("Shop is existing");
         }
@@ -96,6 +105,9 @@ public class ShopServiceImpl implements ShopService {
         );
 
         user.addRole(role);
+
+        // delete code
+        userCodeRepo.deleteByUserId(userId);
 
         return convertShopToShopResponse(savedShop);
 
@@ -182,6 +194,10 @@ public class ShopServiceImpl implements ShopService {
         shopResponse.setAddressResponse(shop.getVillage().toAddressResponse());
         shopResponse.setCreatedAt(shop.getCreatedAt());
         shopResponse.setUpdatedAt(shop.getUpdatedAt());
+        shopResponse.setBehindCccdPublicId(shop.getBehindCmndPublicId());
+        shopResponse.setBehindCccdUrl(shop.getBehindCmndUrl());
+        shopResponse.setFrontCccdPublicId(shop.getFrontCmndPublicId());
+        shopResponse.setFrontCccdUrl(shop.getFrontCmndUrl());
 
         return shopResponse;
     }

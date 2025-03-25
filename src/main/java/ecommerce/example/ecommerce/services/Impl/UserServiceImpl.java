@@ -1,12 +1,11 @@
 package ecommerce.example.ecommerce.services.Impl;
 
-import ecommerce.example.ecommerce.Exceptions.ValidationException;
 import ecommerce.example.ecommerce.Repo.RoleRepo;
 import ecommerce.example.ecommerce.Repo.UserCodeRepo;
 import ecommerce.example.ecommerce.Repo.UserRepo;
 import ecommerce.example.ecommerce.dtos.UserInfoUpdating;
 import ecommerce.example.ecommerce.dtos.UserLoginDTO;
-import ecommerce.example.ecommerce.dtos.UserResgisterDTO;
+import ecommerce.example.ecommerce.dtos.UserRegisterDTO;
 import ecommerce.example.ecommerce.models.Role;
 import ecommerce.example.ecommerce.models.User;
 import ecommerce.example.ecommerce.models.UserCode;
@@ -59,7 +58,8 @@ public class UserServiceImpl implements UserService {
     private UserCodeRepo userCodeRepo;
 
     @Override
-    public void createUser(UserResgisterDTO userResgisterDTO) {
+    @Transactional
+    public void createUser(UserRegisterDTO userResgisterDTO) {
 
         Role role = roleRepo.findByName("user").orElseThrow(() -> new RuntimeException("Role does not found"));
 
@@ -79,10 +79,19 @@ public class UserServiceImpl implements UserService {
 
             user.setPhoneNumber(userResgisterDTO.getAccount());
         } else if(isEmail) {
-
             //        check existing phoneNumber
             Boolean isEmailExisting = userRepo.existsByEmail(userResgisterDTO.getAccount());
             if (isEmailExisting) throw new RuntimeException("Email is existing!!");
+
+            // check is code active
+            UserCode userCode = userCodeRepo.findUserCode(1L, userResgisterDTO.getAccount())
+                    .orElseThrow(() -> new RuntimeException("Please confirm your email"));
+
+            if (!userCode.getActive()) throw new RuntimeException("Please active your code");
+
+            if (!userCode.getEmail().equals(userResgisterDTO.getAccount())) {
+                throw new RuntimeException("Invalid code");
+            }
 
             user.setEmail(userResgisterDTO.getAccount());
         } else {
@@ -91,6 +100,8 @@ public class UserServiceImpl implements UserService {
 
 
         userRepo.save(user);
+
+        userCodeRepo.deleteByEmail(userResgisterDTO.getAccount());
 
     }
 
@@ -223,6 +234,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserResponse updateEmail(Long userId, String email) {
 
         User user = userRepo.findById(userId).orElseThrow(
@@ -236,8 +248,14 @@ public class UserServiceImpl implements UserService {
         }
 
         UserCode userCode = userCodeRepo
-                .findLatestByCodePurposeIdAndUserId(1L, userId)
-                .orElseThrow(() -> new RuntimeException("Code not found"));
+                .findUserCode(1L, email)
+                .orElseThrow(() -> new RuntimeException("Invalid Code"));
+
+        if (!userCode.getActive()) {
+            throw new RuntimeException("Please active your email!!");
+        }
+        if (userCode.getUser().getId() != userId)
+                throw new RuntimeException("Invalid code!");
 
         if (userCode.getDateEnd().isBefore(LocalDateTime.now())) {
             throw new RuntimeException("Code is expired !! request new one!!");
@@ -245,6 +263,8 @@ public class UserServiceImpl implements UserService {
 
         user.setEmail(email);
         userRepo.save(user);
+
+        userCodeRepo.deleteByUserId(userId);
 
         return user.toUserResponse();
     }

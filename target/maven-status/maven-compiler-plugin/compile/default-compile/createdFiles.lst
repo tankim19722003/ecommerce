@@ -10,6 +10,7 @@ ecommerce\example\ecommerce\responses\ProductCreatingResponse.class
 ecommerce\example\ecommerce\responses\SubCategoryInListResponse.class
 ecommerce\example\ecommerce\responses\VillageResponse$VillageResponseBuilder.class
 ecommerce\example\ecommerce\Repo\ProductRejectionRepo.class
+ecommerce\example\ecommerce\dtos\CodeDTO$CodeDTOBuilder.class
 ecommerce\example\ecommerce\models\ShippingProvider.class
 ecommerce\example\ecommerce\dtos\QuantityDTOList.class
 ecommerce\example\ecommerce\Repo\ShippingProviderRejectRepo.class
@@ -45,6 +46,7 @@ ecommerce\example\ecommerce\models\ProductDiscount.class
 ecommerce\example\ecommerce\models\Payment.class
 ecommerce\example\ecommerce\models\ShopRejection.class
 ecommerce\example\ecommerce\Repo\UserCodeRepo.class
+ecommerce\example\ecommerce\dtos\UserRegisterDTO.class
 ecommerce\example\ecommerce\controllers\ProductController.class
 ecommerce\example\ecommerce\models\Product.class
 ecommerce\example\ecommerce\responses\ImageResponse$ImageResponseBuilder.class
@@ -128,6 +130,7 @@ ecommerce\example\ecommerce\models\ShippingProviderReject.class
 ecommerce\example\ecommerce\dtos\UserCodeDTO.class
 ecommerce\example\ecommerce\services\AttributeService.class
 ecommerce\example\ecommerce\Repo\AttributeRepo.class
+ecommerce\example\ecommerce\dtos\CodeDTO.class
 ecommerce\example\ecommerce\config\SecurityConfig$1.class
 ecommerce\example\ecommerce\models\ShopAddress$ShopAddressBuilder.class
 ecommerce\example\ecommerce\controllers\SubCategoryController.class
@@ -149,7 +152,6 @@ ecommerce\example\ecommerce\dtos\CategoryDTO.class
 ecommerce\example\ecommerce\dtos\ShopDTO$ShopDTOBuilder.class
 ecommerce\example\ecommerce\dtos\ProductCreatingDTO.class
 ecommerce\example\ecommerce\dtos\UserInfoUpdating.class
-ecommerce\example\ecommerce\dtos\UserResgisterDTO$UserResgisterDTOBuilder.class
 ecommerce\example\ecommerce\models\Shop$ShopBuilder.class
 ecommerce\example\ecommerce\models\CodePurpose.class
 ecommerce\example\ecommerce\models\Quantity$QuantityBuilder.class
@@ -184,7 +186,6 @@ ecommerce\example\ecommerce\responses\CategoryResponse.class
 ecommerce\example\ecommerce\services\CategoryService.class
 ecommerce\example\ecommerce\dtos\SubCategoryDTO.class
 ecommerce\example\ecommerce\responses\UserUpdatedResponse.class
-ecommerce\example\ecommerce\dtos\UserResgisterDTO.class
 ecommerce\example\ecommerce\services\Impl\UserCodeServiceImpl.class
 ecommerce\example\ecommerce\responses\ProductImageResponse.class
 ecommerce\example\ecommerce\dtos\ProductAttributeValueDTO$ProductAttributeValueDTOBuilder.class
@@ -192,4 +193,5 @@ ecommerce\example\ecommerce\services\Impl\ShopCodeServiceImpl.class
 ecommerce\example\ecommerce\models\ProductAttributeValue$ProductAttributeValueBuilder.class
 ecommerce\example\ecommerce\Repo\PaymentRepo.class
 ecommerce\example\ecommerce\models\UserCode$UserCodeBuilder.class
+ecommerce\example\ecommerce\dtos\UserRegisterDTO$UserRegisterDTOBuilder.class
 ecommerce\example\ecommerce\services\Impl\QuantityServiceImpl.class

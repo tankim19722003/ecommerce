@@ -5,10 +5,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 public interface UserRepo extends JpaRepository<User, Long> {
+
 
     @Query("SELECT u FROM User u WHERE u.phoneNumber = :account OR u.account= :account OR u.email = :account")
     Optional<User> findUserByPhoneNumberOrAccountOrEmail(@Param("account") String account);

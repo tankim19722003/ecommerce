@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 public interface UserService {
-    void createUser(UserResgisterDTO userResgisterDTO);
+    void createUser(UserRegisterDTO userResgisterDTO);
 
     UserLoginResponse login(UserLoginDTO userLoginDTO);
 

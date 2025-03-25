@@ -1,7 +1,7 @@
 package ecommerce.example.ecommerce.responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import ecommerce.example.ecommerce.models.User;
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -45,6 +45,15 @@ public class ShopResponse {
     @JsonProperty("user_id")
     private long userId;
 
-    @JsonProperty("cmnd")
-    private String cmnd;
+    @Column(name = "front_cccd_url")
+    private String frontCccdUrl;
+
+    @Column(name = "front_cccd_public_id")
+    private String frontCccdPublicId;
+
+    @Column(name = "behind_cccd_url")
+    private String behindCccdUrl;
+
+    @Column(name = "behind_cccd_public_id")
+    private String behindCccdPublicId;
 }

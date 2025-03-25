@@ -19,14 +19,33 @@ public class UserCodeController {
     @Autowired
     private OwnerService ownerService;
 
-    @GetMapping("/send_code")
-    public ResponseEntity<?> getShopCodeConConfirmation(
+    @GetMapping("/user/send_code")
+    public ResponseEntity<?> getUserCodeConfirmation(
             @Param("userId") Long userId,
             @Param("email") String email
     )  {
         try {
             ownerService.checkValidUser(userId);
-            userCodeService.createAndSendCode(userId,email, 1L);
+            userCodeService.handleCode(userId,email, 1L);
+            return ResponseEntity.ok("");
+        } catch (Exception e) {
+
+            return ResponseEntity.badRequest().body(
+                    EResponse.builder()
+                            .name("ERROR")
+                            .message(e.getMessage())
+                            .build()
+            );
+
+        }
+    }
+
+    @GetMapping("/send_code")
+    public ResponseEntity<?> getUserCodeConfirmation(
+            @Param("email") String email
+    )  {
+        try {
+            userCodeService.handleCode(email, 1L);
             return ResponseEntity.ok("");
         } catch (Exception e) {
 
@@ -42,13 +61,36 @@ public class UserCodeController {
 
 
 
+
+    @PostMapping("/user/confirm_code/{userId}")
+    public ResponseEntity<?> confirmUserEmailCode(
+            @RequestBody UserCodeDTO userCodeDTO,
+            @PathVariable("userId") long userId
+    ) {
+
+        try {
+            ownerService.checkValidUser(userId);
+            userCodeService.confirmCode(userCodeDTO, userId);
+            return ResponseEntity.ok("");
+        } catch (Exception e) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(
+                            EResponse
+                                    .builder()
+                                    .name("ERROR")
+                                    .message(e.getMessage())
+                                    .build()
+                    );
+        }
+    }
+
     @PostMapping("/confirm_code")
     public ResponseEntity<?> confirmUserEmailCode(
             @RequestBody UserCodeDTO userCodeDTO
     ) {
 
         try {
-            ownerService.checkValidUser(userCodeDTO.getUserId());
             userCodeService.confirmCode(userCodeDTO);
             return ResponseEntity.ok("");
         } catch (Exception e) {

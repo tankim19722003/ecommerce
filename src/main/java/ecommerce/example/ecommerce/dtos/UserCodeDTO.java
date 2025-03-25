@@ -11,9 +11,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class UserCodeDTO {
-    @JsonProperty("user_id")
-    private Long userId;
+
+    @JsonProperty("email")
+    private String email;
 
     @JsonProperty("code")
-    private String code;
+    private int code;
 }

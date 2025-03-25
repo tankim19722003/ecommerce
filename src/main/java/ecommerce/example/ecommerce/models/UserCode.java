@@ -30,8 +30,11 @@ public class UserCode {
     @Column(name = "date_end")
     private LocalDateTime dateEnd;
 
+    @Column(name ="email")
+    private String email;
+
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = true)
     private User user;
 
     @Column(name = "active")

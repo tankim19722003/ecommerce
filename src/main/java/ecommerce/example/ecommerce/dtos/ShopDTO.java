@@ -1,8 +1,6 @@
 package ecommerce.example.ecommerce.dtos;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,6 +28,8 @@ public class ShopDTO {
     @NotBlank(message = "Email name can't be blank")
     private String email;
 
-    private MultipartFile cmnd;
+    private MultipartFile frontCccd;
+
+    private MultipartFile behindCccd;
 
 }

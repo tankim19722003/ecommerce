@@ -14,6 +14,7 @@ D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\mai
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\controllers\UserController.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\controllers\UserVillageController.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\dtos\CategoryDTO.java
+D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\dtos\CodeDTO.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\dtos\ProductAttributeValueDTO.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\dtos\ProductCreatingDTO.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\dtos\QuantityDTO.java
@@ -23,7 +24,7 @@ D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\mai
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\dtos\UserCodeDTO.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\dtos\UserInfoUpdating.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\dtos\UserLoginDTO.java
-D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\dtos\UserResgisterDTO.java
+D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\dtos\UserRegisterDTO.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\dtos\UserVillageDTO.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\EcomerceApplication.java
 D:\MyDocument\AllSubject\In class\term 2 year 4\e-commerce\Code\ecomerce\src\main\java\ecommerce\example\ecommerce\Exceptions\ValidationException.java

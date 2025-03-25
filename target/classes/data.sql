@@ -315,8 +315,8 @@ INSERT INTO attributes (id, name) VALUES
 --(26, 1, 6), (27, 2, 6), (28, 3, 6), (29, 4, 6), (30, 5, 6),
 --(31, 6, 7), (32, 7, 7), (33, 8, 7), (34, 9, 7), (35, 10, 7),
 --(36, 1, 8), (37, 3, 8), (38, 5, 8), (39, 7, 8), (40, 10, 8);
-
-
+--
+--
 
 INSERT INTO shops
     (shop_name, description, created_at, updated_at, logo, village_id, specific_address, phone_number, user_id, email)
@@ -325,125 +325,125 @@ VALUES
 
 
 
---INSERT INTO sub_categories (created_at, updated_at, category_id, id, description, name) VALUES
----- Office Equipment (category_id = 2)
---('2025-03-07', '2025-03-07', 2, 1, 'Chairs for office use', 'Office Chairs'),
---('2025-03-07', '2025-03-07', 2, 2, 'Desks and tables for office work', 'Office Desks'),
---('2025-03-07', '2025-03-07', 2, 3, 'Printers and scanners', 'Printers & Scanners'),
---
----- Smartphones (category_id = 3)
---('2025-03-07', '2025-03-07', 3, 4, 'Android smartphones', 'Android Phones'),
---('2025-03-07', '2025-03-07', 3, 5, 'Apple iPhones', 'iPhones'),
---('2025-03-07', '2025-03-07', 3, 6, 'Phone chargers and cables', 'Phone Accessories'),
---
----- Computer Accessories (category_id = 4)
---('2025-03-07', '2025-03-07', 4, 7, 'Monitors and screens', 'Monitors'),
---('2025-03-07', '2025-03-07', 4, 8, 'Computer keyboards', 'Keyboards'),
---('2025-03-07', '2025-03-07', 4, 9, 'Computer mice and trackpads', 'Mice'),
---
----- Home Electronics (category_id = 5)
---('2025-03-07', '2025-03-07', 5, 10, 'Smart televisions', 'Smart TVs'),
---('2025-03-07', '2025-03-07', 5, 11, 'Speakers and home audio systems', 'Speakers'),
---('2025-03-07', '2025-03-07', 5, 12, 'Streaming devices like Chromecast', 'Streaming Devices'),
---
----- Gaming (category_id = 6)
---('2025-03-07', '2025-03-07', 6, 13, 'Gaming consoles like PlayStation', 'Gaming Consoles'),
---('2025-03-07', '2025-03-07', 6, 14, 'Gaming keyboards and mice', 'Gaming Accessories'),
---('2025-03-07', '2025-03-07', 6, 15, 'Virtual reality (VR) headsets', 'VR Headsets'),
---
----- Networking (category_id = 7)
---('2025-03-07', '2025-03-07', 7, 16, 'Wi-Fi routers and modems', 'Wi-Fi Routers'),
---('2025-03-07', '2025-03-07', 7, 17, 'Network switches and hubs', 'Network Switches'),
---('2025-03-07', '2025-03-07', 7, 18, 'Ethernet cables and adapters', 'Networking Cables'),
---
----- Storage (category_id = 8)
---('2025-03-07', '2025-03-07', 8, 19, 'External hard drives and SSDs', 'External HDDs'),
---('2025-03-07', '2025-03-07', 8, 20, 'USB flash drives and memory cards', 'USB Drives'),
---('2025-03-07', '2025-03-07', 8, 21, 'Cloud storage services', 'Cloud Storage'),
---
----- Wearables (category_id = 9)
---('2025-03-07', '2025-03-07', 9, 22, 'Smartwatches and fitness trackers', 'Smartwatches'),
---('2025-03-07', '2025-03-07', 9, 23, 'Wireless earbuds and headsets', 'Wireless Earbuds'),
---('2025-03-07', '2025-03-07', 9, 24, 'VR and AR headsets', 'VR & AR Devices'),
---
----- Software (category_id = 10)
---('2025-03-07', '2025-03-07', 10, 25, 'Operating systems like Windows and macOS', 'Operating Systems'),
---('2025-03-07', '2025-03-07', 10, 26, 'Antivirus and security software', 'Security Software'),
---('2025-03-07', '2025-03-07', 10, 27, 'Productivity software like Microsoft Office', 'Office Software');
+INSERT INTO sub_categories (created_at, updated_at, category_id, id, description, name) VALUES
+-- Office Equipment (category_id = 2)
+('2025-03-07', '2025-03-07', 2, 1, 'Chairs for office use', 'Office Chairs'),
+('2025-03-07', '2025-03-07', 2, 2, 'Desks and tables for office work', 'Office Desks'),
+('2025-03-07', '2025-03-07', 2, 3, 'Printers and scanners', 'Printers & Scanners'),
 
---INSERT INTO sub_category_attributes (id, attribute_id, sub_category_id)
---VALUES
---    (1, 1, 1),  (2, 1, 2),  (3, 1, 3),  (4, 2, 4),  (5, 2, 5),
---    (6, 3, 6),  (7, 3, 7),  (8, 4, 8),  (9, 4, 9),  (10, 5, 10),
---    (11, 6, 1),  (12, 6, 2),  (13, 7, 3),  (14, 7, 4),  (15, 8, 5),
---    (16, 8, 6),  (17, 9, 7),  (18, 9, 8),  (19, 10, 9), (20, 10, 10);
---
---
---INSERT INTO products (shop_id, sub_category_id, rating, total_sold, created_at, updated_at, description, name, thumbnail)
---VALUES
---    (1, 1, 4, 120, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Fast performance with long battery life', 'Samsung Galaxy S23', 'samsung_galaxy_s23.png'),
---    (1, 2, 5, 80, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Latest Apple smartphone with advanced camera', 'iPhone 14 Pro Max', 'iphone_14_pro_max.png'),
---    (1, 3, 3, 230, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Affordable smartphone with great features', 'Xiaomi Redmi Note 12', 'redmi_note_12.png'),
---    (1, 4, 2, 90, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Stylish and lightweight laptop', 'MacBook Air M2', 'macbook_air_m2.png'),
---    (1, 5, 4, 150, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Powerful gaming laptop', 'Asus ROG Strix G15', 'asus_rog_strix_g15.png'),
---    (1, 6, 5, 300, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Ultra HD smart TV with vibrant colors', 'Samsung 55-inch 4K Smart TV', 'samsung_55_4k_tv.png'),
---    (1, 7, 3, 20, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Affordable wireless earbuds with long battery life', 'JBL Tune 130NC TWS', 'jbl_tune_130nc.png'),
---    (1, 8, 4, 75, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Premium wireless noise-canceling headphones', 'Sony WH-1000XM5', 'sony_wh_1000xm5.png'),
---    (1, 9, 5, 200, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Compact and feature-rich smartwatch', 'Apple Watch Series 9', 'apple_watch_series_9.png'),
---    (1, 10, 1, 10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Basic fitness tracker with step counter', 'Xiaomi Mi Band 7', 'mi_band_7.png'),
---    (1, 1, 3, 250, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Professional DSLR camera for photography', 'Canon EOS 90D', 'canon_eos_90d.png'),
---    (1, 2, 5, 400, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Portable and lightweight tablet', 'Samsung Galaxy Tab S8', 'samsung_tab_s8.png'),
---    (1, 3, 2, 50, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Affordable gaming console with HD support', 'Nintendo Switch OLED', 'nintendo_switch_oled.png'),
---    (1, 4, 4, 130, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'High-quality mechanical keyboard', 'Logitech G Pro X', 'logitech_g_pro_x.png'),
---    (1, 5, 3, 90, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Ergonomic wireless mouse', 'Razer DeathAdder V2', 'razer_deathadder_v2.png'),
---    (1, 6, 5, 180, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Smart vacuum cleaner for home automation', 'iRobot Roomba i7', 'irobot_roomba_i7.png'),
---    (1, 7, 1, 25, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Powerful and stylish blender', 'Ninja Professional Blender', 'ninja_blender.png'),
---    (1, 8, 2, 60, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Efficient and quiet washing machine', 'LG Front Load Washer', 'lg_washer.png'),
---    (1, 9, 4, 145, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Smart air purifier with HEPA filter', 'Dyson Pure Cool Air Purifier', 'dyson_pure_cool.png'),
---    (1, 10, 3, 110, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Portable and powerful coffee maker', 'Nespresso VertuoPlus', 'nespresso_vertuo.png'),
---    (1, 1, 5, 350, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Best-selling wireless speaker with deep bass', 'Bose SoundLink Revolve+', 'bose_soundlink_revolve.png'),
---    (1, 2, 2, 45, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Affordable wired gaming headset', 'HyperX Cloud Stinger', 'hyperx_cloud_stinger.png'),
---    (1, 3, 4, 190, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Premium smart home security camera', 'Ring Video Doorbell 4', 'ring_video_doorbell.png'),
---    (1, 4, 3, 70, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Stylish and comfortable smartwatch', 'Garmin Forerunner 955', 'garmin_forerunner_955.png'),
---    (1, 5, 5, 220, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Ultra-fast Wi-Fi 6 router', 'TP-Link Archer AX6000', 'tplink_archer_ax6000.png'),
---    (1, 6, 4, 175, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'High-performance external SSD', 'Samsung T7 Shield 1TB', 'samsung_t7_shield.png'),
---    (1, 7, 2, 55, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Stylish and durable backpack for travel', 'Samsonite Tectonic Lifestyle Backpack', 'samsonite_backpack.png'),
---    (1, 8, 1, 35, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Comfortable and lightweight sneakers', 'Nike Air Zoom Pegasus 39', 'nike_pegasus_39.png'),
---    (1, 9, 3, 125, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Elegant and minimalist wristwatch', 'Casio Edifice Chronograph', 'casio_edifice.png'),
---    (1, 10, 5, 280, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Luxury perfume with floral scent', 'Chanel Coco Mademoiselle', 'chanel_coco_mademoiselle.png');
---
---INSERT INTO product_attribute_value (id, product_id, sub_category_attribute_id, value) VALUES
---(1, 1, 1, 'Black'),
---(2, 1, 2, '6.1 inches'),
---(3, 1, 3, 'Aluminum & Glass'),
---(4, 1, 4, 'Samsung'),
---(5, 1, 5, '168g'),
---(31, 1, 2, '4.6 inches'),
---(6, 2, 1, 'Silver'),
---(7, 2, 2, '6.7 inches'),
---(8, 2, 3, 'Stainless Steel'),
---(9, 2, 4, 'Apple'),
---(10, 2, 5, '206g'),
---(11, 3, 1, 'Blue'),
---(12, 3, 2, '6.5 inches'),
---(13, 3, 3, 'Plastic & Glass'),
---(14, 3, 4, 'Xiaomi'),
---(15, 3, 5, '192g'),
---(16, 4, 1, 'Gray'),
---(17, 4, 2, '13.6 inches'),
---(18, 4, 3, 'Aluminum'),
---(19, 4, 4, 'Apple'),
---(20, 4, 5, '1.24kg'),
---(21, 5, 1, 'Black'),
---(22, 5, 2, '15.6 inches'),
---(23, 5, 3, 'Plastic'),
---(24, 5, 4, 'Asus'),
---(25, 5, 5, '2.3kg'),
---(26, 6, 1, 'Black'),
---(27, 6, 2, '55 inches'),
---(28, 6, 3, 'LED Display'),
---(29, 6, 4, 'Samsung'),
---(30, 6, 5, '15kg');
+-- Smartphones (category_id = 3)
+('2025-03-07', '2025-03-07', 3, 4, 'Android smartphones', 'Android Phones'),
+('2025-03-07', '2025-03-07', 3, 5, 'Apple iPhones', 'iPhones'),
+('2025-03-07', '2025-03-07', 3, 6, 'Phone chargers and cables', 'Phone Accessories'),
+
+-- Computer Accessories (category_id = 4)
+('2025-03-07', '2025-03-07', 4, 7, 'Monitors and screens', 'Monitors'),
+('2025-03-07', '2025-03-07', 4, 8, 'Computer keyboards', 'Keyboards'),
+('2025-03-07', '2025-03-07', 4, 9, 'Computer mice and trackpads', 'Mice'),
+
+-- Home Electronics (category_id = 5)
+('2025-03-07', '2025-03-07', 5, 10, 'Smart televisions', 'Smart TVs'),
+('2025-03-07', '2025-03-07', 5, 11, 'Speakers and home audio systems', 'Speakers'),
+('2025-03-07', '2025-03-07', 5, 12, 'Streaming devices like Chromecast', 'Streaming Devices'),
+
+-- Gaming (category_id = 6)
+('2025-03-07', '2025-03-07', 6, 13, 'Gaming consoles like PlayStation', 'Gaming Consoles'),
+('2025-03-07', '2025-03-07', 6, 14, 'Gaming keyboards and mice', 'Gaming Accessories'),
+('2025-03-07', '2025-03-07', 6, 15, 'Virtual reality (VR) headsets', 'VR Headsets'),
+
+-- Networking (category_id = 7)
+('2025-03-07', '2025-03-07', 7, 16, 'Wi-Fi routers and modems', 'Wi-Fi Routers'),
+('2025-03-07', '2025-03-07', 7, 17, 'Network switches and hubs', 'Network Switches'),
+('2025-03-07', '2025-03-07', 7, 18, 'Ethernet cables and adapters', 'Networking Cables'),
+
+-- Storage (category_id = 8)
+('2025-03-07', '2025-03-07', 8, 19, 'External hard drives and SSDs', 'External HDDs'),
+('2025-03-07', '2025-03-07', 8, 20, 'USB flash drives and memory cards', 'USB Drives'),
+('2025-03-07', '2025-03-07', 8, 21, 'Cloud storage services', 'Cloud Storage'),
+
+-- Wearables (category_id = 9)
+('2025-03-07', '2025-03-07', 9, 22, 'Smartwatches and fitness trackers', 'Smartwatches'),
+('2025-03-07', '2025-03-07', 9, 23, 'Wireless earbuds and headsets', 'Wireless Earbuds'),
+('2025-03-07', '2025-03-07', 9, 24, 'VR and AR headsets', 'VR & AR Devices'),
+
+-- Software (category_id = 10)
+('2025-03-07', '2025-03-07', 10, 25, 'Operating systems like Windows and macOS', 'Operating Systems'),
+('2025-03-07', '2025-03-07', 10, 26, 'Antivirus and security software', 'Security Software'),
+('2025-03-07', '2025-03-07', 10, 27, 'Productivity software like Microsoft Office', 'Office Software');
+
+INSERT INTO sub_category_attributes (id, attribute_id, sub_category_id)
+VALUES
+    (1, 1, 1),  (2, 1, 2),  (3, 1, 3),  (4, 2, 4),  (5, 2, 5),
+    (6, 3, 6),  (7, 3, 7),  (8, 4, 8),  (9, 4, 9),  (10, 5, 10),
+    (11, 6, 1),  (12, 6, 2),  (13, 7, 3),  (14, 7, 4),  (15, 8, 5),
+    (16, 8, 6),  (17, 9, 7),  (18, 9, 8),  (19, 10, 9), (20, 10, 10);
+
+
+INSERT INTO products (shop_id, sub_category_id, rating, total_sold, created_at, updated_at, description, name, thumbnail)
+VALUES
+    (1, 1, 4, 120, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Fast performance with long battery life', 'Samsung Galaxy S23', 'samsung_galaxy_s23.png'),
+    (1, 2, 5, 80, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Latest Apple smartphone with advanced camera', 'iPhone 14 Pro Max', 'iphone_14_pro_max.png'),
+    (1, 3, 3, 230, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Affordable smartphone with great features', 'Xiaomi Redmi Note 12', 'redmi_note_12.png'),
+    (1, 4, 2, 90, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Stylish and lightweight laptop', 'MacBook Air M2', 'macbook_air_m2.png'),
+    (1, 5, 4, 150, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Powerful gaming laptop', 'Asus ROG Strix G15', 'asus_rog_strix_g15.png'),
+    (1, 6, 5, 300, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Ultra HD smart TV with vibrant colors', 'Samsung 55-inch 4K Smart TV', 'samsung_55_4k_tv.png'),
+    (1, 7, 3, 20, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Affordable wireless earbuds with long battery life', 'JBL Tune 130NC TWS', 'jbl_tune_130nc.png'),
+    (1, 8, 4, 75, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Premium wireless noise-canceling headphones', 'Sony WH-1000XM5', 'sony_wh_1000xm5.png'),
+    (1, 9, 5, 200, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Compact and feature-rich smartwatch', 'Apple Watch Series 9', 'apple_watch_series_9.png'),
+    (1, 10, 1, 10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Basic fitness tracker with step counter', 'Xiaomi Mi Band 7', 'mi_band_7.png'),
+    (1, 1, 3, 250, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Professional DSLR camera for photography', 'Canon EOS 90D', 'canon_eos_90d.png'),
+    (1, 2, 5, 400, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Portable and lightweight tablet', 'Samsung Galaxy Tab S8', 'samsung_tab_s8.png'),
+    (1, 3, 2, 50, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Affordable gaming console with HD support', 'Nintendo Switch OLED', 'nintendo_switch_oled.png'),
+    (1, 4, 4, 130, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'High-quality mechanical keyboard', 'Logitech G Pro X', 'logitech_g_pro_x.png'),
+    (1, 5, 3, 90, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Ergonomic wireless mouse', 'Razer DeathAdder V2', 'razer_deathadder_v2.png'),
+    (1, 6, 5, 180, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Smart vacuum cleaner for home automation', 'iRobot Roomba i7', 'irobot_roomba_i7.png'),
+    (1, 7, 1, 25, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Powerful and stylish blender', 'Ninja Professional Blender', 'ninja_blender.png'),
+    (1, 8, 2, 60, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Efficient and quiet washing machine', 'LG Front Load Washer', 'lg_washer.png'),
+    (1, 9, 4, 145, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Smart air purifier with HEPA filter', 'Dyson Pure Cool Air Purifier', 'dyson_pure_cool.png'),
+    (1, 10, 3, 110, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Portable and powerful coffee maker', 'Nespresso VertuoPlus', 'nespresso_vertuo.png'),
+    (1, 1, 5, 350, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Best-selling wireless speaker with deep bass', 'Bose SoundLink Revolve+', 'bose_soundlink_revolve.png'),
+    (1, 2, 2, 45, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Affordable wired gaming headset', 'HyperX Cloud Stinger', 'hyperx_cloud_stinger.png'),
+    (1, 3, 4, 190, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Premium smart home security camera', 'Ring Video Doorbell 4', 'ring_video_doorbell.png'),
+    (1, 4, 3, 70, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Stylish and comfortable smartwatch', 'Garmin Forerunner 955', 'garmin_forerunner_955.png'),
+    (1, 5, 5, 220, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Ultra-fast Wi-Fi 6 router', 'TP-Link Archer AX6000', 'tplink_archer_ax6000.png'),
+    (1, 6, 4, 175, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'High-performance external SSD', 'Samsung T7 Shield 1TB', 'samsung_t7_shield.png'),
+    (1, 7, 2, 55, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Stylish and durable backpack for travel', 'Samsonite Tectonic Lifestyle Backpack', 'samsonite_backpack.png'),
+    (1, 8, 1, 35, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Comfortable and lightweight sneakers', 'Nike Air Zoom Pegasus 39', 'nike_pegasus_39.png'),
+    (1, 9, 3, 125, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Elegant and minimalist wristwatch', 'Casio Edifice Chronograph', 'casio_edifice.png'),
+    (1, 10, 5, 280, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Luxury perfume with floral scent', 'Chanel Coco Mademoiselle', 'chanel_coco_mademoiselle.png');
+
+INSERT INTO product_attribute_value (id, product_id, sub_category_attribute_id, value) VALUES
+(1, 1, 1, 'Black'),
+(2, 1, 2, '6.1 inches'),
+(3, 1, 3, 'Aluminum & Glass'),
+(4, 1, 4, 'Samsung'),
+(5, 1, 5, '168g'),
+(31, 1, 2, '4.6 inches'),
+(6, 2, 1, 'Silver'),
+(7, 2, 2, '6.7 inches'),
+(8, 2, 3, 'Stainless Steel'),
+(9, 2, 4, 'Apple'),
+(10, 2, 5, '206g'),
+(11, 3, 1, 'Blue'),
+(12, 3, 2, '6.5 inches'),
+(13, 3, 3, 'Plastic & Glass'),
+(14, 3, 4, 'Xiaomi'),
+(15, 3, 5, '192g'),
+(16, 4, 1, 'Gray'),
+(17, 4, 2, '13.6 inches'),
+(18, 4, 3, 'Aluminum'),
+(19, 4, 4, 'Apple'),
+(20, 4, 5, '1.24kg'),
+(21, 5, 1, 'Black'),
+(22, 5, 2, '15.6 inches'),
+(23, 5, 3, 'Plastic'),
+(24, 5, 4, 'Asus'),
+(25, 5, 5, '2.3kg'),
+(26, 6, 1, 'Black'),
+(27, 6, 2, '55 inches'),
+(28, 6, 3, 'LED Display'),
+(29, 6, 4, 'Samsung'),
+(30, 6, 5, '15kg');
 
 INSERT INTO code_purposes (id, name, created_at, updated_at) VALUES
 (1, 'Email confirmation', '2025-03-13', '2025-03-13'),

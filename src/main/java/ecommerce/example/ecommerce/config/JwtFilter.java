@@ -85,6 +85,8 @@ public class JwtFilter extends OncePerRequestFilter {
         List<String> endPoints = new ArrayList<>();
         endPoints.add("/user/register");
         endPoints.add("/user/login");
+        endPoints.add("/user_code/send_code");
+        endPoints.add("/user_code/confirm_code");
 
         String requestUrl = request.getRequestURI();
         String requestMethod = request.getMethod();

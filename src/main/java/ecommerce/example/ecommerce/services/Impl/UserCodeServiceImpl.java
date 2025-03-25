@@ -1,6 +1,7 @@
 package ecommerce.example.ecommerce.services.Impl;
 
 import ecommerce.example.ecommerce.Repo.CodePurposeRepo;
+import ecommerce.example.ecommerce.Repo.ShopRepo;
 import ecommerce.example.ecommerce.Repo.UserCodeRepo;
 import ecommerce.example.ecommerce.Repo.UserRepo;
 import ecommerce.example.ecommerce.dtos.UserCodeDTO;
@@ -12,9 +13,7 @@ import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Random;
 
@@ -33,60 +32,135 @@ public class UserCodeServiceImpl implements UserCodeService {
     @Autowired
     private CodePurposeRepo codePurposeRepo;
 
+    @Autowired
+    private ShopRepo shopRepo;
+
     @Override
-    @Transactional
-    public void createAndSendCode(Long userId, String email, Long codePurposeId) throws MessagingException {
+    public int sendCode(String email) throws MessagingException {
         String subject = "Shop confirmation";
 
+        int code = generateCode();
+        String html = generateHTMLMailContent(code);
+
+
+        emailService.sendEmail(email, subject, html );
+
+        return code;
+    }
+
+    @Override
+    @Transactional
+    public void confirmCode(UserCodeDTO userCodeDTO) {
+        UserCode userCode = userCodeRepo
+                .findUserCode(1L, userCodeDTO.getEmail())
+                .orElseThrow(() -> new RuntimeException("Code does not found"));
+
+        if (userCode.getActive()) {
+            throw new RuntimeException("Code is used");
+        }
+
+        if (userCode.getDateEnd().isBefore(LocalDateTime.now())) {
+            throw new RuntimeException("Invalid code");
+        }
+
+        if(userCode.getCode() != userCodeDTO.getCode()) {
+            throw new RuntimeException("Invalid code");
+        }
+
+        if (!userCode.getEmail().equals(userCodeDTO.getEmail())) {
+            throw  new RuntimeException("Invalid code");
+        }
+
+
+        userCode.setActive(true);
+
+        userCodeRepo.save(userCode);
+    }
+
+
+    @Override
+    @Transactional
+    public void handleCode(Long userId, String email, Long codePurposeId) throws MessagingException {
+
+//        Boolean isShopEmailExisting = shopRepo.existsByEmail(email);
+//        if (isShopEmailExisting) {
+//            throw new RuntimeException("Email is existing!!");
+//        }
+
         User user = userRepo.findById(userId).orElseThrow(
-                () ->  new RuntimeException("User does not found")
+                () -> new RuntimeException("User does not found"));
+
+
+        CodePurpose codePurpose = codePurposeRepo.findById(codePurposeId).orElseThrow(
+                () -> new RuntimeException("Code purpose does not found")
         );
+
+        // delete all code
+        int code = sendCode(email);
+
+        UserCode userCode = UserCode.builder()
+                .code(code)
+                .user(user)
+                .codePurpose(codePurpose)
+                .email(email)
+                .build();
+
+        userCodeRepo.save(userCode);
+
+    }
+
+    @Override
+    public void handleCode(String email, Long codePurposeId) throws MessagingException {
+
+        // check email existing
+//        Boolean isEmailExisting = userCodeRepo.existsByEmail(email);
+//        if (isEmailExisting) {
+//            throw new RuntimeException("Email is existing");
+//        }
 
         CodePurpose codePurpose = codePurposeRepo.findById(codePurposeId).orElseThrow(
                 () -> new RuntimeException("Code purpose does not found")
         );
 
 
-        int code = generateCode();
-        String html = generateHTMLMailContent(code, user.getAccount());
+        // delete all code
+        int code = sendCode(email);
 
-        UserCode shopCode = UserCode.builder()
+        UserCode userCode = UserCode.builder()
                 .code(code)
-                .user(user)
                 .codePurpose(codePurpose)
+                .email(email)
                 .build();
 
-        userCodeRepo.save(shopCode);
-
-        emailService.sendEmail(email, subject, html );
+        userCodeRepo.save(userCode);
     }
 
     @Override
     public void confirmCode(
-            @RequestBody UserCodeDTO userCodeDTO
+            UserCodeDTO userCodeDTO,
+            Long userId
     ) {
 
-        boolean isUserExisting = userRepo.existsById(userCodeDTO.getUserId());
-
-        if (!isUserExisting) {
-            throw new RuntimeException("User does not found");
-        }
-
         UserCode userCode = userCodeRepo
-                .findLatestByCodePurposeIdAndUserId(1L, userCodeDTO.getUserId())
+                .findUserCode(1L, userCodeDTO.getEmail())
                 .orElseThrow(() -> new RuntimeException("Code does not found"));
 
         if (userCode.getActive()) {
             throw new RuntimeException("Code is used");
         }
-        if (userCode.getUser().getId() != userCodeDTO.getUserId()) {
-            throw new RuntimeException("Invalid code!");
-        }
 
         if (userCode.getDateEnd().isBefore(LocalDateTime.now())) {
             throw new RuntimeException("Invalid code");
         }
-        
+
+        if(userCode.getCode() != userCodeDTO.getCode()) {
+            throw new RuntimeException("Invalid code");
+        }
+
+        if (!userCode.getEmail().equals(userCodeDTO.getEmail())) {
+            throw  new RuntimeException("Invalid code");
+        }
+
 
         userCode.setActive(true);
 
@@ -101,7 +175,7 @@ public class UserCodeServiceImpl implements UserCodeService {
         return uniqueNumber;
     }
 
-    private String generateHTMLMailContent(int code, String username) {
+    private String generateHTMLMailContent(int code) {
         String html = "<body style=\"margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f4f4f4; text-align: center;\">\n" +
                 "    <table width=\"100%\" bgcolor=\"#f4f4f4\" cellpadding=\"0\" cellspacing=\"0\">\n" +
                 "        <tr>\n" +
@@ -114,7 +188,7 @@ public class UserCodeServiceImpl implements UserCodeService {
                 "                    </tr>\n" +
                 "                    <tr>\n" +
                 "                        <td align=\"center\" style=\"padding: 20px; font-size: 16px; color: #333;\">\n" +
-                "                            <p>Xin chào, "+username+"</p>\n" +
+                "                            <p>Xin chào, Snapbuyer</p>\n" +
                 "                            <p>Mã xác nhận của bạn là:</p>\n" +
                 "                            <p style=\"font-size: 28px; font-weight: bold; color: #007bff; letter-spacing: 4px; margin: 10px 0;\">"+ code +"</p>\n" +
                 "                            <p>Vui lòng nhập mã này để xác minh tài khoản của bạn.</p>\n" +
