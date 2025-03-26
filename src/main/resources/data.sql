@@ -450,7 +450,7 @@ INSERT INTO code_purposes (id, name, created_at, updated_at) VALUES
 (2, 'User confirmation', '2025-03-13', '2025-03-13'),
  (3, 'Discount Code', '2025-03-13', '2025-03-13');
 
-INSERT INTO user_codes (code, date_start, date_end, user_id, active, code_purpose_id)
-VALUES (123456, NOW(), NOW() + INTERVAL '2 minutes', 2, FALSE, 1);
+--INSERT INTO user_codes (code, date_start, date_end, user_id, active, code_purpose_id)
+--VALUES (123456, NOW(), NOW() + INTERVAL '2 minutes', 2, FALSE, 1);
 
 

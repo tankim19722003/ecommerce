@@ -76,8 +76,9 @@ public class Product {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
     private List<ProductAttributeValue> ProductAttributeValues;
 
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
-    private List<Quantity> quantities;
+    private List<ProductCategory> productCategory;
 
     public void addProductAttribute(ProductAttributeValue productAttributeValue) {
         if (ProductAttributeValues == null) {

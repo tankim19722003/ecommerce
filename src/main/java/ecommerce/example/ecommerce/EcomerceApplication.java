@@ -21,7 +21,6 @@ public class EcomerceApplication {
 
 	@Bean
 	public CommandLineRunner commandLineRunner(
-			QuantityRepo quantityRepo,
 			UserRepo userRepo
 	) {
 		return runner -> {
@@ -30,15 +29,6 @@ public class EcomerceApplication {
 		};
 	}
 
-	private void findAllQuantity(QuantityRepo quantityRepo) {
-
-		Long productId = 1L;
-
-		List<Quantity> quanties = quantityRepo.findAllByProductId(productId);
-
-		System.out.println(quanties.size());
-
-	}
 
 	private void deleteImage(ProductImageRepo productImageRepo) {
 		productImageRepo.deleteById(1L);
