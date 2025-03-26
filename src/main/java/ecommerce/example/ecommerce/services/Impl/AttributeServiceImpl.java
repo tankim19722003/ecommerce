@@ -6,6 +6,7 @@ import ecommerce.example.ecommerce.responses.AttributeResponse;
 import ecommerce.example.ecommerce.services.AttributeService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,7 +48,13 @@ public class AttributeServiceImpl implements AttributeService {
         Attribute attribute = new Attribute();
         attribute.setName(name);
 
-        attributeRepo.save(attribute);
+        try {
+            attributeRepo.save(attribute);
+        } catch (DataIntegrityViolationException e) {
+            throw new RuntimeException("The attribute is existing!!");
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to save");
+        }
 
         return modelMapper.map(attribute, AttributeResponse.class);
 
@@ -84,7 +91,7 @@ public class AttributeServiceImpl implements AttributeService {
 
         boolean isAttributeExisting = attributeRepo.existsById(attributeId);
 
-        if (isAttributeExisting) throw new RuntimeException("Attribute is existing");
+        if (!isAttributeExisting) throw new RuntimeException("Attribute does not found");
 
         try {
             attributeRepo.deleteById(attributeId);

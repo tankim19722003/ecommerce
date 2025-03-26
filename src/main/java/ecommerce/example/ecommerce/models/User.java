@@ -1,6 +1,5 @@
 package ecommerce.example.ecommerce.models;
 
-import ecommerce.example.ecommerce.responses.UserLoginResponse;
 import ecommerce.example.ecommerce.responses.UserResponse;
 import ecommerce.example.ecommerce.responses.UserUpdatedResponse;
 import jakarta.persistence.*;

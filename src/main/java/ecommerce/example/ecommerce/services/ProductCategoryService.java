@@ -1,6 +1,7 @@
 package ecommerce.example.ecommerce.services;
 
 import ecommerce.example.ecommerce.dtos.ProductCategoryDTO;
+import ecommerce.example.ecommerce.dtos.ProductCategoryImageDTO;
 import ecommerce.example.ecommerce.models.Product;
 import ecommerce.example.ecommerce.responses.ProductCategoryResponse;
 
@@ -10,16 +11,16 @@ public interface ProductCategoryService {
 
     ProductCategoryResponse addProductCategory(
         Long productId,
-        ProductCategoryDTO productCategoryDTO
+        ProductCategoryImageDTO productCategoryDTO
     );
 
     List<ProductCategoryResponse> addMultipleProductCategory(
             Long productId,
-            List<ProductCategoryDTO> productCategoryDTOs
+            List<ProductCategoryImageDTO> productCategoryDTOs
     );
 
     ProductCategoryResponse handleSaveProduct(
-            ProductCategoryDTO productCategoryDTO,
+            ProductCategoryImageDTO productCategoryDTO,
             Product product
     );
 
@@ -28,6 +29,7 @@ public interface ProductCategoryService {
     );
 
     ProductCategoryResponse updateProductCategory(
+            Long productCategoryId,
             ProductCategoryDTO productCategoryDTO
     );
 

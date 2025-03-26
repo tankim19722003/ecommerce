@@ -72,9 +72,9 @@ public class AttributeController {
         }
     }
 
-    @GetMapping("/{categoryId}")
+    @GetMapping("/{subCategoryId}")
     public List<AttributeResponse> getAllAttributeByCategoryId(
-            @PathVariable("categoryId") Long categoryId
+            @PathVariable("subCategoryId") Long categoryId
     ) {
         return attributeService.getAttributesByCategoryId(categoryId);
     }

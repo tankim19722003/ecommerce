@@ -27,4 +27,18 @@ public class OwnerService {
 
 
     }
+
+    public void checkValidShop(Long shopId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+
+        User user = userRepo.findByAccount(userPrincipal.getUsername()).orElseThrow(
+                () -> new RuntimeException("User does not found")
+        );
+
+        if (user.getShop().getId() != shopId)  throw new SecurityException("You are not allowed to modify this user's data!");
+
+
+    }
 }

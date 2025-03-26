@@ -3,6 +3,7 @@ package ecommerce.example.ecommerce.services.Impl;
 import ecommerce.example.ecommerce.Repo.ProductCategoryRepo;
 import ecommerce.example.ecommerce.Repo.ProductRepo;
 import ecommerce.example.ecommerce.dtos.ProductCategoryDTO;
+import ecommerce.example.ecommerce.dtos.ProductCategoryImageDTO;
 import ecommerce.example.ecommerce.models.Product;
 import ecommerce.example.ecommerce.models.ProductCategory;
 import ecommerce.example.ecommerce.responses.ProductCategoryResponse;
@@ -10,6 +11,7 @@ import ecommerce.example.ecommerce.services.ProductCategoryService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +33,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     private ModelMapper modelMapper;
 
     @Override
-    public ProductCategoryResponse addProductCategory(Long productId, ProductCategoryDTO productCategoryDTO) {
+    public ProductCategoryResponse addProductCategory(Long productId, ProductCategoryImageDTO productCategoryDTO) {
 
         Product product = productRepo.findById(productId).orElseThrow(
                 () -> new RuntimeException("Product does not found")
@@ -43,14 +45,14 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     @Override
     public List<ProductCategoryResponse> addMultipleProductCategory(
             Long productId,
-            List<ProductCategoryDTO> productCategoryDTOs
+            List<ProductCategoryImageDTO> productCategoryDTOs
     ) {
         Product product = productRepo.findById(productId).orElseThrow(
                 () -> new RuntimeException("Product does not found")
         );
 
         List<ProductCategoryResponse> productCategoryResponses = new ArrayList<>();
-        for (ProductCategoryDTO productCategoryDTO : productCategoryDTOs) {
+        for (ProductCategoryImageDTO productCategoryDTO : productCategoryDTOs) {
             productCategoryResponses.add(handleSaveProduct(productCategoryDTO, product));
         }
 
@@ -58,7 +60,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     }
 
     @Override
-    public ProductCategoryResponse handleSaveProduct(ProductCategoryDTO productCategoryDTO, Product product) {
+    public ProductCategoryResponse handleSaveProduct(ProductCategoryImageDTO productCategoryDTO, Product product) {
         Map<String, String> cloudImage;
         // save product category image
         try {
@@ -76,7 +78,11 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
                 .product(product)
                 .build();
 
-        productCategoryRepo.save(productCategory);
+        try {
+            productCategoryRepo.save(productCategory);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to save product category!!");
+        }
 
         return modelMapper.map(productCategory, ProductCategoryResponse.class);
 
@@ -86,17 +92,34 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     @Override
     public List<ProductCategoryResponse> getAllProductCategoriesByProductId(Long productId) {
 
-        List<ProductCategory> productCategoryResponses = productCategoryRepo.findByProductId(productId);
-        return null;
+        List<ProductCategory> productCategories = productCategoryRepo.findByProductId(productId);
+        return productCategories
+                .stream()
+                .map(productCategory -> modelMapper.map(productCategory, ProductCategoryResponse.class))
+                .toList();
     }
 
     @Override
-    public ProductCategoryResponse updateProductCategory(ProductCategoryDTO productCategoryDTO) {
-        return null;
+    public ProductCategoryResponse updateProductCategory(Long productCategoryId, ProductCategoryDTO productCategoryDTO) {
+
+        ProductCategory productCategory = productCategoryRepo.findById(productCategoryId)
+                .orElseThrow(() -> new RuntimeException("Product category does not exist!!"));
+
+        modelMapper.map(productCategoryDTO, productCategory);
+
+        return modelMapper.map(productCategory, ProductCategoryResponse.class);
     }
 
     @Override
+    @Transactional
     public void deleteProductCategoryById(Long id) {
+        ProductCategory productCategory = productCategoryRepo.findById(id)
+                        .orElseThrow(() -> new RuntimeException("Product category does not found!!"));
+
+        productCategoryRepo.delete(productCategory);
+
+        // delete image on cloud
+        cloudinaryService.deleteImage(productCategory.getPublicId());
 
     }
 }

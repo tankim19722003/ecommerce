@@ -6,6 +6,7 @@ ecommerce\example\ecommerce\responses\AttributeValueResponse$AttributeValueRespo
 ecommerce\example\ecommerce\dtos\ProductAttributeValueDTO.class
 ecommerce\example\ecommerce\Repo\UserVillageRepo.class
 ecommerce\example\ecommerce\Repo\CategoryAttributeRepo.class
+ecommerce\example\ecommerce\controllers\ProductCategoryController.class
 ecommerce\example\ecommerce\responses\ProductCreatingResponse.class
 ecommerce\example\ecommerce\responses\SubCategoryInListResponse.class
 ecommerce\example\ecommerce\responses\VillageResponse$VillageResponseBuilder.class
@@ -51,6 +52,7 @@ ecommerce\example\ecommerce\responses\ImageResponse$ImageResponseBuilder.class
 ecommerce\example\ecommerce\responses\ProductCategoryResponse$ProductCategoryResponseBuilder.class
 ecommerce\example\ecommerce\controllers\UserVillageController.class
 ecommerce\example\ecommerce\dtos\QuantityDTO.class
+ecommerce\example\ecommerce\dtos\ProductCategoryImageDTO.class
 ecommerce\example\ecommerce\responses\DistrictResponse$DistrictResponseBuilder.class
 ecommerce\example\ecommerce\dtos\ProductCreatingDTO$ProductCreatingDTOBuilder.class
 ecommerce\example\ecommerce\models\ShopAddress.class

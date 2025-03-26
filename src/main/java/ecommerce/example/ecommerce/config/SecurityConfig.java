@@ -167,10 +167,19 @@ public class SecurityConfig {
 
                             //quantity
                             .requestMatchers(POST,
-                                    String.format("%s/quantity", apiPrefix)).hasAnyRole(Role.SHOP)
+                                    String.format("%s/product_category/add_multiple/**", apiPrefix)).hasAnyRole(Role.SHOP)
+
+                            .requestMatchers(POST,
+                                    String.format("%s/product_category/add_one/**", apiPrefix)).hasAnyRole(Role.SHOP)
 
                             .requestMatchers(GET,
-                                    String.format("%s/quantity/**", apiPrefix)).hasAnyRole(Role.USER, Role.SHOP, Role.ADMIN)
+                                    String.format("%s/product_category/**", apiPrefix)).permitAll()
+
+                            .requestMatchers(PUT,
+                                    String.format("%s/product_category/**", apiPrefix)).hasAnyRole(Role.SHOP)
+
+                            .requestMatchers(DELETE,
+                                    String.format("%s/product_category/**", apiPrefix)).hasAnyRole(Role.SHOP)
                             // image
                             .requestMatchers(POST,
                                      String.format("%s/image/product_image/upload", apiPrefix)).hasRole(Role.SHOP)
