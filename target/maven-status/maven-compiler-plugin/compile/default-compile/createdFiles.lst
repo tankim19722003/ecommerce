@@ -6,6 +6,7 @@ ecommerce\example\ecommerce\responses\AttributeValueResponse$AttributeValueRespo
 ecommerce\example\ecommerce\dtos\ProductAttributeValueDTO.class
 ecommerce\example\ecommerce\Repo\UserVillageRepo.class
 ecommerce\example\ecommerce\Repo\CategoryAttributeRepo.class
+ecommerce\example\ecommerce\services\Impl\SubcategoryAttributeServiceImpl.class
 ecommerce\example\ecommerce\controllers\ProductCategoryController.class
 ecommerce\example\ecommerce\responses\ProductCreatingResponse.class
 ecommerce\example\ecommerce\responses\SubCategoryInListResponse.class
@@ -16,6 +17,7 @@ ecommerce\example\ecommerce\models\ShippingProvider.class
 ecommerce\example\ecommerce\dtos\QuantityDTOList.class
 ecommerce\example\ecommerce\Repo\ShippingProviderRejectRepo.class
 ecommerce\example\ecommerce\models\UserCode.class
+ecommerce\example\ecommerce\responses\SubcategoryAttributeResponse$SubcategoryAttributeResponseBuilder.class
 ecommerce\example\ecommerce\models\Attribute.class
 ecommerce\example\ecommerce\Repo\CouponRepo.class
 ecommerce\example\ecommerce\services\Impl\UserVillageServiceImpl.class
@@ -88,6 +90,7 @@ ecommerce\example\ecommerce\controllers\ProductAttributeValueController.class
 ecommerce\example\ecommerce\Exceptions\ValidationException.class
 ecommerce\example\ecommerce\responses\DistrictResponse.class
 ecommerce\example\ecommerce\config\JwtFilter.class
+ecommerce\example\ecommerce\dtos\SubcategoryAttributeDTO$SubcategoryAttributeDTOBuilder.class
 ecommerce\example\ecommerce\responses\QuantityResponse.class
 ecommerce\example\ecommerce\services\Impl\EmailServiceImpl.class
 ecommerce\example\ecommerce\Repo\ProductAttributeValueRepo.class
@@ -101,6 +104,7 @@ ecommerce\example\ecommerce\Repo\ProductCategoryRepo.class
 ecommerce\example\ecommerce\models\CodePurpose$CodePurposeBuilder.class
 ecommerce\example\ecommerce\dtos\QuantityDTO$QuantityDTOBuilder.class
 ecommerce\example\ecommerce\services\ProductService.class
+ecommerce\example\ecommerce\services\SubcategoryAttributeService.class
 ecommerce\example\ecommerce\responses\UserResponse.class
 ecommerce\example\ecommerce\services\ProductAttributeValueService.class
 ecommerce\example\ecommerce\services\ShopCodeService.class
@@ -160,10 +164,12 @@ ecommerce\example\ecommerce\dtos\UserInfoUpdating.class
 ecommerce\example\ecommerce\models\Shop$ShopBuilder.class
 ecommerce\example\ecommerce\models\CodePurpose.class
 ecommerce\example\ecommerce\models\ProductCategory$ProductCategoryBuilder.class
+ecommerce\example\ecommerce\responses\SubcategoryAttributeResponse.class
 ecommerce\example\ecommerce\Repo\ProductRepo.class
 ecommerce\example\ecommerce\services\Impl\ProductAttributeValueServiceImpl.class
 ecommerce\example\ecommerce\services\UserCodeService.class
 ecommerce\example\ecommerce\models\UserPrincipal.class
+ecommerce\example\ecommerce\dtos\AttributeDTO.class
 ecommerce\example\ecommerce\models\Village.class
 ecommerce\example\ecommerce\responses\ProvinceResponse.class
 ecommerce\example\ecommerce\responses\ShopResponse.class
@@ -172,6 +178,7 @@ ecommerce\example\ecommerce\models\User.class
 ecommerce\example\ecommerce\Repo\CodePurposeRepo.class
 ecommerce\example\ecommerce\models\Role.class
 ecommerce\example\ecommerce\responses\CategoryResponse$CategoryResponseBuilder.class
+ecommerce\example\ecommerce\dtos\AttributeDTO$AttributeDTOBuilder.class
 ecommerce\example\ecommerce\Repo\UserRepo.class
 ecommerce\example\ecommerce\config\ModelMapperConfig.class
 ecommerce\example\ecommerce\models\Province$ProvinceBuilder.class
@@ -195,6 +202,7 @@ ecommerce\example\ecommerce\models\ProductCategory.class
 ecommerce\example\ecommerce\services\Impl\UserCodeServiceImpl.class
 ecommerce\example\ecommerce\responses\ProductImageResponse.class
 ecommerce\example\ecommerce\dtos\ProductAttributeValueDTO$ProductAttributeValueDTOBuilder.class
+ecommerce\example\ecommerce\dtos\SubcategoryAttributeDTO.class
 ecommerce\example\ecommerce\services\Impl\ShopCodeServiceImpl.class
 ecommerce\example\ecommerce\models\ProductAttributeValue$ProductAttributeValueBuilder.class
 ecommerce\example\ecommerce\Repo\PaymentRepo.class

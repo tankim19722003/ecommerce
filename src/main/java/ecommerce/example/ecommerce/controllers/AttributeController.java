@@ -1,5 +1,6 @@
 package ecommerce.example.ecommerce.controllers;
 
+import ecommerce.example.ecommerce.dtos.AttributeDTO;
 import ecommerce.example.ecommerce.models.Attribute;
 import ecommerce.example.ecommerce.responses.AttributeResponse;
 import ecommerce.example.ecommerce.responses.EResponse;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("${api.prefix}/attribute")
@@ -20,9 +22,12 @@ public class AttributeController {
 
     @PostMapping("/add_attribute")
     public ResponseEntity<?> addAttribute(
-        @RequestParam("attributeName") String attributeName
+        @RequestBody Map<String, String> body
     ) {
         try {
+            String attributeName = body.get("attribute_name");
+            if (attributeName == null || attributeName.equals("")) throw new Exception("Invalid attribute");
+
             AttributeResponse attributeResponse = attributeService.addAttribute(attributeName);
             return ResponseEntity.ok(attributeResponse);
         } catch(Exception e) {
@@ -55,11 +60,11 @@ public class AttributeController {
 
     @PutMapping("")
     public ResponseEntity<?> updateAttribute(
-        @RequestParam("attributeId") Long attributeId,
-        @RequestParam("name") String name
+            @RequestBody AttributeDTO attributeDTO
     ) {
         try {
-            AttributeResponse attributeResponse = attributeService.updateAttribute(attributeId, name);
+            AttributeResponse attributeResponse = attributeService
+                    .updateAttribute(attributeDTO.getAttributeId(), attributeDTO.getName());
             return ResponseEntity.ok(attributeResponse);
         } catch (Exception e) {
             return ResponseEntity
