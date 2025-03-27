@@ -1,5 +1,7 @@
 package ecommerce.example.ecommerce.models;
 
+import ecommerce.example.ecommerce.responses.AttributeSubIdResponse;
+import ecommerce.example.ecommerce.responses.SubcategoryAttributeResponse;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +11,10 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@Table(name = "sub_category_attributes")
+@Table(name = "sub_category_attributes",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"attribute_id", "sub_category_id"})
+        })
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -31,4 +36,24 @@ public class SubCategoryAttribute {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "categoryAttribute")
     private List<ProductAttributeValue> productAttributeValues;
+
+    public SubcategoryAttributeResponse toSubcategoryAttributeResponse() {
+        SubcategoryAttributeResponse response = new SubcategoryAttributeResponse();
+
+        response.setAttributeId(attribute.getId());
+        response.setAttributeValue(attribute.getName());
+        response.setSubcategoryId(subCategory.getId());
+        response.setSubcategoryValue(subCategory.getName());
+        response.setSubcategoryAttributeId(id);
+
+        return response;
+    }
+
+    public AttributeSubIdResponse toAttributeSubIdResponse() {
+        return AttributeSubIdResponse.builder()
+                .attributeId(attribute.getId())
+                .attributeValue(attribute.getName())
+                .subcategoryAttributeId(id)
+                .build();
+    }
 }

@@ -26,9 +26,9 @@ public class AttributeServiceImpl implements AttributeService {
     private ModelMapper modelMapper;
 
     @Override
-    public List<AttributeResponse> getAttributesByCategoryId(Long categoryId) {
+    public List<AttributeResponse> getAllAttributes() {
        List<Attribute> attributes= attributeRepo
-                    .findAttributesByCategoryId(categoryId);
+                    .findAll();
         List<AttributeResponse> attributeResponses = attributes.stream().map(
                 attribute ->  mapper.map(attribute, AttributeResponse.class)
         ).toList();

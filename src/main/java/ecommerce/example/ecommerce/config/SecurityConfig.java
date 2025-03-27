@@ -156,6 +156,23 @@ public class SecurityConfig {
                             .requestMatchers(GET,
                                     String.format("%s/sub_category/**", apiPrefix)).permitAll()
 
+                            // sub-category
+                            .requestMatchers(POST,
+                                    String.format("%s/subcategory_attribute/add_one", apiPrefix)).hasRole(Role.ADMIN)
+
+                            .requestMatchers(POST,
+                                    String.format("%s/subcategory_attribute/add_multiple/**", apiPrefix)).hasRole(Role.ADMIN)
+
+                            .requestMatchers(GET,
+                                    String.format("%s/subcategory_attribute/**", apiPrefix)).permitAll()
+
+                            .requestMatchers(PUT,
+                                    String.format("%s/subcategory_attribute/**", apiPrefix)).hasRole(Role.ADMIN)
+
+                            .requestMatchers(DELETE,
+                                    String.format("%s/subcategory_attribute/**", apiPrefix)).hasRole(Role.ADMIN)
+
+
                             // product
                             .requestMatchers(POST,
                                     String.format("%s/product/create_product", apiPrefix)).hasAnyRole(Role.ADMIN, Role.SHOP)

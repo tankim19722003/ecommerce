@@ -77,11 +77,9 @@ public class AttributeController {
         }
     }
 
-    @GetMapping("/{subCategoryId}")
-    public List<AttributeResponse> getAllAttributeByCategoryId(
-            @PathVariable("subCategoryId") Long categoryId
-    ) {
-        return attributeService.getAttributesByCategoryId(categoryId);
+    @GetMapping("")
+    public List<AttributeResponse> getAllAttributeByCategoryId() {
+        return attributeService.getAllAttributes();
     }
 
     @DeleteMapping("/{attributeId}")

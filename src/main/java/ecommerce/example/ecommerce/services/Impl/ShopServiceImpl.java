@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -89,14 +91,19 @@ public class ShopServiceImpl implements ShopService {
 
         shop.setFrontCmndUrl(frontCmnd.get("imageUrl"));
         shop.setFrontCmndPublicId(frontCmnd.get("publicId"));
+        shop.setCreatedAt(LocalDate.now());
+        shop.setUpdatedAt(LocalDate.now());
 
-        Shop savedShop;
         try {
-            savedShop = shopRepo.save(shop);
+                shopRepo.save(shop);
 //            userCodeRepo.deleteById(shopCode.getId());
         } catch (DataIntegrityViolationException e) {
             throw new RuntimeException("Shop is existing");
         }
+
+
+        Shop savedShop = shopRepo.findByUserId(userId)
+                .orElseThrow(() -> new RuntimeException("Failed to create!!"));
 
         // set role shop for user
 
@@ -190,7 +197,6 @@ public class ShopServiceImpl implements ShopService {
         // convert shop to shop response
         ShopResponse shopResponse = new ShopResponse();
         modelMapper.map(shop, shopResponse);
-
         shopResponse.setAddressResponse(shop.getVillage().toAddressResponse());
         shopResponse.setCreatedAt(shop.getCreatedAt());
         shopResponse.setUpdatedAt(shop.getUpdatedAt());

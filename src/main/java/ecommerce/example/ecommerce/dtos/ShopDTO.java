@@ -1,11 +1,15 @@
 package ecommerce.example.ecommerce.dtos;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.PrePersist;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -31,5 +35,8 @@ public class ShopDTO {
     private MultipartFile frontCccd;
 
     private MultipartFile behindCccd;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
 }

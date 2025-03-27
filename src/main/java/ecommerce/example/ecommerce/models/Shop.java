@@ -34,11 +34,9 @@ public class Shop {
     private String description;
 
     @Column(name = "created_at", updatable = false)
-    @CreationTimestamp
     private LocalDate createdAt;
 
     @Column(name = "updated_at")
-    @UpdateTimestamp
     private LocalDate updatedAt;
 
     @Column(name = "logo")

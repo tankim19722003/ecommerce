@@ -281,17 +281,17 @@ INSERT INTO categories (id, name, created_at, description) VALUES
 (9, 'Health & Wellness', '2024-03-03', 'Medical supplies, supplements, and fitness equipment'),
 (10,'Groceries', '2024-03-03', 'Food, beverages, and household essentials');
 
---INSERT INTO attributes (id, name) VALUES
---(1, 'Color'),
---(2, 'Size'),
---(3, 'Material'),
---(4, 'Brand'),
---(5, 'Weight'),
---(6, 'Dimensions'),
---(7, 'Battery Life'),
---(8, 'Warranty'),
---(9, 'Compatibility'),
---(10, 'Capacity');
+INSERT INTO attributes (id, name) VALUES
+(1, 'Color'),
+(2, 'Size'),
+(3, 'Material'),
+(4, 'Brand'),
+(5, 'Weight'),
+(6, 'Dimensions'),
+(7, 'Battery Life'),
+(8, 'Warranty'),
+(9, 'Compatibility'),
+(10, 'Capacity');
 
 --INSERT INTO category_attributes (id, attribute_id, category_id) VALUES
 --(1, 1, 1), (2, 2, 1), (3, 3, 1), (4, 4, 1), (5, 5, 1),
@@ -312,52 +312,52 @@ VALUES
 
 
 --
---INSERT INTO sub_categories (created_at, updated_at, category_id, id, description, name) VALUES
----- Office Equipment (category_id = 2)
---('2025-03-07', '2025-03-07', 2, 1, 'Chairs for office use', 'Office Chairs'),
---('2025-03-07', '2025-03-07', 2, 2, 'Desks and tables for office work', 'Office Desks'),
---('2025-03-07', '2025-03-07', 2, 3, 'Printers and scanners', 'Printers & Scanners'),
---
----- Smartphones (category_id = 3)
---('2025-03-07', '2025-03-07', 3, 4, 'Android smartphones', 'Android Phones'),
---('2025-03-07', '2025-03-07', 3, 5, 'Apple iPhones', 'iPhones'),
---('2025-03-07', '2025-03-07', 3, 6, 'Phone chargers and cables', 'Phone Accessories'),
---
----- Computer Accessories (category_id = 4)
---('2025-03-07', '2025-03-07', 4, 7, 'Monitors and screens', 'Monitors'),
---('2025-03-07', '2025-03-07', 4, 8, 'Computer keyboards', 'Keyboards'),
---('2025-03-07', '2025-03-07', 4, 9, 'Computer mice and trackpads', 'Mice'),
---
----- Home Electronics (category_id = 5)
---('2025-03-07', '2025-03-07', 5, 10, 'Smart televisions', 'Smart TVs'),
---('2025-03-07', '2025-03-07', 5, 11, 'Speakers and home audio systems', 'Speakers'),
---('2025-03-07', '2025-03-07', 5, 12, 'Streaming devices like Chromecast', 'Streaming Devices'),
---
----- Gaming (category_id = 6)
---('2025-03-07', '2025-03-07', 6, 13, 'Gaming consoles like PlayStation', 'Gaming Consoles'),
---('2025-03-07', '2025-03-07', 6, 14, 'Gaming keyboards and mice', 'Gaming Accessories'),
---('2025-03-07', '2025-03-07', 6, 15, 'Virtual reality (VR) headsets', 'VR Headsets'),
---
----- Networking (category_id = 7)
---('2025-03-07', '2025-03-07', 7, 16, 'Wi-Fi routers and modems', 'Wi-Fi Routers'),
---('2025-03-07', '2025-03-07', 7, 17, 'Network switches and hubs', 'Network Switches'),
---('2025-03-07', '2025-03-07', 7, 18, 'Ethernet cables and adapters', 'Networking Cables'),
---
----- Storage (category_id = 8)
---('2025-03-07', '2025-03-07', 8, 19, 'External hard drives and SSDs', 'External HDDs'),
---('2025-03-07', '2025-03-07', 8, 20, 'USB flash drives and memory cards', 'USB Drives'),
---('2025-03-07', '2025-03-07', 8, 21, 'Cloud storage services', 'Cloud Storage'),
---
----- Wearables (category_id = 9)
---('2025-03-07', '2025-03-07', 9, 22, 'Smartwatches and fitness trackers', 'Smartwatches'),
---('2025-03-07', '2025-03-07', 9, 23, 'Wireless earbuds and headsets', 'Wireless Earbuds'),
---('2025-03-07', '2025-03-07', 9, 24, 'VR and AR headsets', 'VR & AR Devices'),
---
----- Software (category_id = 10)
---('2025-03-07', '2025-03-07', 10, 25, 'Operating systems like Windows and macOS', 'Operating Systems'),
---('2025-03-07', '2025-03-07', 10, 26, 'Antivirus and security software', 'Security Software'),
---('2025-03-07', '2025-03-07', 10, 27, 'Productivity software like Microsoft Office', 'Office Software');
---
+INSERT INTO sub_categories (created_at, updated_at, category_id, id, description, name) VALUES
+-- Office Equipment (category_id = 2)
+('2025-03-07', '2025-03-07', 2, 1, 'Chairs for office use', 'Office Chairs'),
+('2025-03-07', '2025-03-07', 2, 2, 'Desks and tables for office work', 'Office Desks'),
+('2025-03-07', '2025-03-07', 2, 3, 'Printers and scanners', 'Printers & Scanners'),
+
+-- Smartphones (category_id = 3)
+('2025-03-07', '2025-03-07', 3, 4, 'Android smartphones', 'Android Phones'),
+('2025-03-07', '2025-03-07', 3, 5, 'Apple iPhones', 'iPhones'),
+('2025-03-07', '2025-03-07', 3, 6, 'Phone chargers and cables', 'Phone Accessories'),
+
+-- Computer Accessories (category_id = 4)
+('2025-03-07', '2025-03-07', 4, 7, 'Monitors and screens', 'Monitors'),
+('2025-03-07', '2025-03-07', 4, 8, 'Computer keyboards', 'Keyboards'),
+('2025-03-07', '2025-03-07', 4, 9, 'Computer mice and trackpads', 'Mice'),
+
+-- Home Electronics (category_id = 5)
+('2025-03-07', '2025-03-07', 5, 10, 'Smart televisions', 'Smart TVs'),
+('2025-03-07', '2025-03-07', 5, 11, 'Speakers and home audio systems', 'Speakers'),
+('2025-03-07', '2025-03-07', 5, 12, 'Streaming devices like Chromecast', 'Streaming Devices'),
+
+-- Gaming (category_id = 6)
+('2025-03-07', '2025-03-07', 6, 13, 'Gaming consoles like PlayStation', 'Gaming Consoles'),
+('2025-03-07', '2025-03-07', 6, 14, 'Gaming keyboards and mice', 'Gaming Accessories'),
+('2025-03-07', '2025-03-07', 6, 15, 'Virtual reality (VR) headsets', 'VR Headsets'),
+
+-- Networking (category_id = 7)
+('2025-03-07', '2025-03-07', 7, 16, 'Wi-Fi routers and modems', 'Wi-Fi Routers'),
+('2025-03-07', '2025-03-07', 7, 17, 'Network switches and hubs', 'Network Switches'),
+('2025-03-07', '2025-03-07', 7, 18, 'Ethernet cables and adapters', 'Networking Cables'),
+
+-- Storage (category_id = 8)
+('2025-03-07', '2025-03-07', 8, 19, 'External hard drives and SSDs', 'External HDDs'),
+('2025-03-07', '2025-03-07', 8, 20, 'USB flash drives and memory cards', 'USB Drives'),
+('2025-03-07', '2025-03-07', 8, 21, 'Cloud storage services', 'Cloud Storage'),
+
+-- Wearables (category_id = 9)
+('2025-03-07', '2025-03-07', 9, 22, 'Smartwatches and fitness trackers', 'Smartwatches'),
+('2025-03-07', '2025-03-07', 9, 23, 'Wireless earbuds and headsets', 'Wireless Earbuds'),
+('2025-03-07', '2025-03-07', 9, 24, 'VR and AR headsets', 'VR & AR Devices'),
+
+-- Software (category_id = 10)
+('2025-03-07', '2025-03-07', 10, 25, 'Operating systems like Windows and macOS', 'Operating Systems'),
+('2025-03-07', '2025-03-07', 10, 26, 'Antivirus and security software', 'Security Software'),
+('2025-03-07', '2025-03-07', 10, 27, 'Productivity software like Microsoft Office', 'Office Software');
+
 --INSERT INTO sub_category_attributes (id, attribute_id, sub_category_id)
 --VALUES
 --    (1, 1, 1),  (2, 1, 2),  (3, 1, 3),  (4, 2, 4),  (5, 2, 5),

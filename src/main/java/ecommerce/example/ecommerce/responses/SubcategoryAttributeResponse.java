@@ -10,19 +10,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class SubcategoryAttributeResponse {
-
-    @JsonProperty("subcategory_attribute_id")
-    private Long subcategoryAttributeId;
-
-    @JsonProperty("attribute_id")
-    private Long attributeId;
-
-    @JsonProperty("attribute_value")
-    private String attributeValue;
+public class SubcategoryAttributeResponse extends AttributeSubIdResponse{
 
     @JsonProperty("subcategory_id")
     private Long subcategoryId;
-    private Long subcategoryValue;
+
+    @JsonProperty("subcategory_value")
+    private String subcategoryValue;
 }
