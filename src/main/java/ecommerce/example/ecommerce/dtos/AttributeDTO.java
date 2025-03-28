@@ -11,7 +11,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class AttributeDTO {
-    @JsonProperty("attribute_id")
+    @JsonProperty("id")
     private Long attributeId;
+
+    @JsonProperty("name")
     private String name;
 }

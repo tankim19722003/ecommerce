@@ -1,7 +1,6 @@
 package ecommerce.example.ecommerce.controllers;
 
 import ecommerce.example.ecommerce.dtos.AttributeDTO;
-import ecommerce.example.ecommerce.models.Attribute;
 import ecommerce.example.ecommerce.responses.AttributeResponse;
 import ecommerce.example.ecommerce.responses.EResponse;
 import ecommerce.example.ecommerce.services.AttributeService;
@@ -25,7 +24,7 @@ public class AttributeController {
         @RequestBody Map<String, String> body
     ) {
         try {
-            String attributeName = body.get("attribute_name");
+            String attributeName = body.get("name");
             if (attributeName == null || attributeName.equals("")) throw new Exception("Invalid attribute");
 
             AttributeResponse attributeResponse = attributeService.addAttribute(attributeName);

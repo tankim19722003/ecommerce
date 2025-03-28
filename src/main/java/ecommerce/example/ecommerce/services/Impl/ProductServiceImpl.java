@@ -42,6 +42,13 @@ public class ProductServiceImpl implements ProductService {
     private ProductAttributeValueRepo productAttributeValueRepo;
 
     @Override
+    public void getProductById(Long productId) {
+
+        
+
+    }
+
+    @Override
     @Transactional
     public ProductCreatingResponse createProduct(ProductCreatingDTO productCreatingDTO) {
 

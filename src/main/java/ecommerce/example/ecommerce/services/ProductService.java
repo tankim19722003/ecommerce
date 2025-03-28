@@ -12,4 +12,6 @@ public interface ProductService {
     ProductCreatingResponse createProduct(ProductCreatingDTO productCreatingDTO);
 
     QuantityResponse addQuantityToAttributeProduct(List<QuantityDTO> quantityDTOList, Long productId);
+
+    void getProductById(Long productId);
 }
