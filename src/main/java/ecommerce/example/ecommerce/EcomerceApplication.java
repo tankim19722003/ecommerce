@@ -353,7 +353,7 @@ public class EcomerceApplication {
 		product.setName("Smartphone");
 		product.setDescription("Latest 5G smartphone with AMOLED display");// Assuming 'M' is a valid size
 		product.setRating(5);
-		product.setThumbnail("smartphone.jpg");
+//		product.setThumbnail("smartphone.jpg");
 		product.setShop(shop);
 		product.setSubCategory(category);
 

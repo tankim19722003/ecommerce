@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductCategoryDTO {
+
     @JsonProperty("first_category")
     private String firstCategory;
 

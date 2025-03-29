@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -21,11 +22,11 @@ public class ProductCreatingDTO {
     @JsonProperty("description")
     private String description;
 
-    @JsonProperty("shop_id")
-    private Long shopId;
+    @JsonProperty("subcategory_id")
+    private Long subcategoryId;
 
-    @JsonProperty("category_id")
-    private Long categoryId;
+    private MultipartFile thumbnail;
 
-    private List<ProductAttributeValueDTO> attributes;
+    private List<MultipartFile> productImages;
+
 }

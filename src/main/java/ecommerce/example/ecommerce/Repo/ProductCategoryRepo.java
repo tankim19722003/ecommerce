@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ProductCategoryRepo extends JpaRepository<ProductCategory, Long> {
 
-    @Query("SELECT pc FROM ProductCategory pc WHERE pc.product.id = :productId")
-    List<ProductCategory> findByProductId(@Param("productId") Long productId);
+//    @Query("SELECT pc FROM ProductCategory pc WHERE pc.product.id = :productId")
+//    List<ProductCategory> findByProductId(@Param("productId") Long productId);
 
 }

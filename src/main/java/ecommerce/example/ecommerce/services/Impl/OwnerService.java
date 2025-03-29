@@ -37,6 +37,9 @@ public class OwnerService {
                 () -> new RuntimeException("User does not found")
         );
 
+        if (user.getShop() == null)
+            throw new RuntimeException("Shop does not found");
+
         if (user.getShop().getId() != shopId)  throw new SecurityException("You are not allowed to modify this user's data!");
 
 

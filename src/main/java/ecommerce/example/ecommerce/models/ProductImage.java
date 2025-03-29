@@ -37,37 +37,6 @@ public class ProductImage {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @OneToOne
-    @JoinColumn(name = "product_attribute_id")
-    private ProductAttributeValue productAttributeValue;
-
-
-    public ProductImageResponse toProductImageResponse() {
-        ProductImageResponse productImageResponse = ProductImageResponse.builder()
-                .id(getId())
-                .imageUrl(getUrl())
-                .attributeId(getProductAttributeValue().getCategoryAttribute().getId())
-                .attributeName(getProductAttributeValue().getCategoryAttribute().getAttribute().getName())
-                .attributeValue(getProductAttributeValue().getValue())
-                .attributeValueId(getProductAttributeValue().getId())
-                .publicId(getPublicId())
-                .productId(getProduct().getId())
-                .build();
-        return productImageResponse;
-    }
-
-    public ProductImageResponseInList toProductImageResponseInList() {
-        ProductImageResponseInList productImageResponse = ProductImageResponseInList.builder()
-                .id(getId())
-                .imageUrl(getUrl())
-                .attributeId(getProductAttributeValue().getCategoryAttribute().getId())
-                .attributeName(getProductAttributeValue().getCategoryAttribute().getAttribute().getName())
-                .attributeValue(getProductAttributeValue().getValue())
-                .attributeValueId(getProductAttributeValue().getId())
-                .publicId(getPublicId())
-                .build();
-        return productImageResponse;
-    }
 
     @PrePersist
     public void prePersist() {

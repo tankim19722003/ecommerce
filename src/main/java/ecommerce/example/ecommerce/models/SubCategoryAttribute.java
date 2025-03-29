@@ -34,8 +34,8 @@ public class SubCategoryAttribute {
     @JoinColumn(name = "sub_category_id")
     private SubCategory subCategory;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "categoryAttribute")
-    private List<ProductAttributeValue> productAttributeValues;
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "categoryAttribute")
+//    private List<ProductAttributeValue> productAttributeValues;
 
     public SubcategoryAttributeResponse toSubcategoryAttributeResponse() {
         SubcategoryAttributeResponse response = new SubcategoryAttributeResponse();

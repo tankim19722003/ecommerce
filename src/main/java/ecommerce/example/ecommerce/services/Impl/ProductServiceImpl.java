@@ -13,9 +13,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -32,14 +35,14 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ShopRepo shopRepo;
 
-    @Autowired
-    private AttributeRepo attributeRepo;
+//    @Autowired
+//    private ProductAttributeValueRepo productAttributeValueRepo;
 
     @Autowired
-    private CategoryAttributeRepo categoryAttributeRepo;
+    public CloudinaryService cloudinaryService;
 
     @Autowired
-    private ProductAttributeValueRepo productAttributeValueRepo;
+    private ProductImageRepo productImageRepo;
 
     @Override
     public void getProductById(Long productId) {
@@ -50,63 +53,63 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public ProductCreatingResponse createProduct(ProductCreatingDTO productCreatingDTO) {
+    public void createProduct(Long shopId, ProductCreatingDTO productCreatingDTO) {
 
-        SubCategory category = categoryRepo.findById(productCreatingDTO.getCategoryId()).orElseThrow(
+        SubCategory category = categoryRepo.findById(productCreatingDTO.getSubcategoryId()).orElseThrow(
                 () -> new RuntimeException("Category does not found")
         );
 
-        Shop shop = shopRepo.findById(productCreatingDTO.getShopId()).orElseThrow(
+        Shop shop = shopRepo.findById(shopId).orElseThrow(
                 () ->  new RuntimeException("Shop does not found")
         );
+
+
+        // save the avatar to the cloud
+        Map<String, String> cloudAvatar;
+        try {
+             cloudAvatar = cloudinaryService.uploadImage(productCreatingDTO.getThumbnail());
+        } catch (IOException e) {
+            throw new RuntimeException("Can't save avatar to the cloud");
+        }
+
 
         Product product = Product.builder()
                 .name(productCreatingDTO.getName())
                 .description(productCreatingDTO.getDescription())
                 .subCategory(category)
+                .thumbnailUrl(cloudAvatar.get("imageUrl"))
+                .thumbnailPublicId(cloudAvatar.get("publicId"))
                 .shop(shop)
                 .build();
 
+        // save product
+        productRepo.save(product);
+
         Product savedProduct = productRepo.save(product);
-        List<ProductAttributeValue> productAttributeValues = new ArrayList<>();
 
-        // handle saving attribute
-        for (ProductAttributeValueDTO attributeValue : productCreatingDTO.getAttributes()) {
-            SubCategoryAttribute attribute = categoryAttributeRepo.findById(attributeValue.getId())
-                    .orElseThrow(() -> new RuntimeException("Attribute does not found"));
 
-            ProductAttributeValue productAttributeValue = ProductAttributeValue.builder()
-                    .product(savedProduct)
-                    .categoryAttribute(attribute)
-                    .value(attributeValue.getValue())
-                    .build();
-            ProductAttributeValue savedProductAttributeValue =  productAttributeValueRepo
-                    .save(productAttributeValue);
-            productAttributeValues.add(savedProductAttributeValue);
+        // save the product images
+        for (MultipartFile image : productCreatingDTO.getProductImages()) {
+            Map<String, String> cloudImage;
+            try {
+                cloudImage = cloudinaryService.uploadImage(image);
+            } catch (IOException e) {
+                throw new RuntimeException("Can't save the product image");
+            }
+
+            ProductImage productImage = new ProductImage();
+            productImage.setProduct(product);
+            productImage.setUrl(cloudImage.get("imageUrl"));
+            productImage.setPublicId(cloudImage.get("publicId"));
+
+            try {
+                productImageRepo.save(productImage);
+            } catch (Exception e) {
+                throw new RuntimeException("Can't save product image to db");
+            }
+
         }
 
-        //return product Response
-        ProductCreatingResponse productCreatingResponse = new ProductCreatingResponse();
-        productCreatingResponse.setId(savedProduct.getId());
-        productCreatingResponse.setName(savedProduct.getName());
-        productCreatingResponse.setDescription(savedProduct.getDescription());
-        productCreatingResponse.setTotalSold(savedProduct.getTotalSold());
-        productCreatingResponse.setCategoryId(category.getId());
-
-        // create attribute response
-        List<AttributeValueResponse> attributeValueResponses = productAttributeValues.stream()
-                .map(productAttributeValue -> {
-                    return AttributeValueResponse.builder()
-                            .productAttributeValueId(productAttributeValue.getId())
-                            .attributeId(productAttributeValue.getCategoryAttribute().getId())
-                            .attributeName(productAttributeValue.getCategoryAttribute().getAttribute().getName())
-                            .value(productAttributeValue.getValue())
-                            .build();
-                }).toList();
-
-        productCreatingResponse.setAttributes(attributeValueResponses);
-
-        return productCreatingResponse;
     }
 
     @Override

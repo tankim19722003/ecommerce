@@ -1,5 +1,6 @@
 package ecommerce.example.ecommerce.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import ecommerce.example.ecommerce.responses.ProductImageResponse;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -39,7 +40,11 @@ public class Product {
     @Column(name = "total_sold")
     private int totalSold;
 
-    private String thumbnail;
+    @JsonProperty("thumbnail_url")
+    private String thumbnailUrl;
+
+    @JsonProperty("thumbnail_public_id")
+    private String thumbnailPublicId;
 
     @ManyToOne(cascade = {CascadeType.REFRESH})
     @JoinColumn(name = "shop_id", nullable = false)
@@ -73,19 +78,22 @@ public class Product {
     @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "product")
     private List<ProductDiscount> productDiscounts;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
-    private List<ProductAttributeValue> ProductAttributeValues;
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
+//    private List<ProductAttributeValue> ProductAttributeValues;
 
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
-    private List<ProductCategory> productCategory;
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
+//    private List<ProductCategory> productCategory;
 
-    public void addProductAttribute(ProductAttributeValue productAttributeValue) {
-        if (ProductAttributeValues == null) {
-            ProductAttributeValues = new ArrayList<>();
-        }
-        ProductAttributeValues.add(productAttributeValue);
-    }
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ProductCategoryGroup> productCategoryGroup;
+
+//    public void addProductAttribute(ProductAttributeValue productAttributeValue) {
+//        if (ProductAttributeValues == null) {
+//            ProductAttributeValues = new ArrayList<>();
+//        }
+//        ProductAttributeValues.add(productAttributeValue);
+//    }
 
     @PrePersist
     public void prePersist() {

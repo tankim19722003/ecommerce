@@ -10,15 +10,15 @@ import java.util.List;
 
 public interface ProductImageService {
 
-    ProductImageResponse addImageToProduct(MultipartFile file, Long productId, long productAttributeValueId) throws IOException;
-
-    ProductImageResponse findImageById(Long imageId);
-
-
-    List<ProductImageResponse> addMultipleProductImage(List<MultipartFile> files, Long productId);
-
-    ProductImageListResponse findImageByProductId(Long productId);
-
-    void deleteImage(Long imageId, String publicId);
+//    ProductImageResponse addImageToProduct(MultipartFile file, Long productId, long productAttributeValueId) throws IOException;
+//
+//    ProductImageResponse findImageById(Long imageId);
+//
+//
+//    List<ProductImageResponse> addMultipleProductImage(List<MultipartFile> files, Long productId);
+//
+//    ProductImageListResponse findImageByProductId(Long productId);
+//
+//    void deleteImage(Long imageId, String publicId);
 
 }
