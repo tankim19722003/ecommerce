@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -14,20 +16,28 @@ import java.util.List;
 @Builder
 public class ProductCreatingResponse {
 
-    @JsonProperty("product_id")
-    private Long id;
-
     @JsonProperty("name")
     private String name;
 
     @JsonProperty("description")
     private String description;
 
-    @JsonProperty("category_id")
-    private Long categoryId;
+    @JsonProperty("subcategory_id")
+    private Long subcategoryId;
 
-    @JsonProperty("total_sold")
-    private Integer totalSold;
+    @JsonProperty("subcategory_name")
+    private String subcategoryName;
 
-    private List<AttributeValueResponse> attributes;
+    @JsonProperty("thumbnail")
+    private ImageResponse thumbnail;
+
+    @JsonProperty("product_images")
+    private List<ImageResponse> productImages;
+
+
+    public void addProductImage(ImageResponse imageResponse) {
+        if (productImages == null)
+            productImages = new ArrayList<>();
+        productImages.add(imageResponse);
+    }
 }

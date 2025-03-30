@@ -6,6 +6,7 @@ import ecommerce.example.ecommerce.dtos.ProductCreatingDTO;
 import ecommerce.example.ecommerce.dtos.QuantityDTO;
 import ecommerce.example.ecommerce.models.*;
 import ecommerce.example.ecommerce.responses.AttributeValueResponse;
+import ecommerce.example.ecommerce.responses.ImageResponse;
 import ecommerce.example.ecommerce.responses.ProductCreatingResponse;
 import ecommerce.example.ecommerce.responses.QuantityResponse;
 import ecommerce.example.ecommerce.services.ProductService;
@@ -53,7 +54,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public void createProduct(Long shopId, ProductCreatingDTO productCreatingDTO) {
+    public ProductCreatingResponse createProduct(Long shopId, ProductCreatingDTO productCreatingDTO) {
 
         SubCategory category = categoryRepo.findById(productCreatingDTO.getSubcategoryId()).orElseThrow(
                 () -> new RuntimeException("Category does not found")
@@ -64,10 +65,24 @@ public class ProductServiceImpl implements ProductService {
         );
 
 
+        // create product response
+        ProductCreatingResponse productCreatingResponse = new ProductCreatingResponse();
+        productCreatingResponse.setName(productCreatingDTO.getName());
+        productCreatingResponse.setDescription(productCreatingDTO.getDescription());
+        productCreatingResponse.setSubcategoryId(productCreatingDTO.getSubcategoryId());
+        productCreatingResponse.setSubcategoryName(category.getName());
+
         // save the avatar to the cloud
         Map<String, String> cloudAvatar;
         try {
              cloudAvatar = cloudinaryService.uploadImage(productCreatingDTO.getThumbnail());
+
+             // add thumnail to response
+             ImageResponse thumbnail = new ImageResponse();
+            thumbnail.setAvatarUrl(cloudAvatar.get("imageUrl"));
+            thumbnail.setPublicId(cloudAvatar.get("publicId"));
+            productCreatingResponse.setThumbnail(thumbnail);
+
         } catch (IOException e) {
             throw new RuntimeException("Can't save avatar to the cloud");
         }
@@ -108,7 +123,15 @@ public class ProductServiceImpl implements ProductService {
                 throw new RuntimeException("Can't save product image to db");
             }
 
+            ImageResponse productImageItem = new ImageResponse();
+            productImageItem.setPublicId(cloudImage.get("publicId"));
+            productImageItem.setAvatarUrl(cloudImage.get("imageUrl"));
+
+            productCreatingResponse.addProductImage(productImageItem);
+
         }
+
+        return productCreatingResponse;
 
     }
 

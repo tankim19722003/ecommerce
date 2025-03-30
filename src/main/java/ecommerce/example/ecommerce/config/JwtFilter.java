@@ -112,6 +112,11 @@ public class JwtFilter extends OncePerRequestFilter {
             return true;
         }
 
+        if (requestUrl.contains(apiPrefix + "/product_attribute_value")
+                && requestMethod.equals("GET")) {
+            return true;
+        }
+
         return false;
 
     }

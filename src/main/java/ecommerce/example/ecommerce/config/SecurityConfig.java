@@ -179,9 +179,20 @@ public class SecurityConfig {
 
 
                             // product attribute value
-                            .requestMatchers(POST,
-                                    String.format("%s/product_attribute_value/**", apiPrefix)).hasAnyRole(Role.ADMIN, Role.SHOP)
+                            .requestMatchers(GET,
+                                    String.format("%s/product_attribute_value/**", apiPrefix)).permitAll()
 
+                            .requestMatchers(POST,
+                                    String.format("%s/product_attribute_value/add_one/**", apiPrefix)).hasRole(Role.SHOP)
+
+                            .requestMatchers(POST,
+                                    String.format("%s/product_attribute_value/add_multiple/**", apiPrefix)).hasRole(Role.SHOP)
+
+                            .requestMatchers(PUT,
+                                    String.format("%s/product_attribute_value/**", apiPrefix)).hasRole(Role.SHOP)
+
+                            .requestMatchers(DELETE,
+                                    String.format("%s/product_attribute_value/**", apiPrefix)).hasRole(Role.SHOP)
                             //quantity
                             .requestMatchers(POST,
                                     String.format("%s/product_category/add_multiple/**", apiPrefix)).hasAnyRole(Role.SHOP)
