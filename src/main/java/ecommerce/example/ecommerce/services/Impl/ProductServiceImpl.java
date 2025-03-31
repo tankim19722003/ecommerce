@@ -102,6 +102,8 @@ public class ProductServiceImpl implements ProductService {
 
         Product savedProduct = productRepo.save(product);
 
+        productCreatingResponse.setProductId(savedProduct.getId());
+        productCreatingResponse.setTotalSold(product.getTotalSold());
 
         // save the product images
         for (MultipartFile image : productCreatingDTO.getProductImages()) {

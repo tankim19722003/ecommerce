@@ -117,6 +117,16 @@ public class JwtFilter extends OncePerRequestFilter {
             return true;
         }
 
+        if (requestUrl.contains(apiPrefix + "/shipping_type")
+                && requestMethod.equals("GET")) {
+            return true;
+        }
+
+        if (requestUrl.contains(apiPrefix + "/product_shipping_type")
+                && requestMethod.equals("GET")) {
+            return true;
+        }
+
         return false;
 
     }

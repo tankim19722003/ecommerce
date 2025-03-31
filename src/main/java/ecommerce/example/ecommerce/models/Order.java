@@ -35,14 +35,9 @@ public class Order {
     @Column(name = "discount_amount")
     private int discountAmount;
 
-    @Column(name = "shipping_cost")
-    private int shippingCost;
-
     @Column(name = "shipping_address")
     private String shippingAddress;
 
-    @Column(name = "shipping_method")
-    private String shippingMethod;
 
     @Column(name = "notes")
     private String notes;

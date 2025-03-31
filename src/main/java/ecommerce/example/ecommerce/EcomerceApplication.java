@@ -383,9 +383,7 @@ public class EcomerceApplication {
 		order.setPaymentMethod("Credit Card");
 		order.setPaymentStatus("Paid");
 		order.setDiscountAmount(50);
-		order.setShippingCost(20);
 		order.setShippingAddress("123 Main St, City, Country");
-		order.setShippingMethod("Express");
 		order.setNotes("Deliver between 9 AM - 5 PM");
 		order.setCouponCode("DISCOUNT50");
 		order.setExpectedReceiveDate(LocalDate.now().plusDays(5));
@@ -435,8 +433,6 @@ public class EcomerceApplication {
 		ShippingProvider shippingProvider = new ShippingProvider();
 		shippingProvider.setAccount("FastExpress");
 		shippingProvider.setPassword("securePass123");
-		shippingProvider.setShippingSpeed("Express");
-		shippingProvider.setShippingCost(50);
 		shippingProvider.setCreatedAt(LocalDate.now());
 		shippingProvider.setPhone("+1234567890");
 		shippingProvider.setEmail("contact@fastexpress.com");

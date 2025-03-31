@@ -234,6 +234,18 @@ public class SecurityConfig {
 
                             .requestMatchers(POST,
                                     String.format("%s/user_code/confirm_code/**", apiPrefix)).permitAll()
+
+                            // shipping type
+                            .requestMatchers(GET,
+                                    String.format("%s/shipping_type", apiPrefix)).permitAll()
+
+
+                            // product shipping type
+                            .requestMatchers(POST,
+                                    String.format("%s/product_shipping_type", apiPrefix)).hasRole(Role.SHOP)
+
+                            .requestMatchers(GET,
+                                    String.format("%s/product_shipping_type/**", apiPrefix)).permitAll()
                             .anyRequest().authenticated();
 
                     }

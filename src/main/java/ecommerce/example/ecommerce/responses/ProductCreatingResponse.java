@@ -16,6 +16,9 @@ import java.util.List;
 @Builder
 public class ProductCreatingResponse {
 
+    @JsonProperty("product_id")
+    private Long productId;
+
     @JsonProperty("name")
     private String name;
 
@@ -30,6 +33,9 @@ public class ProductCreatingResponse {
 
     @JsonProperty("thumbnail")
     private ImageResponse thumbnail;
+
+    @JsonProperty("total_sold")
+    private int totalSold;
 
     @JsonProperty("product_images")
     private List<ImageResponse> productImages;

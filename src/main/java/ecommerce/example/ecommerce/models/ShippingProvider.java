@@ -25,11 +25,6 @@ public class ShippingProvider {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "shipping_speed")
-    private String shippingSpeed; // express
-
-    @Column(name = "shipping_cost")
-    private int shippingCost;
 
     @Column(name = "created_at")
     private LocalDate createdAt;
@@ -49,4 +44,7 @@ public class ShippingProvider {
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "shippingProvider")
     private ShippingProviderReject shippingProviderReject;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "shippingProvider")
+    private List<ShippingTypeProvider> shippingTypeProviders;
 }

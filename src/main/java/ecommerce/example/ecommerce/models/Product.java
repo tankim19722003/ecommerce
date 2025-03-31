@@ -1,16 +1,13 @@
 package ecommerce.example.ecommerce.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import ecommerce.example.ecommerce.responses.ProductImageResponse;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -35,10 +32,10 @@ public class Product {
     private String description;
 
     @Column(name = "rating")
-    private int rating;
+    private Integer rating;
 
     @Column(name = "total_sold")
-    private int totalSold;
+    private Integer totalSold;
 
     @JsonProperty("thumbnail_url")
     private String thumbnailUrl;
@@ -78,29 +75,16 @@ public class Product {
     @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "product")
     private List<ProductDiscount> productDiscounts;
 
-//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
-//    private List<ProductAttributeValue> ProductAttributeValues;
-
-
-//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
-//    private List<ProductCategory> productCategory;
-
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ProductCategoryGroup> productCategoryGroup;
 
-//    public void addProductAttribute(ProductAttributeValue productAttributeValue) {
-//        if (ProductAttributeValues == null) {
-//            ProductAttributeValues = new ArrayList<>();
-//        }
-//        ProductAttributeValues.add(productAttributeValue);
-//    }
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
+    private List<ProductShippingType> productShippingTypes;
 
     @PrePersist
     public void prePersist() {
-        if (this.totalSold == 0) {
-            this.totalSold = 0;
-        }
 
+        this.totalSold = 0;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
