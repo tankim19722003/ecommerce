@@ -233,7 +233,7 @@ public class EcomerceApplication {
 		feedback.setCreatedAt(LocalDate.now());
 		feedback.setUpdatedAt(LocalDate.now());
 		feedback.setUser(user);
-		feedback.setProduct(product);
+//		feedback.setProduct(product);
 
 		System.out.println("Saving Feedback...");
 		feedBackRepo.save(feedback);

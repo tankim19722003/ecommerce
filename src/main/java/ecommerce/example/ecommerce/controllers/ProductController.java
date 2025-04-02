@@ -3,12 +3,15 @@ package ecommerce.example.ecommerce.controllers;
 import ecommerce.example.ecommerce.dtos.ProductCreatingDTO;
 import ecommerce.example.ecommerce.responses.EResponse;
 import ecommerce.example.ecommerce.responses.ProductCreatingResponse;
+import ecommerce.example.ecommerce.responses.ProductKeywordResponse;
 import ecommerce.example.ecommerce.services.Impl.OwnerService;
 import ecommerce.example.ecommerce.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("${api.prefix}/product")
@@ -21,7 +24,7 @@ public class ProductController {
     private OwnerService ownerService;
 
     @PostMapping(value = "/create_product/{shopId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    private ResponseEntity<?> createProduct(
+    public ResponseEntity<?> createProduct(
         @PathVariable("shopId") Long shopId,
         @ModelAttribute ProductCreatingDTO productCreatingDTO
     ) {
@@ -40,6 +43,23 @@ public class ProductController {
             );
         }
 
+    }
+
+    @GetMapping("/get_by_key_word/{keyword}")
+    public ResponseEntity<?> getProductsByKeyword(
+            @PathVariable("keyword") String keyword
+    ) {
+        try {
+            List<ProductKeywordResponse> productKeywordResponses =  productService.getProductsByKeyWord(keyword);
+            return ResponseEntity.ok(productKeywordResponses);
+        } catch(Exception e) {
+            return ResponseEntity.badRequest().body(
+                    EResponse.builder()
+                            .name("ERROR")
+                            .message(e.getMessage())
+                            .build()
+            );
+        }
     }
 
 }

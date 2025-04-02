@@ -25,6 +25,7 @@ ecommerce\example\ecommerce\dtos\QuantityDTOList.class
 ecommerce\example\ecommerce\Repo\ShippingProviderRejectRepo.class
 ecommerce\example\ecommerce\models\UserCode.class
 ecommerce\example\ecommerce\models\Attribute.class
+ecommerce\example\ecommerce\responses\ProductKeywordResponse.class
 ecommerce\example\ecommerce\Repo\CouponRepo.class
 ecommerce\example\ecommerce\services\Impl\UserVillageServiceImpl.class
 ecommerce\example\ecommerce\dtos\ProductShippingTypeDTO.class
@@ -118,6 +119,7 @@ ecommerce\example\ecommerce\responses\ProductIdAttributeValueResponse.class
 ecommerce\example\ecommerce\Repo\ShopRepo.class
 ecommerce\example\ecommerce\Repo\ProductCategoryRepo.class
 ecommerce\example\ecommerce\models\CodePurpose$CodePurposeBuilder.class
+ecommerce\example\ecommerce\responses\ProductKeywordResponse$ProductKeywordResponseBuilder.class
 ecommerce\example\ecommerce\dtos\QuantityDTO$QuantityDTOBuilder.class
 ecommerce\example\ecommerce\services\ProductService.class
 ecommerce\example\ecommerce\models\ProductShippingType.class

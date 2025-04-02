@@ -39,19 +39,9 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     @Autowired
     private ModelMapper modelMapper;
 
-//    @Override
-//    public ProductCategoryResponse addProductCategory(Long productId, ProductCategoryImageDTO productCategoryDTO) {
-//
-//        Product product = productRepo.findById(productId).orElseThrow(
-//                () -> new RuntimeException("Product does not found")
-//        );
-//
-//       return handleSaveProduct(productCategoryDTO, product);
-//    }
-
     @Override
     @Transactional
-    public void addMultipleProductCategory(
+    public List<ProductCategoryResponse> addMultipleProductCategory(
             Long productId,
             List<ProductCategoryGroupDTO> productCategoryGroups,
             List<MultipartFile> files
@@ -60,6 +50,13 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         Product product = productRepo.findById(productId).orElseThrow(
                 () -> new RuntimeException("Product does not found")
         );
+
+        // check image did images add into product category
+        int count = 0;
+        for (ProductCategoryGroupDTO productCategoryGroupDTO : productCategoryGroups) {
+            count += productCategoryGroupDTO.getProductCategoryDTOs().size();
+        }
+        if (files.size() != count) throw new RuntimeException("Please add image to your product categories!");
 
         List<Map<String, String>> images = new ArrayList<>();
         for (MultipartFile file : files) {
@@ -70,7 +67,8 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
             }
         }
 
-        List<ProductCategoryResponse> productCategoryResponses = new ArrayList<>();
+        List<ProductCategoryResponse> productCategoryResponseList = new ArrayList<>();
+
         int index = 0;
         for (ProductCategoryGroupDTO productCategoryGroupItem : productCategoryGroups) {
 
@@ -79,6 +77,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
             productCategoryGroup.setName(productCategoryGroupItem.getName());
             productCategoryGroup.setProduct(product);
             productCategoryGroupRepo.save(productCategoryGroup);
+
 
             for (ProductCategoryDTO productCategoryDTO : productCategoryGroupItem.getProductCategoryDTOs()) {
 
@@ -91,13 +90,18 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
                 productCategory.setImageUrl(images.get(index).get("publicId"));
                 productCategory.setPublicId(images.get(index).get("imageUrl"));
                 productCategory.setProductCategoryGroup(productCategoryGroup);
+                productCategory.setPrice(productCategoryDTO.getPrice());
 
                 // save product category
                 productCategoryRepo.save(productCategory);
                 index++;
-            }
 
+                // add product category to response
+                productCategoryResponseList.add(modelMapper.map(productCategory, ProductCategoryResponse.class));
+            }
         }
+
+        return productCategoryResponseList;
 
     }
 

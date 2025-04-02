@@ -1,10 +1,6 @@
 package ecommerce.example.ecommerce.services;
 
-import ecommerce.example.ecommerce.dtos.ProductCategoryDTO;
 import ecommerce.example.ecommerce.dtos.ProductCategoryGroupDTO;
-import ecommerce.example.ecommerce.dtos.ProductCategoryImageDTO;
-import ecommerce.example.ecommerce.models.Product;
-import ecommerce.example.ecommerce.models.ProductCategoryGroup;
 import ecommerce.example.ecommerce.responses.ProductCategoryResponse;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,7 +13,7 @@ public interface ProductCategoryService {
 //        ProductCategoryImageDTO productCategoryDTO
 //    );
 
-    void addMultipleProductCategory(
+    List<ProductCategoryResponse> addMultipleProductCategory(
             Long productId,
             List<ProductCategoryGroupDTO> productCategoryGroups,
             List<MultipartFile> files

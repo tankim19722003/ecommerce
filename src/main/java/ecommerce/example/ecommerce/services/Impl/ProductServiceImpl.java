@@ -5,10 +5,7 @@ import ecommerce.example.ecommerce.dtos.ProductAttributeValueDTO;
 import ecommerce.example.ecommerce.dtos.ProductCreatingDTO;
 import ecommerce.example.ecommerce.dtos.QuantityDTO;
 import ecommerce.example.ecommerce.models.*;
-import ecommerce.example.ecommerce.responses.AttributeValueResponse;
-import ecommerce.example.ecommerce.responses.ImageResponse;
-import ecommerce.example.ecommerce.responses.ProductCreatingResponse;
-import ecommerce.example.ecommerce.responses.QuantityResponse;
+import ecommerce.example.ecommerce.responses.*;
 import ecommerce.example.ecommerce.services.ProductService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +33,6 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ShopRepo shopRepo;
 
-//    @Autowired
-//    private ProductAttributeValueRepo productAttributeValueRepo;
-
     @Autowired
     public CloudinaryService cloudinaryService;
 
@@ -50,6 +44,27 @@ public class ProductServiceImpl implements ProductService {
 
         
 
+    }
+
+    @Override
+    public List<ProductKeywordResponse> getProductsByKeyWord(String keyword) {
+        List<Product> products = productRepo.getProductsByKeyword(keyword);
+        List<ProductKeywordResponse> productKeywordResponses = new ArrayList<>();
+
+        if (products.isEmpty()) throw new RuntimeException("Product does not found");
+
+        for (Product product : products) {
+            ProductKeywordResponse productKeywordResponse = mapper.map(product, ProductKeywordResponse.class);
+            ImageResponse imageResponse = ImageResponse.builder()
+                    .publicId(product.getThumbnailPublicId())
+                    .avatarUrl(product.getThumbnailUrl())
+                    .build();
+
+            productKeywordResponse.setImageResponse(imageResponse);
+            productKeywordResponses.add(productKeywordResponse);
+        }
+
+        return productKeywordResponses;
     }
 
     @Override

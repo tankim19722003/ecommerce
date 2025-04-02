@@ -23,6 +23,9 @@ public class ProductCategoryResponse {
     @JsonProperty("quantity")
     private int quantity;
 
+    @JsonProperty("price")
+    private int price;
+
     @JsonProperty("public_id")
     private String publicId;
 

@@ -1,6 +1,8 @@
 package ecommerce.example.ecommerce.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,11 +28,16 @@ public class Feedback {
     @Column(name = "updated_at")
     private LocalDate updatedAt;
 
+    @Min(1)
+    @Max(5)
+    @Column(name = "rating")
+    private Integer rating;
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
+    @OneToOne
+    @JoinColumn(name = "order_detail_id", nullable = false)
+    private OrderDetail orderDetail;
 }

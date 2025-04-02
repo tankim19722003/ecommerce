@@ -177,6 +177,9 @@ public class SecurityConfig {
                             .requestMatchers(POST,
                                     String.format("%s/product/create_product", apiPrefix)).hasAnyRole(Role.ADMIN, Role.SHOP)
 
+                            .requestMatchers(GET,
+                                    String.format("%s/product/get_by_key_word/**", apiPrefix)).permitAll()
+
 
                             // product attribute value
                             .requestMatchers(GET,

@@ -41,4 +41,7 @@ public class OrderDetail {
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "orderDetail")
+    private Feedback feedback;
 }

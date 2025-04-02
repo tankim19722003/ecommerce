@@ -63,9 +63,6 @@ public class Product {
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE, CascadeType.MERGE, CascadeType.REFRESH})
     private List<CartItem> cartItems;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
-    private List<Feedback> feedbacks;
-
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "product")
     private ProductRejection productRejection;
 
@@ -85,6 +82,7 @@ public class Product {
     public void prePersist() {
 
         this.totalSold = 0;
+        this.rating = 0;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
@@ -99,7 +97,7 @@ public class Product {
         for (ProductImage productImage : images) {
             if (productImage.getId() == id) {
                 images.remove(productImage);
-                break;
+                break;  
             }
         }
     }

@@ -127,6 +127,11 @@ public class JwtFilter extends OncePerRequestFilter {
             return true;
         }
 
+        if (requestUrl.contains(apiPrefix + "/product/get_by_key_word")
+                && requestMethod.equals("GET")) {
+            return true;
+        }
+
         return false;
 
     }

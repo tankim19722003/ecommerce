@@ -28,14 +28,14 @@ public class ProductCategoryController {
     @PostMapping(value = "/add_multiple", consumes = "multipart/form-data")
     public ResponseEntity<?> addMultipleCategory(
         @RequestPart("ProductCategoryRequest") ProductCategoryRequest productCategoryDTO,
-        @RequestParam("files") List<MultipartFile> files
+        @RequestPart("files") List<MultipartFile> files
     ) {
 
         try {
             ownerService.checkValidShop(productCategoryDTO.getShopId());
-            productCategoryService.addMultipleProductCategory(productCategoryDTO.getProductId(),productCategoryDTO.getProductCategoryGroups() , files);
+            List<ProductCategoryResponse> productCategoryResponses= productCategoryService.addMultipleProductCategory(productCategoryDTO.getProductId(),productCategoryDTO.getProductCategoryGroups() , files);
 
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok(productCategoryResponses);
         } catch(Exception e) {
             return ResponseEntity.badRequest().body(
                     EResponse.builder()

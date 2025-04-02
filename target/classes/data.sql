@@ -268,7 +268,7 @@ INSERT INTO villages (id, district_id, name) VALUES
 (41, 84, 'Lê Bình'),
 (42, 84, 'Tân Phú');
 
---
+
 --INSERT INTO categories (id, name, created_at, description) VALUES
 --(1,'Electronics', '2024-03-03', 'Devices, gadgets, and accessories'),
 --(2, 'Fashion', '2024-03-03', 'Clothing, footwear, and accessories'),
@@ -370,7 +370,7 @@ INSERT INTO villages (id, district_id, name) VALUES
 --    (6, 3, 6),  (7, 3, 7),  (8, 4, 8),  (9, 4, 9),  (10, 5, 10),
 --    (11, 6, 1),  (12, 6, 2),  (13, 7, 3),  (14, 7, 4),  (15, 8, 5),
 --    (16, 8, 6),  (17, 9, 7),  (18, 9, 8),  (19, 10, 9), (20, 10, 10);
-
+--
 --
 --INSERT INTO products (shop_id, sub_category_id, rating,created_at, updated_at, description, name)
 --VALUES
@@ -404,7 +404,7 @@ INSERT INTO villages (id, district_id, name) VALUES
 ----    (1, 8, 1, 35, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Comfortable and lightweight sneakers', 'Nike Air Zoom Pegasus 39', 'nike_pegasus_39.png'),
 ----    (1, 9, 3, 125, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Elegant and minimalist wristwatch', 'Casio Edifice Chronograph', 'casio_edifice.png'),
 ----    (1, 10, 5, 280, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Luxury perfume with floral scent', 'Chanel Coco Mademoiselle', 'chanel_coco_mademoiselle.png');
---
+----
 ----INSERT INTO product_attribute_value (id, product_id, sub_category_attribute_id, value) VALUES
 ----(1, 1, 1, 'Black'),
 ----(2, 1, 2, '6.1 inches'),
@@ -437,7 +437,7 @@ INSERT INTO villages (id, district_id, name) VALUES
 ----(28, 6, 3, 'LED Display'),
 ----(29, 6, 4, 'Samsung'),
 ----(30, 6, 5, '15kg');
---
+
 INSERT INTO code_purposes (id, name, created_at, updated_at) VALUES
 (1, 'Email confirmation', '2025-03-13', '2025-03-13'),
 (2, 'User confirmation', '2025-03-13', '2025-03-13'),
@@ -449,29 +449,32 @@ INSERT INTO code_purposes (id, name, created_at, updated_at) VALUES
 ---- Enable pgcrypto extension if not already enabled
 --CREATE EXTENSION IF NOT EXISTS pgcrypto;
 --
----- Insert a new shipping provider
---INSERT INTO shipping_providers (created_at, id, account, email, password, phone, status)
---VALUES (
---    CURRENT_DATE,         -- created_at (current date)
---    1,                    -- id (ensure it's unique)
---    'DHL Express',        -- account (shipping provider name)
---    'contact@dhl.com',    -- email
---    'ngoctan2003',
---    '+1234567890',        -- phone number
---    'Active'              -- status
---);
---
---INSERT INTO shipping_types (id, name, price, description, estimated_time)
---VALUES
---    (1, 'Tiêu chuẩn', 10000, 'Giao hàng trong vòng 5-7 ngày.', 7),
---    (2, 'Nhanh', 15000, 'Giao hàng trong vòng 2-3 ngày.', 3),
---    (3, 'Hỏa tốc', 20000, 'Giao hàng trong vòng 24 giờ.', 1);
---
+-- Insert a new shipping provider
+INSERT INTO shipping_providers (created_at, id, account, email, password, phone, status)
+VALUES (
+    CURRENT_DATE,         -- created_at (current date)
+    1,                    -- id (ensure it's unique)
+    'DHL Express',        -- account (shipping provider name)
+    'contact@dhl.com',    -- email
+    'ngoctan2003',
+    '+1234567890',        -- phone number
+    'Active'              -- status
+);
+
+INSERT INTO shipping_types (id, name, price, description, estimated_time)
+VALUES
+    (1, 'Tiêu chuẩn', 10000, 'Giao hàng trong vòng 5-7 ngày.', 7),
+    (2, 'Nhanh', 15000, 'Giao hàng trong vòng 2-3 ngày.', 3),
+    (3, 'Hỏa tốc', 20000, 'Giao hàng trong vòng 24 giờ.', 1);
+
 ----    Tốc độ bình thường: 100% giá cơ bản (10.000 VNĐ/kg)
 --
 ----      Tốc độ nhanh: 1.5 lần giá cơ bản (15.000 VNĐ/kg)
 ----
 ----      Siêu tốc: 2 lần giá cơ bản (20.000 VNĐ/kg)
---
---
---
+
+
+
+
+
+
