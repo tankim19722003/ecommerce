@@ -156,4 +156,10 @@ public class ProductServiceImpl implements ProductService {
     public QuantityResponse addQuantityToAttributeProduct(List<QuantityDTO> quantityDTOList, Long productId) {
         return null;
     }
+
+    @Override
+    public List<ProductRatingResponse> getProductsWithRatingOrder() {
+        return List.of();
+    }
+
 }

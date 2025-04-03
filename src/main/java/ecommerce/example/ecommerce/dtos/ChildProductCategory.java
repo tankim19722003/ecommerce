@@ -8,7 +8,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ChildProductCategory extends ParentProductCategory{
+public class ChildProductCategory{
+
+    @JsonProperty("name")
+    private String name;
+
+    @JsonProperty("price")
+    private int price;
 
     @JsonProperty("quantity")
     private int quantity;

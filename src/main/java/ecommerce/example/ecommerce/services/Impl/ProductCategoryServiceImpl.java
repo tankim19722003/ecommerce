@@ -168,10 +168,8 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
             ProductCategoryTwoLevelResponse productCategoryTwoLevelResponse = new ProductCategoryTwoLevelResponse();
             // save parent product category
-            ParentProductCategory productCategory = productCategoryTwoLevelDTO.getParentProductCategory();
             ProductCategory parentProductCategory = new ProductCategory();
-            parentProductCategory.setValue(productCategory.getName());
-            parentProductCategory.setPrice(productCategory.getPrice());
+            parentProductCategory.setValue(productCategoryTwoLevelDTO.getParentProductCategory());
             parentProductCategory.setPublicId(images.get(index).get("publicId"));
             parentProductCategory.setImageUrl(images.get(index).get("imageUrl"));
             parentProductCategory.setProductCategoryGroup(productCategoryGroup);
@@ -181,9 +179,9 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
             ParentProductCategoryResponse parentProductCategoryResponse = new ParentProductCategoryResponse();
             parentProductCategoryResponse.setId(parentProductCategory.getId());
             parentProductCategoryResponse.setName(parentProductCategory.getValue());
-            parentProductCategoryResponse.setPrice(parentProductCategory.getPrice());
             parentProductCategoryResponse.setPublicId(parentProductCategory.getPublicId());
             parentProductCategoryResponse.setImageUrl(parentProductCategory.getImageUrl());
+
             productCategoryTwoLevelResponse.setProductCategoryResponse(parentProductCategoryResponse);
 
 
@@ -196,12 +194,14 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
                 subProductCategory.setProductCategory(parentProductCategory);
                 subProductCategory.setQuantity(childProductCategoryItem.getQuantity());
                 subProductCategory.setName(childProductCategoryItem.getName());
+                subProductCategory.setPrice(childProductCategoryItem.getPrice());
                 subProductCategoryRepo.save(subProductCategory);
 
                 ChildProductCategoryResponse childProductCategoryResponse = new ChildProductCategoryResponse();
                 childProductCategoryResponse.setId(subProductCategory.getId());
                 childProductCategoryResponse.setName(childProductCategoryItem.getName());
                 childProductCategoryResponse.setQuantity(subProductCategory.getQuantity());
+                childProductCategoryResponse.setPrice(subProductCategory.getPrice());
                 childProductCategoryResponses.add(childProductCategoryResponse);
             }
             productCategoryTwoLevelResponse.setChildProductCategoryResponses(childProductCategoryResponses);

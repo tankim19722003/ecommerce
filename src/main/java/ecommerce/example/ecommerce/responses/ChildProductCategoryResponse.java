@@ -20,4 +20,7 @@ public class ChildProductCategoryResponse {
 
     @JsonProperty("quantity")
     private int quantity;
+
+    @JsonProperty("price")
+    private int price;
 }

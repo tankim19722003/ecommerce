@@ -7,7 +7,6 @@ ecommerce\example\ecommerce\responses\SubcategoryAttributeListResponse.class
 ecommerce\example\ecommerce\responses\VillageResponse.class
 ecommerce\example\ecommerce\responses\AttributeValueResponse$AttributeValueResponseBuilder.class
 ecommerce\example\ecommerce\dtos\ProductAttributeValueDTO.class
-ecommerce\example\ecommerce\dtos\ParentProductCategory.class
 ecommerce\example\ecommerce\responses\AttributeSubIdResponse.class
 ecommerce\example\ecommerce\Repo\UserVillageRepo.class
 ecommerce\example\ecommerce\responses\ShippingTypeResponse$ShippingTypeResponseBuilder.class
@@ -118,6 +117,7 @@ ecommerce\example\ecommerce\config\JwtFilter.class
 ecommerce\example\ecommerce\dtos\SubcategoryAttributeDTO$SubcategoryAttributeDTOBuilder.class
 ecommerce\example\ecommerce\responses\QuantityResponse.class
 ecommerce\example\ecommerce\services\Impl\EmailServiceImpl.class
+ecommerce\example\ecommerce\responses\ProductRatingResponse.class
 ecommerce\example\ecommerce\Repo\ProductAttributeValueRepo.class
 ecommerce\example\ecommerce\responses\IUserResponse.class
 ecommerce\example\ecommerce\responses\ProductCategoryResponse.class
@@ -253,7 +253,7 @@ ecommerce\example\ecommerce\models\ShippingType$ShippingTypeBuilder.class
 ecommerce\example\ecommerce\responses\UserUpdatedResponse.class
 ecommerce\example\ecommerce\models\ProductCategory.class
 ecommerce\example\ecommerce\controllers\SubcategoryAttributeController.class
-ecommerce\example\ecommerce\dtos\ParentProductCategory$ParentProductCategoryBuilder.class
+ecommerce\example\ecommerce\responses\VoucherResponse.class
 ecommerce\example\ecommerce\services\Impl\UserCodeServiceImpl.class
 ecommerce\example\ecommerce\responses\ProductImageResponse.class
 ecommerce\example\ecommerce\dtos\MultipleProductCategoryDTO$MultipleProductCategoryDTOBuilder.class

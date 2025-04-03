@@ -18,9 +18,6 @@ public class ParentProductCategoryResponse {
     @JsonProperty("name")
     private String name;
 
-    @JsonProperty("price")
-    private int price;
-
     @JsonProperty("public_id")
     private String publicId;
 

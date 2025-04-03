@@ -26,6 +26,9 @@ public class SubProductCategory {
     @Column(name = "quantity")
     private int quantity;
 
+    @Column(name = "price")
+    private int price;
+
     @ManyToOne
     @JoinColumn(name = "product_category_group_id")
     private ProductCategoryGroup productCategoryGroup;

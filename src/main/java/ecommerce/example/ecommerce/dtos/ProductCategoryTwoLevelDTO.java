@@ -15,8 +15,8 @@ import java.util.List;
 public class ProductCategoryTwoLevelDTO {
 
     @JsonProperty("parent_product_category")
-    private ParentProductCategory parentProductCategory;
+    private String parentProductCategory;
 
     @JsonProperty("child_product_categories")
-    private List<ChildProductCategory> ChildProductCategories;
+    private List<ChildProductCategory> childProductCategories;
 }
