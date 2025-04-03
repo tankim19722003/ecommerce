@@ -113,6 +113,7 @@ ecommerce\example\ecommerce\Repo\ProductAttributeValueRepo.class
 ecommerce\example\ecommerce\responses\IUserResponse.class
 ecommerce\example\ecommerce\responses\ProductCategoryResponse.class
 ecommerce\example\ecommerce\models\SubCategoryAttribute.class
+ecommerce\example\ecommerce\Repo\SubProductCategoryRepo.class
 ecommerce\example\ecommerce\models\Category.class
 ecommerce\example\ecommerce\Repo\DistrictRepo.class
 ecommerce\example\ecommerce\responses\ProductIdAttributeValueResponse.class
@@ -146,6 +147,7 @@ ecommerce\example\ecommerce\Repo\ProductImageRepo.class
 ecommerce\example\ecommerce\services\Impl\AttributeServiceImpl.class
 ecommerce\example\ecommerce\Repo\ShippingTypesRepo.class
 ecommerce\example\ecommerce\controllers\ProductImageController.class
+ecommerce\example\ecommerce\models\SubProductCategory$SubProductCategoryBuilder.class
 ecommerce\example\ecommerce\Repo\ProvinceRepo.class
 ecommerce\example\ecommerce\models\Status.class
 ecommerce\example\ecommerce\Repo\ProductDiscountRepo.class
@@ -182,6 +184,7 @@ ecommerce\example\ecommerce\responses\ShippingTypeResponse.class
 ecommerce\example\ecommerce\dtos\ProductCategoryRequest.class
 ecommerce\example\ecommerce\controllers\UserController.class
 ecommerce\example\ecommerce\responses\UserAddressResponse.class
+ecommerce\example\ecommerce\models\SubProductCategory.class
 ecommerce\example\ecommerce\models\Village$VillageBuilder.class
 ecommerce\example\ecommerce\services\Impl\ProductImageServiceImpl.class
 ecommerce\example\ecommerce\dtos\CategoryDTO.class

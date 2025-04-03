@@ -14,11 +14,8 @@ public class ProductCategoryResponse {
 
     private Long id;
 
-    @JsonProperty("first_category")
-    private String firstCategory;
-
-    @JsonProperty("second_category")
-    private String secondCategory;
+    @JsonProperty("value")
+    private String value;
 
     @JsonProperty("quantity")
     private int quantity;

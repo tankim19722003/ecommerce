@@ -13,9 +13,9 @@ public interface ProductCategoryService {
 //        ProductCategoryImageDTO productCategoryDTO
 //    );
 
-    List<ProductCategoryResponse> addMultipleProductCategory(
+    List<ProductCategoryResponse> addMultipleProductCategoryOneLevel(
             Long productId,
-            List<ProductCategoryGroupDTO> productCategoryGroups,
+            ProductCategoryGroupDTO productCategoryGroups,
             List<MultipartFile> files
     );
 //

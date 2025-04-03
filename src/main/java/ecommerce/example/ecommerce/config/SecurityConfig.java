@@ -156,7 +156,7 @@ public class SecurityConfig {
                             .requestMatchers(GET,
                                     String.format("%s/sub_category/**", apiPrefix)).permitAll()
 
-                            // sub-category
+                            // sub-category attribute
                             .requestMatchers(POST,
                                     String.format("%s/subcategory_attribute/add_one", apiPrefix)).hasRole(Role.ADMIN)
 
@@ -249,6 +249,11 @@ public class SecurityConfig {
 
                             .requestMatchers(GET,
                                     String.format("%s/product_shipping_type/**", apiPrefix)).permitAll()
+
+                            // product category
+                            .requestMatchers(POST,
+                                    String.format("%s/product_category/add_multiple/one_level/**", apiPrefix)).hasRole(Role.SHOP)
+
                             .anyRequest().authenticated();
 
                     }

@@ -1,13 +1,10 @@
 package ecommerce.example.ecommerce.controllers;
 
-import ecommerce.example.ecommerce.dtos.ProductCategoryDTO;
-import ecommerce.example.ecommerce.dtos.ProductCategoryImageDTO;
-import ecommerce.example.ecommerce.dtos.ProductCategoryRequest;
+import ecommerce.example.ecommerce.dtos.ProductCategoryGroupDTO;
 import ecommerce.example.ecommerce.responses.EResponse;
 import ecommerce.example.ecommerce.responses.ProductCategoryResponse;
 import ecommerce.example.ecommerce.services.Impl.OwnerService;
 import ecommerce.example.ecommerce.services.ProductCategoryService;
-import jakarta.mail.Multipart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,15 +22,18 @@ public class ProductCategoryController {
     @Autowired
     private OwnerService ownerService;
 
-    @PostMapping(value = "/add_multiple", consumes = "multipart/form-data")
+    @PostMapping(value = "/add_multiple/one_level", consumes = "multipart/form-data")
     public ResponseEntity<?> addMultipleCategory(
-        @RequestPart("ProductCategoryRequest") ProductCategoryRequest productCategoryDTO,
+        @RequestParam("productId") Long productId,
+        @RequestParam("shopId") Long shopId,
+        @RequestPart("ProductCategoryRequest") ProductCategoryGroupDTO productCategoryGroupDTO,
         @RequestPart("files") List<MultipartFile> files
     ) {
 
         try {
-            ownerService.checkValidShop(productCategoryDTO.getShopId());
-            List<ProductCategoryResponse> productCategoryResponses= productCategoryService.addMultipleProductCategory(productCategoryDTO.getProductId(),productCategoryDTO.getProductCategoryGroups() , files);
+            ownerService.checkValidShop(shopId);
+            List<ProductCategoryResponse> productCategoryResponses= productCategoryService
+                    .addMultipleProductCategoryOneLevel(productId ,productCategoryGroupDTO , files);
 
             return ResponseEntity.ok(productCategoryResponses);
         } catch(Exception e) {

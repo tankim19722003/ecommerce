@@ -30,4 +30,5 @@ public class ProductCategoryGroup {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "productCategoryGroup")
     private List<ProductCategory> productCategories;
+
 }

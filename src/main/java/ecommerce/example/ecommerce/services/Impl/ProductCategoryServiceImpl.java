@@ -41,9 +41,9 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
     @Override
     @Transactional
-    public List<ProductCategoryResponse> addMultipleProductCategory(
+    public List<ProductCategoryResponse> addMultipleProductCategoryOneLevel(
             Long productId,
-            List<ProductCategoryGroupDTO> productCategoryGroups,
+            ProductCategoryGroupDTO productCategoryGroupDTO,
             List<MultipartFile> files
     ) {
 
@@ -52,10 +52,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         );
 
         // check image did images add into product category
-        int count = 0;
-        for (ProductCategoryGroupDTO productCategoryGroupDTO : productCategoryGroups) {
-            count += productCategoryGroupDTO.getProductCategoryDTOs().size();
-        }
+        int count = productCategoryGroupDTO.getProductCategoryDTOs().size();
         if (files.size() != count) throw new RuntimeException("Please add image to your product categories!");
 
         List<Map<String, String>> images = new ArrayList<>();
@@ -70,35 +67,39 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         List<ProductCategoryResponse> productCategoryResponseList = new ArrayList<>();
 
         int index = 0;
-        for (ProductCategoryGroupDTO productCategoryGroupItem : productCategoryGroups) {
 
-            // save product category group
-            ProductCategoryGroup productCategoryGroup = new ProductCategoryGroup();
-            productCategoryGroup.setName(productCategoryGroupItem.getName());
-            productCategoryGroup.setProduct(product);
-            productCategoryGroupRepo.save(productCategoryGroup);
+        // save first level
 
 
-            for (ProductCategoryDTO productCategoryDTO : productCategoryGroupItem.getProductCategoryDTOs()) {
+        List<ProductCategoryGroup> savedProductCategoryGroups = new ArrayList<>();
 
-                // save product category
-                ProductCategory productCategory = new ProductCategory();
+        // save product category group
+        ProductCategoryGroup productCategoryGroup = new ProductCategoryGroup();
+        productCategoryGroup.setName(productCategoryGroupDTO.getName());
+        productCategoryGroup.setProduct(product);
+        productCategoryGroupRepo.save(productCategoryGroup);
+        savedProductCategoryGroups.add(productCategoryGroup);
 
-                // map first and second category
-                modelMapper.map(productCategoryDTO, productCategory);
 
-                productCategory.setImageUrl(images.get(index).get("publicId"));
-                productCategory.setPublicId(images.get(index).get("imageUrl"));
-                productCategory.setProductCategoryGroup(productCategoryGroup);
-                productCategory.setPrice(productCategoryDTO.getPrice());
+        for (ProductCategoryDTO productCategoryDTO : productCategoryGroupDTO.getProductCategoryDTOs()) {
 
-                // save product category
-                productCategoryRepo.save(productCategory);
-                index++;
+            // save product category
+            ProductCategory productCategory = new ProductCategory();
 
-                // add product category to response
-                productCategoryResponseList.add(modelMapper.map(productCategory, ProductCategoryResponse.class));
-            }
+            // map first and second category
+            modelMapper.map(productCategoryDTO, productCategory);
+
+            productCategory.setImageUrl(images.get(index).get("publicId"));
+            productCategory.setPublicId(images.get(index).get("imageUrl"));
+            productCategory.setProductCategoryGroup(productCategoryGroup);
+            productCategory.setPrice(productCategoryDTO.getPrice());
+            productCategory.setValue(productCategoryDTO.getValue());
+            // save product category
+            productCategoryRepo.save(productCategory);
+            index++;
+
+            // add product category to response
+            productCategoryResponseList.add(modelMapper.map(productCategory, ProductCategoryResponse.class));
         }
 
         return productCategoryResponseList;

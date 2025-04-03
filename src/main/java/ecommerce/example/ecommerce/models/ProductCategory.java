@@ -1,15 +1,17 @@
 package ecommerce.example.ecommerce.models;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
-@Table(name = "product_categories",
-        uniqueConstraints = @UniqueConstraint(columnNames = {"first_category", "second_category"}))
+@Table(name = "product_categories")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -20,11 +22,8 @@ public class ProductCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "first_category", nullable = false)
-    private String firstCategory;
-
-    @Column(name = "second_category", nullable = false)
-    private String secondCategory;
+    @Column(name = "value", nullable = false)
+    private String value;
 
     @Column(name = "quantity")
     private int quantity;
@@ -38,11 +37,10 @@ public class ProductCategory {
     @Column(name = "image_url")
     private String imageUrl;
 
-//    @ManyToOne
-//    @JoinColumn(name = "product_id", nullable = false)
-//    private Product product;
-
     @ManyToOne
     @JoinColumn(name = "product_category_group_id")
     private ProductCategoryGroup productCategoryGroup;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "productCategory")
+    private List<SubProductCategory> subProductCategories;
 }
