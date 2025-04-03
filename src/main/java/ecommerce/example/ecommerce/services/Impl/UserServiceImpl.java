@@ -3,6 +3,7 @@ package ecommerce.example.ecommerce.services.Impl;
 import ecommerce.example.ecommerce.Repo.RoleRepo;
 import ecommerce.example.ecommerce.Repo.UserCodeRepo;
 import ecommerce.example.ecommerce.Repo.UserRepo;
+import ecommerce.example.ecommerce.dtos.CloudinaryService;
 import ecommerce.example.ecommerce.dtos.UserInfoUpdating;
 import ecommerce.example.ecommerce.dtos.UserLoginDTO;
 import ecommerce.example.ecommerce.dtos.UserRegisterDTO;

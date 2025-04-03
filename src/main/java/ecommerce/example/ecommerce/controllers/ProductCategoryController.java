@@ -1,7 +1,9 @@
 package ecommerce.example.ecommerce.controllers;
 
+import ecommerce.example.ecommerce.dtos.MultipleProductCategoryDTO;
 import ecommerce.example.ecommerce.dtos.ProductCategoryGroupDTO;
 import ecommerce.example.ecommerce.responses.EResponse;
+import ecommerce.example.ecommerce.responses.MultipleProductCategoryResponse;
 import ecommerce.example.ecommerce.responses.ProductCategoryResponse;
 import ecommerce.example.ecommerce.services.Impl.OwnerService;
 import ecommerce.example.ecommerce.services.ProductCategoryService;
@@ -23,7 +25,7 @@ public class ProductCategoryController {
     private OwnerService ownerService;
 
     @PostMapping(value = "/add_multiple/one_level", consumes = "multipart/form-data")
-    public ResponseEntity<?> addMultipleCategory(
+    public ResponseEntity<?> addMultipleCategoryOneLevel(
         @RequestParam("productId") Long productId,
         @RequestParam("shopId") Long shopId,
         @RequestPart("ProductCategoryRequest") ProductCategoryGroupDTO productCategoryGroupDTO,
@@ -33,7 +35,31 @@ public class ProductCategoryController {
         try {
             ownerService.checkValidShop(shopId);
             List<ProductCategoryResponse> productCategoryResponses= productCategoryService
-                    .addMultipleProductCategoryOneLevel(productId ,productCategoryGroupDTO , files);
+                    .addMultipleProductCategoryOneLevel(productId, productCategoryGroupDTO, files);
+
+            return ResponseEntity.ok(productCategoryResponses);
+        } catch(Exception e) {
+            return ResponseEntity.badRequest().body(
+                    EResponse.builder()
+                            .name("ERROR")
+                            .message(e.getMessage())
+                            .build()
+            );
+        }
+    }
+
+    @PostMapping(value = "/add_multiple/two_level", consumes = "multipart/form-data")
+    public ResponseEntity<?> addMultipleCategoryTwoLevel(
+            @RequestParam("productId") Long productId,
+            @RequestParam("shopId") Long shopId,
+            @RequestPart("multipleProductCategoryDTO") MultipleProductCategoryDTO multipleProductCategoryDTO,
+            @RequestPart("files") List<MultipartFile> files
+    ) {
+
+        try {
+            ownerService.checkValidShop(shopId);
+            MultipleProductCategoryResponse productCategoryResponses= productCategoryService
+                    .addMultipleProductCategoryTwoLevel(productId,shopId, multipleProductCategoryDTO, files);
 
             return ResponseEntity.ok(productCategoryResponses);
         } catch(Exception e) {

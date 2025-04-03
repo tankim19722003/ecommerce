@@ -3,12 +3,10 @@ package ecommerce.example.ecommerce.services.Impl;
 import ecommerce.example.ecommerce.Repo.ProductCategoryGroupRepo;
 import ecommerce.example.ecommerce.Repo.ProductCategoryRepo;
 import ecommerce.example.ecommerce.Repo.ProductRepo;
-import ecommerce.example.ecommerce.dtos.ProductCategoryDTO;
-import ecommerce.example.ecommerce.dtos.ProductCategoryGroupDTO;
-import ecommerce.example.ecommerce.models.Product;
-import ecommerce.example.ecommerce.models.ProductCategory;
-import ecommerce.example.ecommerce.models.ProductCategoryGroup;
-import ecommerce.example.ecommerce.responses.ProductCategoryResponse;
+import ecommerce.example.ecommerce.Repo.SubProductCategoryRepo;
+import ecommerce.example.ecommerce.dtos.*;
+import ecommerce.example.ecommerce.models.*;
+import ecommerce.example.ecommerce.responses.*;
 import ecommerce.example.ecommerce.services.ProductCategoryService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +33,9 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
     @Autowired
     private ProductCategoryGroupRepo productCategoryGroupRepo;
+
+    @Autowired
+    private SubProductCategoryRepo subProductCategoryRepo;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -106,67 +107,111 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
     }
 
-//    @Override
-//    public ProductCategoryResponse handleSaveProduct(ProductCategoryImageDTO productCategoryDTO, Product product) {
-//        Map<String, String> cloudImage;
-//        // save product category image
-//        try {
-//            cloudImage = cloudinaryService.uploadImage(productCategoryDTO.getImage());
-//        } catch (Exception e) {
-//            throw new RuntimeException("Can't save image");
-//        }
-//
-//        ProductCategory productCategory = ProductCategory.builder()
-//                .firstCategory(productCategoryDTO.getFirstCategory())
-//                .secondCategory(productCategoryDTO.getSecondCategory())
-//                .quantity(productCategoryDTO.getQuantity())
-//                .imageUrl(cloudImage.get("imageUrl"))
-//                .publicId(cloudImage.get("publicId"))
-//                .product(product)
-//                .build();
-//
-//        try {
-//            productCategoryRepo.save(productCategory);
-//        } catch (Exception e) {
-//            throw new RuntimeException("Failed to save product category!!");
-//        }
-//
-//        return modelMapper.map(productCategory, ProductCategoryResponse.class);
-//
-//    }
-//
-//
-//    @Override
-//    public List<ProductCategoryResponse> getAllProductCategoriesByProductId(Long productId) {
-//
-//        List<ProductCategory> productCategories = productCategoryRepo.findByProductId(productId);
-//        return productCategories
-//                .stream()
-//                .map(productCategory -> modelMapper.map(productCategory, ProductCategoryResponse.class))
-//                .toList();
-//    }
-//
-//    @Override
-//    public ProductCategoryResponse updateProductCategory(Long productCategoryId, ProductCategoryDTO productCategoryDTO) {
-//
-//        ProductCategory productCategory = productCategoryRepo.findById(productCategoryId)
-//                .orElseThrow(() -> new RuntimeException("Product category does not exist!!"));
-//
-//        modelMapper.map(productCategoryDTO, productCategory);
-//
-//        return modelMapper.map(productCategory, ProductCategoryResponse.class);
-//    }
-//
-//    @Override
-//    @Transactional
-//    public void deleteProductCategoryById(Long id) {
-//        ProductCategory productCategory = productCategoryRepo.findById(id)
-//                        .orElseThrow(() -> new RuntimeException("Product category does not found!!"));
-//
-//        productCategoryRepo.delete(productCategory);
-//
-//        // delete image on cloud
-//        cloudinaryService.deleteImage(productCategory.getPublicId());
-//
-//    }
+    @Override
+    public MultipleProductCategoryResponse addMultipleProductCategoryTwoLevel(
+            Long productId,
+            Long shopId,
+            MultipleProductCategoryDTO multipleProductCategoryDTO,
+            List<MultipartFile> files
+    ) {
+
+        Product product = productRepo.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product does not found"));
+
+
+        // save images
+        List<Map<String, String>> images = new ArrayList<>();
+        for (MultipartFile file : files) {
+            try {
+                images.add(cloudinaryService.uploadImage(file));
+            } catch (IOException e) {
+                throw new RuntimeException("Can't save image");
+            }
+        }
+
+
+        // is product owned by shop
+        if (product.getShop().getId() != shopId)
+            throw new RuntimeException("Invalid Shop");
+
+        // save product category group
+        ProductCategoryGroup productCategoryGroup = new ProductCategoryGroup();
+        productCategoryGroup.setProduct(product);
+        productCategoryGroup.setName(multipleProductCategoryDTO.getProductCategoryGroup());
+
+        productCategoryGroupRepo.save(productCategoryGroup);
+
+        ProductCategoryGroup subProductCategoryGroup = new ProductCategoryGroup();
+        subProductCategoryGroup.setProduct(product);
+        subProductCategoryGroup.setName(multipleProductCategoryDTO.getSubProductCategoryGroup());
+
+        productCategoryGroupRepo.save(subProductCategoryGroup);
+
+        //--------create group response------------
+        MultipleProductCategoryResponse multipleProductCategoryResponse = new MultipleProductCategoryResponse();
+        ProductCategoryGroupResponse productCategoryGroupResponse = new ProductCategoryGroupResponse();
+        productCategoryGroupResponse.setId(productCategoryGroup.getId());
+        productCategoryGroupResponse.setProductCategoryGroupName(productCategoryGroup.getName());
+        multipleProductCategoryResponse.setProductCategoryGroup(productCategoryGroupResponse);
+
+        ProductCategoryGroupResponse subProductCategoryGroupResponse = new ProductCategoryGroupResponse();
+        subProductCategoryGroupResponse.setId(subProductCategoryGroup.getId());
+        subProductCategoryGroupResponse.setProductCategoryGroupName(subProductCategoryGroup.getName());
+        multipleProductCategoryResponse.setSubProductCategoryGroup(subProductCategoryGroupResponse);
+
+
+        // image index
+        int index = 0;
+
+        List<ProductCategoryTwoLevelResponse> productCategoryTwoLevelResponses = new ArrayList<>();
+        for (ProductCategoryTwoLevelDTO productCategoryTwoLevelDTO : multipleProductCategoryDTO.getProductCategoryTwoLevelResponse()) {
+
+            ProductCategoryTwoLevelResponse productCategoryTwoLevelResponse = new ProductCategoryTwoLevelResponse();
+            // save parent product category
+            ParentProductCategory productCategory = productCategoryTwoLevelDTO.getParentProductCategory();
+            ProductCategory parentProductCategory = new ProductCategory();
+            parentProductCategory.setValue(productCategory.getName());
+            parentProductCategory.setPrice(productCategory.getPrice());
+            parentProductCategory.setPublicId(images.get(index).get("publicId"));
+            parentProductCategory.setImageUrl(images.get(index).get("imageUrl"));
+            parentProductCategory.setProductCategoryGroup(productCategoryGroup);
+            productCategoryRepo.save(parentProductCategory);
+
+            // ----------- product category response -------
+            ParentProductCategoryResponse parentProductCategoryResponse = new ParentProductCategoryResponse();
+            parentProductCategoryResponse.setId(parentProductCategory.getId());
+            parentProductCategoryResponse.setName(parentProductCategory.getValue());
+            parentProductCategoryResponse.setPrice(parentProductCategory.getPrice());
+            parentProductCategoryResponse.setPublicId(parentProductCategory.getPublicId());
+            parentProductCategoryResponse.setImageUrl(parentProductCategory.getImageUrl());
+            productCategoryTwoLevelResponse.setProductCategoryResponse(parentProductCategoryResponse);
+
+
+            // save child category
+            List<ChildProductCategoryResponse> childProductCategoryResponses = new ArrayList<>();
+            for (ChildProductCategory childProductCategoryItem : productCategoryTwoLevelDTO.getChildProductCategories()) {
+
+                SubProductCategory subProductCategory = new SubProductCategory();
+                subProductCategory.setProductCategoryGroup(subProductCategoryGroup);
+                subProductCategory.setProductCategory(parentProductCategory);
+                subProductCategory.setQuantity(childProductCategoryItem.getQuantity());
+                subProductCategory.setName(childProductCategoryItem.getName());
+                subProductCategoryRepo.save(subProductCategory);
+
+                ChildProductCategoryResponse childProductCategoryResponse = new ChildProductCategoryResponse();
+                childProductCategoryResponse.setId(subProductCategory.getId());
+                childProductCategoryResponse.setName(childProductCategoryItem.getName());
+                childProductCategoryResponse.setQuantity(subProductCategory.getQuantity());
+                childProductCategoryResponses.add(childProductCategoryResponse);
+            }
+            productCategoryTwoLevelResponse.setChildProductCategoryResponses(childProductCategoryResponses);
+            productCategoryTwoLevelResponses.add(productCategoryTwoLevelResponse);
+        }
+
+        multipleProductCategoryResponse.setProductCategoryTwoLevelResponse(productCategoryTwoLevelResponses);
+        return multipleProductCategoryResponse;
+
+    }
+
+
 }

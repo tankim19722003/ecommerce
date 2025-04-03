@@ -254,6 +254,8 @@ public class SecurityConfig {
                             .requestMatchers(POST,
                                     String.format("%s/product_category/add_multiple/one_level/**", apiPrefix)).hasRole(Role.SHOP)
 
+                            .requestMatchers(POST,
+                                    String.format("%s/product_category/add_multiple/two_level/**", apiPrefix)).hasRole(Role.SHOP)
                             .anyRequest().authenticated();
 
                     }

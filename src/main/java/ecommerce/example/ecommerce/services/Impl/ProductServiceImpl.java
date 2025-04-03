@@ -1,7 +1,7 @@
 package ecommerce.example.ecommerce.services.Impl;
 
 import ecommerce.example.ecommerce.Repo.*;
-import ecommerce.example.ecommerce.dtos.ProductAttributeValueDTO;
+import ecommerce.example.ecommerce.dtos.CloudinaryService;
 import ecommerce.example.ecommerce.dtos.ProductCreatingDTO;
 import ecommerce.example.ecommerce.dtos.QuantityDTO;
 import ecommerce.example.ecommerce.models.*;
