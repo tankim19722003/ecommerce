@@ -45,6 +45,9 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductDiscountRepo productDiscountRepo;
 
+    @Autowired
+    private VoucherRepo voucherRepo;
+
     @Override
     public void getProductById(Long productId) {
 
@@ -183,8 +186,9 @@ public class ProductServiceImpl implements ProductService {
             productRatingOrderResponse.setRating(product.getRating());
 
             // voucher
-            VoucherResponse voucherResponses = new VoucherResponse();
+            List<Voucher> vouchers = voucherRepo.findVoucherByProductId(product.getShop().getId());
 
+            // product discount
             LocalDateTime now = LocalDateTime.now();
             ProductDiscount productDiscount = productDiscountRepo.findByDateStartBeforeAndDateEndAfter(now, now).get();
 

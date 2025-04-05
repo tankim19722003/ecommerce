@@ -6,11 +6,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @SpringBootApplication
 public class EcomerceApplication {
@@ -168,26 +166,26 @@ public class EcomerceApplication {
 		System.out.println("Done!!");
 	}
 
-	private void createCoupon(ShopRepo shopRepo, CouponRepo couponRepo) {
-
-		Shop shop = shopRepo.findById(2L).orElseThrow(() ->  new RuntimeException("Shop does not exist"));
-
-		// Creating a Coupon object
-		Coupon coupon = new Coupon();
-		coupon.setId(100L);
-		coupon.setCode("DISCOUNT50");
-		coupon.setDescription("Get 50% off on orders above $100");
-		coupon.setDiscountValue(50.0f);
-		coupon.setStartDate(LocalDateTime.now());
-		coupon.setEndDate(LocalDateTime.now().plusDays(30)); // Valid for 30 days
-		coupon.setMinimumOrderValue(100);
-		coupon.setShop(shop);
-
-		System.out.println("Creating coupon...");
-		couponRepo.save(coupon);
-		System.out.println("Done!!");
-
-	}
+//	private void createCoupon(ShopRepo shopRepo, CouponRepo couponRepo) {
+//
+//		Shop shop = shopRepo.findById(2L).orElseThrow(() ->  new RuntimeException("Shop does not exist"));
+//
+//		// Creating a Coupon object
+//		Voucher coupon = new Voucher();
+//		coupon.setId(100L);
+//		coupon.setCode("DISCOUNT50");
+//		coupon.setDescription("Get 50% off on orders above $100");
+//		coupon.setDiscountValue(50.0f);
+//		coupon.setStartDate(LocalDateTime.now());
+//		coupon.setEndDate(LocalDateTime.now().plusDays(30)); // Valid for 30 days
+//		coupon.setMinimumOrderValue(100);
+//		coupon.setShop(shop);
+//
+//		System.out.println("Creating coupon...");
+//		couponRepo.save(coupon);
+//		System.out.println("Done!!");
+//
+//	}
 
 	private void createShopRejection(ShopRejectionRepo shopRejectionRepo, ShopRepo shopRepo) {
 
