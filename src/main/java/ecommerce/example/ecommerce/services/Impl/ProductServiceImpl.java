@@ -45,8 +45,8 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductDiscountRepo productDiscountRepo;
 
-//    @Autowired
-//    private VoucherRepo voucherRepo;
+    @Autowired
+    private VoucherRepo voucherRepo;
 
     @Override
     public void getProductById(Long productId) {
@@ -80,85 +80,84 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     public ProductCreatingResponse createProduct(Long shopId, ProductCreatingDTO productCreatingDTO) {
 
-//        SubCategory category = categoryRepo.findById(productCreatingDTO.getSubcategoryId()).orElseThrow(
-//                () -> new RuntimeException("Category does not found")
-//        );
-//
-//        Shop shop = shopRepo.findById(shopId).orElseThrow(
-//                () ->  new RuntimeException("Shop does not found")
-//        );
-//
-//
-//        // create product response
-//        ProductCreatingResponse productCreatingResponse = new ProductCreatingResponse();
-//        productCreatingResponse.setName(productCreatingDTO.getName());
-//        productCreatingResponse.setDescription(productCreatingDTO.getDescription());
-//        productCreatingResponse.setSubcategoryId(productCreatingDTO.getSubcategoryId());
-//        productCreatingResponse.setSubcategoryName(category.getName());
-//
-//        // save the avatar to the cloud
-//        Map<String, String> cloudAvatar;
-//        try {
-//             cloudAvatar = cloudinaryService.uploadImage(productCreatingDTO.getThumbnail());
-//
-//             // add thumnail to response
-//             ImageResponse thumbnail = new ImageResponse();
-//            thumbnail.setAvatarUrl(cloudAvatar.get("imageUrl"));
-//            thumbnail.setPublicId(cloudAvatar.get("publicId"));
-//            productCreatingResponse.setThumbnail(thumbnail);
-//
-//        } catch (IOException e) {
-//            throw new RuntimeException("Can't save avatar to the cloud");
-//        }
-//
-//
-//        Product product = Product.builder()
-//                .name(productCreatingDTO.getName())
-//                .description(productCreatingDTO.getDescription())
-//                .subCategory(category)
-//                .thumbnailUrl(cloudAvatar.get("imageUrl"))
-//                .thumbnailPublicId(cloudAvatar.get("publicId"))
-//                .shop(shop)
-//                .build();
-//
-//        // save product
-//        productRepo.save(product);
-//
-//        Product savedProduct = productRepo.save(product);
-//
-//        productCreatingResponse.setProductId(savedProduct.getId());
-//        productCreatingResponse.setTotalSold(product.getTotalSold());
-//
-//        // save the product images
-//        for (MultipartFile image : productCreatingDTO.getProductImages()) {
-//            Map<String, String> cloudImage;
-//            try {
-//                cloudImage = cloudinaryService.uploadImage(image);
-//            } catch (IOException e) {
-//                throw new RuntimeException("Can't save the product image");
-//            }
-//
-//            ProductImage productImage = new ProductImage();
-//            productImage.setProduct(product);
-//            productImage.setUrl(cloudImage.get("imageUrl"));
-//            productImage.setPublicId(cloudImage.get("publicId"));
-//
-//            try {
-//                productImageRepo.save(productImage);
-//            } catch (Exception e) {
-//                throw new RuntimeException("Can't save product image to db");
-//            }
-//
-//            ImageResponse productImageItem = new ImageResponse();
-//            productImageItem.setPublicId(cloudImage.get("publicId"));
-//            productImageItem.setAvatarUrl(cloudImage.get("imageUrl"));
-//
-//            productCreatingResponse.addProductImage(productImageItem);
-//
-//        }
-//
-//        return productCreatingResponse;
-        return null;
+        SubCategory category = categoryRepo.findById(productCreatingDTO.getSubcategoryId()).orElseThrow(
+                () -> new RuntimeException("Category does not found")
+        );
+
+        Shop shop = shopRepo.findById(shopId).orElseThrow(
+                () ->  new RuntimeException("Shop does not found")
+        );
+
+
+        // create product response
+        ProductCreatingResponse productCreatingResponse = new ProductCreatingResponse();
+        productCreatingResponse.setName(productCreatingDTO.getName());
+        productCreatingResponse.setDescription(productCreatingDTO.getDescription());
+        productCreatingResponse.setSubcategoryId(productCreatingDTO.getSubcategoryId());
+        productCreatingResponse.setSubcategoryName(category.getName());
+
+        // save the avatar to the cloud
+        Map<String, String> cloudAvatar;
+        try {
+             cloudAvatar = cloudinaryService.uploadImage(productCreatingDTO.getThumbnail());
+
+             // add thumnail to response
+             ImageResponse thumbnail = new ImageResponse();
+            thumbnail.setAvatarUrl(cloudAvatar.get("imageUrl"));
+            thumbnail.setPublicId(cloudAvatar.get("publicId"));
+            productCreatingResponse.setThumbnail(thumbnail);
+
+        } catch (IOException e) {
+            throw new RuntimeException("Can't save avatar to the cloud");
+        }
+
+
+        Product product = Product.builder()
+                .name(productCreatingDTO.getName())
+                .description(productCreatingDTO.getDescription())
+                .subCategory(category)
+                .thumbnailUrl(cloudAvatar.get("imageUrl"))
+                .thumbnailPublicId(cloudAvatar.get("publicId"))
+                .shop(shop)
+                .build();
+
+        // save product
+        productRepo.save(product);
+
+        Product savedProduct = productRepo.save(product);
+
+        productCreatingResponse.setProductId(savedProduct.getId());
+        productCreatingResponse.setTotalSold(product.getTotalSold());
+
+        // save the product images
+        for (MultipartFile image : productCreatingDTO.getProductImages()) {
+            Map<String, String> cloudImage;
+            try {
+                cloudImage = cloudinaryService.uploadImage(image);
+            } catch (IOException e) {
+                throw new RuntimeException("Can't save the product image");
+            }
+
+            ProductImage productImage = new ProductImage();
+            productImage.setProduct(product);
+            productImage.setUrl(cloudImage.get("imageUrl"));
+            productImage.setPublicId(cloudImage.get("publicId"));
+
+            try {
+                productImageRepo.save(productImage);
+            } catch (Exception e) {
+                throw new RuntimeException("Can't save product image to db");
+            }
+
+            ImageResponse productImageItem = new ImageResponse();
+            productImageItem.setPublicId(cloudImage.get("publicId"));
+            productImageItem.setAvatarUrl(cloudImage.get("imageUrl"));
+
+            productCreatingResponse.addProductImage(productImageItem);
+
+        }
+
+        return productCreatingResponse;
 
     }
 
@@ -171,57 +170,60 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductRatingOrderResponse> getProductsWithRatingOrder(
             PageRequest pageRequest
     ) {
-//        Page<Product> productsPage= productRepo.findAll(pageRequest);
-//
-//        List<Product> products = productsPage.getContent();
-//
-//        List<ProductRatingOrderResponse> productRatingOrderResponses = new ArrayList<>();
-//
-//
-//        for (Product product : products) {
-//
-//            ProductRatingOrderResponse productRatingOrderResponse = new ProductRatingOrderResponse();
-//            productRatingOrderResponse.setId(product.getId());
-//            productRatingOrderResponse.setTotalSold(product.getTotalSold());
-//            productRatingOrderResponse.setName(product.getName());
-//            productRatingOrderResponse.setRating(product.getRating());
-//
-//            // voucher
-//            List<Voucher> vouchers = voucherRepo.findVoucherByProductId(product.getShop().getId());
-//
-//            // product discount
-//            LocalDateTime now = LocalDateTime.now();
-//            ProductDiscount productDiscount = productDiscountRepo.findByDateStartBeforeAndDateEndAfter(now, now).get();
-//
-//            ProductDiscountResponse productDiscountResponse = new ProductDiscountResponse();
-//            productDiscountResponse.setId(productDiscount.getId());
-//            productDiscountResponse.setDateEnd(productDiscount.getDateStart());
-//            productDiscountResponse.setDateStart(productDiscount.getDateStart());
-//            productDiscountResponse.setDiscountPercent(productDiscount.getDiscountPercent());
-//            productRatingOrderResponse.setDiscountResponse(productDiscountResponse);
-//
-//            // image
-//            List<ProductImage> productImages = productImageRepo.findByProductId(product.getId());
-//            List<ImageResponse> productImageResponses = new ArrayList<>();
-//            if (!productImages.isEmpty()) {
-//
-//                productImageResponses = productImages
-//                        .stream()
-//                        .map(productImage -> ImageResponse
-//                                    .builder()
-//                                    .avatarUrl(productImage.getUrl())
-//                                    .publicId(productImage.getPublicId())
-//                                    .build()
-//                        ).toList();
-//
-//            }
-//            productRatingOrderResponse.addImageResponses(productImageResponses);
-//            productRatingOrderResponses.add(productRatingOrderResponse);
-//        }
-//
-//        return productRatingOrderResponses;
+        Page<Product> productsPage= productRepo.findAll(pageRequest);
 
-        return null;
+        List<Product> products = productsPage.getContent();
+
+        List<ProductRatingOrderResponse> productRatingOrderResponses = new ArrayList<>();
+
+
+        for (Product product : products) {
+
+            ProductRatingOrderResponse productRatingOrderResponse = new ProductRatingOrderResponse();
+            productRatingOrderResponse.setId(product.getId());
+            productRatingOrderResponse.setTotalSold(product.getTotalSold());
+            productRatingOrderResponse.setName(product.getName());
+            productRatingOrderResponse.setRating(product.getRating());
+
+            // voucher response
+            List<Voucher> vouchers = voucherRepo.findValidVouchersByProductId(product.getShop().getId(), LocalDateTime.now());
+//            if (vouchers != null) {
+//                List<VoucherResponse> voucherResponses = vouchers
+//                        .stream().map()
+//            }
+
+            // product discount
+            LocalDateTime now = LocalDateTime.now();
+            ProductDiscount productDiscount = productDiscountRepo.findByDateStartBeforeAndDateEndAfter(now, now).get();
+
+            ProductDiscountResponse productDiscountResponse = new ProductDiscountResponse();
+            productDiscountResponse.setId(productDiscount.getId());
+            productDiscountResponse.setDateEnd(productDiscount.getDateStart());
+            productDiscountResponse.setDateStart(productDiscount.getDateStart());
+            productDiscountResponse.setDiscountPercent(productDiscount.getDiscountPercent());
+            productRatingOrderResponse.setDiscountResponse(productDiscountResponse);
+
+            // image
+            List<ProductImage> productImages = productImageRepo.findByProductId(product.getId());
+            List<ImageResponse> productImageResponses = new ArrayList<>();
+            if (!productImages.isEmpty()) {
+
+                productImageResponses = productImages
+                        .stream()
+                        .map(productImage -> ImageResponse
+                                    .builder()
+                                    .avatarUrl(productImage.getUrl())
+                                    .publicId(productImage.getPublicId())
+                                    .build()
+                        ).toList();
+
+            }
+            productRatingOrderResponse.addImageResponses(productImageResponses);
+            productRatingOrderResponses.add(productRatingOrderResponse);
+        }
+
+        return productRatingOrderResponses;
+
     }
 
 }

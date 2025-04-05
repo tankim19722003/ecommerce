@@ -133,6 +133,7 @@ ecommerce\example\ecommerce\Repo\ProductCategoryRepo.class
 ecommerce\example\ecommerce\models\CodePurpose$CodePurposeBuilder.class
 ecommerce\example\ecommerce\responses\ProductKeywordResponse$ProductKeywordResponseBuilder.class
 ecommerce\example\ecommerce\dtos\QuantityDTO$QuantityDTOBuilder.class
+ecommerce\example\ecommerce\Repo\VoucherRepo.class
 ecommerce\example\ecommerce\services\ProductService.class
 ecommerce\example\ecommerce\models\ProductShippingType.class
 ecommerce\example\ecommerce\services\SubcategoryAttributeService.class

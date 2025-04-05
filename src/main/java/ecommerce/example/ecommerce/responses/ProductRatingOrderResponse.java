@@ -1,6 +1,7 @@
 package ecommerce.example.ecommerce.responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import ecommerce.example.ecommerce.models.Voucher;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,6 +33,15 @@ public class ProductRatingOrderResponse {
 
     @JsonProperty("image_responses")
     List<ImageResponse> imageResponses;
+
+    private List<VoucherResponse> voucherResponses;
+
+    public void addVoucherResponse(VoucherResponse voucherResponse) {
+        if (voucherResponses == null)
+            voucherResponses = new ArrayList<>();
+
+        voucherResponses.add(voucherResponse);
+    }
 
     public void addImageResponses(List<ImageResponse> imageResponses) {
         this.imageResponses = imageResponses;

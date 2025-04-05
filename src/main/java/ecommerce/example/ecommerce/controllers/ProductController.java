@@ -32,11 +32,10 @@ public class ProductController {
         @ModelAttribute ProductCreatingDTO productCreatingDTO
     ) {
 
-        ownerService.checkValidShop(shopId);
-
         try {
+            ownerService.checkValidShop(shopId);
             ProductCreatingResponse productCreatingResponse =  productService.createProduct(shopId, productCreatingDTO);
-            return ResponseEntity.ok(productCreatingResponse);
+            return ResponseEntity.ok().body(productCreatingResponse);
         } catch(Exception e) {
             return ResponseEntity.badRequest().body(
                     EResponse.builder()
