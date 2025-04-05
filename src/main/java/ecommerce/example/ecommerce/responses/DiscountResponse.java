@@ -1,6 +1,6 @@
 package ecommerce.example.ecommerce.responses;
 
-public class VoucherResponse {
+public class DiscountResponse {
 
     private Long id;
 
