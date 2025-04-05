@@ -132,6 +132,11 @@ public class JwtFilter extends OncePerRequestFilter {
             return true;
         }
 
+        if (requestUrl.contains(apiPrefix + "/product/get_all_with_rating_order")
+                && requestMethod.equals("GET")) {
+            return true;
+        }
+
         return false;
 
     }

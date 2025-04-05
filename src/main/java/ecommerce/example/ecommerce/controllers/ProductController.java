@@ -4,9 +4,12 @@ import ecommerce.example.ecommerce.dtos.ProductCreatingDTO;
 import ecommerce.example.ecommerce.responses.EResponse;
 import ecommerce.example.ecommerce.responses.ProductCreatingResponse;
 import ecommerce.example.ecommerce.responses.ProductKeywordResponse;
+import ecommerce.example.ecommerce.responses.ProductRatingOrderResponse;
 import ecommerce.example.ecommerce.services.Impl.OwnerService;
 import ecommerce.example.ecommerce.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -51,6 +54,31 @@ public class ProductController {
     ) {
         try {
             List<ProductKeywordResponse> productKeywordResponses =  productService.getProductsByKeyWord(keyword);
+            return ResponseEntity.ok(productKeywordResponses);
+        } catch(Exception e) {
+            return ResponseEntity.badRequest().body(
+                    EResponse.builder()
+                            .name("ERROR")
+                            .message(e.getMessage())
+                            .build()
+            );
+        }
+    }
+
+    @GetMapping("/get_all_with_rating_order")
+    public ResponseEntity<?> getProductsByKeyword(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int limit
+    ) {
+
+        PageRequest pageRequest = PageRequest.of(
+                page,limit,
+                Sort.by("rating").ascending()
+        );
+
+        try {
+            List<ProductRatingOrderResponse> productKeywordResponses =  productService
+                    .getProductsWithRatingOrder(pageRequest);
             return ResponseEntity.ok(productKeywordResponses);
         } catch(Exception e) {
             return ResponseEntity.badRequest().body(

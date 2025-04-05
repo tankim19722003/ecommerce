@@ -9,11 +9,14 @@ import ecommerce.example.ecommerce.responses.*;
 import ecommerce.example.ecommerce.services.ProductService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +41,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductImageRepo productImageRepo;
+
+    @Autowired
+    private ProductDiscountRepo productDiscountRepo;
 
     @Override
     public void getProductById(Long productId) {
@@ -158,8 +164,57 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductRatingResponse> getProductsWithRatingOrder() {
-        return List.of();
+    public List<ProductRatingOrderResponse> getProductsWithRatingOrder(
+            PageRequest pageRequest
+    ) {
+        Page<Product> productsPage= productRepo.findAll(pageRequest);
+
+        List<Product> products = productsPage.getContent();
+
+        List<ProductRatingOrderResponse> productRatingOrderResponses = new ArrayList<>();
+
+
+        for (Product product : products) {
+
+            ProductRatingOrderResponse productRatingOrderResponse = new ProductRatingOrderResponse();
+            productRatingOrderResponse.setId(product.getId());
+            productRatingOrderResponse.setTotalSold(product.getTotalSold());
+            productRatingOrderResponse.setName(product.getName());
+            productRatingOrderResponse.setRating(product.getRating());
+
+            // voucher
+            VoucherResponse voucherResponses = new VoucherResponse();
+
+            LocalDateTime now = LocalDateTime.now();
+            ProductDiscount productDiscount = productDiscountRepo.findByDateStartBeforeAndDateEndAfter(now, now).get();
+
+            ProductDiscountResponse productDiscountResponse = new ProductDiscountResponse();
+            productDiscountResponse.setId(productDiscount.getId());
+            productDiscountResponse.setDateEnd(productDiscount.getDateStart());
+            productDiscountResponse.setDateStart(productDiscount.getDateStart());
+            productDiscountResponse.setDiscountPercent(productDiscount.getDiscountPercent());
+            productRatingOrderResponse.setDiscountResponse(productDiscountResponse);
+
+            // image
+            List<ProductImage> productImages = productImageRepo.findByProductId(product.getId());
+            List<ImageResponse> productImageResponses = new ArrayList<>();
+            if (!productImages.isEmpty()) {
+
+                productImageResponses = productImages
+                        .stream()
+                        .map(productImage -> ImageResponse
+                                    .builder()
+                                    .avatarUrl(productImage.getUrl())
+                                    .publicId(productImage.getPublicId())
+                                    .build()
+                        ).toList();
+
+            }
+            productRatingOrderResponse.addImageResponses(productImageResponses);
+            productRatingOrderResponses.add(productRatingOrderResponse);
+        }
+
+        return productRatingOrderResponses;
     }
 
 }

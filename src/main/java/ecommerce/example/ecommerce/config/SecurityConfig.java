@@ -180,6 +180,9 @@ public class SecurityConfig {
                             .requestMatchers(GET,
                                     String.format("%s/product/get_by_key_word/**", apiPrefix)).permitAll()
 
+                            .requestMatchers(GET,
+                                    String.format("%s/product/get_all_with_rating_order", apiPrefix)).permitAll()
+
 
                             // product attribute value
                             .requestMatchers(GET,

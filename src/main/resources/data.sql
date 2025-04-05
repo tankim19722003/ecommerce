@@ -404,7 +404,7 @@ VALUES
 --    (1, 8, 1, 35, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Comfortable and lightweight sneakers', 'Nike Air Zoom Pegasus 39', 'nike_pegasus_39.png'),
 --    (1, 9, 3, 125, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Elegant and minimalist wristwatch', 'Casio Edifice Chronograph', 'casio_edifice.png'),
 --    (1, 10, 5, 280, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Luxury perfume with floral scent', 'Chanel Coco Mademoiselle', 'chanel_coco_mademoiselle.png');
---
+----
 ----INSERT INTO product_attribute_value (id, product_id, sub_category_attribute_id, value) VALUES
 ----(1, 1, 1, 'Black'),
 ----(2, 1, 2, '6.1 inches'),

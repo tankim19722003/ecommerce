@@ -34,6 +34,7 @@ ecommerce\example\ecommerce\services\Impl\UserVillageServiceImpl.class
 ecommerce\example\ecommerce\dtos\ProductShippingTypeDTO.class
 ecommerce\example\ecommerce\responses\AttributeResponse$AttributeResponseBuilder.class
 ecommerce\example\ecommerce\services\Impl\JwtService.class
+ecommerce\example\ecommerce\responses\ProductDiscountResponse$ProductDiscountResponseBuilder.class
 ecommerce\example\ecommerce\Repo\OrderRepo.class
 ecommerce\example\ecommerce\services\ProductImageService.class
 ecommerce\example\ecommerce\Repo\ShippingProviderRepo.class
@@ -58,6 +59,7 @@ ecommerce\example\ecommerce\responses\EResponse$EResponseBuilder.class
 ecommerce\example\ecommerce\Repo\OrderDetailRepo.class
 ecommerce\example\ecommerce\models\ProductDiscount.class
 ecommerce\example\ecommerce\models\Payment.class
+ecommerce\example\ecommerce\responses\ProductDiscountResponse.class
 ecommerce\example\ecommerce\models\ShopRejection.class
 ecommerce\example\ecommerce\models\ShippingTypeProvider.class
 ecommerce\example\ecommerce\Repo\UserCodeRepo.class
@@ -124,6 +126,7 @@ ecommerce\example\ecommerce\responses\ProductCategoryResponse.class
 ecommerce\example\ecommerce\models\SubCategoryAttribute.class
 ecommerce\example\ecommerce\Repo\SubProductCategoryRepo.class
 ecommerce\example\ecommerce\models\Category.class
+ecommerce\example\ecommerce\responses\ProductRatingOrderResponse$ProductRatingOrderResponseBuilder.class
 ecommerce\example\ecommerce\Repo\DistrictRepo.class
 ecommerce\example\ecommerce\responses\ProductIdAttributeValueResponse.class
 ecommerce\example\ecommerce\Repo\ShopRepo.class
@@ -131,6 +134,7 @@ ecommerce\example\ecommerce\Repo\ProductCategoryRepo.class
 ecommerce\example\ecommerce\models\CodePurpose$CodePurposeBuilder.class
 ecommerce\example\ecommerce\responses\ProductKeywordResponse$ProductKeywordResponseBuilder.class
 ecommerce\example\ecommerce\dtos\QuantityDTO$QuantityDTOBuilder.class
+ecommerce\example\ecommerce\Repo\VoucherRepo.class
 ecommerce\example\ecommerce\services\ProductService.class
 ecommerce\example\ecommerce\models\ProductShippingType.class
 ecommerce\example\ecommerce\services\SubcategoryAttributeService.class
@@ -215,6 +219,7 @@ ecommerce\example\ecommerce\services\Impl\ProductAttributeValueServiceImpl.class
 ecommerce\example\ecommerce\responses\ProductShippingTypeResponse.class
 ecommerce\example\ecommerce\services\UserCodeService.class
 ecommerce\example\ecommerce\models\UserPrincipal.class
+ecommerce\example\ecommerce\responses\ProductRatingOrderResponse.class
 ecommerce\example\ecommerce\dtos\AttributeDTO.class
 ecommerce\example\ecommerce\models\Village.class
 ecommerce\example\ecommerce\responses\ProvinceResponse.class

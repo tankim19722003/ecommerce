@@ -1,7 +1,5 @@
 package ecommerce.example.ecommerce.models;
 
-import ecommerce.example.ecommerce.responses.ProductImageResponse;
-import ecommerce.example.ecommerce.responses.ProductImageResponseInList;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

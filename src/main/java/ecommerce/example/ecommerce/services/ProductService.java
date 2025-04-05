@@ -2,10 +2,8 @@ package ecommerce.example.ecommerce.services;
 
 import ecommerce.example.ecommerce.dtos.ProductCreatingDTO;
 import ecommerce.example.ecommerce.dtos.QuantityDTO;
-import ecommerce.example.ecommerce.responses.ProductCreatingResponse;
-import ecommerce.example.ecommerce.responses.ProductKeywordResponse;
-import ecommerce.example.ecommerce.responses.ProductRatingResponse;
-import ecommerce.example.ecommerce.responses.QuantityResponse;
+import ecommerce.example.ecommerce.responses.*;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
@@ -19,5 +17,5 @@ public interface ProductService {
 
     List<ProductKeywordResponse> getProductsByKeyWord(String keyword);
 
-    List<ProductRatingResponse> getProductsWithRatingOrder();
+    List<ProductRatingOrderResponse> getProductsWithRatingOrder(PageRequest pageRequest);
 }
