@@ -28,7 +28,7 @@ public class ProductCategoryController {
     public ResponseEntity<?> addMultipleCategoryOneLevel(
         @RequestParam("productId") Long productId,
         @RequestParam("shopId") Long shopId,
-        @RequestPart("ProductCategoryRequest") ProductCategoryGroupDTO productCategoryGroupDTO,
+        @RequestPart("productCategoryRequest") ProductCategoryGroupDTO productCategoryGroupDTO,
         @RequestPart("files") List<MultipartFile> files
     ) {
 
