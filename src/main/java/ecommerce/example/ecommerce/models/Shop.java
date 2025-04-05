@@ -87,7 +87,7 @@ public class Shop {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "shop")
     @JsonIgnore
-    private List<Voucher>coupons;
+    private List<Voucher> vouchers;
 
     @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
