@@ -10,4 +10,6 @@ import java.util.List;
 public interface SubCategoryRepo extends JpaRepository<SubCategory, Long> {
     @Query("SELECT s FROM SubCategory s WHERE s.category.id = :categoryId")
     List<SubCategory> getSubCategoriesByCategoryId(@Param("categoryId") Long categoryId);
+
+
 }

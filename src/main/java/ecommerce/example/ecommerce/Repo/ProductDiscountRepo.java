@@ -7,5 +7,5 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 public interface ProductDiscountRepo extends JpaRepository<ProductDiscount, Long> {
-    Optional<ProductDiscount> findByDateStartBeforeAndDateEndAfter(LocalDateTime now1, LocalDateTime now2);
+    Optional<ProductDiscount> findByDateStartLessThanEqualAndDateEndGreaterThanEqual(LocalDateTime start, LocalDateTime end);
 }

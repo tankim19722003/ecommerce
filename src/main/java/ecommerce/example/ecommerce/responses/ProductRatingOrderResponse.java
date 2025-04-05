@@ -28,19 +28,20 @@ public class ProductRatingOrderResponse {
     @JsonProperty("rating")
     private Float rating;
 
-    @JsonProperty("voucher_responses")
+    @JsonProperty("price")
+    private Integer price;
+
+    @JsonProperty("discount_responses")
     private  ProductDiscountResponse discountResponse;
 
     @JsonProperty("image_responses")
     List<ImageResponse> imageResponses;
 
+    @JsonProperty("voucher_responses")
     private List<VoucherResponse> voucherResponses;
 
-    public void addVoucherResponse(VoucherResponse voucherResponse) {
-        if (voucherResponses == null)
-            voucherResponses = new ArrayList<>();
-
-        voucherResponses.add(voucherResponse);
+    public void addVoucherResponse(List<VoucherResponse> voucherResponses) {
+        this.voucherResponses = voucherResponses;
     }
 
     public void addImageResponses(List<ImageResponse> imageResponses) {

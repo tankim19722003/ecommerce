@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -64,7 +65,7 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/get_all_with_rating_order")
+    @GetMapping("/get_all_product_by_key_word")
     public ResponseEntity<?> getProductsByKeyword(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int limit
@@ -80,6 +81,30 @@ public class ProductController {
                     .getProductsWithRatingOrder(pageRequest);
             return ResponseEntity.ok(productKeywordResponses);
         } catch(Exception e) {
+            return ResponseEntity.badRequest().body(
+                    EResponse.builder()
+                            .name("ERROR")
+                            .message(e.getMessage())
+                            .build()
+            );
+        }
+    }
+
+    @GetMapping("/get_all_with_rating_order")
+    public ResponseEntity<?> getProductWithRatingOrder(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int limit
+    ) {
+        PageRequest pageRequest = PageRequest.of(
+                page,limit,
+                Sort.by("rating").descending()
+        );
+        try {
+            List<ProductRatingOrderResponse> productRatingOrderResponses = productService
+                    .getProductsWithRatingOrder(pageRequest);
+
+            return ResponseEntity.ok(productRatingOrderResponses);
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(
                     EResponse.builder()
                             .name("ERROR")

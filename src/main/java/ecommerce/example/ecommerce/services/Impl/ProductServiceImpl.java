@@ -48,6 +48,12 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private VoucherRepo voucherRepo;
 
+    @Autowired
+    private ProductCategoryRepo productCategoryRepo;
+
+    @Autowired
+    private SubProductCategoryRepo subProductCategoryRepo;
+
     @Override
     public void getProductById(Long productId) {
 
@@ -187,21 +193,27 @@ public class ProductServiceImpl implements ProductService {
 
             // voucher response
             List<Voucher> vouchers = voucherRepo.findValidVouchersByProductId(product.getShop().getId(), LocalDateTime.now());
-//            if (vouchers != null) {
-//                List<VoucherResponse> voucherResponses = vouchers
-//                        .stream().map()
-//            }
+            if (!vouchers.isEmpty()) {
+                List<VoucherResponse> voucherResponses = vouchers
+                        .stream()
+                        .map(voucher -> mapper.map(voucher, VoucherResponse.class))
+                        .toList();
+                productRatingOrderResponse.addVoucherResponse(voucherResponses);
+            }
+
 
             // product discount
             LocalDateTime now = LocalDateTime.now();
-            ProductDiscount productDiscount = productDiscountRepo.findByDateStartBeforeAndDateEndAfter(now, now).get();
+            ProductDiscount productDiscount = productDiscountRepo.findByDateStartLessThanEqualAndDateEndGreaterThanEqual(LocalDateTime.now(), LocalDateTime.now()).orElse(null);
 
-            ProductDiscountResponse productDiscountResponse = new ProductDiscountResponse();
-            productDiscountResponse.setId(productDiscount.getId());
-            productDiscountResponse.setDateEnd(productDiscount.getDateStart());
-            productDiscountResponse.setDateStart(productDiscount.getDateStart());
-            productDiscountResponse.setDiscountPercent(productDiscount.getDiscountPercent());
-            productRatingOrderResponse.setDiscountResponse(productDiscountResponse);
+            if (productDiscount != null) {
+                ProductDiscountResponse productDiscountResponse = new ProductDiscountResponse();
+                productDiscountResponse.setId(productDiscount.getId());
+                productDiscountResponse.setDateEnd(productDiscount.getDateStart());
+                productDiscountResponse.setDateStart(productDiscount.getDateStart());
+                productDiscountResponse.setDiscountPercent(productDiscount.getDiscountPercent());
+                productRatingOrderResponse.setDiscountResponse(productDiscountResponse);
+            }
 
             // image
             List<ProductImage> productImages = productImageRepo.findByProductId(product.getId());
@@ -216,8 +228,25 @@ public class ProductServiceImpl implements ProductService {
                                     .publicId(productImage.getPublicId())
                                     .build()
                         ).toList();
-
             }
+
+            productRatingOrderResponse.setTotalSold(product.getTotalSold());
+
+            int price = 0;
+
+            List<ProductCategory> productCategories = productCategoryRepo.getProductByProductId(product.getId());
+            if (!productCategories.isEmpty()) {
+                ProductCategory productCategory = productCategories.getFirst();
+                if (productCategory.getPrice() != 0) {
+                    price = product.getProductCategoryGroup().getFirst().getProductCategories().getFirst().getPrice();
+                } else {
+                    List<SubProductCategory> subProductCategories = subProductCategoryRepo.getSubcategoryByProductId(product.getId());
+                    price = subProductCategories.getFirst().getPrice();
+                }
+            }
+
+            productRatingOrderResponse.setPrice(price);
+
             productRatingOrderResponse.addImageResponses(productImageResponses);
             productRatingOrderResponses.add(productRatingOrderResponse);
         }
