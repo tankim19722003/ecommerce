@@ -18,7 +18,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -96,45 +98,22 @@ public class JwtFilter extends OncePerRequestFilter {
             if (requestUrl.equals(url)) return true;
         }
 
+        List<String> getPermitAllEndPoints = Arrays.asList(
+                "/product_category",
+                "/category/get_all_categories",
+                "/sub_category",
+                "/product_attribute_value",
+                "/shipping_type",
+                "/product_shipping_type",
+                "/product/get_all_product_by_key_word",
+                "/product/get_all_with_rating_order",
+                "/product_image",
+                "/product/get_product_detail"
+        );
 
-        if (requestUrl.contains(apiPrefix + "/product_category")
-                && requestMethod.equals("GET")) {
-            return true;
-        }
-
-        if (requestUrl.equals(apiPrefix + "/category/get_all_categories")
-        && requestMethod.equals("GET")) {
-            return true;
-        }
-
-        if (requestUrl.contains(apiPrefix + "/sub_category")
-                && requestMethod.equals("GET")) {
-            return true;
-        }
-
-        if (requestUrl.contains(apiPrefix + "/product_attribute_value")
-                && requestMethod.equals("GET")) {
-            return true;
-        }
-
-        if (requestUrl.contains(apiPrefix + "/shipping_type")
-                && requestMethod.equals("GET")) {
-            return true;
-        }
-
-        if (requestUrl.contains(apiPrefix + "/product_shipping_type")
-                && requestMethod.equals("GET")) {
-            return true;
-        }
-
-        if (requestUrl.contains(apiPrefix + "/product/get_by_key_word")
-                && requestMethod.equals("GET")) {
-            return true;
-        }
-
-        if (requestUrl.contains(apiPrefix + "/product/get_all_with_rating_order")
-                && requestMethod.equals("GET")) {
-            return true;
+        for (String endPoint : getPermitAllEndPoints) {
+            if (requestUrl.contains(endPoint) && requestMethod.equals("GET"))
+                return true;
         }
 
         return false;

@@ -77,7 +77,7 @@ public class ProductShippingTypeServiceImpl implements ProductShippingTypeServic
         List<ProductShippingType> productShippingTypeList = productShippingTypesRepo.findByProductShippingTypeByProductId(productId);
 
         if (productShippingTypeList.isEmpty())
-            throw new RuntimeException("Product Shipping type does not found");
+            return null;
 
         ProductShippingTypeResponse productShippingTypeResponse = new ProductShippingTypeResponse();
         productShippingTypeResponse.setProductId(productId);

@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Data
-public class MultipleProductCategoryResponse {
+public class MultipleProductCategoryResponse implements ProductCategoryResponse{
 
     @JsonProperty("product_category_group")
     private ProductCategoryGroupResponse productCategoryGroup;

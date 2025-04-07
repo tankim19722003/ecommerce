@@ -178,10 +178,17 @@ public class SecurityConfig {
                                     String.format("%s/product/create_product", apiPrefix)).hasAnyRole(Role.ADMIN, Role.SHOP)
 
                             .requestMatchers(GET,
-                                    String.format("%s/product/get_by_key_word/**", apiPrefix)).permitAll()
+                                    String.format("%s/product/get_all_product_by_key_word/**", apiPrefix)).permitAll()
 
                             .requestMatchers(GET,
                                     String.format("%s/product/get_all_with_rating_order", apiPrefix)).permitAll()
+
+                            .requestMatchers(GET,
+                                    String.format("%s/product/get_product_detail/**", apiPrefix)).permitAll()
+
+                            // product image
+                            .requestMatchers(GET,
+                                    String.format("%s/product_image/**", apiPrefix)).permitAll()
 
 
                             // product attribute value
@@ -259,6 +266,9 @@ public class SecurityConfig {
 
                             .requestMatchers(POST,
                                     String.format("%s/product_category/add_multiple/two_level/**", apiPrefix)).hasRole(Role.SHOP)
+
+                            .requestMatchers(GET,
+                                    String.format("%s/product_category/**", apiPrefix)).permitAll()
                             .anyRequest().authenticated();
 
                     }

@@ -42,7 +42,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
     @Override
     @Transactional
-    public List<ProductCategoryResponse> addMultipleProductCategoryOneLevel(
+    public List<ProductCategoryOneLevelResponse> addMultipleProductCategoryOneLevel(
             Long productId,
             ProductCategoryGroupDTO productCategoryGroupDTO,
             List<MultipartFile> files
@@ -65,7 +65,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
             }
         }
 
-        List<ProductCategoryResponse> productCategoryResponseList = new ArrayList<>();
+        List<ProductCategoryOneLevelResponse> productCategoryResponseList = new ArrayList<>();
 
         int index = 0;
 
@@ -100,7 +100,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
             index++;
 
             // add product category to response
-            productCategoryResponseList.add(modelMapper.map(productCategory, ProductCategoryResponse.class));
+            productCategoryResponseList.add(modelMapper.map(productCategory, ProductCategoryOneLevelResponse.class));
         }
 
         return productCategoryResponseList;
@@ -172,6 +172,8 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
             parentProductCategory.setValue(productCategoryTwoLevelDTO.getParentProductCategory());
             parentProductCategory.setPublicId(images.get(index).get("publicId"));
             parentProductCategory.setImageUrl(images.get(index).get("imageUrl"));
+            index++;
+
             parentProductCategory.setProductCategoryGroup(productCategoryGroup);
             productCategoryRepo.save(parentProductCategory);
 
@@ -210,6 +212,95 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
         multipleProductCategoryResponse.setProductCategoryTwoLevelResponse(productCategoryTwoLevelResponses);
         return multipleProductCategoryResponse;
+
+    }
+
+    @Override
+    public ProductCategoryResponse getProductCategories(Long productId) {
+
+        boolean isProductExiting = productRepo.existsById(productId);
+        if (!isProductExiting)
+            throw new RuntimeException("Product does not found");
+
+        List<ProductCategory> productCategories = productCategoryRepo.getProductCategoriesByProductId(productId);
+
+        if (!productCategories.isEmpty()) {
+
+            // check is product has 2 level product category
+            if (!productCategories.getFirst().getSubProductCategories().isEmpty()) {
+
+                MultipleProductCategoryResponse multipleProductCategoryResponse = new MultipleProductCategoryResponse();
+
+                // set product category group
+                ProductCategoryGroupResponse productCategoryGroupResponse = new ProductCategoryGroupResponse();
+                productCategoryGroupResponse.setId(productCategories.getFirst().getProductCategoryGroup().getId());
+                productCategoryGroupResponse.setProductCategoryGroupName(productCategories.getFirst().getProductCategoryGroup().getName());
+                multipleProductCategoryResponse.setProductCategoryGroup(productCategoryGroupResponse);
+
+                // set sub product category group
+                ProductCategoryGroupResponse subCategoryGroupResponse = new ProductCategoryGroupResponse();
+                subCategoryGroupResponse.setId(productCategories
+                        .getFirst()
+                        .getSubProductCategories()
+                        .getFirst().getProductCategoryGroup().getId());
+
+                subCategoryGroupResponse.setProductCategoryGroupName(productCategories
+                        .getFirst()
+                        .getSubProductCategories()
+                        .getFirst().getProductCategoryGroup().getName());
+                multipleProductCategoryResponse.setSubProductCategoryGroup(subCategoryGroupResponse);
+                // set product category 2 level
+                List<ProductCategoryTwoLevelResponse> productCategoryTwoLevelResponses = new ArrayList<>();
+                for (ProductCategory productCategoryItem : productCategories) {
+
+                    ProductCategoryTwoLevelResponse productCategoryTwoLevelResponse = new ProductCategoryTwoLevelResponse();
+                    // save parent product category
+                    ParentProductCategoryResponse parentProductCategory = new ParentProductCategoryResponse();
+                    parentProductCategory.setName(productCategoryItem.getValue());
+                    parentProductCategory.setPublicId(productCategoryItem.getPublicId());
+                    parentProductCategory.setImageUrl(productCategoryItem.getImageUrl());
+                    parentProductCategory.setId(productCategoryItem.getId());
+
+                    productCategoryTwoLevelResponse.setProductCategoryResponse(parentProductCategory);
+
+
+                    // save child category
+                    List<ChildProductCategoryResponse> childProductCategoryResponses = new ArrayList<>();
+                    for (SubProductCategory childProductCategoryItem : productCategoryItem.getSubProductCategories()) {
+
+                        ChildProductCategoryResponse childProductCategoryResponse = new ChildProductCategoryResponse();
+                        childProductCategoryResponse.setId(childProductCategoryItem.getId());
+                        childProductCategoryResponse.setName(childProductCategoryItem.getName());
+                        childProductCategoryResponse.setQuantity(childProductCategoryItem.getQuantity());
+                        childProductCategoryResponse.setPrice(childProductCategoryItem.getPrice());
+                        childProductCategoryResponses.add(childProductCategoryResponse);
+                    }
+                    productCategoryTwoLevelResponse.setChildProductCategoryResponses(childProductCategoryResponses);
+                    productCategoryTwoLevelResponses.add(productCategoryTwoLevelResponse);
+                }
+
+                multipleProductCategoryResponse.setProductCategoryTwoLevelResponse(productCategoryTwoLevelResponses);
+
+                return multipleProductCategoryResponse;
+
+            } else {
+
+                // return product category 1 level
+                ProductCategoryOneLevelList productCategoryOneLevelResponses = new ProductCategoryOneLevelList();
+
+                for (ProductCategory productCategory :  productCategories) {
+
+                    ProductCategoryOneLevelResponse productCategoryOneLevelResponse = modelMapper.map(productCategory, ProductCategoryOneLevelResponse.class);
+                    productCategoryOneLevelResponses.addProductCategoryOneLevelResponse(productCategoryOneLevelResponse);
+
+                }
+
+                return productCategoryOneLevelResponses;
+
+            }
+        }
+
+        return null;
 
     }
 

@@ -3,6 +3,7 @@ package ecommerce.example.ecommerce.services;
 import ecommerce.example.ecommerce.dtos.ProductCategoryGroupDTO;
 import ecommerce.example.ecommerce.dtos.MultipleProductCategoryDTO;
 import ecommerce.example.ecommerce.responses.MultipleProductCategoryResponse;
+import ecommerce.example.ecommerce.responses.ProductCategoryOneLevelResponse;
 import ecommerce.example.ecommerce.responses.ProductCategoryResponse;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,7 +16,7 @@ public interface ProductCategoryService {
 //        ProductCategoryImageDTO productCategoryDTO
 //    );
 
-    List<ProductCategoryResponse> addMultipleProductCategoryOneLevel(
+    List<ProductCategoryOneLevelResponse> addMultipleProductCategoryOneLevel(
             Long productId,
             ProductCategoryGroupDTO productCategoryGroups,
             List<MultipartFile> files
@@ -27,20 +28,8 @@ public interface ProductCategoryService {
             MultipleProductCategoryDTO multipleProductCategoryResponse,
             List<MultipartFile> files
     );
-//
-//    ProductCategoryResponse handleSaveProduct(
-//            ProductCategoryImageDTO productCategoryDTO,
-//            Product product
-//    );
-//
-//    List<ProductCategoryResponse> getAllProductCategoriesByProductId(
-//            Long productId
-//    );
-//
-//    ProductCategoryResponse updateProductCategory(
-//            Long productCategoryId,
-//            ProductCategoryDTO productCategoryDTO
-//    );
-//
-//    void deleteProductCategoryById(Long id);
+
+    ProductCategoryResponse getProductCategories(
+            Long productId
+    );
 }

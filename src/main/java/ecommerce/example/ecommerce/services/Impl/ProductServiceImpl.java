@@ -6,7 +6,7 @@ import ecommerce.example.ecommerce.dtos.ProductCreatingDTO;
 import ecommerce.example.ecommerce.dtos.QuantityDTO;
 import ecommerce.example.ecommerce.models.*;
 import ecommerce.example.ecommerce.responses.*;
-import ecommerce.example.ecommerce.services.ProductService;
+import ecommerce.example.ecommerce.services.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -54,21 +54,26 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private SubProductCategoryRepo subProductCategoryRepo;
 
+    @Autowired
+    private ProductCategoryService productCategoryService;
+
+    @Autowired
+    private ProductImageService productImageService;
+
+    @Autowired
+    private ProductAttributeValueService productAttributeValueService;
+
+    @Autowired
+    private ProductShippingTypeService productShippingTypeService;
+
     @Override
-    public void getProductById(Long productId) {
-
-        
-
-    }
-
-    @Override
-    public List<ProductKeywordResponse> getProductsByKeyWord(String keyword) {
-        List<Product> products = productRepo.getProductsByKeyword(keyword);
+    public ProductKeywordPageResponse getProductsByKeyWord(PageRequest pageRequest, String keyword) {
+        Page<Product> products = productRepo.getProductsByKeyword(keyword, pageRequest);
         List<ProductKeywordResponse> productKeywordResponses = new ArrayList<>();
 
         if (products.isEmpty()) throw new RuntimeException("Product does not found");
 
-        for (Product product : products) {
+        for (Product product : products.getContent()) {
             ProductKeywordResponse productKeywordResponse = mapper.map(product, ProductKeywordResponse.class);
             ImageResponse imageResponse = ImageResponse.builder()
                     .publicId(product.getThumbnailPublicId())
@@ -79,7 +84,11 @@ public class ProductServiceImpl implements ProductService {
             productKeywordResponses.add(productKeywordResponse);
         }
 
-        return productKeywordResponses;
+        ProductKeywordPageResponse productKeywordPageResponse = new ProductKeywordPageResponse();
+        productKeywordPageResponse.addProductKeywordResponses(productKeywordResponses);
+
+        productKeywordPageResponse.setTotalPage(products.getTotalPages());
+        return productKeywordPageResponse;
     }
 
     @Override
@@ -173,7 +182,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductRatingOrderResponse> getProductsWithRatingOrder(
+    public ProductRatingOrderPageResponse getProductsWithRatingOrder(
             PageRequest pageRequest
     ) {
         Page<Product> productsPage= productRepo.findAll(pageRequest);
@@ -234,7 +243,7 @@ public class ProductServiceImpl implements ProductService {
 
             int price = 0;
 
-            List<ProductCategory> productCategories = productCategoryRepo.getProductByProductId(product.getId());
+            List<ProductCategory> productCategories = productCategoryRepo.getProductCategoriesByProductId(product.getId());
             if (!productCategories.isEmpty()) {
                 ProductCategory productCategory = productCategories.getFirst();
                 if (productCategory.getPrice() != 0) {
@@ -251,8 +260,67 @@ public class ProductServiceImpl implements ProductService {
             productRatingOrderResponses.add(productRatingOrderResponse);
         }
 
-        return productRatingOrderResponses;
+        ProductRatingOrderPageResponse productRatingOrderPageResponse = new ProductRatingOrderPageResponse();
+        productRatingOrderPageResponse.addProductRatingOrderResponses(productRatingOrderResponses);
+        productRatingOrderPageResponse.setTotalPage(productsPage.getTotalPages());
 
+        return productRatingOrderPageResponse;
+    }
+
+    @Override
+    public ProductDetailResponse getProductDetails(Long productId) {
+
+        Product product = productRepo.findById(productId)
+                .orElseThrow(() -> new RuntimeException("product does not found"));
+
+        // product basic info
+        ProductDetailResponse productDetailResponse = new ProductDetailResponse();
+
+        ProductBasicInfoResponse productBasicInfoResponse = new ProductBasicInfoResponse();
+        productBasicInfoResponse.setProductId(product.getId());
+        productBasicInfoResponse.setName(product.getName());
+        productBasicInfoResponse.setDescription(product.getDescription());
+
+        ImageResponse thumbnail = new ImageResponse();
+        thumbnail.setAvatarUrl(product.getThumbnailUrl());
+        thumbnail.setPublicId(product.getThumbnailPublicId());
+        productBasicInfoResponse.setThumbnail(thumbnail);
+
+        SubCategoryResponse subProductCategory = new SubCategoryResponse();
+        subProductCategory.setDescription(product.getSubCategory().getDescription());
+        subProductCategory.setName(product.getSubCategory().getName());
+        subProductCategory.setCreatedAt(product.getSubCategory().getCreatedAt());
+        subProductCategory.setUpdatedAt(product.getSubCategory().getUpdatedAt());
+
+        CategoryResponse categoryResponse = new CategoryResponse();
+        categoryResponse.setId(product.getSubCategory().getCategory().getId());
+        categoryResponse.setName(product.getSubCategory().getCategory().getName());
+        categoryResponse.setDescription(product.getSubCategory().getCategory().getDescription());
+        categoryResponse.setCreatedAt(product.getSubCategory().getCategory().getCreatedAt());
+        categoryResponse.setUpdatedAt(product.getSubCategory().getCategory().getUpdatedAt());
+
+        subProductCategory.setCategoryResponse(categoryResponse);
+        productBasicInfoResponse.setSubCategoryResponse(subProductCategory);
+
+        productDetailResponse.setProductBasicInfo(productBasicInfoResponse);
+        // product category
+        ProductCategoryResponse productCategoryResponse = productCategoryService.getProductCategories(productId);
+        productDetailResponse.setProductCategoryResponses(productCategoryResponse);
+
+        // product images
+        List<ImageResponse> productImageResponses = productImageService.getProductImages(productId);
+        productDetailResponse.setProductImages(productImageResponses);
+
+        // product attribute value
+        List<ProductAttributeValueResponse> productAttributeValueResponses = productAttributeValueService.getAllProductAttributeValue(productId);
+        productDetailResponse.setProductAttributeValueResponses(productAttributeValueResponses);
+
+        // shipping
+        ProductShippingTypeResponse productShippingTypeResponse = productShippingTypeService.getAllProductShipping(productId);
+        if (productShippingTypeResponse != null)
+        productDetailResponse.setProductShippingTypeResponse(productShippingTypeResponse.getShippingTypeResponses());
+
+        return productDetailResponse;
     }
 
 }

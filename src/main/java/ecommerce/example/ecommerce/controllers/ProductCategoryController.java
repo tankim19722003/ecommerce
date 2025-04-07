@@ -4,6 +4,7 @@ import ecommerce.example.ecommerce.dtos.MultipleProductCategoryDTO;
 import ecommerce.example.ecommerce.dtos.ProductCategoryGroupDTO;
 import ecommerce.example.ecommerce.responses.EResponse;
 import ecommerce.example.ecommerce.responses.MultipleProductCategoryResponse;
+import ecommerce.example.ecommerce.responses.ProductCategoryOneLevelResponse;
 import ecommerce.example.ecommerce.responses.ProductCategoryResponse;
 import ecommerce.example.ecommerce.services.Impl.OwnerService;
 import ecommerce.example.ecommerce.services.ProductCategoryService;
@@ -34,7 +35,7 @@ public class ProductCategoryController {
 
         try {
             ownerService.checkValidShop(shopId);
-            List<ProductCategoryResponse> productCategoryResponses= productCategoryService
+            List<ProductCategoryOneLevelResponse> productCategoryResponses= productCategoryService
                     .addMultipleProductCategoryOneLevel(productId, productCategoryGroupDTO, files);
 
             return ResponseEntity.ok(productCategoryResponses);
@@ -72,76 +73,22 @@ public class ProductCategoryController {
         }
     }
 
-//    @PostMapping("/add_one")
-//    public ResponseEntity<?> addProductCategory(
-//            @RequestParam("productId") Long productId,
-//            @RequestParam("shopId") long shopId,
-//            @ModelAttribute ProductCategoryImageDTO productCategoryImageDTO
-//    ) {
-//
-//        ownerService.checkValidShop(shopId);
-//        try {
-//            ProductCategoryResponse productCategoryResponse = productCategoryService
-//                    .addProductCategory(productId, productCategoryImageDTO);
-//
-//            return ResponseEntity.ok(productCategoryResponse);
-//        } catch (Exception e) {
-//            return ResponseEntity.badRequest().body(
-//                    EResponse.builder()
-//                            .name("ERROR")
-//                            .message(e.getMessage())
-//                            .build()
-//            );
-//        }
-//    }
-//
-//    @GetMapping("/{productId}")
-//    public List<ProductCategoryResponse> getAllProductCategory(
-//        @PathVariable("productId") long productId
-//    ) {
-//        return productCategoryService.getAllProductCategoriesByProductId(productId);
-//    }
-//
-//    @PutMapping("")
-//    public ResponseEntity<?> updateProductCategory(
-//            @RequestParam("productCategoryId") Long productCategoryId,
-//            @RequestParam("shopId") long shopId,
-//            @RequestBody ProductCategoryDTO productCategoryDTO
-//    ) {
-//
-//        ownerService.checkValidShop(shopId);
-//
-//        try {
-//            ProductCategoryResponse productCategoryResponse =  productCategoryService
-//                    .updateProductCategory(productCategoryId, productCategoryDTO);
-//
-//            return ResponseEntity.ok(productCategoryResponse);
-//        } catch(Exception e) {
-//            return ResponseEntity.badRequest()
-//                    .body(EResponse.builder()
-//                            .name("ERROR")
-//                            .message(e.getMessage())
-//                            .build());
-//        }
-//    }
-//
-//    @DeleteMapping("")
-//    public ResponseEntity<?> deleteProductCategory(
-//            @RequestParam("shopId") long shopId,
-//            @RequestParam("productCategoryId") Long productCategoryId
-//    ) {
-//        ownerService.checkValidShop(shopId);
-//        try {
-//            productCategoryService.deleteProductCategoryById(productCategoryId);
-//            return ResponseEntity.noContent().build();
-//        } catch (Exception e) {
-//            return ResponseEntity.badRequest().body(
-//                    EResponse.builder()
-//                            .name("ERROR")
-//                            .message(e.getMessage())
-//                            .build()
-//            );
-//        }
-//
-//    }
+    @GetMapping("/{productId}")
+    public ResponseEntity<?> getProductCategoryByProductId(
+        @PathVariable("productId") Long productId
+    ) {
+
+        try {
+            ProductCategoryResponse productCategoryResponse = productCategoryService.getProductCategories(productId);
+            return ResponseEntity.ok(productCategoryResponse);
+        } catch(Exception e) {
+            return ResponseEntity.badRequest().body(
+                    EResponse.builder()
+                            .name("ERROR")
+                            .message(e.getMessage())
+                            .build()
+            );
+        }
+
+    }
 }
