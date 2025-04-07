@@ -97,7 +97,10 @@ public class ProductController {
     ) {
         PageRequest pageRequest = PageRequest.of(
                 page,limit,
-                Sort.by("rating").descending()
+                Sort.by(
+                        Sort.Order.desc("totalSold"),
+                        Sort.Order.desc("rating")
+                )
         );
         try {
             List<ProductRatingOrderResponse> productRatingOrderResponses = productService
