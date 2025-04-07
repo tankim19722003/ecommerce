@@ -8,6 +8,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface SubProductCategoryRepo extends JpaRepository<SubProductCategory, Long> {
-    @Query("select sc from SubProductCategory sc where sc.productCategoryGroup.product = :productId")
+    @Query("select sc from SubProductCategory sc where sc.productCategoryGroup.product.id = :productId")
     List<SubProductCategory> getSubcategoryByProductId(@Param("productId") Long productId);
 }
