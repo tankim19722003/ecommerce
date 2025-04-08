@@ -2,23 +2,25 @@ package ecommerce.example.ecommerce.models;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "coupons")
+@Table(name = "vouchers")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Builder
 public class Voucher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, unique = true, length = 50)
-    private String code;
+    private Integer code;
 
     @Column(name = "description")
     private String description;

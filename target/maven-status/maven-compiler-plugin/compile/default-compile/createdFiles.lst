@@ -72,6 +72,7 @@ ecommerce\example\ecommerce\controllers\ProductController.class
 ecommerce\example\ecommerce\models\Product.class
 ecommerce\example\ecommerce\responses\ImageResponse$ImageResponseBuilder.class
 ecommerce\example\ecommerce\responses\ProductDetailResponse.class
+ecommerce\example\ecommerce\services\Impl\VoucherServiceImpl.class
 ecommerce\example\ecommerce\responses\ChildProductCategoryResponse.class
 ecommerce\example\ecommerce\responses\ProductKeywordPageResponse$ProductKeywordPageResponseBuilder.class
 ecommerce\example\ecommerce\controllers\UserVillageController.class
@@ -136,6 +137,7 @@ ecommerce\example\ecommerce\models\Category.class
 ecommerce\example\ecommerce\responses\ProductRatingOrderResponse$ProductRatingOrderResponseBuilder.class
 ecommerce\example\ecommerce\Repo\DistrictRepo.class
 ecommerce\example\ecommerce\responses\ProductIdAttributeValueResponse.class
+ecommerce\example\ecommerce\controllers\VoucherController.class
 ecommerce\example\ecommerce\Repo\ShopRepo.class
 ecommerce\example\ecommerce\Repo\ProductCategoryRepo.class
 ecommerce\example\ecommerce\models\CodePurpose$CodePurposeBuilder.class
@@ -192,6 +194,7 @@ ecommerce\example\ecommerce\responses\AttributeSubIdResponse$AttributeSubIdRespo
 ecommerce\example\ecommerce\models\ProductShippingType$ProductShippingTypeBuilder.class
 ecommerce\example\ecommerce\dtos\CodeDTO.class
 ecommerce\example\ecommerce\config\SecurityConfig$1.class
+ecommerce\example\ecommerce\dtos\VoucherUpdatingDTO.class
 ecommerce\example\ecommerce\models\ShopAddress$ShopAddressBuilder.class
 ecommerce\example\ecommerce\controllers\SubCategoryController.class
 ecommerce\example\ecommerce\responses\ProductCategoryOneLevelList$ProductCategoryOneLevelListBuilder.class
@@ -279,6 +282,7 @@ ecommerce\example\ecommerce\services\Impl\UserCodeServiceImpl.class
 ecommerce\example\ecommerce\responses\ProductImageResponse.class
 ecommerce\example\ecommerce\dtos\MultipleProductCategoryDTO$MultipleProductCategoryDTOBuilder.class
 ecommerce\example\ecommerce\dtos\ProductAttributeValueDTO$ProductAttributeValueDTOBuilder.class
+ecommerce\example\ecommerce\models\Voucher$VoucherBuilder.class
 ecommerce\example\ecommerce\dtos\SubcategoryAttributeDTO.class
 ecommerce\example\ecommerce\services\Impl\ShopCodeServiceImpl.class
 ecommerce\example\ecommerce\models\ProductAttributeValue$ProductAttributeValueBuilder.class

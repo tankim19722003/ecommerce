@@ -1,8 +1,6 @@
 package ecommerce.example.ecommerce.responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import ecommerce.example.ecommerce.models.Shop;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +18,7 @@ public class VoucherResponse {
     private Long id;
 
     @JsonProperty("code")
-    private String code;
+    private int code;
 
     @JsonProperty("description")
     private String description;

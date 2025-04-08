@@ -12,7 +12,7 @@ public interface VoucherRepo extends JpaRepository<Voucher, Long> {
 
     @Query("SELECT v FROM Voucher v WHERE v.shop.id = :shopId AND v.startDate <= :currentTime AND v.endDate > :currentTime")
     List<Voucher> findValidVouchersByProductId(
-            @Param("shopId") Long productId,
+            @Param("shopId") Long shopId,
             @Param("currentTime") LocalDateTime currentTime
     );
 

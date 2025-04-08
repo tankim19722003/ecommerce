@@ -269,6 +269,20 @@ public class SecurityConfig {
 
                             .requestMatchers(GET,
                                     String.format("%s/product_category/**", apiPrefix)).permitAll()
+
+                            // vouchers
+                            .requestMatchers(GET,
+                                    String.format("%s/voucher/get_vouchers/**", apiPrefix)).permitAll()
+
+                            .requestMatchers(POST,
+                                    String.format("%s/voucher/**", apiPrefix)).hasRole(Role.SHOP)
+
+                            .requestMatchers(DELETE,
+                                    String.format("%s/voucher/**", apiPrefix)).hasRole(Role.SHOP)
+
+                            .requestMatchers(PUT,
+                                    String.format("%s/voucher/**", apiPrefix)).hasRole(Role.SHOP)
+
                             .anyRequest().authenticated();
 
                     }
