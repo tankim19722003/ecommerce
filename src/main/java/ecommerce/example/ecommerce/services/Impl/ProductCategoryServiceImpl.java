@@ -90,8 +90,8 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
             // map first and second category
             modelMapper.map(productCategoryDTO, productCategory);
 
-            productCategory.setImageUrl(images.get(index).get("publicId"));
-            productCategory.setPublicId(images.get(index).get("imageUrl"));
+            productCategory.setImageUrl(images.get(index).get("imageUrl"));
+            productCategory.setPublicId(images.get(index).get("publicId"));
             productCategory.setProductCategoryGroup(productCategoryGroup);
             productCategory.setPrice(productCategoryDTO.getPrice());
             productCategory.setValue(productCategoryDTO.getValue());

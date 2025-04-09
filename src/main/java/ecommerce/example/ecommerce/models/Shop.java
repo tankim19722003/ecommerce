@@ -62,6 +62,8 @@ public class Shop {
     @Column(name = "behind_cmnd_public_id")
     private String behindCmndPublicId;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "shop")
+    private List<SupplierAddress> supplierAddresses;
 //    @Pattern(regexp = "PENDING|REJECT|COMPLETION", message = "Invalid status value")
 //    private String status;
 

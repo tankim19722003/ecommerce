@@ -1,6 +1,5 @@
 package ecommerce.example.ecommerce.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -42,9 +41,6 @@ public class Order {
     @Column(name = "notes")
     private String notes;
 
-    @Column(name = "coupon_code")
-    private String couponCode;
-
     @Column(name = "expected_receive_date")
     private LocalDate expectedReceiveDate;
 
@@ -66,7 +62,11 @@ public class Order {
     private List<OrderDetail> orderDetails;
 
     @ManyToOne
-    @JoinColumn(name = "village_id")
-    private Village village;
+    @JoinColumn(name = "user_address_id")
+    private UserVillage userVillage;
+
+//    @ManyToOne
+//    @JoinColumn(name = "village_id")
+//    private Village village;
 
 }

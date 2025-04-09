@@ -22,12 +22,6 @@ public class OrderDetail {
     @Column(name = "price")
     private int price;
 
-    @Column(name = "color")
-    private String color;
-
-    @Column(name = "size")
-    private char size;
-
     @Column(name = "total_price")
     private int totalPrice;
 

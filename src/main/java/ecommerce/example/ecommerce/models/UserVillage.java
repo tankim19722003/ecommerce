@@ -1,5 +1,6 @@
 package ecommerce.example.ecommerce.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import ecommerce.example.ecommerce.responses.UserVillageResponse;
 import ecommerce.example.ecommerce.responses.UserAddressResponse;
 import jakarta.persistence.*;
@@ -11,6 +12,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "user_villages",
@@ -50,6 +52,9 @@ public class UserVillage {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updateAt;
+
+//    @OneToMany(Ca)
+//    private List<Order> orders;
 
     public UserAddressResponse toUserVillageResponse() {
 
