@@ -24,9 +24,6 @@ public class OrderDTO {
     @JsonProperty("user_id")
     private Long userId;
 
-    @JsonProperty("product_id")
-    private Long productId;
-
     @JsonProperty("product_shipping_type_id")
     private Long productShippingTypeId;
 
@@ -35,6 +32,9 @@ public class OrderDTO {
 
     @JsonProperty("voucherId")
     private Long voucherId;
+
+    @JsonProperty("note")
+    private String note;
 
     @JsonProperty("order_detail_dtos")
     private List<OrderDetailDTO> orderDetailDTOs;

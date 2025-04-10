@@ -316,7 +316,7 @@ public class ProductServiceImpl implements ProductService {
         List<ProductAttributeValueResponse> productAttributeValueResponses = productAttributeValueService.getAllProductAttributeValue(productId);
         productDetailResponse.setProductAttributeValueResponses(productAttributeValueResponses);
 
-       // product Shipping shipping
+       // product Shipping fee
         List<ShippingTypeResponse> shippingTypeResponses = productShippingTypeService.getProductShippingTypes(productId);
         productDetailResponse.setShippingTypeResponses(shippingTypeResponses);
 

@@ -9,11 +9,4 @@ public interface OrderService {
             OrderDTO orderDTO
     );
 
-//    OrderResponse updateOrder(
-//            OrderUpdatingDTO orderDTO
-//    );
-//
-//    void cancelOrder(Long orderId);
-
-
 }

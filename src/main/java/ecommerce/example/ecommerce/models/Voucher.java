@@ -25,8 +25,8 @@ public class Voucher {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "discount_value", nullable = false)
-    private Float discountValue;
+    @Column(name = "discount_percent", nullable = false)
+    private Float discountPercent;
 
     @Column(name = "start_date", nullable = false)
     private LocalDateTime startDate;

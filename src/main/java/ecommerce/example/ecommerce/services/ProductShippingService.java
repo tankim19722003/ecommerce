@@ -17,4 +17,7 @@ public interface ProductShippingService {
 
     List<ShippingTypeResponse> getProductShippingTypes(Long productId);
 
+    float getCalWeight(
+            int height, int width, int high, float weight
+    );
 }

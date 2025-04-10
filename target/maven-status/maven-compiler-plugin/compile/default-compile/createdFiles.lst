@@ -260,6 +260,7 @@ ecommerce\example\ecommerce\models\User.class
 ecommerce\example\ecommerce\Repo\CodePurposeRepo.class
 ecommerce\example\ecommerce\responses\ProductKeywordPageResponse.class
 ecommerce\example\ecommerce\models\Role.class
+ecommerce\example\ecommerce\controllers\OrderController.class
 ecommerce\example\ecommerce\responses\CategoryResponse$CategoryResponseBuilder.class
 ecommerce\example\ecommerce\dtos\AttributeDTO$AttributeDTOBuilder.class
 ecommerce\example\ecommerce\responses\VoucherResponse$VoucherResponseBuilder.class

@@ -53,6 +53,9 @@ public class Order {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Column(name = "shipping_fee")
+    private int shippingFee;
+
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

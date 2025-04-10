@@ -43,4 +43,7 @@ public class ProductCategory {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "productCategory")
     private List<SubProductCategory> subProductCategories;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "productCategory")
+    private List<OrderDetail> orderDetails;
 }

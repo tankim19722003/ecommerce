@@ -1,5 +1,6 @@
 package ecommerce.example.ecommerce.models;
 
+import ecommerce.example.ecommerce.responses.OrderDetailResponse;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,11 +23,8 @@ public class OrderDetail {
     @Column(name = "price")
     private int price;
 
-    @Column(name = "total_price")
-    private int totalPrice;
-
     @Column(name = "discount_percent")
-    private float discountPercent;
+    private int discountPercent;
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "order_id", nullable = false)
@@ -38,4 +36,22 @@ public class OrderDetail {
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "orderDetail")
     private Feedback feedback;
+
+    @ManyToOne
+    @JoinColumn(name = "product_category_id")
+    private ProductCategory productCategory;
+
+    @ManyToOne
+    @JoinColumn(name = "sub_product_category_id")
+    private SubProductCategory subProductCategory;
+
+    public OrderDetailResponse toOrderDetailResponse() {
+        return OrderDetailResponse.builder()
+                .id(id)
+                .discountPercent(discountPercent)
+                .productName(product.getName())
+                .price(price)
+                .quantity(quantity)
+                .build();
+    }
 }

@@ -109,7 +109,7 @@ public class EcomerceApplication {
 		// Creating a ProductDiscount object
 		ProductDiscount discount = new ProductDiscount();
 		discount.setId(100L); // Assuming an ID
-		discount.setDiscountPercent(10.5F);
+//		discount.setDiscountPercent(10.5F);
 		discount.setDateStart(LocalDateTime.now());
 		discount.setDateEnd(LocalDateTime.now().plusDays(7)); // Discount lasts 7 days
 		discount.setProduct(product); // Linking to the product
@@ -307,7 +307,7 @@ public class EcomerceApplication {
 		orderDetail.setProduct(product);
 		orderDetail.setQuantity(2);
 		orderDetail.setPrice(50000);
-		orderDetail.setTotalPrice(orderDetail.getQuantity() * orderDetail.getPrice());
+//		orderDetail.setTotalPrice(orderDetail.getQuantity() * orderDetail.getPrice());
 		orderDetail.setProduct(product);
 
 		System.out.println("Creating Order Detail...");

@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -15,10 +16,10 @@ import java.util.List;
 public class OrderResponse {
 
     @JsonProperty("id")
-    private int id;
+    private Long id;
 
     @JsonProperty("total_money")
-    private int totalMoney;
+    private float totalMoney;
 
     @JsonProperty("order_status")
     private String orderStatus;
@@ -35,7 +36,7 @@ public class OrderResponse {
     @JsonProperty("user_village_response")
     private UserVillageResponse userVillageResponse;
 
-    @JsonProperty("category")
+    @JsonProperty("product_category")
     private CategoryResponse categoryResponse;
 
     @JsonProperty("sub_category_response")
@@ -43,4 +44,11 @@ public class OrderResponse {
 
     @JsonProperty("order_detail_responses")
     private List<OrderDetailResponse> orderDetailResponses;
+
+    public void addOrderDetailResponse(OrderDetailResponse orderDetailResponse) {
+        if (orderDetailResponses == null)
+            orderDetailResponses = new ArrayList<>();
+
+        orderDetailResponses.add(orderDetailResponse);
+    }
 }

@@ -60,7 +60,7 @@ public class VoucherServiceImpl implements VoucherService {
                 .endDate(voucherDTO.getEndDate())
                 .description(voucherDTO.getDescription())
                 .minimumOrderValue(voucherDTO.getMinimumOrderValue())
-                .discountValue(voucherDTO.getDiscountValue())
+                .discountPercent(voucherDTO.getDiscountValue())
                 .code(generateCode())
                 .shop(shop)
                 .build();
@@ -108,7 +108,7 @@ public class VoucherServiceImpl implements VoucherService {
         voucher.setDescription(voucherUpdatingDTO.getDescription());
         voucher.setEndDate(voucherUpdatingDTO.getEndDate());
         voucher.setStartDate(voucherUpdatingDTO.getStartDate());
-        voucher.setDiscountValue(voucherUpdatingDTO.getDiscountValue());
+        voucher.setDiscountPercent(voucherUpdatingDTO.getDiscountValue());
         voucher.setMinimumOrderValue(voucherUpdatingDTO.getMinimumOrderValue());
 
         voucherRepo.save(voucher);

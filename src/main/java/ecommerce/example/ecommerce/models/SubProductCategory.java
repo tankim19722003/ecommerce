@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "sub_product_categories")
 @AllArgsConstructor
@@ -37,4 +39,6 @@ public class SubProductCategory {
     @JoinColumn(name = "product_category_id")
     private ProductCategory productCategory;
 
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "subProductCategory")
+    private List<OrderDetail> OrderDetails;
 }

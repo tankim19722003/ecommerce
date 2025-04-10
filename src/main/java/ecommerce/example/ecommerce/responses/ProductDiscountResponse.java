@@ -21,7 +21,7 @@ public class ProductDiscountResponse {
 
 
     @Column(name = "discount_percent", nullable = false)
-    private Float discountPercent;
+    private Integer discountPercent;
 
     @Column(name = "date_start", nullable = false)
     private LocalDateTime dateStart;

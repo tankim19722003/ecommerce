@@ -8,8 +8,6 @@ import ecommerce.example.ecommerce.dtos.ShippingFeeDTO;
 import ecommerce.example.ecommerce.models.Product;
 import ecommerce.example.ecommerce.models.ProductShippingType;
 import ecommerce.example.ecommerce.models.ShippingType;
-import ecommerce.example.ecommerce.responses.ProductCategoryResponse;
-import ecommerce.example.ecommerce.responses.ProductShippingTypeResponse;
 import ecommerce.example.ecommerce.responses.ShippingFeeResponse;
 import ecommerce.example.ecommerce.responses.ShippingTypeResponse;
 import ecommerce.example.ecommerce.services.ProductShippingService;
@@ -38,7 +36,7 @@ public class ProductShippingServiceImpl implements ProductShippingService {
 
         List<ShippingType> shippingTypes = shippingTypeRepo.findAll();
 
-        float standardWeight = (float) (shippingFeeDTO.getHigh() * shippingFeeDTO.getHeight() * shippingFeeDTO.getHigh()) / 5000;
+        float standardWeight = (float) (shippingFeeDTO.getHigh() * shippingFeeDTO.getHeight() * shippingFeeDTO.getWidth()) / 5000;
 
         float calWeight = 0.0f;
 
@@ -140,7 +138,7 @@ public class ProductShippingServiceImpl implements ProductShippingService {
                         // calculate shipping fee
                         float calWeight = 0;
                         float price = 0;
-                        float standardWeight = (float) (productShippingType.getProduct().getHigh() * productShippingType.getProduct().getHeight() * productShippingType.getProduct().getHigh()) / 5000;
+                        float standardWeight = (float) (productShippingType.getProduct().getHigh() * productShippingType.getProduct().getHeight() * productShippingType.getProduct().getWidth()) / 5000;
 
                         if (standardWeight < productShippingType.getProduct().getWeight())
                             calWeight = productShippingType.getProduct().getWeight();
@@ -167,5 +165,19 @@ public class ProductShippingServiceImpl implements ProductShippingService {
         }
 
         return null;
+    }
+
+    @Override
+    public float getCalWeight(
+            int height, int width, int high, float weight
+    ) {
+        float standardWeight = (float) (height * width * high) / 5000;
+
+        float calWeight = 0.0f;
+
+        if (standardWeight < weight) calWeight = weight;
+        else calWeight = standardWeight;
+
+        return calWeight;
     }
 }

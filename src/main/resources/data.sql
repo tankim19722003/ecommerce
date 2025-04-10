@@ -371,6 +371,22 @@ VALUES
     (11, 6, 1),  (12, 6, 2),  (13, 7, 3),  (14, 7, 4),  (15, 8, 5),
     (16, 8, 6),  (17, 9, 7),  (18, 9, 8),  (19, 10, 9), (20, 10, 10);
 
+
+INSERT INTO products (
+    id, shop_id, sub_category_id,
+    high, rating, total_sold, weight, width, height,
+    created_at, updated_at,
+    description, name, thumbnail_public_id, thumbnail_url
+)
+VALUES
+(1, 1, 1, 1, 4, 4, 1.5, 15, 20, '2025-04-10 18:56:46.299275', '2025-04-10 19:00:11.91166', 'Fast performance with long battery life', 'Samsung Galaxy S23', NULL, NULL),
+(2, 1, 2, 2, 5, 5, 3.0, 3, 2, '2025-04-10 18:56:46.299275', '2025-04-10 18:56:46.299275', 'Latest Apple smartphone with advanced camera', 'iPhone 14 Pro Max', NULL, NULL),
+(3, 1, 3, 3, 5, 5, 3.2, 4, 4, '2025-04-10 18:56:46.299275', '2025-04-10 18:56:46.299275', 'Affordable smartphone with great features', 'Xiaomi Redmi Note 12', NULL, NULL),
+(4, 1, 4, 4, 2, 2, 3.2, 3, 5, '2025-04-10 18:56:46.299275', '2025-04-10 18:56:46.299275', 'Stylish and lightweight laptop', 'MacBook Air M2', NULL, NULL),
+(5, 1, 5, 5, 2, 3, 5.1, 3, 4, '2025-04-10 18:56:46.299275', '2025-04-10 18:56:46.299275', 'Powerful gaming laptop', 'Asus ROG Strix G15', NULL, NULL),
+(6, 1, 6, 6, 3, 2, 4.3, 3, 5, '2025-04-10 18:56:46.299275', '2025-04-10 18:56:46.299275', 'Samsung 55-inch 4K Smart TV', 'samsung_55_4k_tv.png', NULL, NULL),
+(7, 1, 7, 7, 3, 1, 3.4, 4, 3, '2025-04-10 18:56:46.299275', '2025-04-10 18:56:46.299275', 'JBL Tune 130NC TWS', 'jbl_tune_130nc.png', NULL, NULL);
+
 --
 --INSERT INTO products (shop_id, sub_category_id, rating,created_at, updated_at, description, name)
 --VALUES
@@ -379,64 +395,65 @@ VALUES
 --    (1, 3, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Affordable smartphone with great features', 'Xiaomi Redmi Note 12'),
 --    (1, 4, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Stylish and lightweight laptop', 'MacBook Air M2'),
 --    (1, 5, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Powerful gaming laptop', 'Asus ROG Strix G15'),
---    (2, 6, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,  'Samsung 55-inch 4K Smart TV', 'samsung_55_4k_tv.png'),
---    (2, 7, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'JBL Tune 130NC TWS', 'jbl_tune_130nc.png');
-----    (1, 8, 4, 75, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Premium wireless noise-canceling headphones', 'Sony WH-1000XM5', 'sony_wh_1000xm5.png'),
-----    (1, 9, 5, 200, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Compact and feature-rich smartwatch', 'Apple Watch Series 9', 'apple_watch_series_9.png'),
-----    (1, 10, 1, 10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Basic fitness tracker with step counter', 'Xiaomi Mi Band 7', 'mi_band_7.png'),
-----    (1, 1, 3, 250, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Professional DSLR camera for photography', 'Canon EOS 90D', 'canon_eos_90d.png'),
-----    (1, 2, 5, 400, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Portable and lightweight tablet', 'Samsung Galaxy Tab S8', 'samsung_tab_s8.png'),
-----    (1, 3, 2, 50, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Affordable gaming console with HD support', 'Nintendo Switch OLED', 'nintendo_switch_oled.png'),
-----    (1, 4, 4, 130, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'High-quality mechanical keyboard', 'Logitech G Pro X', 'logitech_g_pro_x.png'),
-----    (1, 5, 3, 90, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Ergonomic wireless mouse', 'Razer DeathAdder V2', 'razer_deathadder_v2.png'),
-----    (1, 6, 5, 180, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Smart vacuum cleaner for home automation', 'iRobot Roomba i7', 'irobot_roomba_i7.png'),
-----    (1, 7, 1, 25, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Powerful and stylish blender', 'Ninja Professional Blender', 'ninja_blender.png'),
-----    (1, 8, 2, 60, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Efficient and quiet washing machine', 'LG Front Load Washer', 'lg_washer.png'),
-----    (1, 9, 4, 145, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Smart air purifier with HEPA filter', 'Dyson Pure Cool Air Purifier', 'dyson_pure_cool.png'),
-----    (1, 10, 3, 110, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Portable and powerful coffee maker', 'Nespresso VertuoPlus', 'nespresso_vertuo.png'),
-----    (1, 1, 5, 350, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Best-selling wireless speaker with deep bass', 'Bose SoundLink Revolve+', 'bose_soundlink_revolve.png'),
-----    (1, 2, 2, 45, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Affordable wired gaming headset', 'HyperX Cloud Stinger', 'hyperx_cloud_stinger.png'),
-----    (1, 3, 4, 190, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Premium smart home security camera', 'Ring Video Doorbell 4', 'ring_video_doorbell.png'),
-----    (1, 4, 3, 70, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Stylish and comfortable smartwatch', 'Garmin Forerunner 955', 'garmin_forerunner_955.png'),
-----    (1, 5, 5, 220, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Ultra-fast Wi-Fi 6 router', 'TP-Link Archer AX6000', 'tplink_archer_ax6000.png'),
-----    (1, 6, 4, 175, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'High-performance external SSD', 'Samsung T7 Shield 1TB', 'samsung_t7_shield.png'),
-----    (1, 7, 2, 55, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Stylish and durable backpack for travel', 'Samsonite Tectonic Lifestyle Backpack', 'samsonite_backpack.png'),
-----    (1, 8, 1, 35, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Comfortable and lightweight sneakers', 'Nike Air Zoom Pegasus 39', 'nike_pegasus_39.png'),
-----    (1, 9, 3, 125, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Elegant and minimalist wristwatch', 'Casio Edifice Chronograph', 'casio_edifice.png'),
-----    (1, 10, 5, 280, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Luxury perfume with floral scent', 'Chanel Coco Mademoiselle', 'chanel_coco_mademoiselle.png');
-------
-------INSERT INTO product_attribute_value (id, product_id, sub_category_attribute_id, value) VALUES
-------(1, 1, 1, 'Black'),
-------(2, 1, 2, '6.1 inches'),
-------(3, 1, 3, 'Aluminum & Glass'),
-------(4, 1, 4, 'Samsung'),
-------(5, 1, 5, '168g'),
-------(31, 1, 2, '4.6 inches'),
-------(6, 2, 1, 'Silver'),
-------(7, 2, 2, '6.7 inches'),
-------(8, 2, 3, 'Stainless Steel'),
-------(9, 2, 4, 'Apple'),
-------(10, 2, 5, '206g'),
-------(11, 3, 1, 'Blue'),
-------(12, 3, 2, '6.5 inches'),
-------(13, 3, 3, 'Plastic & Glass'),
-------(14, 3, 4, 'Xiaomi'),
-------(15, 3, 5, '192g'),
-------(16, 4, 1, 'Gray'),
-------(17, 4, 2, '13.6 inches'),
-------(18, 4, 3, 'Aluminum'),
-------(19, 4, 4, 'Apple'),
-------(20, 4, 5, '1.24kg'),
-------(21, 5, 1, 'Black'),
-------(22, 5, 2, '15.6 inches'),
-------(23, 5, 3, 'Plastic'),
-------(24, 5, 4, 'Asus'),
-------(25, 5, 5, '2.3kg'),
-------(26, 6, 1, 'Black'),
-------(27, 6, 2, '55 inches'),
-------(28, 6, 3, 'LED Display'),
-------(29, 6, 4, 'Samsung'),
-------(30, 6, 5, '15kg');
+--    (1, 6, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,  'Samsung 55-inch 4K Smart TV', 'samsung_55_4k_tv.png'),
+--    (1, 7, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'JBL Tune 130NC TWS', 'jbl_tune_130nc.png');
+--   (1, 8, 4, 75, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Premium wireless noise-canceling headphones', 'Sony WH-1000XM5', 'sony_wh_1000xm5.png'),
+--    (1, 9, 5, 200, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Compact and feature-rich smartwatch', 'Apple Watch Series 9', 'apple_watch_series_9.png'),
+--    (1, 10, 1, 10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Basic fitness tracker with step counter', 'Xiaomi Mi Band 7', 'mi_band_7.png'),
+--    (1, 1, 3, 250, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Professional DSLR camera for photography', 'Canon EOS 90D', 'canon_eos_90d.png'),
+--    (1, 2, 5, 400, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Portable and lightweight tablet', 'Samsung Galaxy Tab S8', 'samsung_tab_s8.png'),
+--    (1, 3, 2, 50, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Affordable gaming console with HD support', 'Nintendo Switch OLED', 'nintendo_switch_oled.png'),
+--    (1, 4, 4, 130, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'High-quality mechanical keyboard', 'Logitech G Pro X', 'logitech_g_pro_x.png'),
+--    (1, 5, 3, 90, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Ergonomic wireless mouse', 'Razer DeathAdder V2', 'razer_deathadder_v2.png'),
+--    (1, 6, 5, 180, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Smart vacuum cleaner for home automation', 'iRobot Roomba i7', 'irobot_roomba_i7.png'),
+--    (1, 7, 1, 25, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Powerful and stylish blender', 'Ninja Professional Blender', 'ninja_blender.png'),
+--    (1, 8, 2, 60, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Efficient and quiet washing machine', 'LG Front Load Washer', 'lg_washer.png'),
+--    (1, 9, 4, 145, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Smart air purifier with HEPA filter', 'Dyson Pure Cool Air Purifier', 'dyson_pure_cool.png'),
+--    (1, 10, 3, 110, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Portable and powerful coffee maker', 'Nespresso VertuoPlus', 'nespresso_vertuo.png'),
+--    (1, 1, 5, 350, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Best-selling wireless speaker with deep bass', 'Bose SoundLink Revolve+', 'bose_soundlink_revolve.png'),
+--    (1, 2, 2, 45, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Affordable wired gaming headset', 'HyperX Cloud Stinger', 'hyperx_cloud_stinger.png'),
+--    (1, 3, 4, 190, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Premium smart home security camera', 'Ring Video Doorbell 4', 'ring_video_doorbell.png'),
+--    (1, 4, 3, 70, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Stylish and comfortable smartwatch', 'Garmin Forerunner 955', 'garmin_forerunner_955.png'),
+--    (1, 5, 5, 220, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Ultra-fast Wi-Fi 6 router', 'TP-Link Archer AX6000', 'tplink_archer_ax6000.png'),
+--    (1, 6, 4, 175, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'High-performance external SSD', 'Samsung T7 Shield 1TB', 'samsung_t7_shield.png'),
+--    (1, 7, 2, 55, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Stylish and durable backpack for travel', 'Samsonite Tectonic Lifestyle Backpack', 'samsonite_backpack.png'),
+--    (1, 8, 1, 35, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Comfortable and lightweight sneakers', 'Nike Air Zoom Pegasus 39', 'nike_pegasus_39.png'),
+--    (1, 9, 3, 125, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Elegant and minimalist wristwatch', 'Casio Edifice Chronograph', 'casio_edifice.png'),
+--    (1, 10, 5, 280, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Luxury perfume with floral scent', 'Chanel Coco Mademoiselle', 'chanel_coco_mademoiselle.png');
+----
+----INSERT INTO product_attribute_value (id, product_id, sub_category_attribute_id, value) VALUES
+----(1, 1, 1, 'Black'),
+----(2, 1, 2, '6.1 inches'),
+----(3, 1, 3, 'Aluminum & Glass'),
+----(4, 1, 4, 'Samsung'),
+----(5, 1, 5, '168g'),
+----(31, 1, 2, '4.6 inches'),
+----(6, 2, 1, 'Silver'),
+----(7, 2, 2, '6.7 inches'),
+----(8, 2, 3, 'Stainless Steel'),
+----(9, 2, 4, 'Apple'),
+----(10, 2, 5, '206g'),
+----(11, 3, 1, 'Blue'),
+----(12, 3, 2, '6.5 inches'),
+----(13, 3, 3, 'Plastic & Glass'),
+----(14, 3, 4, 'Xiaomi'),
+----(15, 3, 5, '192g'),
+----(16, 4, 1, 'Gray'),
+----(17, 4, 2, '13.6 inches'),
+----(18, 4, 3, 'Aluminum'),
+----(19, 4, 4, 'Apple'),
+----(20, 4, 5, '1.24kg'),
+----(21, 5, 1, 'Black'),
+----(22, 5, 2, '15.6 inches'),
+----(23, 5, 3, 'Plastic'),
+----(24, 5, 4, 'Asus'),
+----(25, 5, 5, '2.3kg'),
+----(26, 6, 1, 'Black'),
+----(27, 6, 2, '55 inches'),
+----(28, 6, 3, 'LED Display'),
+----(29, 6, 4, 'Samsung'),
+----(30, 6, 5, '15kg');
+
 
 INSERT INTO code_purposes (id, name, created_at, updated_at) VALUES
 (1, 'Email confirmation', '2025-03-13', '2025-03-13'),
@@ -466,6 +483,12 @@ VALUES
     (1, 'Tiêu chuẩn', 10000, 'Giao hàng trong vòng 5-7 ngày.', 7),
     (2, 'Nhanh', 15000, 'Giao hàng trong vòng 2-3 ngày.', 3),
     (3, 'Hỏa tốc', 20000, 'Giao hàng trong vòng 24 giờ.', 1);
+
+
+--INSERT INTO product_shipping_types (id, product_id, shipping_type_id) VALUES (1, 1, 1);
+--INSERT INTO product_shipping_types (id, product_id, shipping_type_id) VALUES (2, 1, 2);
+--INSERT INTO product_shipping_types (id, product_id, shipping_type_id) VALUES (3, 1, 3);
+
 
 ----    Tốc độ bình thường: 100% giá cơ bản (10.000 VNĐ/kg)
 --

@@ -4,12 +4,18 @@ import ecommerce.example.ecommerce.Repo.*;
 import ecommerce.example.ecommerce.dtos.OrderDTO;
 import ecommerce.example.ecommerce.dtos.OrderDetailDTO;
 import ecommerce.example.ecommerce.models.*;
+import ecommerce.example.ecommerce.responses.OrderDetailResponse;
 import ecommerce.example.ecommerce.responses.OrderResponse;
+import ecommerce.example.ecommerce.responses.ShippingTypeResponse;
+import ecommerce.example.ecommerce.responses.UserVillageResponse;
 import ecommerce.example.ecommerce.services.OrderService;
+import ecommerce.example.ecommerce.services.ProductShippingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -32,8 +38,33 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private UserVillageOrderRepo userVillageOrderRepo;
 
+    @Autowired
+    private ProductRepo productRepo;
+
+    @Autowired
+    private SubProductCategoryRepo subProductCategoryRepo;
+
+    @Autowired
+    private ProductCategoryRepo productCategoryRepo;
+
+    @Autowired
+    private ProductDiscountRepo productDiscountRepo;
+
+    @Autowired
+    private VoucherRepo voucherRepo;
+
+    @Autowired
+    private ProductShippingService productShippingService;
+
+    @Autowired
+    private OrderDetailRepo orderDetailRepo;
+
+    @Autowired
+    private CategoryRepo categoryRepo;
+
 
     @Override
+    @Transactional
     public OrderResponse createOrder(OrderDTO orderDTO) {
 
         User user = userRepo.findById(orderDTO.getUserId())
@@ -45,6 +76,7 @@ public class OrderServiceImpl implements OrderService {
         ProductShippingType productShippingType = productShippingTypeRepo.findById(orderDTO.getProductShippingTypeId())
                 .orElseThrow(() -> new RuntimeException("Product shipping type does not found"));
 
+//        Category category = categoryRepo.findById(orderDTO.get)
 
 
         // create order
@@ -54,12 +86,17 @@ public class OrderServiceImpl implements OrderService {
         order.setProductShippingType(productShippingType);
         order.setPhoneNumber(userVillage.getPhoneNumber());
         order.setReceiverName(userVillage.getReceiverName());
-        order.setNotes(order.getNotes());
+        order.setNotes(orderDTO.getNote());
         order.setExpectedReceiveDate(LocalDateTime.now().plusDays(productShippingType.getShippingType().getEstimatedTime()));
         order.setOrderDate(LocalDateTime.now());
-        order.setDiscountPercent(order.getDiscountPercent());
 
         orderRepo.save(order);
+
+        //create order response
+        OrderResponse orderResponse = new OrderResponse();
+        orderResponse.setId(order.getId());
+        orderResponse.setOrderStatus(order.getStatus());
+        orderResponse.setNote(order.getNotes());
 
         // create address for order
         UserVillageOrder userVillageOrder = new UserVillageOrder();
@@ -70,16 +107,101 @@ public class OrderServiceImpl implements OrderService {
         userVillageOrderRepo.save(userVillageOrder);
 
         // save order detail
-//        for (OrderDetailDTO orderDetailDTO : orderDTO.getOrderDetailDTOs()) {
-//
-//        }
+        float totalPrice = 0;
+        float shippingPrice = 0;
 
 
+        OrderDetailResponse orderDetailResponse = new OrderDetailResponse();
+        for (OrderDetailDTO orderDetailDTO : orderDTO.getOrderDetailDTOs()) {
+            OrderDetail orderDetail = new OrderDetail();
 
-        return null;
+            // get product
+            Product product = productRepo.findById(orderDetailDTO.getProductId())
+                    .orElseThrow(() -> new RuntimeException("Product does not found"));
+
+            if (product.getShop().getId() != orderDTO.getShopId()) {
+                throw new RuntimeException("Product with id "+ product.getId()+ " does not belong to shop with shop id " + orderDTO.getShopId());
+            }
+
+            // calculate shipping price
+            float shippingPriceItem = productShippingService.getCalWeight(product.getHeight(), product.getWidth(), product.getHigh(), product.getWeight())
+                    * productShippingType.getShippingType().getPrice();
+
+            if (shippingPriceItem > shippingPrice) shippingPrice = shippingPriceItem;
+
+            orderDetail.setOrder(order);
+            orderDetail.setProduct(product);
+            orderDetail.setQuantity(orderDetailDTO.getQuantity());
+
+            // get discount
+            Optional<ProductDiscount> productDiscount = productDiscountRepo
+                    .findByDateStartLessThanEqualAndDateEndGreaterThanEqual(LocalDateTime.now(), LocalDateTime.now());
+
+            if (productDiscount.isPresent()) {
+                orderDetail.setDiscountPercent(productDiscount.get().getDiscountPercent());
+            }
 
 
-        // set after save order
-//        order.setUserVillageOrder();
+            orderDetailResponse = orderDetail.toOrderDetailResponse();
+            // set price
+
+            ProductCategory productCategory = productCategoryRepo.findById(orderDetailDTO.getProductCategoryId())
+                    .orElseThrow(()->new RuntimeException("Product category does not found"));
+
+
+            orderDetailResponse.setProductCategoryId(productCategory.getId());
+            orderDetailResponse.setProductCategoryName(productCategory.getValue());
+            orderDetailResponse.setProductCategoryImageUrl(productCategory.getImageUrl());
+
+            if (orderDetailDTO.getProductSubcategoryId() != null) {
+
+                SubProductCategory subProductCategory = subProductCategoryRepo.findById(orderDetailDTO.getProductSubcategoryId())
+                        .orElseThrow(() ->  new RuntimeException("product subcategory does not found"));
+
+                orderDetail.setPrice(subProductCategory.getPrice());
+                totalPrice += subProductCategory.getPrice() * orderDetail.getQuantity();
+                orderDetailResponse.setProductSubCategoryId(subProductCategory.getId());
+                orderDetailResponse.setProductSubCategoryName(subProductCategory.getName());
+
+            } else {
+                orderDetail.setPrice(productCategory.getPrice());
+                totalPrice += productCategory.getPrice() * orderDetail.getQuantity();
+
+            }
+
+            orderDetailResponse.setPrice(orderDetail.getPrice());
+            // save order detail
+            orderDetailRepo.save(orderDetail);
+
+            // create order detail response
+            orderResponse.addOrderDetailResponse(orderDetailResponse);
+
+        }
+
+
+//        set voucher response
+        if (orderDTO.getVoucherId() != null) {
+            Optional<Voucher> voucher = voucherRepo.findById(orderDTO.getVoucherId());
+            if (voucher.isPresent()) {
+                totalPrice = totalPrice - totalPrice * (voucher.get().getDiscountPercent() / 100);
+                orderResponse.setTotalMoney(totalPrice);
+            }
+            orderResponse.setTotalMoney(totalPrice);
+        }
+
+
+        // shipping type response
+        ShippingTypeResponse shippingTypeResponse = new ShippingTypeResponse();
+        shippingTypeResponse.setId(productShippingType.getId());
+        shippingTypeResponse.setName(productShippingType.getShippingType().getName());
+        shippingTypeResponse.setDescription(productShippingType.getShippingType().getDescription());
+        shippingTypeResponse.setEstimatedTime(productShippingType.getShippingType().getEstimatedTime());
+        shippingTypeResponse.setPrice(shippingPrice);
+        orderResponse.setShippingTypeResponse(shippingTypeResponse);
+
+        // user village response
+        UserVillageResponse userVillageResponse = userVillage.toUserAddressResponse();
+        orderResponse.setUserVillageResponse(userVillageResponse);
+        return orderResponse;
     }
 }
