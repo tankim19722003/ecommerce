@@ -32,6 +32,6 @@ public class ProductShippingType {
     @JoinColumn(name = "shipping_type_id", nullable = false)
     private ShippingType shippingType;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product_shipping_type")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "productShippingType")
     private List<Order> orders;
 }

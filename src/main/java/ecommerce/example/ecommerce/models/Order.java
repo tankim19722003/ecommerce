@@ -63,7 +63,7 @@ public class Order {
 //    private ShippingType shippingType;
 
     @ManyToOne
-    @JoinColumn(name = "product_shipping_type_id")
+    @JoinColumn(name = "product_shipping_type_id", nullable = false)
     private ProductShippingType productShippingType;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "order")
