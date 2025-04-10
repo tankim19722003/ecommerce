@@ -76,7 +76,7 @@ public class OrderServiceImpl implements OrderService {
         ProductShippingType productShippingType = productShippingTypeRepo.findById(orderDTO.getProductShippingTypeId())
                 .orElseThrow(() -> new RuntimeException("Product shipping type does not found"));
 
-//        Category category = categoryRepo.findById(orderDTO.get)
+//        Category category = categoryRepo.findById(orderDTO.)
 
 
         // create order
@@ -174,6 +174,7 @@ public class OrderServiceImpl implements OrderService {
             orderDetailRepo.save(orderDetail);
 
             // create order detail response
+            orderDetailResponse.setId(orderDetail.getId());
             orderResponse.addOrderDetailResponse(orderDetailResponse);
 
         }
@@ -186,8 +187,11 @@ public class OrderServiceImpl implements OrderService {
                 totalPrice = totalPrice - totalPrice * (voucher.get().getDiscountPercent() / 100);
                 orderResponse.setTotalMoney(totalPrice);
             }
-            orderResponse.setTotalMoney(totalPrice);
         }
+
+        totalPrice += shippingPrice;
+        orderResponse.setTotalMoney(totalPrice);
+
 
 
         // shipping type response

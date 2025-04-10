@@ -282,6 +282,10 @@ public class SecurityConfig {
 
                             .requestMatchers(POST,
                                     String.format("%s/product_shipping/create_product_shipping_type", apiPrefix)).hasRole(Role.SHOP)
+
+                            // order
+                            .requestMatchers(POST,
+                                    String.format("%s/order/**", apiPrefix)).hasRole(Role.USER)
                             .anyRequest().authenticated();
 
                     }

@@ -36,12 +36,6 @@ public class OrderResponse {
     @JsonProperty("user_village_response")
     private UserVillageResponse userVillageResponse;
 
-    @JsonProperty("product_category")
-    private CategoryResponse categoryResponse;
-
-    @JsonProperty("sub_category_response")
-    private SubCategoryResponse subCategoryResponse;
-
     @JsonProperty("order_detail_responses")
     private List<OrderDetailResponse> orderDetailResponses;
 
