@@ -1,10 +1,12 @@
 package ecommerce.example.ecommerce.services.Impl;
 
+import ecommerce.example.ecommerce.Repo.ProductShippingTypeRepo;
 import ecommerce.example.ecommerce.Repo.ShippingTypeRepo;
 import ecommerce.example.ecommerce.Repo.UserRepo;
 import ecommerce.example.ecommerce.Repo.UserVillageRepo;
 import ecommerce.example.ecommerce.dtos.OrderDTO;
 import ecommerce.example.ecommerce.models.Order;
+import ecommerce.example.ecommerce.models.ProductShippingType;
 import ecommerce.example.ecommerce.models.User;
 import ecommerce.example.ecommerce.models.UserVillage;
 import ecommerce.example.ecommerce.responses.OrderResponse;
@@ -26,6 +28,10 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private ShippingTypeRepo shippingTypesRepo;
 
+    @Autowired
+    private ProductShippingTypeRepo productShippingTypeRepo;
+
+
     @Override
     public OrderResponse createOrder(OrderDTO orderDTO) {
 
@@ -34,6 +40,10 @@ public class OrderServiceImpl implements OrderService {
 
         UserVillage userVillage = userVillageRepo.findById(orderDTO.getUserVillageId())
                 .orElseThrow(() -> new RuntimeException("Invalid Address"));
+
+        ProductShippingType productShippingType = productShippingTypeRepo.findById(orderDTO.getProductShippingTypeId())
+                .orElseThrow(() -> new RuntimeException("Product shipping type does not found"));
+
 
 
         Order order = new Order();
