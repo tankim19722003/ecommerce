@@ -13,6 +13,7 @@ import ecommerce.example.ecommerce.responses.ShippingTypeResponse;
 import ecommerce.example.ecommerce.services.ProductShippingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,7 @@ public class ProductShippingServiceImpl implements ProductShippingService {
     @Autowired
     private ProductRepo productRepo;
 
+    @Autowired
     private ProductShippingTypeRepo productShippingTypeRepo;
 
     @Override
@@ -91,30 +93,36 @@ public class ProductShippingServiceImpl implements ProductShippingService {
     }
 
     @Override
+    @Transactional
     public void createProductShippingInfo(ProductShippingInfoDTO productShippingInfoDTO) {
 
         Product product  = productRepo.findById(productShippingInfoDTO.getProductId())
                 .orElseThrow(() -> new RuntimeException("Product does not found"));
 
-        ShippingType shippingType = shippingTypeRepo.findById(productShippingInfoDTO.getShippingTypeId())
-                .orElseThrow(() -> new RuntimeException("Shipping type does not found"));
 
         // check product owned by shop
         if (product.getShop().getId() != productShippingInfoDTO.getShopId())
             throw new RuntimeException("Invalid shop");
 
-        ProductShippingType productShippingType = ProductShippingType
-                .builder()
-                .product(product)
-                .shippingType(shippingType)
-                .height(productShippingInfoDTO.getHeight())
-                .width(productShippingInfoDTO.getWidth())
-                .high(productShippingInfoDTO.getHigh())
-                .weight(productShippingInfoDTO.getWeight())
-                .build();
 
-        productShippingTypeRepo.save(productShippingType);
+        // save packed product shipping info
+        product.setHeight(productShippingInfoDTO.getHeight());
+        product.setWeight(productShippingInfoDTO.getWeight());
+        product.setHigh(productShippingInfoDTO.getHigh());
+        product.setWidth(productShippingInfoDTO.getWidth());
 
+        productRepo.save(product);
+
+        // product shipping type
+        for (Long shippingTypeId : productShippingInfoDTO.getShippingTypeIds()) {
+            ShippingType shippingType = shippingTypeRepo.findById(shippingTypeId).orElseThrow(
+                    () -> new RuntimeException("Shipping type does not found")
+            );
+            ProductShippingType productShippingType = new ProductShippingType();
+            productShippingType.setProduct(product);
+            productShippingType.setShippingType(shippingType);
+            productShippingTypeRepo.save(productShippingType);
+        }
 
     }
 }

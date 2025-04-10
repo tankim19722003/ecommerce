@@ -33,6 +33,7 @@ public class ProductShippingController {
     }
 
 
+    @PostMapping("/create_product_shipping_type")
     public ResponseEntity<?> createProductShippingType(
             @RequestBody ProductShippingInfoDTO productShippingInfoDTO
     ) {

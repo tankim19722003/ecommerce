@@ -280,6 +280,8 @@ public class SecurityConfig {
                             .requestMatchers(POST,
                                     String.format("%s/product_shipping/calculate_each_shipping_type_fee", apiPrefix)).hasRole(Role.SHOP)
 
+                            .requestMatchers(POST,
+                                    String.format("%s/product_shipping/create_product_shipping_type", apiPrefix)).hasRole(Role.SHOP)
                             .anyRequest().authenticated();
 
                     }

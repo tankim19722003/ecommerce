@@ -1,6 +1,5 @@
 package ecommerce.example.ecommerce.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,11 +36,24 @@ public class Product {
     @Column(name = "total_sold")
     private Integer totalSold;
 
-    @JsonProperty("thumbnail_url")
+    @Column(name = "thumbnail_url")
     private String thumbnailUrl;
 
-    @JsonProperty("thumbnail_public_id")
+    @Column(name ="thumbnail_public_id")
     private String thumbnailPublicId;
+
+    // shipping info
+    @Column(name = "height")
+    private Integer height;
+
+    @Column(name = "high")
+    private Integer high;
+
+    @Column(name = "width")
+    private Integer width;
+
+    @Column(name = "weight")
+    private Float weight;
 
     @ManyToOne(cascade = {CascadeType.REFRESH})
     @JoinColumn(name = "shop_id", nullable = false)

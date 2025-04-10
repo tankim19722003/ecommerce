@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "product_shipping_type",
+@Table(name = "product_shipping_types",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = {"product_id", "shipping_type_id"})
         })
@@ -23,22 +23,11 @@ public class ProductShippingType {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "shipping_type_id", nullable = false)
-    private ShippingType shippingType;
-
-    @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
-    @Column(name = "height")
-    private int height;
+    @ManyToOne
+    @JoinColumn(name = "shipping_type_id", nullable = false)
+    private ShippingType shippingType;
 
-    @Column(name = "width")
-    private int width;
-
-    @Column(name = "high")
-    private int high;
-
-    @Column(name = "weight")
-    private float weight;
 }
