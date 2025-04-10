@@ -15,9 +15,6 @@ import java.util.List;
 @Builder
 public class ProductShippingTypeResponse {
 
-    @JsonProperty("product_id")
-    private Long productId;
-
     @JsonProperty("shipping_types")
     private List<ShippingTypeResponse> shippingTypeResponses;
 

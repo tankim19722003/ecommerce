@@ -8,6 +8,8 @@ import ecommerce.example.ecommerce.dtos.ShippingFeeDTO;
 import ecommerce.example.ecommerce.models.Product;
 import ecommerce.example.ecommerce.models.ProductShippingType;
 import ecommerce.example.ecommerce.models.ShippingType;
+import ecommerce.example.ecommerce.responses.ProductCategoryResponse;
+import ecommerce.example.ecommerce.responses.ProductShippingTypeResponse;
 import ecommerce.example.ecommerce.responses.ShippingFeeResponse;
 import ecommerce.example.ecommerce.responses.ShippingTypeResponse;
 import ecommerce.example.ecommerce.services.ProductShippingService;
@@ -30,6 +32,7 @@ public class ProductShippingServiceImpl implements ProductShippingService {
     @Autowired
     private ProductShippingTypeRepo productShippingTypeRepo;
 
+
     @Override
     public List<ShippingFeeResponse> calculateShippingFee(ShippingFeeDTO shippingFeeDTO) {
 
@@ -37,7 +40,6 @@ public class ProductShippingServiceImpl implements ProductShippingService {
 
         float standardWeight = (float) (shippingFeeDTO.getHigh() * shippingFeeDTO.getHeight() * shippingFeeDTO.getHigh()) / 5000;
 
-        float price = 0;
         float calWeight = 0.0f;
 
         if (standardWeight < shippingFeeDTO.getWeight()) calWeight = shippingFeeDTO.getWeight();
@@ -124,5 +126,46 @@ public class ProductShippingServiceImpl implements ProductShippingService {
             productShippingTypeRepo.save(productShippingType);
         }
 
+    }
+
+    @Override
+    public List<ShippingTypeResponse> getProductShippingTypes(Long productId) {
+
+        List<ProductShippingType> productShippingTypes = productShippingTypeRepo.findAllByProductId(productId);
+
+        if (productShippingTypes != null) {
+
+            return productShippingTypes.stream()
+                    .map(productShippingType -> {
+                        // calculate shipping fee
+                        float calWeight = 0;
+                        float price = 0;
+                        float standardWeight = (float) (productShippingType.getProduct().getHigh() * productShippingType.getProduct().getHeight() * productShippingType.getProduct().getHigh()) / 5000;
+
+                        if (standardWeight < productShippingType.getProduct().getWeight())
+                            calWeight = productShippingType.getProduct().getWeight();
+                        else
+                            calWeight = standardWeight;
+
+                        if (calWeight < 1)
+                             price = productShippingType.getShippingType().getPrice();
+                        else
+                            price = calWeight * productShippingType.getShippingType().getPrice();
+
+
+
+                       return ShippingTypeResponse.builder()
+                               .id(productShippingType.getShippingType().getId())
+                               .name(productShippingType.getShippingType().getName())
+                               .description(productShippingType.getShippingType().getDescription())
+                               .price(price)
+                               .estimatedTime(productShippingType.getShippingType().getEstimatedTime())
+                               .build();
+
+                    }).toList();
+
+        }
+
+        return null;
     }
 }

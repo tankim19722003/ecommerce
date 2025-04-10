@@ -19,7 +19,7 @@ public class ShippingTypeResponse {
     private String name;
 
     @JsonProperty("price")
-    private int price;
+    private float price;
 
     @JsonProperty("description")
     private String description;

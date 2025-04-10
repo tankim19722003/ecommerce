@@ -36,5 +36,5 @@ public class ProductDetailResponse {
 
     // shipping response
     @JsonProperty("product_shipping_type_responses")
-    private List<ShippingTypeResponse> productShippingTypeResponse;
+    private List<ShippingTypeResponse> shippingTypeResponses;
 }
