@@ -35,9 +35,6 @@ public class OrderServiceImpl implements OrderService {
         UserVillage userVillage = userVillageRepo.findById(orderDTO.getUserVillageId())
                 .orElseThrow(() -> new RuntimeException("Invalid Address"));
 
-//        ShippingType shippingType = shippingTypesRepo.findById(orderDTO.getShippingTypeId())
-//                .orElseThrow(() ->  new RuntimeException("Shipping type does not found"));
-
         Order order = new Order();
         order.setUser(user);
 //        order.setShippingType(shippingType);

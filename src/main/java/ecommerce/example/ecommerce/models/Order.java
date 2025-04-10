@@ -58,9 +58,13 @@ public class Order {
     @JoinColumn(name = "shipping_provider_id")
     private ShippingProvider shippingProvider;
 
+//    @ManyToOne
+//    @JoinColumn(name = "shipping_type_id")
+//    private ShippingType shippingType;
+
     @ManyToOne
-    @JoinColumn(name = "shipping_type_id")
-    private ShippingType shippingType;
+    @JoinColumn(name = "product_shipping_type_id")
+    private ProductShippingType productShippingType;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "order")
     private List<OrderDetail> orderDetails;

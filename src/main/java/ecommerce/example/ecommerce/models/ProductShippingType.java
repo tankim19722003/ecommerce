@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "product_shipping_types",
         uniqueConstraints = {
@@ -30,4 +32,6 @@ public class ProductShippingType {
     @JoinColumn(name = "shipping_type_id", nullable = false)
     private ShippingType shippingType;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product_shipping_type")
+    private List<Order> orders;
 }
