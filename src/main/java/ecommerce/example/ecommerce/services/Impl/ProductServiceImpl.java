@@ -81,7 +81,16 @@ public class ProductServiceImpl implements ProductService {
                     .avatarUrl(product.getThumbnailUrl())
                     .build();
 
-            productKeywordResponse.setImageResponse(imageResponse);
+            productKeywordResponse.setThumbnailResponse(imageResponse);
+
+            // get price
+            List<ProductCategoryGroup> productCategoryGroups = product.getProductCategoryGroup();
+
+            if (productCategoryGroups.size() == 2) {
+//                List<SubProductCategory> subProductCategories = productCategoryGroups.getLast().getProductCategories().get;
+            } else {
+
+            }
             productKeywordResponses.add(productKeywordResponse);
         }
 
@@ -276,6 +285,8 @@ public class ProductServiceImpl implements ProductService {
 
         // product basic info
         ProductDetailResponse productDetailResponse = new ProductDetailResponse();
+
+        productDetailResponse.setShopId(product.getShop().getId());
 
         ProductBasicInfoResponse productBasicInfoResponse = new ProductBasicInfoResponse();
         productBasicInfoResponse.setProductId(product.getId());

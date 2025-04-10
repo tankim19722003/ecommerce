@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -18,6 +20,21 @@ public class ProductKeywordResponse {
     @JsonProperty("name")
     private String name;
 
-    @JsonProperty("image_response")
-    private ImageResponse imageResponse;
+    @JsonProperty("price")
+    private int price;
+
+    @JsonProperty("rating")
+    private float rating;
+
+    @JsonProperty("total_sold")
+    private int totalSold;
+
+    @JsonProperty("voucher_responses")
+    private List<VoucherResponse> voucherResponses;
+
+    @JsonProperty("product_discount")
+    private int productDiscount;
+
+    @JsonProperty("thumbnail_response")
+    private ImageResponse thumbnailResponse;
 }
