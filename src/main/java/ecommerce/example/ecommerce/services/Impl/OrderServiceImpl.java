@@ -13,6 +13,8 @@ import ecommerce.example.ecommerce.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class OrderServiceImpl implements OrderService {
 
@@ -34,12 +36,18 @@ public class OrderServiceImpl implements OrderService {
         UserVillage userVillage = userVillageRepo.findById(orderDTO.getUserVillageId())
                 .orElseThrow(() -> new RuntimeException("Invalid Address"));
 
-        ShippingType shippingType = shippingTypesRepo.findById(orderDTO.getShippingTypeId())
-                .orElseThrow(() ->  new RuntimeException("Shipping type does not found"));
+//        ShippingType shippingType = shippingTypesRepo.findById(orderDTO.getShippingTypeId())
+//                .orElseThrow(() ->  new RuntimeException("Shipping type does not found"));
 
         Order order = new Order();
         order.setUser(user);
-//        order.setUs
+//        order.setShippingType(shippingType);
+        order.setOrderDate(LocalDateTime.now());
+        order.setDiscountPercent(order.getDiscountPercent());
         return null;
+
+
+        // set after save order
+//        order.setUserVillageOrder();
     }
 }

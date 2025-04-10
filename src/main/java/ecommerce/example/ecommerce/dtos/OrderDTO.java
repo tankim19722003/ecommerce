@@ -27,8 +27,8 @@ public class OrderDTO {
     @JsonProperty("product_id")
     private Long productId;
 
-    @JsonProperty("shipping_type_id")
-    private Long shippingTypeId;
+    @JsonProperty("product_shipping_type_id")
+    private Long productShippingTypeId;
 
     @JsonProperty("quantity")
     private Integer quantity;

@@ -32,10 +32,6 @@ public class Village {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "village")
     private List<UserVillage> userVillages;
 
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "village")
-//    private List<Order> orders;
-
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "village")
     private List<ShopAddress> shopAddress;
 
@@ -44,6 +40,9 @@ public class Village {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "village")
     private List<SupplierAddress> supplierAddresses;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "village")
+    private List<UserVillageOrder> userVillageOrders;
 
     public AddressResponse toAddressResponse() {
         AddressResponse addressResponse = new AddressResponse();

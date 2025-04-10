@@ -253,13 +253,6 @@ public class SecurityConfig {
                                     String.format("%s/shipping_type", apiPrefix)).permitAll()
 
 
-                            // product shipping type
-                            .requestMatchers(POST,
-                                    String.format("%s/product_shipping_type", apiPrefix)).hasRole(Role.SHOP)
-
-                            .requestMatchers(GET,
-                                    String.format("%s/product_shipping_type/**", apiPrefix)).permitAll()
-
                             // product category
                             .requestMatchers(POST,
                                     String.format("%s/product_category/add_multiple/one_level/**", apiPrefix)).hasRole(Role.SHOP)
@@ -282,6 +275,10 @@ public class SecurityConfig {
 
                             .requestMatchers(PUT,
                                     String.format("%s/voucher/**", apiPrefix)).hasRole(Role.SHOP)
+
+                            // product shipping type
+                            .requestMatchers(POST,
+                                    String.format("%s/product_shipping/calculate_each_shipping_type_fee", apiPrefix)).hasRole(Role.SHOP)
 
                             .anyRequest().authenticated();
 

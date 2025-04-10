@@ -39,4 +39,6 @@ public class ShippingType {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "shippingType")
     private List<ProductShippingType> productShippingTypes;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "shippingType")
+    private List<Order> orders;
 }

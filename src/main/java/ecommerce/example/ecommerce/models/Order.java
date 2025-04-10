@@ -31,8 +31,8 @@ public class Order {
     @Column(name = "payment_status")
     private String paymentStatus;
 
-    @Column(name = "discount_amount")
-    private int discountAmount;
+    @Column(name = "discount_percent")
+    private int discountPercent;
 
     @Column(name = "shipping_address")
     private String shippingAddress;
@@ -58,6 +58,10 @@ public class Order {
     @JoinColumn(name = "shipping_provider_id")
     private ShippingProvider shippingProvider;
 
+    @ManyToOne
+    @JoinColumn(name = "shipping_type_id")
+    private ShippingType shippingType;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "order")
     private List<OrderDetail> orderDetails;
 
@@ -65,8 +69,8 @@ public class Order {
     @JoinColumn(name = "user_address_id")
     private UserVillage userVillage;
 
-//    @ManyToOne
-//    @JoinColumn(name = "village_id")
-//    private Village village;
+    @OneToOne
+    @JoinColumn(name = "user_village_order_id")
+    private UserVillageOrder userVillageOrder;
 
 }
