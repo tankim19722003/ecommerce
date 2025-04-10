@@ -29,4 +29,16 @@ public class ProductShippingType {
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
+
+    @Column(name = "height")
+    private int height;
+
+    @Column(name = "width")
+    private int width;
+
+    @Column(name = "high")
+    private int high;
+
+    @Column(name = "weight")
+    private float weight;
 }

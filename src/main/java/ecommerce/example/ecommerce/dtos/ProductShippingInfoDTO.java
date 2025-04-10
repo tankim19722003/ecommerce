@@ -11,9 +11,12 @@ import lombok.NoArgsConstructor;
 public class ProductShippingInfoDTO extends ShippingFeeDTO{
 
     @JsonProperty("shop_id")
-    private int shopId;
+    private Long shopId;
 
     @JsonProperty("product_id")
-    private int productId;
+    private Long productId;
+
+    @JsonProperty("shipping_type_id")
+    private Long shippingTypeId;
 
 }

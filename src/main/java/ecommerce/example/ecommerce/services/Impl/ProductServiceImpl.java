@@ -63,8 +63,9 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductAttributeValueService productAttributeValueService;
 
+    // need to modify
     @Autowired
-    private ProductShippingTypeService productShippingTypeService;
+    private ProductShippingService productShippingTypeService;
 
     @Override
     public ProductKeywordPageResponse getProductsByKeyWord(PageRequest pageRequest, String keyword) {
@@ -315,10 +316,10 @@ public class ProductServiceImpl implements ProductService {
         List<ProductAttributeValueResponse> productAttributeValueResponses = productAttributeValueService.getAllProductAttributeValue(productId);
         productDetailResponse.setProductAttributeValueResponses(productAttributeValueResponses);
 
-        // shipping
-        ProductShippingTypeResponse productShippingTypeResponse = productShippingTypeService.getAllProductShipping(productId);
-        if (productShippingTypeResponse != null)
-        productDetailResponse.setProductShippingTypeResponse(productShippingTypeResponse.getShippingTypeResponses());
+//        // shipping
+//        ProductShippingTypeResponse productShippingTypeResponse = productShippingTypeService.getAllProductShipping(productId);
+//        if (productShippingTypeResponse != null)
+//        productDetailResponse.setProductShippingTypeResponse(productShippingTypeResponse.getShippingTypeResponses());
 
         return productDetailResponse;
     }

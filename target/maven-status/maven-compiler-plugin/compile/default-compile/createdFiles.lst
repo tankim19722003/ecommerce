@@ -91,7 +91,6 @@ ecommerce\example\ecommerce\dtos\ProductCreatingDTO$ProductCreatingDTOBuilder.cl
 ecommerce\example\ecommerce\models\ShopAddress.class
 ecommerce\example\ecommerce\models\UserVillageOrder.class
 ecommerce\example\ecommerce\Repo\CategoryRepo.class
-ecommerce\example\ecommerce\Repo\ProductShippingTypesRepo.class
 ecommerce\example\ecommerce\responses\AttributeValueImageResponse.class
 ecommerce\example\ecommerce\services\Impl\CategoryServiceImpl.class
 ecommerce\example\ecommerce\responses\ProductImageListResponse.class
@@ -130,6 +129,7 @@ ecommerce\example\ecommerce\controllers\ProductAttributeValueController.class
 ecommerce\example\ecommerce\responses\ProductCategoryTwoLevelResponse.class
 ecommerce\example\ecommerce\Exceptions\ValidationException.class
 ecommerce\example\ecommerce\responses\DistrictResponse.class
+ecommerce\example\ecommerce\Repo\ShippingTypeRepo.class
 ecommerce\example\ecommerce\config\JwtFilter.class
 ecommerce\example\ecommerce\dtos\SubcategoryAttributeDTO$SubcategoryAttributeDTOBuilder.class
 ecommerce\example\ecommerce\responses\QuantityResponse.class
@@ -171,14 +171,12 @@ ecommerce\example\ecommerce\dtos\QuantityDTOList$QuantityDTOListBuilder.class
 ecommerce\example\ecommerce\responses\UserVillageResponse$UserVillageResponseBuilder.class
 ecommerce\example\ecommerce\services\Impl\UserServiceImpl.class
 ecommerce\example\ecommerce\dtos\SubCategoryDTO$SubCategoryDTOBuilder.class
-ecommerce\example\ecommerce\services\ProductShippingTypeService.class
 ecommerce\example\ecommerce\models\UserVillage$UserVillageBuilder.class
 ecommerce\example\ecommerce\services\Impl\ProductServiceImpl.class
 ecommerce\example\ecommerce\controllers\UserCodeController.class
 ecommerce\example\ecommerce\Repo\ProductImageRepo.class
 ecommerce\example\ecommerce\Repo\ProductShippingTypeRepo.class
 ecommerce\example\ecommerce\services\Impl\AttributeServiceImpl.class
-ecommerce\example\ecommerce\Repo\ShippingTypesRepo.class
 ecommerce\example\ecommerce\controllers\ProductImageController.class
 ecommerce\example\ecommerce\models\SubProductCategory$SubProductCategoryBuilder.class
 ecommerce\example\ecommerce\Repo\ProvinceRepo.class
@@ -285,7 +283,6 @@ ecommerce\example\ecommerce\responses\ProductBasicInfoResponse$ProductBasicInfoR
 ecommerce\example\ecommerce\services\UserVillageService.class
 ecommerce\example\ecommerce\models\UserVillageOrder$UserVillageOrderBuilder.class
 ecommerce\example\ecommerce\responses\SubCategoryResponse$SubCategoryResponseBuilder.class
-ecommerce\example\ecommerce\services\Impl\ProductShippingTypeServiceImpl.class
 ecommerce\example\ecommerce\services\Impl\ValidataDataService.class
 ecommerce\example\ecommerce\responses\CategoryResponse.class
 ecommerce\example\ecommerce\services\CategoryService.class

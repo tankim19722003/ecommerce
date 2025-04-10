@@ -1,6 +1,6 @@
 package ecommerce.example.ecommerce.services.Impl;
 
-import ecommerce.example.ecommerce.Repo.ShippingTypesRepo;
+import ecommerce.example.ecommerce.Repo.ShippingTypeRepo;
 import ecommerce.example.ecommerce.models.ShippingType;
 import ecommerce.example.ecommerce.responses.ShippingTypeResponse;
 import ecommerce.example.ecommerce.services.ShippingTypeService;
@@ -14,7 +14,7 @@ import java.util.List;
 public class ShippingTypeServiceImpl implements ShippingTypeService {
 
     @Autowired
-    private ShippingTypesRepo shippingTypesRepo;
+    private ShippingTypeRepo shippingTypesRepo;
 
     @Autowired
     private ModelMapper mapper;
