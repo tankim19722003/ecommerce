@@ -1,14 +1,9 @@
 package ecommerce.example.ecommerce.services.Impl;
 
-import ecommerce.example.ecommerce.Repo.ProductShippingTypeRepo;
-import ecommerce.example.ecommerce.Repo.ShippingTypeRepo;
-import ecommerce.example.ecommerce.Repo.UserRepo;
-import ecommerce.example.ecommerce.Repo.UserVillageRepo;
+import ecommerce.example.ecommerce.Repo.*;
 import ecommerce.example.ecommerce.dtos.OrderDTO;
-import ecommerce.example.ecommerce.models.Order;
-import ecommerce.example.ecommerce.models.ProductShippingType;
-import ecommerce.example.ecommerce.models.User;
-import ecommerce.example.ecommerce.models.UserVillage;
+import ecommerce.example.ecommerce.dtos.OrderDetailDTO;
+import ecommerce.example.ecommerce.models.*;
 import ecommerce.example.ecommerce.responses.OrderResponse;
 import ecommerce.example.ecommerce.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +26,12 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private ProductShippingTypeRepo productShippingTypeRepo;
 
+    @Autowired
+    private OrderRepo orderRepo;
+
+    @Autowired
+    private UserVillageOrderRepo userVillageOrderRepo;
+
 
     @Override
     public OrderResponse createOrder(OrderDTO orderDTO) {
@@ -46,11 +47,35 @@ public class OrderServiceImpl implements OrderService {
 
 
 
+        // create order
         Order order = new Order();
         order.setUser(user);
-//        order.setShippingType(shippingType);
+        order.setStatus(Order.PENDING);
+        order.setProductShippingType(productShippingType);
+        order.setPhoneNumber(userVillage.getPhoneNumber());
+        order.setReceiverName(userVillage.getReceiverName());
+        order.setNotes(order.getNotes());
+        order.setExpectedReceiveDate(LocalDateTime.now().plusDays(productShippingType.getShippingType().getEstimatedTime()));
         order.setOrderDate(LocalDateTime.now());
         order.setDiscountPercent(order.getDiscountPercent());
+
+        orderRepo.save(order);
+
+        // create address for order
+        UserVillageOrder userVillageOrder = new UserVillageOrder();
+        userVillageOrder.setOrder(order);
+        userVillageOrder.setVillage(userVillage.getVillage());
+        userVillageOrder.setSpecificAddress(userVillageOrder.getSpecificAddress());
+
+        userVillageOrderRepo.save(userVillageOrder);
+
+        // save order detail
+//        for (OrderDetailDTO orderDetailDTO : orderDTO.getOrderDetailDTOs()) {
+//
+//        }
+
+
+
         return null;
 
 

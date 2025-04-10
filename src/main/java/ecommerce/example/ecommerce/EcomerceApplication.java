@@ -379,12 +379,12 @@ public class EcomerceApplication {
 		order.setOrderDate(LocalDateTime.now());
 		order.setTotalPrice(500);
 		order.setPaymentMethod("Credit Card");
-		order.setPaymentStatus("Paid");
+//		order.setPaymentStatus("Paid");
 //		order.setDiscountAmount(50);
-		order.setShippingAddress("123 Main St, City, Country");
+//		order.setShippingAddress("123 Main St, City, Country");
 		order.setNotes("Deliver between 9 AM - 5 PM");
 //		order.setCouponCode("DISCOUNT50");
-		order.setExpectedReceiveDate(LocalDate.now().plusDays(5));
+//		order.setExpectedReceiveDate(LocalDate.now().plusDays(5));
 
 		// get user
 		long userId = 2;

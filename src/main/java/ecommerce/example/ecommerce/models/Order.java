@@ -1,5 +1,6 @@
 package ecommerce.example.ecommerce.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,6 +16,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Order {
+
+    public static final String PENDING = "PENDING";
+    public static final String PACKING = "PACKING";
+    public static final String SHIPPING = "SHIPPING";
+    public static final String COMPLETED = "COMPLETED";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,24 +35,20 @@ public class Order {
     @Column(name = "payment_method")
     private String paymentMethod;
 
-    @Column(name = "payment_status")
-    private String paymentStatus;
+    @JsonProperty("status")
+    private String status;
 
     @Column(name = "discount_percent")
     private int discountPercent;
-
-    @Column(name = "shipping_address")
-    private String shippingAddress;
-
 
     @Column(name = "notes")
     private String notes;
 
     @Column(name = "expected_receive_date")
-    private LocalDate expectedReceiveDate;
+    private LocalDateTime expectedReceiveDate;
 
-    @Column(name = "specific_address")
-    private String specificAddress;
+    @JsonProperty("receiver_name")
+    private String receiverName;
 
     @Column(name = "phone_number")
     private String phoneNumber;
