@@ -15,6 +15,9 @@ import java.util.List;
 @Data
 public class CartItemResponse {
 
+    @JsonProperty("cart_item_id")
+    private Long cartItemId;
+
     @JsonProperty("product_id")
     private Long productId;
 

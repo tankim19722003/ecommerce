@@ -170,7 +170,6 @@ ecommerce\example\ecommerce\responses\ParentProductCategoryResponse.class
 ecommerce\example\ecommerce\models\Shop.class
 ecommerce\example\ecommerce\responses\ProductCategoryOneLevelResponse$ProductCategoryOneLevelResponseBuilder.class
 ecommerce\example\ecommerce\responses\ProductShippingTypeResponse$ProductShippingTypeResponseBuilder.class
-ecommerce\example\ecommerce\responses\ShopResponse$ShopResponseBuilder.class
 ecommerce\example\ecommerce\controllers\ShopController.class
 ecommerce\example\ecommerce\dtos\QuantityDTOList$QuantityDTOListBuilder.class
 ecommerce\example\ecommerce\responses\UserVillageResponse$UserVillageResponseBuilder.class
@@ -236,6 +235,7 @@ ecommerce\example\ecommerce\controllers\UserController.class
 ecommerce\example\ecommerce\responses\UserAddressResponse.class
 ecommerce\example\ecommerce\models\SubProductCategory.class
 ecommerce\example\ecommerce\models\Village$VillageBuilder.class
+ecommerce\example\ecommerce\responses\ShopBasicInfoResponse.class
 ecommerce\example\ecommerce\services\Impl\ProductImageServiceImpl.class
 ecommerce\example\ecommerce\dtos\CategoryDTO.class
 ecommerce\example\ecommerce\dtos\ShopDTO$ShopDTOBuilder.class
@@ -274,6 +274,7 @@ ecommerce\example\ecommerce\responses\VoucherResponse$VoucherResponseBuilder.cla
 ecommerce\example\ecommerce\Repo\UserRepo.class
 ecommerce\example\ecommerce\config\ModelMapperConfig.class
 ecommerce\example\ecommerce\models\Province$ProvinceBuilder.class
+ecommerce\example\ecommerce\responses\ShopBasicInfoResponse$ShopBasicInfoResponseBuilder.class
 ecommerce\example\ecommerce\Repo\SubcategoryAttributeRepo.class
 ecommerce\example\ecommerce\models\ShopBanned.class
 ecommerce\example\ecommerce\models\District.class

@@ -60,4 +60,43 @@ public class CartController {
         }
 
     }
+
+    @PutMapping("")
+    public ResponseEntity<?> updateQuantityOfCartItem(
+            @RequestBody  CartItemUpdatingDTO cartItemUpdatingDTO
+    ) {
+
+        try {
+            ownerService.checkValidUser(cartItemUpdatingDTO.getUserId());
+            CartItemResponse cartItemResponse = cartService.updateQuantityOfCartItem(cartItemUpdatingDTO);
+            return ResponseEntity.ok(cartItemResponse);
+        } catch(Exception e) {
+            return ResponseEntity.badRequest()
+                    .body( EResponse.builder()
+                            .name("ERROR")
+                            .message(e.getMessage())
+                            .build());
+        }
+
+    }
+
+    @DeleteMapping("")
+    public ResponseEntity<?> deleteProductOfCartItem(
+            @RequestParam("userId") Long userId,
+            @RequestParam("cartItemId") Long cartItemId
+    ) {
+
+        try {
+            ownerService.checkValidUser(userId);
+            cartService.deleteProductOutOfCart(userId, cartItemId);
+            return ResponseEntity.noContent().build();
+        } catch(Exception e) {
+            return ResponseEntity.badRequest()
+                    .body( EResponse.builder()
+                            .name("ERROR")
+                            .message(e.getMessage())
+                            .build());
+        }
+
+    }
 }

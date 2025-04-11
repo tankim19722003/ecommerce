@@ -344,7 +344,18 @@ public class ProductServiceImpl implements ProductService {
         // product basic info
         ProductDetailResponse productDetailResponse = new ProductDetailResponse();
 
-        productDetailResponse.setShopId(product.getShop().getId());
+        // set shop response
+        ShopBasicInfoResponse shopBasicInfoResponse = mapper.map(product.getShop(), ShopBasicInfoResponse.class);
+        AddressResponse addressResponse = new AddressResponse();
+        addressResponse.setProvinceName(product.getShop().getVillage().getDistrict().getProvince().getName());
+        addressResponse.setProvinceId(product.getShop().getVillage().getDistrict().getProvince().getId());
+        addressResponse.setDistrictId(product.getShop().getVillage().getDistrict().getId());
+        addressResponse.setDistrictName(product.getShop().getVillage().getDistrict().getName());
+        addressResponse.setVillageId(product.getShop().getVillage().getId());
+        addressResponse.setVillageName(product.getShop().getVillage().getName());
+
+        shopBasicInfoResponse.setAddressResponse(addressResponse);
+        productDetailResponse.setShopResponse(shopBasicInfoResponse);
 
         ProductBasicInfoResponse productBasicInfoResponse = new ProductBasicInfoResponse();
         productBasicInfoResponse.setProductId(product.getId());

@@ -14,5 +14,5 @@ public interface CartService {
 
     CartItemResponse updateQuantityOfCartItem(CartItemUpdatingDTO cartItemUpdatingDTO);
 
-    void deleteProductOutOfCart(Long userId, Long productId);
+    void deleteProductOutOfCart(Long userId, Long cartItemId);
 }

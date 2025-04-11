@@ -15,8 +15,9 @@ import java.util.List;
 public class ProductDetailResponse {
 
     // shop id
-    @JsonProperty("shop_id")
-    private Long shopId;
+    @JsonProperty("shop_response")
+    private ShopBasicInfoResponse shopResponse;
+
     // product Basic info done
     @JsonProperty("product_basic_info")
     private ProductBasicInfoResponse productBasicInfo;
