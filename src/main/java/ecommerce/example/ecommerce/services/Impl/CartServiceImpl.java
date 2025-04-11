@@ -5,6 +5,7 @@ import ecommerce.example.ecommerce.dtos.CartDTO;
 import ecommerce.example.ecommerce.dtos.CartItemUpdatingDTO;
 import ecommerce.example.ecommerce.models.*;
 import ecommerce.example.ecommerce.responses.CartItemResponse;
+import ecommerce.example.ecommerce.responses.ImageResponse;
 import ecommerce.example.ecommerce.responses.ProductDiscountResponse;
 import ecommerce.example.ecommerce.responses.VoucherResponse;
 import ecommerce.example.ecommerce.services.CartService;
@@ -42,6 +43,15 @@ public class CartServiceImpl implements CartService {
     @Override
     public void addProductToCart(CartDTO cartDTO) {
 
+        // check is product existing in cart
+        int productExistingInCart = cartItemRepo.isProductExistingInCart(
+                cartDTO.getUserId(), cartDTO.getProductId(), cartDTO.getProductCategoryId(), cartDTO.getProductSubcategoryId()
+        );
+
+        if (productExistingInCart > 0) throw new RuntimeException("Product is existing in cart!");
+
+        CartItem cartItem = new CartItem();
+
         User user = userRepo.findById(cartDTO.getUserId())
                 .orElseThrow(() -> new RuntimeException("User does not found"));
 
@@ -52,19 +62,18 @@ public class CartServiceImpl implements CartService {
                 .findById(cartDTO.getProductCategoryId())
                 .orElse(null);
 
-        SubProductCategory subProductCategory =  new SubProductCategory();
         if (cartDTO.getProductSubcategoryId() != null) {
-            subProductCategory = subProductCategoryRepo
+            SubProductCategory subProductCategory = subProductCategoryRepo
                     .findById(cartDTO.getProductSubcategoryId())
                     .orElse(null);
+            cartItem.setSubProductCategory(subProductCategory);
+
         }
 
-        CartItem cartItem = new CartItem();
 
         cartItem.setProduct(product);
         cartItem.setUser(user);
         cartItem.setProductCategory(productCategory);
-        cartItem.setSubProductCategory(subProductCategory);
         cartItem.setQuantity(cartDTO.getQuantity());
 
         cartItemRepo.save(cartItem);
@@ -86,9 +95,28 @@ public class CartServiceImpl implements CartService {
                        // set price
                        int price = 0;
                        int stockQuantity = 0;
+
+                       // set product category for cart item
+                       if (cartItem.getProductCategory() != null) {
+                           cartItemResponse.setProductCategoryId(cartItem.getProductCategory().getId());
+                           cartItemResponse.setProductCategoryName(cartItem.getProductCategory().getValue());
+
+                           ImageResponse productCartImage = ImageResponse.builder()
+                                   .publicId(cartItem.getProductCategory().getPublicId())
+                                   .avatarUrl(cartItem.getProductCategory().getImageUrl())
+                                   .build();
+
+                           cartItemResponse.setProductCategoryImage(productCartImage);
+                       }
+
                        if (cartItem.getSubProductCategory() != null) {
                            price = cartItem.getSubProductCategory().getPrice() * cartItem.getQuantity();
                            stockQuantity = cartItem.getSubProductCategory().getQuantity();
+
+                           // set subcategory
+                           cartItemResponse.setSubcategoryId(cartItem.getSubProductCategory().getId());
+                           cartItemResponse.setSubcategoryName(cartItem.getSubProductCategory().getName());
+
                        } else {
                            price = cartItem.getProductCategory().getPrice() * cartItem.getQuantity();
                            stockQuantity = cartItem.getProductCategory().getQuantity();
@@ -119,6 +147,8 @@ public class CartServiceImpl implements CartService {
                                         .builder()
                                         .id(voucher.getId())
                                         .code(voucher.getCode())
+                                        .description(voucher.getDescription())
+                                        .startDate(voucher.getStartDate())
                                         .minimumOrderValue(voucher.getMinimumOrderValue())
                                         .discountPercent(voucher.getDiscountPercent())
                                         .endDate(voucher.getStartDate())

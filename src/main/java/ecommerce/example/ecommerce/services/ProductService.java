@@ -4,7 +4,6 @@ import ecommerce.example.ecommerce.dtos.ProductCreatingDTO;
 import ecommerce.example.ecommerce.dtos.QuantityDTO;
 import ecommerce.example.ecommerce.responses.*;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 

@@ -140,7 +140,8 @@ public class ProductServiceImpl implements ProductService {
 
             // product discount
             Optional<ProductDiscount> productDiscountOptional = productDiscountRepo
-                    .findByDateStartLessThanEqualAndDateEndGreaterThanEqual(LocalDateTime.now(), LocalDateTime.now());
+                    .findByProductId(product.getId(), LocalDateTime.now());
+
 
             ProductDiscountResponse productDiscountResponse = new ProductDiscountResponse();
             if (productDiscountOptional.isPresent()) {
@@ -289,7 +290,8 @@ public class ProductServiceImpl implements ProductService {
 
             // product discount
             LocalDateTime now = LocalDateTime.now();
-            ProductDiscount productDiscount = productDiscountRepo.findByDateStartLessThanEqualAndDateEndGreaterThanEqual(LocalDateTime.now(), LocalDateTime.now()).orElse(null);
+            ProductDiscount productDiscount = productDiscountRepo.findByProductId(product.getId(), LocalDateTime.now())
+                    .orElse(null);
 
             if (productDiscount != null) {
                 ProductDiscountResponse productDiscountResponse = new ProductDiscountResponse();

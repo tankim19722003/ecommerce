@@ -310,6 +310,7 @@ ecommerce\example\ecommerce\dtos\MultipleProductCategoryDTO$MultipleProductCateg
 ecommerce\example\ecommerce\dtos\OrderDTO$OrderDTOBuilder.class
 ecommerce\example\ecommerce\dtos\ProductAttributeValueDTO$ProductAttributeValueDTOBuilder.class
 ecommerce\example\ecommerce\models\Voucher$VoucherBuilder.class
+ecommerce\example\ecommerce\controllers\CartController.class
 ecommerce\example\ecommerce\dtos\SubcategoryAttributeDTO.class
 ecommerce\example\ecommerce\services\Impl\ShopCodeServiceImpl.class
 ecommerce\example\ecommerce\services\ProductShippingService.class

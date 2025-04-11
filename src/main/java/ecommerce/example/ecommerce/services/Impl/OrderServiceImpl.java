@@ -135,7 +135,8 @@ public class OrderServiceImpl implements OrderService {
 
             // get discount
             Optional<ProductDiscount> productDiscount = productDiscountRepo
-                    .findByDateStartLessThanEqualAndDateEndGreaterThanEqual(LocalDateTime.now(), LocalDateTime.now());
+                    .findByProductId(orderDetail.getProduct().getId(), LocalDateTime.now());
+
 
             if (productDiscount.isPresent()) {
                 orderDetail.setDiscountPercent(productDiscount.get().getDiscountPercent());

@@ -286,6 +286,14 @@ public class SecurityConfig {
                             // order
                             .requestMatchers(POST,
                                     String.format("%s/order/**", apiPrefix)).hasRole(Role.USER)
+
+
+                            // Cart
+                            .requestMatchers(POST,
+                                    String.format("%s/cart/add_product_to_cart", apiPrefix)).hasRole(Role.USER)
+
+                            .requestMatchers(GET,
+                                    String.format("%s/cart/**", apiPrefix)).hasRole(Role.USER)
                             .anyRequest().authenticated();
 
                     }
