@@ -164,13 +164,13 @@ public class OrderServiceImpl implements OrderService {
                 orderDetailResponse.setProductSubCategoryId(subProductCategory.getId());
                 orderDetailResponse.setProductSubCategoryName(subProductCategory.getName());
 
-                subProductCategory.setQuantity(subProductCategory.getQuantity() - 1);
+                subProductCategory.setQuantity(subProductCategory.getQuantity() - orderDetailDTO.getQuantity());
                 subProductCategoryRepo.save(subProductCategory);
 
             } else {
                 orderDetail.setPrice(productCategory.getPrice());
                 totalPrice += productCategory.getPrice() * orderDetail.getQuantity();
-                productCategory.setQuantity(productCategory.getQuantity() - 1);
+                productCategory.setQuantity(productCategory.getQuantity() - orderDetailDTO.getQuantity());
                 productCategoryRepo.save(productCategory);
 
             }
