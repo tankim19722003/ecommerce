@@ -1,4 +1,5 @@
 ecommerce\example\ecommerce\services\ProductCategoryService.class
+ecommerce\example\ecommerce\dtos\CartDTO.class
 ecommerce\example\ecommerce\models\ShippingTypeProvider$ShippingTypeProviderBuilder.class
 ecommerce\example\ecommerce\models\SubCategory.class
 ecommerce\example\ecommerce\models\Category$CategoryBuilder.class
@@ -10,8 +11,10 @@ ecommerce\example\ecommerce\responses\AttributeSubIdResponse.class
 ecommerce\example\ecommerce\Repo\UserVillageRepo.class
 ecommerce\example\ecommerce\responses\ShippingTypeResponse$ShippingTypeResponseBuilder.class
 ecommerce\example\ecommerce\Repo\CategoryAttributeRepo.class
+ecommerce\example\ecommerce\services\CartService.class
 ecommerce\example\ecommerce\services\OrderService.class
 ecommerce\example\ecommerce\models\ProductCategoryGroup.class
+ecommerce\example\ecommerce\Repo\CartItemRepo.class
 ecommerce\example\ecommerce\services\Impl\SubcategoryAttributeServiceImpl.class
 ecommerce\example\ecommerce\services\ShippingTypeService.class
 ecommerce\example\ecommerce\controllers\ProductCategoryController.class
@@ -78,6 +81,8 @@ ecommerce\example\ecommerce\services\Impl\OrderServiceImpl.class
 ecommerce\example\ecommerce\models\SupplierAddress.class
 ecommerce\example\ecommerce\responses\ImageResponse$ImageResponseBuilder.class
 ecommerce\example\ecommerce\responses\ProductDetailResponse.class
+ecommerce\example\ecommerce\dtos\CartDTO$CartDTOBuilder.class
+ecommerce\example\ecommerce\dtos\CartItemUpdatingDTO.class
 ecommerce\example\ecommerce\services\Impl\VoucherServiceImpl.class
 ecommerce\example\ecommerce\responses\ChildProductCategoryResponse.class
 ecommerce\example\ecommerce\responses\ProductKeywordPageResponse$ProductKeywordPageResponseBuilder.class
@@ -170,6 +175,7 @@ ecommerce\example\ecommerce\controllers\ShopController.class
 ecommerce\example\ecommerce\dtos\QuantityDTOList$QuantityDTOListBuilder.class
 ecommerce\example\ecommerce\responses\UserVillageResponse$UserVillageResponseBuilder.class
 ecommerce\example\ecommerce\services\Impl\UserServiceImpl.class
+ecommerce\example\ecommerce\responses\CartItemResponse.class
 ecommerce\example\ecommerce\dtos\SubCategoryDTO$SubCategoryDTOBuilder.class
 ecommerce\example\ecommerce\models\UserVillage$UserVillageBuilder.class
 ecommerce\example\ecommerce\services\Impl\ProductServiceImpl.class
@@ -261,6 +267,7 @@ ecommerce\example\ecommerce\Repo\CodePurposeRepo.class
 ecommerce\example\ecommerce\responses\ProductKeywordPageResponse.class
 ecommerce\example\ecommerce\models\Role.class
 ecommerce\example\ecommerce\controllers\OrderController.class
+ecommerce\example\ecommerce\responses\CartItemResponse$CartItemResponseBuilder.class
 ecommerce\example\ecommerce\responses\CategoryResponse$CategoryResponseBuilder.class
 ecommerce\example\ecommerce\dtos\AttributeDTO$AttributeDTOBuilder.class
 ecommerce\example\ecommerce\responses\VoucherResponse$VoucherResponseBuilder.class
@@ -290,6 +297,7 @@ ecommerce\example\ecommerce\services\CategoryService.class
 ecommerce\example\ecommerce\dtos\SubCategoryDTO.class
 ecommerce\example\ecommerce\dtos\ChildProductCategory.class
 ecommerce\example\ecommerce\dtos\ProductShippingTypeDTO$ProductShippingTypeDTOBuilder.class
+ecommerce\example\ecommerce\dtos\CartItemUpdatingDTO$CartItemUpdatingDTOBuilder.class
 ecommerce\example\ecommerce\models\ShippingType$ShippingTypeBuilder.class
 ecommerce\example\ecommerce\responses\UserUpdatedResponse.class
 ecommerce\example\ecommerce\models\ProductCategory.class
@@ -311,4 +319,5 @@ ecommerce\example\ecommerce\responses\ProductCategoryTwoLevelResponse$ProductCat
 ecommerce\example\ecommerce\dtos\OrderDetailDTO.class
 ecommerce\example\ecommerce\Repo\PaymentRepo.class
 ecommerce\example\ecommerce\models\UserCode$UserCodeBuilder.class
+ecommerce\example\ecommerce\services\Impl\CartServiceImpl.class
 ecommerce\example\ecommerce\dtos\UserRegisterDTO$UserRegisterDTOBuilder.class

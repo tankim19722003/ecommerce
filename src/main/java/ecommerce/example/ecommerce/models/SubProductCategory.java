@@ -41,4 +41,7 @@ public class SubProductCategory {
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "subProductCategory")
     private List<OrderDetail> OrderDetails;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "subProductCategory")
+    private List<CartItem> cartItems;
 }
