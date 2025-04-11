@@ -33,7 +33,7 @@ public class VoucherServiceImpl implements VoucherService {
     public List<VoucherResponse> getVouchersByShopId(Long shopId) {
 
         List<Voucher> vouchers = voucherRepo.
-                findValidVouchersByProductId(shopId, LocalDateTime.now());
+                findValidVouchersByShopId(shopId, LocalDateTime.now());
 
         if (!vouchers.isEmpty())
             return vouchers.stream()
@@ -54,6 +54,10 @@ public class VoucherServiceImpl implements VoucherService {
 
         if (voucherDTO.getStartDate().isAfter(voucherDTO.getEndDate()))
             throw new RuntimeException("Invalid date");
+
+        if (voucherDTO.getDiscountValue() > 100 || voucherDTO.getDiscountValue() < 0) {
+            throw new RuntimeException("Discount percent need greater than 0 and less than 100");
+        }
 
         Voucher voucher = Voucher.builder()
                 .startDate(voucherDTO.getStartDate())

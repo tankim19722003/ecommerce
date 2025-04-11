@@ -19,7 +19,7 @@ public class VoucherDTO {
     private String description;
 
     @JsonProperty("discount_value")
-    private Float discountValue;
+    private Integer discountValue;
 
     @JsonProperty("start_date")
     private LocalDateTime startDate;

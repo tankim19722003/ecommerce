@@ -26,14 +26,17 @@ public class ProductKeywordResponse {
     @JsonProperty("rating")
     private float rating;
 
+    @JsonProperty("discription")
+    private String description;
+
     @JsonProperty("total_sold")
     private int totalSold;
 
     @JsonProperty("voucher_responses")
     private List<VoucherResponse> voucherResponses;
 
-    @JsonProperty("product_discount")
-    private int productDiscount;
+    @JsonProperty("product_discount_response")
+    private ProductDiscountResponse productDiscountResponse;
 
     @JsonProperty("thumbnail_response")
     private ImageResponse thumbnailResponse;

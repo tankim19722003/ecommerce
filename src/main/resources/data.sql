@@ -388,15 +388,15 @@ VALUES
 --(7, 1, 7, 7, 3, 1, 3.4, 4, 3, '2025-04-10 18:56:46.299275', '2025-04-10 18:56:46.299275', 'JBL Tune 130NC TWS', 'jbl_tune_130nc.png', NULL, NULL);
 
 --
---INSERT INTO products (shop_id, sub_category_id, rating,created_at, updated_at, description, name)
---VALUES
---    (1, 1, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Fast performance with long battery life', 'Samsung Galaxy S23'),
---    (1, 2, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Latest Apple smartphone with advanced camera', 'iPhone 14 Pro Max'),
---    (1, 3, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Affordable smartphone with great features', 'Xiaomi Redmi Note 12'),
---    (1, 4, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Stylish and lightweight laptop', 'MacBook Air M2'),
---    (1, 5, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Powerful gaming laptop', 'Asus ROG Strix G15'),
---    (1, 6, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,  'Samsung 55-inch 4K Smart TV', 'samsung_55_4k_tv.png'),
---    (1, 7, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'JBL Tune 130NC TWS', 'jbl_tune_130nc.png');
+INSERT INTO products (shop_id, sub_category_id, rating,created_at, updated_at, description, name)
+VALUES
+    (1, 1, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Fast performance with long battery life', 'Samsung Galaxy S23'),
+    (1, 2, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Latest Apple smartphone with advanced camera', 'iPhone 14 Pro Max'),
+    (1, 3, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Affordable smartphone with great features', 'Xiaomi Redmi Note 12'),
+    (1, 4, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Stylish and lightweight laptop', 'MacBook Air M2'),
+    (1, 5, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Powerful gaming laptop', 'Asus ROG Strix G15'),
+    (1, 6, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,  'Samsung 55-inch 4K Smart TV', 'samsung_55_4k_tv.png'),
+    (1, 7, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'JBL Tune 130NC TWS', 'jbl_tune_130nc.png');
 --   (1, 8, 4, 75, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Premium wireless noise-canceling headphones', 'Sony WH-1000XM5', 'sony_wh_1000xm5.png'),
 --    (1, 9, 5, 200, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Compact and feature-rich smartwatch', 'Apple Watch Series 9', 'apple_watch_series_9.png'),
 --    (1, 10, 1, 10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Basic fitness tracker with step counter', 'Xiaomi Mi Band 7', 'mi_band_7.png'),

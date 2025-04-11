@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -76,6 +77,11 @@ public class ProductServiceImpl implements ProductService {
 
         for (Product product : products.getContent()) {
             ProductKeywordResponse productKeywordResponse = mapper.map(product, ProductKeywordResponse.class);
+
+            // set discription
+            productKeywordResponse.setDescription(product.getDescription());
+
+            // set thumbnail
             ImageResponse imageResponse = ImageResponse.builder()
                     .publicId(product.getThumbnailPublicId())
                     .avatarUrl(product.getThumbnailUrl())
@@ -86,19 +92,74 @@ public class ProductServiceImpl implements ProductService {
             // get price
             List<ProductCategoryGroup> productCategoryGroups = product.getProductCategoryGroup();
 
-            if (productCategoryGroups.size() == 2) {
-//                List<SubProductCategory> subProductCategories = productCategoryGroups.getLast().getProductCategories().get;
-            } else {
-                int price = 1_000_000_000;
-                for (ProductCategory productCategory : productCategoryGroups.getFirst().getProductCategories()) {
-                    if (price > productCategory.getPrice())
-                        price = productCategory.getPrice();
+            if (!productCategoryGroups.isEmpty()) {
+                if (productCategoryGroups.size() == 2) {
+                    int price = Integer.MAX_VALUE;
+                    for (ProductCategoryGroup productCategoryGroup : productCategoryGroups) {
+                        for (ProductCategory productCategory : productCategoryGroup.getProductCategories()) {
+                            for (SubProductCategory subProductCategory : productCategory.getSubProductCategories()) {
+                                if (price > subProductCategory.getPrice()) price = subProductCategory.getPrice();
+                            }
+                        }
+                    }
+                    productKeywordResponse.setPrice(price);
+
+                } else {
+                    int price = Integer.MAX_VALUE;
+                    for (ProductCategory productCategory : productCategoryGroups.getFirst().getProductCategories()) {
+                        if (price > productCategory.getPrice())
+                            price = productCategory.getPrice();
+                    }
+
+                    productKeywordResponse.setPrice(price);
+
                 }
 
             }
+
+
+            // voucher
+            List<Voucher> vouchers = voucherRepo.findValidVouchersByShopId(product.getShop().getId(), LocalDateTime.now());
+
+            List<VoucherResponse> voucherResponses = vouchers
+                    .stream()
+                    .map(voucher ->
+                        VoucherResponse
+                                .builder()
+                                .id(voucher.getId())
+                                .code(voucher.getCode())
+                                .description(voucher.getDescription())
+                                .discountPercent(voucher.getDiscountPercent())
+                                .startDate(voucher.getStartDate())
+                                .endDate(voucher.getEndDate())
+                                .minimumOrderValue(voucher.getMinimumOrderValue())
+                                .build()
+                    ).toList();
+            productKeywordResponse.setVoucherResponses(voucherResponses);
+
+
+            // product discount
+            Optional<ProductDiscount> productDiscountOptional = productDiscountRepo
+                    .findByDateStartLessThanEqualAndDateEndGreaterThanEqual(LocalDateTime.now(), LocalDateTime.now());
+
+            ProductDiscountResponse productDiscountResponse = new ProductDiscountResponse();
+            if (productDiscountOptional.isPresent()) {
+                ProductDiscount productDiscount = productDiscountOptional.get();
+                ProductDiscountResponse productDiscountResponse1 = ProductDiscountResponse
+                        .builder()
+                        .id(productDiscount.getId())
+                        .discountPercent(productDiscount.getDiscountPercent())
+                        .dateStart(productDiscount.getDateStart())
+                        .dateEnd(productDiscount.getDateEnd())
+                        .build();
+
+                productKeywordResponse.setProductDiscountResponse(productDiscountResponse1);
+            }
+
             productKeywordResponses.add(productKeywordResponse);
         }
 
+        // create product page
         ProductKeywordPageResponse productKeywordPageResponse = new ProductKeywordPageResponse();
         productKeywordPageResponse.addProductKeywordResponses(productKeywordResponses);
 
@@ -216,7 +277,7 @@ public class ProductServiceImpl implements ProductService {
             productRatingOrderResponse.setRating(product.getRating());
 
             // voucher response
-            List<Voucher> vouchers = voucherRepo.findValidVouchersByProductId(product.getShop().getId(), LocalDateTime.now());
+            List<Voucher> vouchers = voucherRepo.findValidVouchersByShopId(product.getShop().getId(), LocalDateTime.now());
             if (!vouchers.isEmpty()) {
                 List<VoucherResponse> voucherResponses = vouchers
                         .stream()

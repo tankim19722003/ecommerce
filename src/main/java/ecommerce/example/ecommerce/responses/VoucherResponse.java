@@ -23,8 +23,8 @@ public class VoucherResponse {
     @JsonProperty("description")
     private String description;
 
-    @JsonProperty("discount_value")
-    private Float discountValue;
+    @JsonProperty("discount_percent")
+    private int discountPercent;
 
     @JsonProperty("start_date")
     private LocalDateTime startDate;
