@@ -89,6 +89,11 @@ public class ProductServiceImpl implements ProductService {
             if (productCategoryGroups.size() == 2) {
 //                List<SubProductCategory> subProductCategories = productCategoryGroups.getLast().getProductCategories().get;
             } else {
+                int price = 1_000_000_000;
+                for (ProductCategory productCategory : productCategoryGroups.getFirst().getProductCategories()) {
+                    if (price > productCategory.getPrice())
+                        price = productCategory.getPrice();
+                }
 
             }
             productKeywordResponses.add(productKeywordResponse);
@@ -234,21 +239,6 @@ public class ProductServiceImpl implements ProductService {
                 productRatingOrderResponse.setDiscountResponse(productDiscountResponse);
             }
 
-            // image
-            List<ProductImage> productImages = productImageRepo.findByProductId(product.getId());
-            List<ImageResponse> productImageResponses = new ArrayList<>();
-            if (!productImages.isEmpty()) {
-
-                productImageResponses = productImages
-                        .stream()
-                        .map(productImage -> ImageResponse
-                                    .builder()
-                                    .avatarUrl(productImage.getUrl())
-                                    .publicId(productImage.getPublicId())
-                                    .build()
-                        ).toList();
-            }
-
             productRatingOrderResponse.setTotalSold(product.getTotalSold());
 
             int price = 0;
@@ -266,7 +256,12 @@ public class ProductServiceImpl implements ProductService {
 
             productRatingOrderResponse.setPrice(price);
 
-            productRatingOrderResponse.addImageResponses(productImageResponses);
+            // add thumbnail to response
+            ImageResponse thumbnail = new ImageResponse();
+            thumbnail.setPublicId(product.getThumbnailPublicId());
+            thumbnail.setAvatarUrl(product.getThumbnailUrl());
+            productRatingOrderResponse.setThumbnail(thumbnail);
+
             productRatingOrderResponses.add(productRatingOrderResponse);
         }
 

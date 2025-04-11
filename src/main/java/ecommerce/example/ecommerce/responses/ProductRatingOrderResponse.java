@@ -34,8 +34,10 @@ public class ProductRatingOrderResponse {
     @JsonProperty("discount_responses")
     private  ProductDiscountResponse discountResponse;
 
-    @JsonProperty("image_responses")
-    List<ImageResponse> imageResponses;
+//    @JsonProperty("image_responses")
+//    List<ImageResponse> imageResponses;
+    @JsonProperty("thumbnail")
+    private ImageResponse thumbnail;
 
     @JsonProperty("voucher_responses")
     private List<VoucherResponse> voucherResponses;
@@ -44,14 +46,4 @@ public class ProductRatingOrderResponse {
         this.voucherResponses = voucherResponses;
     }
 
-    public void addImageResponses(List<ImageResponse> imageResponses) {
-        this.imageResponses = imageResponses;
-    }
-
-    public void addImageResponse(ImageResponse imageResponse) {
-        if (imageResponses.isEmpty())
-            imageResponses = new ArrayList<>();
-
-        imageResponses.add(imageResponse);
-    }
 }

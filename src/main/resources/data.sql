@@ -372,20 +372,20 @@ VALUES
     (16, 8, 6),  (17, 9, 7),  (18, 9, 8),  (19, 10, 9), (20, 10, 10);
 
 
-INSERT INTO products (
-    id, shop_id, sub_category_id,
-    high, rating, total_sold, weight, width, height,
-    created_at, updated_at,
-    description, name, thumbnail_public_id, thumbnail_url
-)
-VALUES
-(1, 1, 1, 1, 4, 4, 1.5, 15, 20, '2025-04-10 18:56:46.299275', '2025-04-10 19:00:11.91166', 'Fast performance with long battery life', 'Samsung Galaxy S23', NULL, NULL),
-(2, 1, 2, 2, 5, 5, 3.0, 3, 2, '2025-04-10 18:56:46.299275', '2025-04-10 18:56:46.299275', 'Latest Apple smartphone with advanced camera', 'iPhone 14 Pro Max', NULL, NULL),
-(3, 1, 3, 3, 5, 5, 3.2, 4, 4, '2025-04-10 18:56:46.299275', '2025-04-10 18:56:46.299275', 'Affordable smartphone with great features', 'Xiaomi Redmi Note 12', NULL, NULL),
-(4, 1, 4, 4, 2, 2, 3.2, 3, 5, '2025-04-10 18:56:46.299275', '2025-04-10 18:56:46.299275', 'Stylish and lightweight laptop', 'MacBook Air M2', NULL, NULL),
-(5, 1, 5, 5, 2, 3, 5.1, 3, 4, '2025-04-10 18:56:46.299275', '2025-04-10 18:56:46.299275', 'Powerful gaming laptop', 'Asus ROG Strix G15', NULL, NULL),
-(6, 1, 6, 6, 3, 2, 4.3, 3, 5, '2025-04-10 18:56:46.299275', '2025-04-10 18:56:46.299275', 'Samsung 55-inch 4K Smart TV', 'samsung_55_4k_tv.png', NULL, NULL),
-(7, 1, 7, 7, 3, 1, 3.4, 4, 3, '2025-04-10 18:56:46.299275', '2025-04-10 18:56:46.299275', 'JBL Tune 130NC TWS', 'jbl_tune_130nc.png', NULL, NULL);
+--INSERT INTO products (
+--    id, shop_id, sub_category_id,
+--    high, rating, total_sold, weight, width, height,
+--    created_at, updated_at,
+--    description, name, thumbnail_public_id, thumbnail_url
+--)
+--VALUES
+--(1, 1, 1, 1, 4, 4, 1.5, 15, 20, '2025-04-10 18:56:46.299275', '2025-04-10 19:00:11.91166', 'Fast performance with long battery life', 'Samsung Galaxy S23', NULL, NULL),
+--(2, 1, 2, 2, 5, 5, 3.0, 3, 2, '2025-04-10 18:56:46.299275', '2025-04-10 18:56:46.299275', 'Latest Apple smartphone with advanced camera', 'iPhone 14 Pro Max', NULL, NULL),
+--(3, 1, 3, 3, 5, 5, 3.2, 4, 4, '2025-04-10 18:56:46.299275', '2025-04-10 18:56:46.299275', 'Affordable smartphone with great features', 'Xiaomi Redmi Note 12', NULL, NULL),
+--(4, 1, 4, 4, 2, 2, 3.2, 3, 5, '2025-04-10 18:56:46.299275', '2025-04-10 18:56:46.299275', 'Stylish and lightweight laptop', 'MacBook Air M2', NULL, NULL),
+--(5, 1, 5, 5, 2, 3, 5.1, 3, 4, '2025-04-10 18:56:46.299275', '2025-04-10 18:56:46.299275', 'Powerful gaming laptop', 'Asus ROG Strix G15', NULL, NULL),
+--(6, 1, 6, 6, 3, 2, 4.3, 3, 5, '2025-04-10 18:56:46.299275', '2025-04-10 18:56:46.299275', 'Samsung 55-inch 4K Smart TV', 'samsung_55_4k_tv.png', NULL, NULL),
+--(7, 1, 7, 7, 3, 1, 3.4, 4, 3, '2025-04-10 18:56:46.299275', '2025-04-10 18:56:46.299275', 'JBL Tune 130NC TWS', 'jbl_tune_130nc.png', NULL, NULL);
 
 --
 --INSERT INTO products (shop_id, sub_category_id, rating,created_at, updated_at, description, name)
