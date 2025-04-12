@@ -130,6 +130,8 @@ public class VoucherServiceImpl implements VoucherService {
                     TestVoucher testVoucher = new TestVoucher();
                     testVoucher.setId(voucher.getId());
                     testVoucher.setShopId(voucher.getShop().getId());
+                    testVoucher.setStartDate(voucher.getStartDate());
+                    testVoucher.setEndDate(voucher.getEndDate());
 
                     return testVoucher;
                 }).toList();
