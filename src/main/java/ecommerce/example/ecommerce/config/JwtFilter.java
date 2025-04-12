@@ -109,7 +109,8 @@ public class JwtFilter extends OncePerRequestFilter {
                 "/product/get_all_with_rating_order",
                 "/product_image",
                 "/product/get_product_detail",
-                "/voucher/get_vouchers"
+                "/voucher/get_vouchers",
+                "/voucher/get_all"
         );
 
         for (String endPoint : getPermitAllEndPoints) {

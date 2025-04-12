@@ -186,6 +186,9 @@ public class SecurityConfig {
                             .requestMatchers(GET,
                                     String.format("%s/product/get_product_detail/**", apiPrefix)).permitAll()
 
+                            .requestMatchers(GET,
+                                    String.format("%s/product/get_shop_product/**", apiPrefix)).hasRole(Role.SHOP)
+
                             // product image
                             .requestMatchers(GET,
                                     String.format("%s/product_image/**", apiPrefix)).permitAll()
@@ -264,8 +267,12 @@ public class SecurityConfig {
                                     String.format("%s/product_category/**", apiPrefix)).permitAll()
 
                             // vouchers
+
                             .requestMatchers(GET,
                                     String.format("%s/voucher/get_vouchers/**", apiPrefix)).permitAll()
+
+                            .requestMatchers(GET,
+                                    String.format("%s/voucher/get_all", apiPrefix)).permitAll()
 
                             .requestMatchers(POST,
                                     String.format("%s/voucher/**", apiPrefix)).hasRole(Role.SHOP)

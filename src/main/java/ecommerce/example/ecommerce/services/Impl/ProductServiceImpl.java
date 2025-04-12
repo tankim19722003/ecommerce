@@ -405,7 +405,19 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDetailResponse> getProductDetailsByShopId(Long shopId) {
-        return List.of();
+
+        List<Long> productIds = productRepo.getProductIdsByShopId(shopId);
+        List<ProductDetailResponse> productDetailResponses = new ArrayList<>();
+
+        if (!productIds.isEmpty()){
+            for (long productId : productIds) {
+                productDetailResponses.add(getProductDetails(productId));
+            }
+        }
+
+        return productDetailResponses;
+
+
     }
 
 }

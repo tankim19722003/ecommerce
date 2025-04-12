@@ -100,4 +100,19 @@ public class VoucherController {
             );
         }
     }
+
+    @GetMapping("/get_all")
+    public ResponseEntity<?> getAllVoucher() {
+        try {
+
+            return ResponseEntity.ok(voucherService.getAllVouchers());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(
+                    EResponse.builder()
+                            .name("ERROR")
+                            .message(e.getMessage())
+                            .build()
+            );
+        }
+    }
 }

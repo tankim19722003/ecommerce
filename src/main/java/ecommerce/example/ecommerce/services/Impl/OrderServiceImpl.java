@@ -228,6 +228,18 @@ public class OrderServiceImpl implements OrderService {
                     order.setDiscountPercent(voucher.get().getDiscountPercent());
 
                     order.setVoucher(voucher.get());
+
+                    // add voucher response
+                    VoucherResponse voucherResponse = new VoucherResponse();
+                    voucherResponse.setId(voucher.get().getId());
+                    voucherResponse.setDescription(voucher.get().getDescription());
+                    voucherResponse.setCode(voucher.get().getCode());
+                    voucherResponse.setDiscountPercent(voucher.get().getDiscountPercent());
+                    voucherResponse.setMinimumOrderValue(voucher.get().getMinimumOrderValue());
+                    voucherResponse.setEndDate(voucher.get().getEndDate());
+                    voucherResponse.setStartDate(voucher.get().getStartDate());
+
+                    orderResponse.setVoucherResponse(voucherResponse);
                 } else {
                     throw new RuntimeException("Your total price need to greater or equals than minimum value of the voucher");
                 }

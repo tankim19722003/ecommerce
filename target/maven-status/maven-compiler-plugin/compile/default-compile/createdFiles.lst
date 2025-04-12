@@ -215,6 +215,7 @@ ecommerce\example\ecommerce\models\ShopAddress$ShopAddressBuilder.class
 ecommerce\example\ecommerce\controllers\SubCategoryController.class
 ecommerce\example\ecommerce\responses\ProductCategoryOneLevelList$ProductCategoryOneLevelListBuilder.class
 ecommerce\example\ecommerce\dtos\MultipleProductCategoryDTO.class
+ecommerce\example\ecommerce\responses\Test\TestVoucher.class
 ecommerce\example\ecommerce\dtos\UserLoginDTO.class
 ecommerce\example\ecommerce\services\Impl\ProductShippingServiceImpl.class
 ecommerce\example\ecommerce\responses\ProductBasicInfoResponse.class

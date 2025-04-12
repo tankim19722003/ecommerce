@@ -6,6 +6,7 @@ import ecommerce.example.ecommerce.dtos.VoucherDTO;
 import ecommerce.example.ecommerce.dtos.VoucherUpdatingDTO;
 import ecommerce.example.ecommerce.models.Shop;
 import ecommerce.example.ecommerce.models.Voucher;
+import ecommerce.example.ecommerce.responses.Test.TestVoucher;
 import ecommerce.example.ecommerce.responses.VoucherResponse;
 import ecommerce.example.ecommerce.services.VoucherService;
 import org.modelmapper.ModelMapper;
@@ -118,6 +119,20 @@ public class VoucherServiceImpl implements VoucherService {
         voucherRepo.save(voucher);
 
         return mapper.map(voucher, VoucherResponse.class);
+    }
+
+    @Override
+    public List<TestVoucher> getAllVouchers() {
+        List<Voucher> vouchers = voucherRepo.findAll();
+
+        return vouchers.stream()
+                .map(voucher -> {
+                    TestVoucher testVoucher = new TestVoucher();
+                    testVoucher.setId(voucher.getId());
+                    testVoucher.setShopId(voucher.getShop().getId());
+
+                    return testVoucher;
+                }).toList();
     }
 
 

@@ -146,5 +146,25 @@ public class ProductController {
 
     }
 
+    @GetMapping("/get_shop_product/{shopId}")
+    public ResponseEntity<?> getShopProduct(
+            @PathVariable("shopId") Long shopId
+    ) {
+
+        try {
+            List<ProductDetailResponse> productDetailResponses = productService.getProductDetailsByShopId(shopId);
+
+            return ResponseEntity.ok(productDetailResponses);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(
+                    EResponse.builder()
+                            .name("ERROR")
+                            .message(e.getMessage())
+                            .build()
+            );
+        }
+
+    }
+
 
 }
