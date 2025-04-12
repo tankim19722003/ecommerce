@@ -403,4 +403,9 @@ public class ProductServiceImpl implements ProductService {
         return productDetailResponse;
     }
 
+    @Override
+    public List<ProductDetailResponse> getProductDetailsByShopId(Long shopId) {
+        return List.of();
+    }
+
 }

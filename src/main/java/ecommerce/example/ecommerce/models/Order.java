@@ -18,9 +18,11 @@ import java.util.List;
 public class Order {
 
     public static final String PENDING = "PENDING";
-    public static final String PACKING = "PACKING";
+    public static final String PACKING = "PREPARING";
+    public static final String HANDED_OVER_TO_CARRIER = "HANDED_OVER_TO_CARRIER";
     public static final String SHIPPING = "SHIPPING";
     public static final String COMPLETED = "COMPLETED";
+    public static final String CANCEL = "CANCEL";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

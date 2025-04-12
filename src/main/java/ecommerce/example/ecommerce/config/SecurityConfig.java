@@ -287,6 +287,11 @@ public class SecurityConfig {
                             .requestMatchers(POST,
                                     String.format("%s/order/**", apiPrefix)).hasRole(Role.USER)
 
+                            .requestMatchers(GET,
+                                    String.format("%s/order/get_order_by_user_id_and_status/**", apiPrefix)).hasRole(Role.USER)
+
+                            .requestMatchers(GET,
+                                    String.format("%s/order/cancel_order/**", apiPrefix)).hasRole(Role.USER)
 
                             // Cart
                             .requestMatchers(POST,

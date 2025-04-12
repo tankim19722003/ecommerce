@@ -13,7 +13,6 @@ public interface ProductService {
 
     QuantityResponse addQuantityToAttributeProduct(List<QuantityDTO> quantityDTOList, Long productId);
 
-//    void getProductById(Long productId);
 
     ProductKeywordPageResponse getProductsByKeyWord(PageRequest pageRequest, String keyword);
 
@@ -21,5 +20,6 @@ public interface ProductService {
 
     ProductDetailResponse getProductDetails(Long productId);
 
-//    ProductKeywordPageResponse getProductsBySubCategory(PageRequest pageRequest, String keyword);
+    List<ProductDetailResponse> getProductDetailsByShopId(Long shopId);
+
 }

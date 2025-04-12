@@ -286,6 +286,7 @@ ecommerce\example\ecommerce\Repo\UserBannedRepo.class
 ecommerce\example\ecommerce\responses\OrderResponse.class
 ecommerce\example\ecommerce\responses\AddressResponse.class
 ecommerce\example\ecommerce\responses\ChildProductCategoryResponse$ChildProductCategoryResponseBuilder.class
+ecommerce\example\ecommerce\responses\CompletingOrderResponse.class
 ecommerce\example\ecommerce\dtos\CategoryDTO$CategoryDTOBuilder.class
 ecommerce\example\ecommerce\models\ProductAttributeValue.class
 ecommerce\example\ecommerce\responses\ProductBasicInfoResponse$ProductBasicInfoResponseBuilder.class
@@ -320,6 +321,7 @@ ecommerce\example\ecommerce\Repo\ShippingTypeProviderRepo.class
 ecommerce\example\ecommerce\responses\ProductCategoryTwoLevelResponse$ProductCategoryTwoLevelResponseBuilder.class
 ecommerce\example\ecommerce\dtos\OrderDetailDTO.class
 ecommerce\example\ecommerce\Repo\PaymentRepo.class
+ecommerce\example\ecommerce\responses\CompletingOrderResponse$CompletingOrderResponseBuilder.class
 ecommerce\example\ecommerce\models\UserCode$UserCodeBuilder.class
 ecommerce\example\ecommerce\services\Impl\CartServiceImpl.class
 ecommerce\example\ecommerce\dtos\UserRegisterDTO$UserRegisterDTOBuilder.class

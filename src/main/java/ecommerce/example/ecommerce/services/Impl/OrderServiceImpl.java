@@ -4,10 +4,7 @@ import ecommerce.example.ecommerce.Repo.*;
 import ecommerce.example.ecommerce.dtos.OrderDTO;
 import ecommerce.example.ecommerce.dtos.OrderDetailDTO;
 import ecommerce.example.ecommerce.models.*;
-import ecommerce.example.ecommerce.responses.OrderDetailResponse;
-import ecommerce.example.ecommerce.responses.OrderResponse;
-import ecommerce.example.ecommerce.responses.ShippingTypeResponse;
-import ecommerce.example.ecommerce.responses.UserVillageResponse;
+import ecommerce.example.ecommerce.responses.*;
 import ecommerce.example.ecommerce.services.OrderService;
 import ecommerce.example.ecommerce.services.ProductShippingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -152,6 +151,8 @@ public class OrderServiceImpl implements OrderService {
             ProductCategory productCategory = productCategoryRepo.findById(orderDetailDTO.getProductCategoryId())
                     .orElseThrow(()->new RuntimeException("Product category does not found"));
 
+            // set product category for order detail
+            orderDetail.setProductCategory(productCategory);
 
             orderDetailResponse.setProductCategoryId(productCategory.getId());
             orderDetailResponse.setProductCategoryName(productCategory.getValue());
@@ -182,6 +183,8 @@ public class OrderServiceImpl implements OrderService {
 
                 subProductCategoryRepo.save(subProductCategory);
 
+                // set subproduct category for the order detail
+                orderDetail.setSubProductCategory(subProductCategory);
 
             } else {
                 if(orderDetailDTO.getQuantity() > productCategory.getQuantity())
@@ -251,4 +254,101 @@ public class OrderServiceImpl implements OrderService {
         orderResponse.setUserVillageResponse(userVillageResponse);
         return orderResponse;
     }
+
+    @Override
+    public List<CompletingOrderResponse> getCompletingOrder(Long userId, String status) {
+
+        // get order by user
+        List<Order> orders = orderRepo.findAllByUserIdAndStatus(userId, status);
+
+
+        if (orders.isEmpty()) throw new RuntimeException("You don't have any order");
+
+        List<CompletingOrderResponse> completingOrderResponses = new ArrayList<>();
+        for (Order order : orders) {
+            CompletingOrderResponse completingOrderResponse = new CompletingOrderResponse();
+
+            // order info
+            completingOrderResponse.setOrderPrice(order.getTotalPrice());
+            completingOrderResponse.setOrderId(order.getId());
+
+            // shop info
+            Long shopId = order.getOrderDetails().getFirst().getProduct().getShop().getId();
+            String shopName = order.getOrderDetails().getFirst().getProduct().getShop().getShopName();
+            completingOrderResponse.setShopId(shopId);
+            completingOrderResponse.setShopName(shopName);
+
+
+            // list order responses
+            List<OrderDetailResponse> orderDetailResponses = toOrderResponse(order.getOrderDetails());
+
+            completingOrderResponse.setOrderDetailResponses(orderDetailResponses);
+
+            // add completing order response to response list
+            completingOrderResponses.add(completingOrderResponse);
+
+
+        }
+
+        return completingOrderResponses;
+
+    }
+
+    @Override
+    @Transactional
+    public void cancelOrder(Long userId, Long orderId) {
+
+        Order order = orderRepo.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order does not found"));
+
+        if (order.getUser().getId() != userId)
+            throw new RuntimeException("You are not allowed to modify this data");
+
+        if (!order.getStatus().equals(Order.PENDING))
+            throw new RuntimeException("Order can't be cancel");
+
+        order.setStatus(Order.CANCEL);
+
+        orderRepo.save(order);
+    }
+
+
+    private List<OrderDetailResponse> toOrderResponse(List<OrderDetail> orderDetails) {
+
+        List<OrderDetailResponse> orderDetailResponses = new ArrayList<>();
+
+        for (OrderDetail orderDetail : orderDetails) {
+            OrderDetailResponse orderDetailResponse = new OrderDetailResponse();
+            orderDetailResponse.setId(orderDetail.getId());
+            orderDetailResponse.setProductName(orderDetail.getProduct().getName());
+            orderDetailResponse.setQuantity(orderDetail.getQuantity());
+            orderDetailResponse.setPrice(orderDetail.getPrice());
+            orderDetailResponse.setDiscountPercent(orderDetail.getDiscountPercent());
+
+            if (orderDetail.getProductCategory() != null) {
+                orderDetailResponse.setProductCategoryId(orderDetail.getProductCategory().getId());
+                orderDetailResponse.setProductCategoryName(orderDetail.getProductCategory().getValue());
+                orderDetailResponse.setProductCategoryImageUrl(orderDetail.getProductCategory().getImageUrl());
+            }
+            // check sub category
+            if (orderDetail.getSubProductCategory() != null) {
+                orderDetailResponse.setProductSubCategoryId(orderDetail.getSubProductCategory().getId());
+                orderDetailResponse.setProductSubCategoryName(orderDetail.getSubProductCategory().getName());
+            }
+
+
+            int totalPrice = orderDetail.getPrice() * orderDetail.getQuantity();
+            if (orderDetail.getDiscountPercent() > 0)
+                totalPrice = totalPrice - totalPrice * orderDetail.getDiscountPercent() / 100;
+
+            orderDetailResponse.setTotalPrice(totalPrice);
+            orderDetailResponses.add(orderDetailResponse);
+
+        }
+
+        return orderDetailResponses;
+
+    }
+
+
 }
