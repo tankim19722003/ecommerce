@@ -358,93 +358,93 @@ INSERT INTO villages (id, district_id, name) VALUES
 ------(29, 6, 4, 'Samsung'),
 ------(30, 6, 5, '15kg');
 
--- NEW DATA
-INSERT INTO categories (name, created_at, description) VALUES
-('Electronics', '2024-03-03', 'Devices, gadgets, and accessories'),
-('Fashion', '2024-03-03', 'Clothing, footwear, and accessories'),
-('Home & Kitchen', '2024-03-03', 'Furniture, appliances, and kitchenware'),
-('Beauty & Personal Care', '2024-03-03', 'Cosmetics, skincare, and grooming products'),
-('Sports & Outdoors', '2024-03-03', 'Fitness, outdoor gear, and sportswear'),
-('Books', '2024-03-03', 'Fiction, non-fiction, and educational materials'),
-('Toys & Games', '2024-03-03', 'Children’s toys, puzzles, and board games'),
-('Automotive', '2024-03-03', 'Car accessories, tools, and spare parts'),
-('Health & Wellness', '2024-03-03', 'Medical supplies, supplements, and fitness equipment'),
-('Groceries', '2024-03-03', 'Food, beverages, and household essentials');
-
-INSERT INTO attributes (name) VALUES
-('Color'),
-('Size'),
-('Material'),
-('Brand'),
-('Weight'),
-('Dimensions'),
-('Battery Life'),
-('Warranty'),
-('Compatibility'),
-('Capacity');
-
-INSERT INTO sub_categories (created_at, updated_at, category_id, description, name) VALUES
--- Office Equipment (category_id = 2)
-('2025-03-07', '2025-03-07', 2, 'Chairs for office use', 'Office Chairs'),
-('2025-03-07', '2025-03-07', 2, 'Desks and tables for office work', 'Office Desks'),
-('2025-03-07', '2025-03-07', 2, 'Printers and scanners', 'Printers & Scanners'),
-
--- Smartphones (category_id = 3)
-('2025-03-07', '2025-03-07', 3, 'Android smartphones', 'Android Phones'),
-('2025-03-07', '2025-03-07', 3, 'Apple iPhones', 'iPhones'),
-('2025-03-07', '2025-03-07', 3, 'Phone chargers and cables', 'Phone Accessories'),
-
--- Computer Accessories (category_id = 4)
-('2025-03-07', '2025-03-07', 4, 'Monitors and screens', 'Monitors'),
-('2025-03-07', '2025-03-07', 4, 'Computer keyboards', 'Keyboards'),
-('2025-03-07', '2025-03-07', 4, 'Computer mice and trackpads', 'Mice'),
-
--- Home Electronics (category_id = 5)
-('2025-03-07', '2025-03-07', 5, 'Smart televisions', 'Smart TVs'),
-('2025-03-07', '2025-03-07', 5, 'Speakers and home audio systems', 'Speakers'),
-('2025-03-07', '2025-03-07', 5, 'Streaming devices like Chromecast', 'Streaming Devices'),
-
--- Gaming (category_id = 6)
-('2025-03-07', '2025-03-07', 6, 'Gaming consoles like PlayStation', 'Gaming Consoles'),
-('2025-03-07', '2025-03-07', 6, 'Gaming keyboards and mice', 'Gaming Accessories'),
-('2025-03-07', '2025-03-07', 6, 'Virtual reality (VR) headsets', 'VR Headsets'),
-
--- Networking (category_id = 7)
-('2025-03-07', '2025-03-07', 7, 'Wi-Fi routers and modems', 'Wi-Fi Routers'),
-('2025-03-07', '2025-03-07', 7, 'Network switches and hubs', 'Network Switches'),
-('2025-03-07', '2025-03-07', 7, 'Ethernet cables and adapters', 'Networking Cables'),
-
--- Storage (category_id = 8)
-('2025-03-07', '2025-03-07', 8, 'External hard drives and SSDs', 'External HDDs'),
-('2025-03-07', '2025-03-07', 8, 'USB flash drives and memory cards', 'USB Drives'),
-('2025-03-07', '2025-03-07', 8, 'Cloud storage services', 'Cloud Storage'),
-
--- Wearables (category_id = 9)
-('2025-03-07', '2025-03-07', 9, 'Smartwatches and fitness trackers', 'Smartwatches'),
-('2025-03-07', '2025-03-07', 9, 'Wireless earbuds and headsets', 'Wireless Earbuds'),
-('2025-03-07', '2025-03-07', 9, 'VR and AR headsets', 'VR & AR Devices'),
-
--- Software (category_id = 10)
-('2025-03-07', '2025-03-07', 10, 'Operating systems like Windows and macOS', 'Operating Systems'),
-('2025-03-07', '2025-03-07', 10, 'Antivirus and security software', 'Security Software'),
-('2025-03-07', '2025-03-07', 10, 'Productivity software like Microsoft Office', 'Office Software');
-
-INSERT INTO sub_category_attributes (attribute_id, sub_category_id) VALUES
-(1, 1),  (1, 2),  (1, 3),  (2, 4),  (2, 5),
-(3, 6),  (3, 7),  (4, 8),  (4, 9),  (5, 10),
-(6, 1),  (6, 2),  (7, 3),  (7, 4),  (8, 5),
-(9, 6),  (9, 7),  (10, 8), (10, 9);
-
-
-INSERT INTO products (shop_id, sub_category_id, rating, created_at, updated_at, description, name, thumbnail_public_id, thumbnail_url)
-VALUES
-    (1, 1, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Fast performance with long battery life', 'Samsung Galaxy S23','jne7ycbogiqzo0jdjf2r', 'https://res.cloudinary.com/dlvkuz22j/image/upload/v1744432629/jne7ycbogiqzo0jdjf2r.webp'),
-    (1, 2, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Latest Apple smartphone with advanced camera', 'iPhone 14 Pro Max','jne7ycbogiqzo0jdjf2r', 'https://res.cloudinary.com/dlvkuz22j/image/upload/v1744432629/jne7ycbogiqzo0jdjf2r.webp'),
-    (1, 3, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Affordable smartphone with great features', 'Xiaomi Redmi Note 12','jne7ycbogiqzo0jdjf2r', 'https://res.cloudinary.com/dlvkuz22j/image/upload/v1744432629/jne7ycbogiqzo0jdjf2r.webp'),
-    (1, 4, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Stylish and lightweight laptop', 'MacBook Air M2','jne7ycbogiqzo0jdjf2r', 'https://res.cloudinary.com/dlvkuz22j/image/upload/v1744432629/jne7ycbogiqzo0jdjf2r.webp'),
-    (1, 5, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Powerful gaming laptop', 'Asus ROG Strix G15','jne7ycbogiqzo0jdjf2r', 'https://res.cloudinary.com/dlvkuz22j/image/upload/v1744432629/jne7ycbogiqzo0jdjf2r.webp'),
-    (1, 6, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Samsung 55-inch 4K Smart TV', 'samsung_55_4k_tv.png','jne7ycbogiqzo0jdjf2r', 'https://res.cloudinary.com/dlvkuz22j/image/upload/v1744432629/jne7ycbogiqzo0jdjf2r.webp'),
-    (1, 7, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'JBL Tune 130NC TWS', 'jbl_tune_130nc.png','jne7ycbogiqzo0jdjf2r', 'https://res.cloudinary.com/dlvkuz22j/image/upload/v1744432629/jne7ycbogiqzo0jdjf2r.webp');
+-- NEW DATA------------------------------------
+--INSERT INTO categories (name, created_at, description) VALUES
+--('Electronics', '2024-03-03', 'Devices, gadgets, and accessories'),
+--('Fashion', '2024-03-03', 'Clothing, footwear, and accessories'),
+--('Home & Kitchen', '2024-03-03', 'Furniture, appliances, and kitchenware'),
+--('Beauty & Personal Care', '2024-03-03', 'Cosmetics, skincare, and grooming products'),
+--('Sports & Outdoors', '2024-03-03', 'Fitness, outdoor gear, and sportswear'),
+--('Books', '2024-03-03', 'Fiction, non-fiction, and educational materials'),
+--('Toys & Games', '2024-03-03', 'Children’s toys, puzzles, and board games'),
+--('Automotive', '2024-03-03', 'Car accessories, tools, and spare parts'),
+--('Health & Wellness', '2024-03-03', 'Medical supplies, supplements, and fitness equipment'),
+--('Groceries', '2024-03-03', 'Food, beverages, and household essentials');
+--
+--INSERT INTO attributes (name) VALUES
+--('Color'),
+--('Size'),
+--('Material'),
+--('Brand'),
+--('Weight'),
+--('Dimensions'),
+--('Battery Life'),
+--('Warranty'),
+--('Compatibility'),
+--('Capacity');
+--
+--INSERT INTO sub_categories (created_at, updated_at, category_id, description, name) VALUES
+---- Office Equipment (category_id = 2)
+--('2025-03-07', '2025-03-07', 2, 'Chairs for office use', 'Office Chairs'),
+--('2025-03-07', '2025-03-07', 2, 'Desks and tables for office work', 'Office Desks'),
+--('2025-03-07', '2025-03-07', 2, 'Printers and scanners', 'Printers & Scanners'),
+--
+---- Smartphones (category_id = 3)
+--('2025-03-07', '2025-03-07', 3, 'Android smartphones', 'Android Phones'),
+--('2025-03-07', '2025-03-07', 3, 'Apple iPhones', 'iPhones'),
+--('2025-03-07', '2025-03-07', 3, 'Phone chargers and cables', 'Phone Accessories'),
+--
+---- Computer Accessories (category_id = 4)
+--('2025-03-07', '2025-03-07', 4, 'Monitors and screens', 'Monitors'),
+--('2025-03-07', '2025-03-07', 4, 'Computer keyboards', 'Keyboards'),
+--('2025-03-07', '2025-03-07', 4, 'Computer mice and trackpads', 'Mice'),
+--
+---- Home Electronics (category_id = 5)
+--('2025-03-07', '2025-03-07', 5, 'Smart televisions', 'Smart TVs'),
+--('2025-03-07', '2025-03-07', 5, 'Speakers and home audio systems', 'Speakers'),
+--('2025-03-07', '2025-03-07', 5, 'Streaming devices like Chromecast', 'Streaming Devices'),
+--
+---- Gaming (category_id = 6)
+--('2025-03-07', '2025-03-07', 6, 'Gaming consoles like PlayStation', 'Gaming Consoles'),
+--('2025-03-07', '2025-03-07', 6, 'Gaming keyboards and mice', 'Gaming Accessories'),
+--('2025-03-07', '2025-03-07', 6, 'Virtual reality (VR) headsets', 'VR Headsets'),
+--
+---- Networking (category_id = 7)
+--('2025-03-07', '2025-03-07', 7, 'Wi-Fi routers and modems', 'Wi-Fi Routers'),
+--('2025-03-07', '2025-03-07', 7, 'Network switches and hubs', 'Network Switches'),
+--('2025-03-07', '2025-03-07', 7, 'Ethernet cables and adapters', 'Networking Cables'),
+--
+---- Storage (category_id = 8)
+--('2025-03-07', '2025-03-07', 8, 'External hard drives and SSDs', 'External HDDs'),
+--('2025-03-07', '2025-03-07', 8, 'USB flash drives and memory cards', 'USB Drives'),
+--('2025-03-07', '2025-03-07', 8, 'Cloud storage services', 'Cloud Storage'),
+--
+---- Wearables (category_id = 9)
+--('2025-03-07', '2025-03-07', 9, 'Smartwatches and fitness trackers', 'Smartwatches'),
+--('2025-03-07', '2025-03-07', 9, 'Wireless earbuds and headsets', 'Wireless Earbuds'),
+--('2025-03-07', '2025-03-07', 9, 'VR and AR headsets', 'VR & AR Devices'),
+--
+---- Software (category_id = 10)
+--('2025-03-07', '2025-03-07', 10, 'Operating systems like Windows and macOS', 'Operating Systems'),
+--('2025-03-07', '2025-03-07', 10, 'Antivirus and security software', 'Security Software'),
+--('2025-03-07', '2025-03-07', 10, 'Productivity software like Microsoft Office', 'Office Software');
+--
+--INSERT INTO sub_category_attributes (attribute_id, sub_category_id) VALUES
+--(1, 1),  (1, 2),  (1, 3),  (2, 4),  (2, 5),
+--(3, 6),  (3, 7),  (4, 8),  (4, 9),  (5, 10),
+--(6, 1),  (6, 2),  (7, 3),  (7, 4),  (8, 5),
+--(9, 6),  (9, 7),  (10, 8), (10, 9);
+--
+--
+--INSERT INTO products (shop_id, sub_category_id, rating, created_at, updated_at, description, name, thumbnail_public_id, thumbnail_url)
+--VALUES
+--    (1, 1, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Fast performance with long battery life', 'Samsung Galaxy S23','jne7ycbogiqzo0jdjf2r', 'https://res.cloudinary.com/dlvkuz22j/image/upload/v1744432629/jne7ycbogiqzo0jdjf2r.webp'),
+--    (1, 2, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Latest Apple smartphone with advanced camera', 'iPhone 14 Pro Max','jne7ycbogiqzo0jdjf2r', 'https://res.cloudinary.com/dlvkuz22j/image/upload/v1744432629/jne7ycbogiqzo0jdjf2r.webp'),
+--    (1, 3, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Affordable smartphone with great features', 'Xiaomi Redmi Note 12','jne7ycbogiqzo0jdjf2r', 'https://res.cloudinary.com/dlvkuz22j/image/upload/v1744432629/jne7ycbogiqzo0jdjf2r.webp'),
+--    (1, 4, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Stylish and lightweight laptop', 'MacBook Air M2','jne7ycbogiqzo0jdjf2r', 'https://res.cloudinary.com/dlvkuz22j/image/upload/v1744432629/jne7ycbogiqzo0jdjf2r.webp'),
+--    (1, 5, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Powerful gaming laptop', 'Asus ROG Strix G15','jne7ycbogiqzo0jdjf2r', 'https://res.cloudinary.com/dlvkuz22j/image/upload/v1744432629/jne7ycbogiqzo0jdjf2r.webp'),
+--    (1, 6, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Samsung 55-inch 4K Smart TV', 'samsung_55_4k_tv.png','jne7ycbogiqzo0jdjf2r', 'https://res.cloudinary.com/dlvkuz22j/image/upload/v1744432629/jne7ycbogiqzo0jdjf2r.webp'),
+--    (1, 7, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'JBL Tune 130NC TWS', 'jbl_tune_130nc.png','jne7ycbogiqzo0jdjf2r', 'https://res.cloudinary.com/dlvkuz22j/image/upload/v1744432629/jne7ycbogiqzo0jdjf2r.webp');
 
 
 
