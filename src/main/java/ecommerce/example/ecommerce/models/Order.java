@@ -84,4 +84,8 @@ public class Order {
     @OneToOne
     private UserVillageOrder userVillageOrder;
 
+    @ManyToOne
+    @JoinColumn(name = "voucher_id")
+    private Voucher voucher;
+
 }
