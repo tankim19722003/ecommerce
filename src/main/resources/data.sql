@@ -436,15 +436,15 @@ INSERT INTO sub_category_attributes (attribute_id, sub_category_id) VALUES
 (9, 6),  (9, 7),  (10, 8), (10, 9);
 
 
-INSERT INTO products (shop_id, sub_category_id, rating, created_at, updated_at, description, name)
+INSERT INTO products (shop_id, sub_category_id, rating, created_at, updated_at, description, name, thumbnail_public_id, thumbnail_url)
 VALUES
-    (1, 1, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Fast performance with long battery life', 'Samsung Galaxy S23'),
-    (1, 2, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Latest Apple smartphone with advanced camera', 'iPhone 14 Pro Max'),
-    (1, 3, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Affordable smartphone with great features', 'Xiaomi Redmi Note 12'),
-    (1, 4, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Stylish and lightweight laptop', 'MacBook Air M2'),
-    (1, 5, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Powerful gaming laptop', 'Asus ROG Strix G15'),
-    (1, 6, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Samsung 55-inch 4K Smart TV', 'samsung_55_4k_tv.png'),
-    (1, 7, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'JBL Tune 130NC TWS', 'jbl_tune_130nc.png');
+    (1, 1, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Fast performance with long battery life', 'Samsung Galaxy S23','jne7ycbogiqzo0jdjf2r', 'https://res.cloudinary.com/dlvkuz22j/image/upload/v1744432629/jne7ycbogiqzo0jdjf2r.webp'),
+    (1, 2, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Latest Apple smartphone with advanced camera', 'iPhone 14 Pro Max','jne7ycbogiqzo0jdjf2r', 'https://res.cloudinary.com/dlvkuz22j/image/upload/v1744432629/jne7ycbogiqzo0jdjf2r.webp'),
+    (1, 3, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Affordable smartphone with great features', 'Xiaomi Redmi Note 12','jne7ycbogiqzo0jdjf2r', 'https://res.cloudinary.com/dlvkuz22j/image/upload/v1744432629/jne7ycbogiqzo0jdjf2r.webp'),
+    (1, 4, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Stylish and lightweight laptop', 'MacBook Air M2','jne7ycbogiqzo0jdjf2r', 'https://res.cloudinary.com/dlvkuz22j/image/upload/v1744432629/jne7ycbogiqzo0jdjf2r.webp'),
+    (1, 5, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Powerful gaming laptop', 'Asus ROG Strix G15','jne7ycbogiqzo0jdjf2r', 'https://res.cloudinary.com/dlvkuz22j/image/upload/v1744432629/jne7ycbogiqzo0jdjf2r.webp'),
+    (1, 6, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Samsung 55-inch 4K Smart TV', 'samsung_55_4k_tv.png','jne7ycbogiqzo0jdjf2r', 'https://res.cloudinary.com/dlvkuz22j/image/upload/v1744432629/jne7ycbogiqzo0jdjf2r.webp'),
+    (1, 7, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'JBL Tune 130NC TWS', 'jbl_tune_130nc.png','jne7ycbogiqzo0jdjf2r', 'https://res.cloudinary.com/dlvkuz22j/image/upload/v1744432629/jne7ycbogiqzo0jdjf2r.webp');
 
 
 

@@ -136,14 +136,11 @@ public class ProductShippingServiceImpl implements ProductShippingService {
             return productShippingTypes.stream()
                     .map(productShippingType -> {
                         // calculate shipping fee
-                        float calWeight = 0;
                         float price = 0;
-                        float standardWeight = (float) (productShippingType.getProduct().getHigh() * productShippingType.getProduct().getHeight() * productShippingType.getProduct().getWidth()) / 5000;
-
-                        if (standardWeight < productShippingType.getProduct().getWeight())
-                            calWeight = productShippingType.getProduct().getWeight();
-                        else
-                            calWeight = standardWeight;
+                        float calWeight = getCalWeight(productShippingType.getProduct().getHeight() ,
+                                productShippingType.getProduct().getWidth(),
+                                productShippingType.getProduct().getHigh(),
+                                productShippingType.getProduct().getWeight());
 
                         if (calWeight < 1)
                              price = productShippingType.getShippingType().getPrice();
