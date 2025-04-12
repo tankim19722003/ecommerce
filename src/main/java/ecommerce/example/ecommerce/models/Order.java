@@ -75,12 +75,11 @@ public class Order {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "order")
     private List<OrderDetail> orderDetails;
 
-    @ManyToOne
-    @JoinColumn(name = "user_address_id")
-    private UserVillage userVillage;
+//    @ManyToOne
+//    @JoinColumn(name = "user_address_id")
+//    private UserVillage userVillage;
 
     @OneToOne
-    @JoinColumn(name = "user_village_order_id")
     private UserVillageOrder userVillageOrder;
 
 }

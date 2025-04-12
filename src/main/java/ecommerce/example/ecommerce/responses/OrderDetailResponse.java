@@ -27,6 +27,9 @@ public class OrderDetailResponse {
     @JsonProperty("discount_percent")
     private int discountPercent;
 
+    @JsonProperty("total_price")
+    private int totalPrice;
+
     // category name, image, id
     @JsonProperty("product_category_id")
     private Long productCategoryId;

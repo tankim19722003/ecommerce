@@ -102,13 +102,14 @@ public class OrderServiceImpl implements OrderService {
         UserVillageOrder userVillageOrder = new UserVillageOrder();
         userVillageOrder.setOrder(order);
         userVillageOrder.setVillage(userVillage.getVillage());
-        userVillageOrder.setSpecificAddress(userVillageOrder.getSpecificAddress());
+        userVillageOrder.setSpecificAddress(userVillage.getSpecificVillage());
 
         userVillageOrderRepo.save(userVillageOrder);
 
+        order.setUserVillageOrder(userVillageOrder);
         // save order detail
-        float totalPrice = 0;
-        float shippingPrice = 0;
+        int totalPrice = 0;
+        int shippingPrice = 0;
 
 
         OrderDetailResponse orderDetailResponse = new OrderDetailResponse();
@@ -127,19 +128,21 @@ public class OrderServiceImpl implements OrderService {
             float shippingPriceItem = productShippingService.getCalWeight(product.getHeight(), product.getWidth(), product.getHigh(), product.getWeight())
                     * productShippingType.getShippingType().getPrice();
 
-            if (shippingPriceItem > shippingPrice) shippingPrice = shippingPriceItem;
+            if (shippingPriceItem > shippingPrice) shippingPrice = (int)shippingPriceItem;
 
             orderDetail.setOrder(order);
             orderDetail.setProduct(product);
             orderDetail.setQuantity(orderDetailDTO.getQuantity());
 
             // get discount
+            int discountPercent = 0;
             Optional<ProductDiscount> productDiscount = productDiscountRepo
                     .findByProductId(orderDetail.getProduct().getId(), LocalDateTime.now());
 
 
             if (productDiscount.isPresent()) {
-                orderDetail.setDiscountPercent(productDiscount.get().getDiscountPercent());
+                discountPercent = productDiscount.get().getDiscountPercent();
+                orderDetail.setDiscountPercent(discountPercent);
             }
 
 
@@ -164,21 +167,40 @@ public class OrderServiceImpl implements OrderService {
                     throw new RuntimeException("Quantity must less or equals than stock quantity!!");
 
                 orderDetail.setPrice(subProductCategory.getPrice());
-                totalPrice += subProductCategory.getPrice() * orderDetail.getQuantity();
+                int detailPrice = subProductCategory.getPrice() * orderDetail.getQuantity();
+                totalPrice += detailPrice;
                 orderDetailResponse.setProductSubCategoryId(subProductCategory.getId());
                 orderDetailResponse.setProductSubCategoryName(subProductCategory.getName());
 
+                // set total price for product detail
+                if (discountPercent > 0 ) {
+                    detailPrice = detailPrice - (detailPrice * discountPercent) / 100;
+                }
+
                 subProductCategory.setQuantity(subProductCategory.getQuantity() - orderDetailDTO.getQuantity());
+                orderDetailResponse.setTotalPrice(detailPrice);
+
                 subProductCategoryRepo.save(subProductCategory);
+
 
             } else {
                 if(orderDetailDTO.getQuantity() > productCategory.getQuantity())
                     throw new RuntimeException("Quantity must less or equals than stock quantity!!");
 
                 orderDetail.setPrice(productCategory.getPrice());
-                totalPrice += productCategory.getPrice() * orderDetail.getQuantity();
+
+                int detailPrice = productCategory.getPrice() * orderDetail.getQuantity();
+
+                totalPrice += detailPrice;
                 productCategory.setQuantity(productCategory.getQuantity() - orderDetailDTO.getQuantity());
                 productCategoryRepo.save(productCategory);
+
+                if (discountPercent > 0 ) {
+                    detailPrice = detailPrice - (detailPrice * discountPercent) / 100;
+                }
+
+                // set detail price for the order
+                orderDetailResponse.setTotalPrice(detailPrice);
 
             }
 
@@ -199,11 +221,19 @@ public class OrderServiceImpl implements OrderService {
             if (voucher.isPresent()) {
                 totalPrice = totalPrice - totalPrice * (voucher.get().getDiscountPercent() / 100);
                 orderResponse.setTotalMoney(totalPrice);
+
+                // set voucher discount
+                order.setDiscountPercent(voucher.get().getDiscountPercent());
+
             }
         }
 
         totalPrice += shippingPrice;
         orderResponse.setTotalMoney(totalPrice);
+
+        // set total price for the order
+        order.setTotalPrice(totalPrice);
+        order.setShippingFee(shippingPrice);
 
 
 
