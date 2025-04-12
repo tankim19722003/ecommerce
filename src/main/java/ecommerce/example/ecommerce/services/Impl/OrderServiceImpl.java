@@ -159,6 +159,10 @@ public class OrderServiceImpl implements OrderService {
                 SubProductCategory subProductCategory = subProductCategoryRepo.findById(orderDetailDTO.getProductSubcategoryId())
                         .orElseThrow(() ->  new RuntimeException("product subcategory does not found"));
 
+                // compare quantity with stock quantity
+                if(orderDetailDTO.getQuantity() > subProductCategory.getQuantity())
+                    throw new RuntimeException("Quantity must less or equals than stock quantity!!");
+
                 orderDetail.setPrice(subProductCategory.getPrice());
                 totalPrice += subProductCategory.getPrice() * orderDetail.getQuantity();
                 orderDetailResponse.setProductSubCategoryId(subProductCategory.getId());
@@ -168,6 +172,9 @@ public class OrderServiceImpl implements OrderService {
                 subProductCategoryRepo.save(subProductCategory);
 
             } else {
+                if(orderDetailDTO.getQuantity() > productCategory.getQuantity())
+                    throw new RuntimeException("Quantity must less or equals than stock quantity!!");
+
                 orderDetail.setPrice(productCategory.getPrice());
                 totalPrice += productCategory.getPrice() * orderDetail.getQuantity();
                 productCategory.setQuantity(productCategory.getQuantity() - orderDetailDTO.getQuantity());

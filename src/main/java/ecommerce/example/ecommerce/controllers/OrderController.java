@@ -20,15 +20,13 @@ public class OrderController {
     @Autowired
     private OwnerService ownerService;
 
-    @PostMapping("/{userId}")
+    @PostMapping()
     public ResponseEntity<?> createOrder(
-            @RequestBody OrderDTO orderDTO,
-            @PathVariable("userId") Long userId
+            @RequestBody OrderDTO orderDTO
     ) {
 
         try {
-
-            ownerService.checkValidUser(userId);
+            ownerService.checkValidUser(orderDTO.getUserId());
             OrderResponse orderResponse = orderService.createOrder(orderDTO);
             return ResponseEntity.ok(orderResponse);
         } catch(Exception e) {
