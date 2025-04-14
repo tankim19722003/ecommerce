@@ -6,6 +6,7 @@ import ecommerce.example.ecommerce.dtos.CartItemUpdatingDTO;
 import ecommerce.example.ecommerce.models.*;
 import ecommerce.example.ecommerce.responses.*;
 import ecommerce.example.ecommerce.services.CartService;
+import ecommerce.example.ecommerce.services.ProductShippingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +40,9 @@ public class CartServiceImpl implements CartService {
 
     @Autowired
     private ShopRepo shopRepo;
+
+    @Autowired
+    private ProductShippingService productShippingService;
 
     @Override
     @Transactional
@@ -117,11 +121,40 @@ public class CartServiceImpl implements CartService {
 
            shopCartItemResponse.setShopBasicInfoResponse(shop.toShopBasicInfo());
 
+           // set shipping type response
+
+           int maxShippingType = -1;
+           int indexMaxShippingType = -1;
+           int index = 0;
+
            for (CartItem cartItem : cartItems) {
                if (cartItem.getProduct().getShop().getId() == shopId) {
                     shopCartItemResponse.addCartItem(convertToCartItemResponse(cartItem));
                }
+
+               // shipping type price
+               float calWeight = productShippingService.getCalWeight(
+                        cartItem.getProduct().getHeight(),
+                       cartItem.getProduct().getWidth(),
+                       cartItem.getProduct().getHigh(),
+                       cartItem.getProduct().getWeight()
+               );
+
+               int shippingFee =(int) calWeight * cartItem.getProduct().getProductShippingTypes().getFirst().getShippingType().getPrice();
+
+                if (shippingFee > maxShippingType) {
+                    maxShippingType = shippingFee;
+                    indexMaxShippingType = index;
+                }
+
+                index++;
+
+
            }
+
+           // set shipping type
+            List<ShippingTypeResponse> shippingTypeResponses = productShippingService.getProductShippingTypes(cartItems.get(indexMaxShippingType).getProduct().getId());
+           shopCartItemResponse.setShippingTypeResponses(shippingTypeResponses);
 
            shopCartItemResponses.add(shopCartItemResponse);
 

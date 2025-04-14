@@ -1,6 +1,7 @@
 package ecommerce.example.ecommerce.responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import ecommerce.example.ecommerce.models.ShippingType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,6 +21,19 @@ public class ShopCartItemResponse {
 
     @JsonProperty("cart_item_response")
     private List<CartItemResponse> cartItemResponses;
+
+    @JsonProperty("shipping_type_responses")
+    private List<ShippingTypeResponse> shippingTypeResponses;
+
+//    public void addShippingTypeResponse(List<ShippingTypeResponse> shippingTypeResponses) {
+//        this.shippingTypeResponses =
+//    }
+    private void addShippingType(ShippingTypeResponse shippingTypeResponse) {
+        if (shippingTypeResponses == null)
+            shippingTypeResponses = new ArrayList<>();
+
+        shippingTypeResponses.add(shippingTypeResponse);
+    }
 
     public void addCartItem(CartItemResponse cartItemResponse) {
         if (cartItemResponses == null)
