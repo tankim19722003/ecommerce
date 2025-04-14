@@ -144,9 +144,9 @@ public class CartServiceImpl implements CartService {
                        maxShippingType = shippingFee;
                        indexMaxShippingType = index;
                    }
-
-                   index++;
                }
+
+               index++;
            }
 
            // set shipping type
