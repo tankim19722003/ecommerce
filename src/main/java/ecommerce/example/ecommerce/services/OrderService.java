@@ -12,12 +12,14 @@ public interface OrderService {
             OrderDTO orderDTO
     );
 
-    List<CompletingOrderResponse> getCompletingOrder(
+    List<CompletingOrderResponse> getOrderByStatus(
             Long userId, String status
     );
 
     void cancelOrder(
             Long userId, Long orderId
     );
+
+    List <OrderResponse> getOrderByShopIdAndStatus(Long shopId, String status);
 
 }

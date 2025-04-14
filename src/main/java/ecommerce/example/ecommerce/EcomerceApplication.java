@@ -228,8 +228,8 @@ public class EcomerceApplication {
 		Feedback feedback = new Feedback();
 		feedback.setId(100L);
 		feedback.setContent("This is a great product!");
-		feedback.setCreatedAt(LocalDate.now());
-		feedback.setUpdatedAt(LocalDate.now());
+		feedback.setCreatedAt(LocalDateTime.now());
+		feedback.setUpdatedAt(LocalDateTime.now());
 		feedback.setUser(user);
 //		feedback.setProduct(product);
 

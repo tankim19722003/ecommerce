@@ -61,6 +61,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private CategoryRepo categoryRepo;
 
+    @Autowired
+    private ShopRepo shopRepo;
+
 
     @Override
     @Transactional
@@ -76,6 +79,11 @@ public class OrderServiceImpl implements OrderService {
                 .orElseThrow(() -> new RuntimeException("Product shipping type does not found"));
 
 
+        // add shop
+        Shop shop = shopRepo.findById(orderDTO.getShopId())
+                .orElseThrow(() ->  new RuntimeException("Shop does not found"));
+
+
         // create order
         Order order = new Order();
         order.setUser(user);
@@ -83,6 +91,7 @@ public class OrderServiceImpl implements OrderService {
         order.setProductShippingType(productShippingType);
         order.setPhoneNumber(userVillage.getPhoneNumber());
         order.setReceiverName(userVillage.getReceiverName());
+        order.setShop(shop);
         order.setNotes(orderDTO.getNote());
         order.setExpectedReceiveDate(LocalDateTime.now().plusDays(productShippingType.getShippingType().getEstimatedTime()));
         order.setOrderDate(LocalDateTime.now());
@@ -271,7 +280,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<CompletingOrderResponse> getCompletingOrder(Long userId, String status) {
+    public List<CompletingOrderResponse> getOrderByStatus(Long userId, String status) {
 
         // get order by user
         List<Order> orders = orderRepo.findAllByUserIdAndStatus(userId, status);
@@ -295,7 +304,7 @@ public class OrderServiceImpl implements OrderService {
 
 
             // list order responses
-            List<OrderDetailResponse> orderDetailResponses = toOrderResponse(order.getOrderDetails());
+            List<OrderDetailResponse> orderDetailResponses = toOrderDetailResponse(order.getOrderDetails());
 
             completingOrderResponse.setOrderDetailResponses(orderDetailResponses);
 
@@ -327,8 +336,64 @@ public class OrderServiceImpl implements OrderService {
         orderRepo.save(order);
     }
 
+    @Override
+    public List<OrderResponse> getOrderByShopIdAndStatus(Long shopId, String status) {
+        List<Order> shopOrder = orderRepo.findAllByShopIdAndStatus(shopId, status);
 
-    private List<OrderDetailResponse> toOrderResponse(List<OrderDetail> orderDetails) {
+        List<OrderResponse> orderResponses = new ArrayList<>();
+
+        for (Order order : shopOrder) {
+
+            orderResponses.add(convertOrderToOrderResponse(order));
+
+        }
+
+        return orderResponses;
+
+
+    }
+
+    private OrderResponse convertOrderToOrderResponse(Order order) {
+        OrderResponse orderResponse = new OrderResponse();
+        orderResponse.setId(order.getId());
+        orderResponse.setOrderStatus(order.getStatus());
+        orderResponse.setNote(order.getNotes());
+        orderResponse.setTotalMoney(order.getTotalPrice());
+        orderResponse.setOrderStatus(order.getStatus());
+
+
+        // save order detail
+        for (OrderDetail orderDetail : order.getOrderDetails()) {
+
+            OrderDetailResponse orderDetailResponse = orderDetail.toOrderDetailResponse();
+            orderResponse.addOrderDetailResponse(orderDetailResponse);
+
+        }
+
+
+//        set voucher response
+        if (order.getVoucher() != null)
+            orderResponse.setVoucherResponse(order.getVoucher().toVoucherResponse());
+
+
+        // shipping type response
+        ShippingTypeResponse shippingTypeResponse = new ShippingTypeResponse();
+        shippingTypeResponse.setId(order.getProductShippingType().getId());
+        shippingTypeResponse.setName(order.getProductShippingType().getShippingType().getName());
+        shippingTypeResponse.setDescription(order.getProductShippingType().getShippingType().getDescription());
+        shippingTypeResponse.setEstimatedTime(order.getProductShippingType().getShippingType().getEstimatedTime());
+        shippingTypeResponse.setPrice(order.getShippingFee());
+        orderResponse.setShippingTypeResponse(shippingTypeResponse);
+
+        // user village response
+        UserVillageOrderResponse userVillageOrderResponse = order.getUserVillageOrder().toUserVillageOrderResponse();
+        orderResponse.setUserVillageResponse(userVillageOrderResponse);
+        return orderResponse;
+
+    }
+
+
+    private List<OrderDetailResponse> toOrderDetailResponse(List<OrderDetail> orderDetails) {
 
         List<OrderDetailResponse> orderDetailResponses = new ArrayList<>();
 

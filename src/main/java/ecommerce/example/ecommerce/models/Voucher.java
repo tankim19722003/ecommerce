@@ -1,5 +1,6 @@
 package ecommerce.example.ecommerce.models;
 
+import ecommerce.example.ecommerce.responses.VoucherResponse;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -44,4 +45,17 @@ public class Voucher {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "voucher")
     private List<Order> orders;
+
+    public VoucherResponse toVoucherResponse(){
+        VoucherResponse voucherResponse = new VoucherResponse();
+        voucherResponse.setId(id);
+        voucherResponse.setDescription(description);
+        voucherResponse.setCode(code);
+        voucherResponse.setDiscountPercent(discountPercent);
+        voucherResponse.setMinimumOrderValue(minimumOrderValue);
+        voucherResponse.setEndDate(endDate);
+        voucherResponse.setStartDate(startDate);
+
+        return voucherResponse;
+    }
 }

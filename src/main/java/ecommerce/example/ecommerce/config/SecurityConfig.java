@@ -300,6 +300,9 @@ public class SecurityConfig {
                             .requestMatchers(GET,
                                     String.format("%s/order/cancel_order/**", apiPrefix)).hasRole(Role.USER)
 
+                            .requestMatchers(GET,
+                                    String.format("%s/order/get_shop_order_by_status/**", apiPrefix)).hasRole(Role.SHOP)
+
                             // Cart
                             .requestMatchers(POST,
                                     String.format("%s/cart/add_product_to_cart", apiPrefix)).hasRole(Role.USER)
@@ -312,6 +315,17 @@ public class SecurityConfig {
 
                             .requestMatchers(DELETE,
                                     String.format("%s/cart", apiPrefix)).hasRole(Role.USER)
+
+                            // feed back
+                            .requestMatchers(POST,
+                                    String.format("%s/feedback/**", apiPrefix)).hasRole(Role.USER)
+
+                            .requestMatchers(PUT,
+                                    String.format("%s/feedback/update_feedback/**", apiPrefix)).hasRole(Role.USER)
+
+                            .requestMatchers(GET,
+                                    String.format("%s/feedback/get_all_feed_back/**", apiPrefix)).permitAll()
+
                             .anyRequest().authenticated();
 
                     }

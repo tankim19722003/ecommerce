@@ -97,6 +97,9 @@ public class Shop {
     @JsonIgnore
     private List<ShopAddress> shopAddress;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "shop")
+    private List<Order> orders;
+
     @PrePersist
     public void setDefaultStatus() {
         if (this.logo == null) {

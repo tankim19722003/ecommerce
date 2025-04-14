@@ -1,6 +1,7 @@
 package ecommerce.example.ecommerce.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import ecommerce.example.ecommerce.responses.VoucherResponse;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -66,6 +67,10 @@ public class Order {
     @JoinColumn(name = "shipping_provider_id")
     private ShippingProvider shippingProvider;
 
+    @ManyToOne
+    @JoinColumn(name = "shop_id")
+    private Shop shop;
+
 //    @ManyToOne
 //    @JoinColumn(name = "shipping_type_id")
 //    private ShippingType shippingType;
@@ -87,5 +92,7 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "voucher_id")
     private Voucher voucher;
+
+
 
 }

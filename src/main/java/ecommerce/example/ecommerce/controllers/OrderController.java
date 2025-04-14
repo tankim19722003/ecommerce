@@ -2,6 +2,7 @@ package ecommerce.example.ecommerce.controllers;
 
 
 import ecommerce.example.ecommerce.dtos.OrderDTO;
+import ecommerce.example.ecommerce.responses.AddressResponse;
 import ecommerce.example.ecommerce.responses.CompletingOrderResponse;
 import ecommerce.example.ecommerce.responses.EResponse;
 import ecommerce.example.ecommerce.responses.OrderResponse;
@@ -50,8 +51,8 @@ public class OrderController {
 
         try {
             ownerService.checkValidUser(userId);
-            List<CompletingOrderResponse> orderResponses = orderService.getCompletingOrder(userId, status);
-            orderService.getCompletingOrder(userId, status);
+            List<CompletingOrderResponse> orderResponses = orderService.getOrderByStatus(userId, status);
+            orderService.getOrderByStatus(userId, status);
             return ResponseEntity.ok(orderResponses);
         } catch (Exception e) {
             return ResponseEntity.badRequest()
@@ -82,4 +83,24 @@ public class OrderController {
         }
     }
 
+
+    @GetMapping("/get_shop_order_by_status")
+    public ResponseEntity<?> getShopOrderByShopIdAndStatus(
+            @RequestParam("shopId") Long shopId,
+            @RequestParam("status") String status
+    ) {
+
+        try {
+            ownerService.checkValidShop(shopId);
+            List<OrderResponse> orderResponses = orderService.getOrderByShopIdAndStatus(shopId, status);
+            return ResponseEntity.ok(orderResponses);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest()
+                    .body(EResponse.builder()
+                            .name("ERROR")
+                            .message(e.getMessage())
+                            .build());
+        }
+
+    }
 }

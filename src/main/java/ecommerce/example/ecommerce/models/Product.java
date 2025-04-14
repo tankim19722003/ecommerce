@@ -31,7 +31,7 @@ public class Product {
     private String description;
 
     @Column(name = "rating")
-    private Float rating;
+    private Double rating;
 
     @Column(name = "total_sold")
     private Integer totalSold;
@@ -94,7 +94,7 @@ public class Product {
     public void prePersist() {
 
         this.totalSold = 0;
-        this.rating = 0f;
+        this.rating = 0d;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }

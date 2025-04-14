@@ -34,7 +34,7 @@ public class OrderResponse {
     private ShippingTypeResponse shippingTypeResponse;
 
     @JsonProperty("user_village_response")
-    private UserVillageResponse userVillageResponse;
+    private AddressResponse userVillageResponse;
 
     @JsonProperty("order_detail_responses")
     private List<OrderDetailResponse> orderDetailResponses;

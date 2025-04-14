@@ -26,7 +26,7 @@ public class ProductRatingOrderResponse {
     private Integer totalSold;
 
     @JsonProperty("rating")
-    private Float rating;
+    private Double rating;
 
     @JsonProperty("price")
     private Integer price;
