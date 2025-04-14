@@ -117,7 +117,6 @@ public class CartServiceImpl implements CartService {
                    () ->  new RuntimeException("Shop does not found!!")
            );
            ShopCartItemResponse shopCartItemResponse = new ShopCartItemResponse();
-           ShopBasicInfoResponse shopBasicInfoResponse = new ShopBasicInfoResponse();
 
            shopCartItemResponse.setShopBasicInfoResponse(shop.toShopBasicInfo());
 
@@ -130,26 +129,24 @@ public class CartServiceImpl implements CartService {
            for (CartItem cartItem : cartItems) {
                if (cartItem.getProduct().getShop().getId() == shopId) {
                     shopCartItemResponse.addCartItem(convertToCartItemResponse(cartItem));
+
+                   // shipping type price
+                   float calWeight = productShippingService.getCalWeight(
+                           cartItem.getProduct().getHeight(),
+                           cartItem.getProduct().getWidth(),
+                           cartItem.getProduct().getHigh(),
+                           cartItem.getProduct().getWeight()
+                   );
+
+                   int shippingFee =(int) calWeight * cartItem.getProduct().getProductShippingTypes().getFirst().getShippingType().getPrice();
+
+                   if (shippingFee > maxShippingType) {
+                       maxShippingType = shippingFee;
+                       indexMaxShippingType = index;
+                   }
+
+                   index++;
                }
-
-               // shipping type price
-               float calWeight = productShippingService.getCalWeight(
-                        cartItem.getProduct().getHeight(),
-                       cartItem.getProduct().getWidth(),
-                       cartItem.getProduct().getHigh(),
-                       cartItem.getProduct().getWeight()
-               );
-
-               int shippingFee =(int) calWeight * cartItem.getProduct().getProductShippingTypes().getFirst().getShippingType().getPrice();
-
-                if (shippingFee > maxShippingType) {
-                    maxShippingType = shippingFee;
-                    indexMaxShippingType = index;
-                }
-
-                index++;
-
-
            }
 
            // set shipping type
