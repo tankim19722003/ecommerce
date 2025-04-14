@@ -272,8 +272,11 @@ INSERT INTO villages (id, district_id, name) VALUES
 --    (id, shop_name, description, created_at, updated_at, logo, village_id, specific_address, phone_number, user_id, email)
 --VALUES
 --    (1, 'Baby three', 'A store specializing in tech gadgets', '2024-03-04', '2024-03-04', 'tech_store_logo.png', 1, '123 Tech Street', '0123456789', 5, 'tankim1972@gmail.com');
---
 
+INSERT INTO shops
+    (id, shop_name, description, created_at, updated_at, logo, village_id, specific_address, phone_number, user_id, email)
+VALUES
+    (1, 'Baby three', 'A store specializing in tech gadgets', '2024-03-04', '2024-03-04', 'tech_store_logo.png', 1, '123 Tech Street', '0123456789', 6, 'tankim1972@gmail.com');
 
 
 --INSERT INTO products (
