@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface CartItemRepo extends JpaRepository<CartItem, Long> {
 
+    @Query("select ci from CartItem ci where ci.user.id = :userId ORDER BY ci.createdAt")
     List<CartItem> findByUserId(Long userId);
 
     @Query("SELECT count(c) " +

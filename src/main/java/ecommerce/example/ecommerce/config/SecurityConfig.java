@@ -304,8 +304,8 @@ public class SecurityConfig {
                             .requestMatchers(POST,
                                     String.format("%s/cart/add_product_to_cart", apiPrefix)).hasRole(Role.USER)
 
-                            .requestMatchers(POST,
-                                    String.format("%s/cart/add_product_to_cart", apiPrefix)).hasRole(Role.USER)
+//                            .requestMatchers(POST,
+//                                    String.format("%s/cart/add_product_to_cart", apiPrefix)).hasRole(Role.USER)
 
                             .requestMatchers(PUT,
                                     String.format("%s/cart", apiPrefix)).hasRole(Role.USER)

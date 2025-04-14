@@ -3,6 +3,8 @@ package ecommerce.example.ecommerce.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import ecommerce.example.ecommerce.dtos.ShopDTO;
+import ecommerce.example.ecommerce.responses.AddressResponse;
+import ecommerce.example.ecommerce.responses.ShopBasicInfoResponse;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -120,6 +122,24 @@ public class Shop {
                 .phoneNumber(shopDTO.getPhoneNumber())
                 .email(shopDTO.getEmail())
                 .build();
+    }
+
+    public ShopBasicInfoResponse toShopBasicInfo() {
+
+        AddressResponse addressResponse = village.toAddressResponse();
+        ShopBasicInfoResponse shopBasicInfoResponse =  ShopBasicInfoResponse.builder()
+                .id(id)
+                .shopName(shopName)
+                .specificAddress(specificAddress)
+                .phoneNumber(phoneNumber)
+                .logo(logo)
+                .description(description)
+                .createdAt(createdAt)
+                .updatedAt(updatedAt)
+                .addressResponse(addressResponse)
+                .build();
+
+        return shopBasicInfoResponse;
     }
 
 }

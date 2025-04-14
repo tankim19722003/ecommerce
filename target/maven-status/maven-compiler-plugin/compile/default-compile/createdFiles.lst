@@ -100,6 +100,7 @@ ecommerce\example\ecommerce\responses\AttributeValueImageResponse.class
 ecommerce\example\ecommerce\services\Impl\CategoryServiceImpl.class
 ecommerce\example\ecommerce\responses\ProductImageListResponse.class
 ecommerce\example\ecommerce\responses\MultipleProductCategoryResponse$MultipleProductCategoryResponseBuilder.class
+ecommerce\example\ecommerce\responses\ShopCartItemResponse$ShopCartItemResponseBuilder.class
 ecommerce\example\ecommerce\models\ProductImage$ProductImageBuilder.class
 ecommerce\example\ecommerce\responses\ProductImageResponseInList$ProductImageResponseInListBuilder.class
 ecommerce\example\ecommerce\responses\QuantityResponse$QuantityResponseBuilder.class
@@ -312,6 +313,7 @@ ecommerce\example\ecommerce\responses\ProductImageResponse.class
 ecommerce\example\ecommerce\dtos\MultipleProductCategoryDTO$MultipleProductCategoryDTOBuilder.class
 ecommerce\example\ecommerce\dtos\OrderDTO$OrderDTOBuilder.class
 ecommerce\example\ecommerce\dtos\ProductAttributeValueDTO$ProductAttributeValueDTOBuilder.class
+ecommerce\example\ecommerce\responses\ShopCartItemResponse.class
 ecommerce\example\ecommerce\models\Voucher$VoucherBuilder.class
 ecommerce\example\ecommerce\controllers\CartController.class
 ecommerce\example\ecommerce\dtos\SubcategoryAttributeDTO.class

@@ -4,6 +4,7 @@ import ecommerce.example.ecommerce.dtos.CartDTO;
 import ecommerce.example.ecommerce.dtos.CartItemUpdatingDTO;
 import ecommerce.example.ecommerce.responses.CartItemResponse;
 import ecommerce.example.ecommerce.responses.EResponse;
+import ecommerce.example.ecommerce.responses.ShopCartItemResponse;
 import ecommerce.example.ecommerce.services.CartService;
 import ecommerce.example.ecommerce.services.Impl.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,13 +44,13 @@ public class CartController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<?> getAllCartItemByProductId(
+    public ResponseEntity<?> getAllCartItemByUserID(
         @PathVariable("userId") Long userId
     ) {
 
         try {
             ownerService.checkValidUser(userId);
-            List<CartItemResponse> cartItemResponses = cartService.getAllCartItems(userId);
+            List<ShopCartItemResponse> cartItemResponses = cartService.getAllCartItems(userId);
             return ResponseEntity.ok(cartItemResponses);
         } catch(Exception e) {
             return ResponseEntity.badRequest()

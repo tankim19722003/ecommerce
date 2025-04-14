@@ -4,17 +4,14 @@ import ecommerce.example.ecommerce.Repo.*;
 import ecommerce.example.ecommerce.dtos.CartDTO;
 import ecommerce.example.ecommerce.dtos.CartItemUpdatingDTO;
 import ecommerce.example.ecommerce.models.*;
-import ecommerce.example.ecommerce.responses.CartItemResponse;
-import ecommerce.example.ecommerce.responses.ImageResponse;
-import ecommerce.example.ecommerce.responses.VoucherResponse;
+import ecommerce.example.ecommerce.responses.*;
 import ecommerce.example.ecommerce.services.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class CartServiceImpl implements CartService {
@@ -39,6 +36,9 @@ public class CartServiceImpl implements CartService {
 
     @Autowired
     private VoucherRepo voucherRepo;
+
+    @Autowired
+    private ShopRepo shopRepo;
 
     @Override
     @Transactional
@@ -96,17 +96,39 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public List<CartItemResponse> getAllCartItems(Long userId) {
+    public List<ShopCartItemResponse> getAllCartItems(Long userId) {
        List<CartItem> cartItems = cartItemRepo.findByUserId(userId);
 
-       if (cartItems.size() > 0) {
-           return cartItems.stream()
-                   .map(
-                           cartItem -> convertToCartItemResponse(cartItem)
-                   ).toList();
+       // get shop id
+        Set<Long> shopIds = new HashSet<>();
+        for (CartItem cartItem : cartItems) {
+            shopIds.add(cartItem.getProduct().getShop().getId());
+        }
+
+        List<ShopCartItemResponse> shopCartItemResponses = new ArrayList<>();
+
+       for (Long shopId : shopIds) {
+           // get shop info
+           Shop shop = shopRepo.findById(shopId).orElseThrow(
+                   () ->  new RuntimeException("Shop does not found!!")
+           );
+           ShopCartItemResponse shopCartItemResponse = new ShopCartItemResponse();
+           ShopBasicInfoResponse shopBasicInfoResponse = new ShopBasicInfoResponse();
+
+           shopCartItemResponse.setShopBasicInfoResponse(shop.toShopBasicInfo());
+
+           for (CartItem cartItem : cartItems) {
+               if (cartItem.getProduct().getShop().getId() == shopId) {
+                    shopCartItemResponse.addCartItem(convertToCartItemResponse(cartItem));
+               }
+           }
+
+           shopCartItemResponses.add(shopCartItemResponse);
+
        }
 
-       return null;
+        return shopCartItemResponses;
+
     }
 
     @Override
@@ -183,7 +205,7 @@ public class CartServiceImpl implements CartService {
             cartItemResponse.setSubcategoryId(cartItem.getSubProductCategory().getId());
             cartItemResponse.setSubcategoryName(cartItem.getSubProductCategory().getName());
 
-        } else {
+        } else if (cartItem.getProductCategory() != null){
             price = cartItem.getProductCategory().getPrice() * cartItem.getQuantity();
             stockQuantity = cartItem.getProductCategory().getQuantity();
         }
