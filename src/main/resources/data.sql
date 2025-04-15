@@ -32,11 +32,11 @@ VALUES
 -- add user shipping provider
 INSERT INTO users (fullname, account, password, email, gender, birth_date, phone_number)
 VALUES
-('Alice Johnson', 'alicej', '$2a$10$yFuyzpnET2FKIqxpu38V5uI9KDxxELQyPQvtJKRKqf/E/nGlkDJLe', 'alice@example.com', true, '1995-04-10', '0909123456'),
-('Bob Smith', 'bobsmith', '$2a$10$1rbAMChD35pOnNohcsR9eev93fM2o8UF3eRgyBF92C5jTkKyvx4fu', 'bob@example.com', true, '1990-08-22', '0911223344'),
-('Carol Nguyen', 'caroln', '$2a$10$Z4UNmcE4h0UMceBgVkYpSuftO0Jg7iEG9slfvoa.8o5nvPULAMKU2', 'carol@example.com', false, '1998-12-01', '0933445566'),
-('David Lee', 'davidlee88', '$2a$10$N3U2Z0kH2ZLS4k9bB0Yq0u1BWzvV60zOaxvO3UnNHuy2b4I.Sjd.q', 'david@example.com', true, '1988-03-17', '0944556677'),
-('Emma Thompson', 'emmath', '$2a$10$u0dS19kZdEYkk0eWApX5au35A0ZlmNiMbDw3I9C8MHkZf8Wa1eM9q', 'emma@example.com', false, '1993-06-05', '0955667788');
+('Alice Johnson', 'alicej', '$2a$10$J.CXFDd2CAMjyysovBHXcufdLnNAPxURM5si7phOYqNAgdR2vZbRW', 'alice@example.com', true, '1995-04-10', '0909123456'),
+('Bob Smith', 'bobsmith', '$2a$10$J.CXFDd2CAMjyysovBHXcufdLnNAPxURM5si7phOYqNAgdR2vZbRW', 'bob@example.com', true, '1990-08-22', '0911223344'),
+('Carol Nguyen', 'caroln', '$2a$10$J.CXFDd2CAMjyysovBHXcufdLnNAPxURM5si7phOYqNAgdR2vZbRW', 'carol@example.com', false, '1998-12-01', '0933445566'),
+('David Lee', 'davidlee88', '$2a$10$J.CXFDd2CAMjyysovBHXcufdLnNAPxURM5si7phOYqNAgdR2vZbRW', 'david@example.com', true, '1988-03-17', '0944556677'),
+('Emma Thompson', 'emmath', '$2a$10$J.CXFDd2CAMjyysovBHXcufdLnNAPxURM5si7phOYqNAgdR2vZbRW', 'emma@example.com', false, '1993-06-05', '0955667788');
 
 --add role for shipping provider
 INSERT INTO user_roles (user_id, role_id)
