@@ -33,9 +33,6 @@ public class ShippingType {
     @Column(name = "estimated_time")
     private int estimatedTime;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "shippingType")
-    private List<ShippingTypeProvider> shippingTypeProviders;
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "shippingType")
     private List<ProductShippingType> productShippingTypes;
 

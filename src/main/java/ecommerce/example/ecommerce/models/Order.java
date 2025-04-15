@@ -1,13 +1,11 @@
 package ecommerce.example.ecommerce.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import ecommerce.example.ecommerce.responses.VoucherResponse;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -19,11 +17,12 @@ import java.util.List;
 public class Order {
 
     public static final String PENDING = "PENDING";
-    public static final String PACKING = "PREPARING";
+    public static final String PACKAGING = "PACKAGING";
     public static final String HANDED_OVER_TO_CARRIER = "HANDED_OVER_TO_CARRIER";
     public static final String SHIPPING = "SHIPPING";
     public static final String COMPLETED = "COMPLETED";
     public static final String CANCEL = "CANCEL";
+    public static final String RETURNING = "RETURNING";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,7 +43,7 @@ public class Order {
     @Column(name = "discount_percent")
     private int discountPercent;
 
-    @Column(name = "notes")
+    @Column(name = "notes", length = 500)
     private String notes;
 
     @Column(name = "expected_receive_date")
@@ -63,7 +62,7 @@ public class Order {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToOne
     @JoinColumn(name = "shipping_provider_id")
     private ShippingProvider shippingProvider;
 

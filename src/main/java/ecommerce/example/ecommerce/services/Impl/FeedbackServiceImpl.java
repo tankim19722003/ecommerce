@@ -47,9 +47,6 @@ public class FeedbackServiceImpl implements FeedbackService {
         OrderDetail orderDetail = orderDetailRepo.findById(feedBackDTO.getOrderDetailId())
                 .orElseThrow(() ->  new RuntimeException("Order detail does not found"));
 
-        if (!orderDetail.getStatus().equals(OrderDetail.COMPLETED))
-            throw new RuntimeException("Feedback fail! Order haven't completed yet");
-
         Feedback feedback = new Feedback();
         feedback.setContent(feedBackDTO.getContent());
         feedback.setRating(feedBackDTO.getRating());

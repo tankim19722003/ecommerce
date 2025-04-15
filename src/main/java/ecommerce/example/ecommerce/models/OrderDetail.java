@@ -53,9 +53,6 @@ public class OrderDetail {
     @JoinColumn(name = "sub_product_category_id")
     private SubProductCategory subProductCategory;
 
-    @Column(name = "status")
-    private String status;
-
     public OrderDetailResponse toOrderDetailResponse() {
         OrderDetailResponse orderDetailResponse =  OrderDetailResponse.builder()
                 .id(id)
@@ -79,9 +76,6 @@ public class OrderDetail {
         return orderDetailResponse;
     }
 
-    @PrePersist
-    public void prePersist() {
-        this.status = OrderDetail.PENDING;
-    }
+//
 
 }

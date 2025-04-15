@@ -3,6 +3,7 @@ package ecommerce.example.ecommerce.services.Impl;
 import ecommerce.example.ecommerce.Repo.*;
 import ecommerce.example.ecommerce.dtos.OrderDTO;
 import ecommerce.example.ecommerce.dtos.OrderDetailDTO;
+import ecommerce.example.ecommerce.dtos.OrderShippingProviderDTO;
 import ecommerce.example.ecommerce.models.*;
 import ecommerce.example.ecommerce.responses.*;
 import ecommerce.example.ecommerce.services.OrderService;
@@ -63,6 +64,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private ShopRepo shopRepo;
+
+    @Autowired
+    private ShippingProviderRepo shippingProviderRepo;
 
 
     @Override
@@ -350,6 +354,72 @@ public class OrderServiceImpl implements OrderService {
 
         return orderResponses;
 
+
+    }
+
+    @Override
+    public void changeOrderStatusToPackagingStatus(Long shopId, Long orderId) {
+
+        Order order = orderRepo.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order does not found"));
+
+        if (order.getShop().getId() != shopId)
+            throw new RuntimeException("You are not allowed to access to this data");
+
+        if (!order.getStatus().equals(Order.PENDING))
+            throw new RuntimeException("The order is not pending status");
+
+        order.setStatus(Order.PACKAGING);
+        orderRepo.save(order);
+
+    }
+
+    @Override
+    public void changeOrderStatusToHandedOverToCarrier(Long shopId, Long orderId) {
+
+        Order order = orderRepo.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order does not found"));
+
+        if (order.getShop().getId() != shopId)
+            throw new RuntimeException("You are not allowed to access to this data");
+
+        if (!order.getStatus().equals(Order.PACKAGING))
+            throw new RuntimeException("The order is not packaging status");
+
+        order.setStatus(Order.HANDED_OVER_TO_CARRIER);
+        orderRepo.save(order);
+
+    }
+
+    @Override
+    @Transactional
+    public void addShippingProviderToOrder(OrderShippingProviderDTO orderShippingProvider) {
+
+        Order order = orderRepo.findById(orderShippingProvider.getOrderId())
+                .orElseThrow(() ->  new RuntimeException("Order does not found"));
+
+        if (order.getShop().getId() != orderShippingProvider.getShopId())
+            throw new RuntimeException("You are not allowed to modify this data!!");
+
+        ShippingProvider shippingProvider = shippingProviderRepo.findById(orderShippingProvider.getShippingProviderId())
+                .orElseThrow(() -> new RuntimeException("Shipping provider does not found"));
+
+        order.setShippingProvider(shippingProvider);
+
+    }
+
+    @Override
+    public List<OrderResponse> getAllOrderByShippingProviderIdAndOrderStatus(Long shippingProviderId, String status) {
+
+        List<Order> orders = orderRepo.findAllByShippingProviderIdAndStatus(shippingProviderId, status);
+
+        List<OrderResponse> orderResponses = new ArrayList<>();
+
+        for (Order order : orders) {
+            orderResponses.add(convertOrderToOrderResponse(order));
+        }
+
+        return orderResponses;
 
     }
 

@@ -1,6 +1,7 @@
 package ecommerce.example.ecommerce.services;
 
 import ecommerce.example.ecommerce.dtos.OrderDTO;
+import ecommerce.example.ecommerce.dtos.OrderShippingProviderDTO;
 import ecommerce.example.ecommerce.responses.CompletingOrderResponse;
 import ecommerce.example.ecommerce.responses.OrderResponse;
 
@@ -22,4 +23,16 @@ public interface OrderService {
 
     List <OrderResponse> getOrderByShopIdAndStatus(Long shopId, String status);
 
+    void changeOrderStatusToPackagingStatus(Long shopId, Long orderId);
+
+    void changeOrderStatusToHandedOverToCarrier(Long shopId, Long orderId);
+
+    void addShippingProviderToOrder(
+            OrderShippingProviderDTO orderShippingProvider
+    );
+
+    List<OrderResponse> getAllOrderByShippingProviderIdAndOrderStatus(
+            Long shippingProviderId,
+            String status
+    );
 }

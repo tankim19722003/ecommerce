@@ -2,7 +2,7 @@ package ecommerce.example.ecommerce.controllers;
 
 
 import ecommerce.example.ecommerce.dtos.OrderDTO;
-import ecommerce.example.ecommerce.responses.AddressResponse;
+import ecommerce.example.ecommerce.dtos.OrderShippingProviderDTO;
 import ecommerce.example.ecommerce.responses.CompletingOrderResponse;
 import ecommerce.example.ecommerce.responses.EResponse;
 import ecommerce.example.ecommerce.responses.OrderResponse;
@@ -103,4 +103,90 @@ public class OrderController {
         }
 
     }
+
+    @GetMapping("/to_packaging_status")
+    public ResponseEntity<?> changeOrderStatusToPackagingStatus(
+            @RequestParam("shopId") Long shopId,
+            @RequestParam("orderId") Long orderId
+    ) {
+
+        try {
+            ownerService.checkValidShop(shopId);
+            orderService.changeOrderStatusToPackagingStatus(shopId, orderId);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest()
+                    .body(EResponse.builder()
+                            .name("ERROR")
+                            .message(e.getMessage())
+                            .build());
+        }
+
+    }
+
+    @GetMapping("/to_handed_over_to_carrier_status")
+    public ResponseEntity<?> changeOrderStatusToHandedOverToCarrier(
+            @RequestParam("shopId") Long shopId,
+            @RequestParam("orderId") Long orderId
+    ) {
+
+        try {
+            ownerService.checkValidShop(shopId);
+            orderService.changeOrderStatusToHandedOverToCarrier(shopId, orderId);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest()
+                    .body(EResponse.builder()
+                            .name("ERROR")
+                            .message(e.getMessage())
+                            .build());
+        }
+
+    }
+
+
+    @PostMapping("/add_shipping_provider")
+    public ResponseEntity<?> addShippingProviderToOrder(
+            @RequestBody OrderShippingProviderDTO orderShippingProviderDTO
+    ) {
+
+        try {
+            ownerService.checkValidShop(orderShippingProviderDTO.getShopId());
+            orderService.addShippingProviderToOrder(orderShippingProviderDTO);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest()
+                    .body(EResponse.builder()
+                            .name("ERROR")
+                            .message(e.getMessage())
+                            .build());
+        }
+
+    }
+
+    // api for shipping provider
+
+
+    @GetMapping("/get_shipping_provider_order")
+    public ResponseEntity<?> getAllOrderByShippingProviderIdAndOrderStatus(
+            @RequestParam("shippingProviderId") Long shippingProviderId,
+            @RequestParam("status") String status
+    ) {
+
+        try {
+            ownerService.checkValidShippingProvider(shippingProviderId);
+            List<OrderResponse> orderResponses = orderService
+                    .getAllOrderByShippingProviderIdAndOrderStatus(shippingProviderId, status);
+            return ResponseEntity.ok(orderResponses);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest()
+                    .body(EResponse.builder()
+                            .name("ERROR")
+                            .message(e.getMessage())
+                            .build());
+        }
+
+    }
+
+
 }

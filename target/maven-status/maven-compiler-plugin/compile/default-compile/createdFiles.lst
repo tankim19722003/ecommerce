@@ -1,6 +1,5 @@
 ecommerce\example\ecommerce\services\ProductCategoryService.class
 ecommerce\example\ecommerce\dtos\CartDTO.class
-ecommerce\example\ecommerce\models\ShippingTypeProvider$ShippingTypeProviderBuilder.class
 ecommerce\example\ecommerce\models\SubCategory.class
 ecommerce\example\ecommerce\models\Category$CategoryBuilder.class
 ecommerce\example\ecommerce\responses\SubcategoryAttributeListResponse.class
@@ -28,7 +27,7 @@ ecommerce\example\ecommerce\responses\OrderDetailResponse.class
 ecommerce\example\ecommerce\dtos\CodeDTO$CodeDTOBuilder.class
 ecommerce\example\ecommerce\models\ShippingProvider.class
 ecommerce\example\ecommerce\dtos\QuantityDTOList.class
-ecommerce\example\ecommerce\Repo\ShippingProviderRejectRepo.class
+ecommerce\example\ecommerce\dtos\UpdatingShippingProviderOrderStatusDTO.class
 ecommerce\example\ecommerce\models\UserCode.class
 ecommerce\example\ecommerce\dtos\ShippingFeeDTO.class
 ecommerce\example\ecommerce\dtos\ProductCategoryGroupTwoLevelDTO.class
@@ -47,6 +46,7 @@ ecommerce\example\ecommerce\Repo\OrderRepo.class
 ecommerce\example\ecommerce\services\ProductImageService.class
 ecommerce\example\ecommerce\dtos\ShippingFeeDTO$ShippingFeeDTOBuilder.class
 ecommerce\example\ecommerce\Repo\ShippingProviderRepo.class
+ecommerce\example\ecommerce\services\Impl\ShippingProviderServiceImpl.class
 ecommerce\example\ecommerce\dtos\UserVillageDTO$UserVillageDTOBuilder.class
 ecommerce\example\ecommerce\dtos\UserLoginDTO$UserLoginDTOBuilder.class
 ecommerce\example\ecommerce\models\Feedback.class
@@ -75,7 +75,6 @@ ecommerce\example\ecommerce\responses\ProductDiscountResponse.class
 ecommerce\example\ecommerce\dtos\VoucherDTO.class
 ecommerce\example\ecommerce\models\ShopRejection.class
 ecommerce\example\ecommerce\responses\UserVillageOrderResponse.class
-ecommerce\example\ecommerce\models\ShippingTypeProvider.class
 ecommerce\example\ecommerce\Repo\UserCodeRepo.class
 ecommerce\example\ecommerce\dtos\UserRegisterDTO.class
 ecommerce\example\ecommerce\controllers\ProductController.class
@@ -139,6 +138,7 @@ ecommerce\example\ecommerce\services\Impl\ProductCategoryServiceImpl.class
 ecommerce\example\ecommerce\controllers\ProductAttributeValueController.class
 ecommerce\example\ecommerce\responses\ProductCategoryTwoLevelResponse.class
 ecommerce\example\ecommerce\Exceptions\ValidationException.class
+ecommerce\example\ecommerce\responses\ShippingProviderResponse.class
 ecommerce\example\ecommerce\responses\DistrictResponse.class
 ecommerce\example\ecommerce\Repo\ShippingTypeRepo.class
 ecommerce\example\ecommerce\config\JwtFilter.class
@@ -154,6 +154,7 @@ ecommerce\example\ecommerce\Repo\SubProductCategoryRepo.class
 ecommerce\example\ecommerce\models\Category.class
 ecommerce\example\ecommerce\dtos\OrderDetailDTO$OrderDetailDTOBuilder.class
 ecommerce\example\ecommerce\responses\ProductRatingOrderResponse$ProductRatingOrderResponseBuilder.class
+ecommerce\example\ecommerce\controllers\ShippingProviderController.class
 ecommerce\example\ecommerce\Repo\DistrictRepo.class
 ecommerce\example\ecommerce\responses\ProductIdAttributeValueResponse.class
 ecommerce\example\ecommerce\controllers\VoucherController.class
@@ -208,7 +209,6 @@ ecommerce\example\ecommerce\responses\ShippingFeeResponse$ShippingFeeResponseBui
 ecommerce\example\ecommerce\responses\UserAddressResponse$UserAddressResponseBuilder.class
 ecommerce\example\ecommerce\dtos\ProductCategoryGroupResponse.class
 ecommerce\example\ecommerce\dtos\ProductCategoryGroupResponse$ProductCategoryGroupResponseBuilder.class
-ecommerce\example\ecommerce\models\ShippingProviderReject.class
 ecommerce\example\ecommerce\dtos\UserCodeDTO.class
 ecommerce\example\ecommerce\services\AttributeService.class
 ecommerce\example\ecommerce\Repo\AttributeRepo.class
@@ -249,6 +249,7 @@ ecommerce\example\ecommerce\services\Impl\ProductImageServiceImpl.class
 ecommerce\example\ecommerce\dtos\CategoryDTO.class
 ecommerce\example\ecommerce\dtos\ShopDTO$ShopDTOBuilder.class
 ecommerce\example\ecommerce\services\Impl\ShippingTypeServiceImpl.class
+ecommerce\example\ecommerce\dtos\OrderShippingProviderDTO$OrderShippingProviderDTOBuilder.class
 ecommerce\example\ecommerce\models\Voucher.class
 ecommerce\example\ecommerce\dtos\ProductCreatingDTO.class
 ecommerce\example\ecommerce\dtos\UserInfoUpdating.class
@@ -270,6 +271,7 @@ ecommerce\example\ecommerce\responses\ProductRatingOrderResponse.class
 ecommerce\example\ecommerce\dtos\AttributeDTO.class
 ecommerce\example\ecommerce\responses\OrderDetailResponse$OrderDetailResponseBuilder.class
 ecommerce\example\ecommerce\models\Village.class
+ecommerce\example\ecommerce\services\ShippingProviderSerivice.class
 ecommerce\example\ecommerce\responses\ProvinceResponse.class
 ecommerce\example\ecommerce\responses\ShopResponse.class
 ecommerce\example\ecommerce\models\ProductRejection.class
@@ -281,7 +283,9 @@ ecommerce\example\ecommerce\controllers\OrderController.class
 ecommerce\example\ecommerce\responses\CartItemResponse$CartItemResponseBuilder.class
 ecommerce\example\ecommerce\responses\CategoryResponse$CategoryResponseBuilder.class
 ecommerce\example\ecommerce\dtos\AttributeDTO$AttributeDTOBuilder.class
+ecommerce\example\ecommerce\dtos\OrderShippingProviderDTO.class
 ecommerce\example\ecommerce\responses\VoucherResponse$VoucherResponseBuilder.class
+ecommerce\example\ecommerce\dtos\UpdatingShippingProviderOrderStatusDTO$UpdatingShippingProviderOrderStatusDTOBuilder.class
 ecommerce\example\ecommerce\Repo\UserRepo.class
 ecommerce\example\ecommerce\config\ModelMapperConfig.class
 ecommerce\example\ecommerce\models\Province$ProvinceBuilder.class
@@ -303,6 +307,7 @@ ecommerce\example\ecommerce\dtos\CategoryDTO$CategoryDTOBuilder.class
 ecommerce\example\ecommerce\models\ProductAttributeValue.class
 ecommerce\example\ecommerce\responses\ProductBasicInfoResponse$ProductBasicInfoResponseBuilder.class
 ecommerce\example\ecommerce\services\UserVillageService.class
+ecommerce\example\ecommerce\responses\ShippingProviderResponse$ShippingProviderResponseBuilder.class
 ecommerce\example\ecommerce\models\UserVillageOrder$UserVillageOrderBuilder.class
 ecommerce\example\ecommerce\responses\SubCategoryResponse$SubCategoryResponseBuilder.class
 ecommerce\example\ecommerce\services\Impl\ValidataDataService.class

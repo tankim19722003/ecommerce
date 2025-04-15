@@ -150,20 +150,20 @@ public class EcomerceApplication {
 
 	}
 
-	private void createShippingProviderReject(ShippingProviderRepo shippingProviderRepo, ShippingProviderRejectRepo shippingProviderRejectRepo) {
+	private void createShippingProviderReject(ShippingProviderRepo shippingProviderRepo) {
 
 		ShippingProvider shippingProvider = shippingProviderRepo.findById(3L).orElseThrow(()
 				-> new RuntimeException("Shipping provider does not exist"));
 
-		ShippingProviderReject reject = new ShippingProviderReject();
-		reject.setId(100);
-		reject.setRejectedReason("Failed to meet service quality standards");
-		reject.setRejectedDate(LocalDateTime.now());
-		reject.setShippingProvider(shippingProvider);
-
-		System.out.println("Saving shipping provider reject");
-		shippingProviderRejectRepo.save(reject);
-		System.out.println("Done!!");
+//		ShippingProviderReject reject = new ShippingProviderReject();
+//		reject.setId(100);
+//		reject.setRejectedReason("Failed to meet service quality standards");
+//		reject.setRejectedDate(LocalDateTime.now());
+//		reject.setShippingProvider(shippingProvider);
+//
+//		System.out.println("Saving shipping provider reject");
+//		shippingProviderRejectRepo.save(reject);
+//		System.out.println("Done!!");
 	}
 
 //	private void createCoupon(ShopRepo shopRepo, CouponRepo couponRepo) {
@@ -429,11 +429,11 @@ public class EcomerceApplication {
 
 	private void createShippingProvider(ShippingProviderRepo shippingProviderRepo) {
 		ShippingProvider shippingProvider = new ShippingProvider();
-		shippingProvider.setAccount("FastExpress");
-		shippingProvider.setPassword("securePass123");
-		shippingProvider.setCreatedAt(LocalDate.now());
-		shippingProvider.setPhone("+1234567890");
-		shippingProvider.setEmail("contact@fastexpress.com");
+//		shippingProvider.setAccount("FastExpress");
+//		shippingProvider.setPassword("securePass123");
+//		shippingProvider.setCreatedAt(LocalDate.now());
+//		shippingProvider.setPhone("+1234567890");
+//		shippingProvider.setEmail("contact@fastexpress.com");
 		shippingProvider.setStatus("pending");
 		shippingProviderRepo.save((shippingProvider));
 	}

@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -47,6 +48,9 @@ public class User {
 
     @Column(name = "public_id")
     private String publicId;
+
+    @JoinColumn(name = "created_at")
+    private LocalDateTime createdAt;
 
 
     @Column(name = "phone_number", unique = true)
@@ -138,6 +142,8 @@ public class User {
 
     }
 
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    public ShippingProvider shippingProvider;
 //    public UserLoginResponse toUserLoginResponse() {
 //
 //        List<String> roles = getRoles().stream().map(
@@ -160,5 +166,9 @@ public class User {
 //        return userLoginResponse;
 //
 //    }
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
+    }
 
 }

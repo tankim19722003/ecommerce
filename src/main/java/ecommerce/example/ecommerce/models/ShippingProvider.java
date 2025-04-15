@@ -1,5 +1,6 @@
 package ecommerce.example.ecommerce.models;
 
+import ecommerce.example.ecommerce.responses.ShippingProviderResponse;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,32 +20,30 @@ public class ShippingProvider {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "account", unique = true)
-    private String account;
-
-    @Column(name = "password")
-    private String password;
-
-
-    @Column(name = "created_at")
-    private LocalDate createdAt;
-
-    @Column(name = "phone")
-    private String phone;
-
-    @Column(name = "email")
-    private String email;
-
     @Column(name = "status")
     private String status;
+
+    @Column(name = "name")
+    private String name;
 
     @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}
             , fetch = FetchType.LAZY, mappedBy = "shippingProvider")
     private List<Order> orders;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "shippingProvider")
-    private ShippingProviderReject shippingProviderReject;
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "shippingProvider")
-    private List<ShippingTypeProvider> shippingTypeProviders;
+    public ShippingProviderResponse toShippingProviderResponse() {
+        return ShippingProviderResponse
+                .builder()
+                .id(id)
+                .phone(user.getPhoneNumber())
+                .email(user.getEmail())
+                .account(user.getAccount())
+                .createdAt(user.getCreatedAt())
+                .status(status)
+                .name(name)
+                .build();
+    }
 }

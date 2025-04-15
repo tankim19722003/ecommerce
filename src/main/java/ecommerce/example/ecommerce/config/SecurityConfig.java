@@ -303,6 +303,17 @@ public class SecurityConfig {
                             .requestMatchers(GET,
                                     String.format("%s/order/get_shop_order_by_status/**", apiPrefix)).hasRole(Role.SHOP)
 
+                            .requestMatchers(GET,
+                                    String.format("%s/order/to_packaging_status/**", apiPrefix)).hasRole(Role.SHOP)
+
+                            .requestMatchers(GET,
+                                    String.format("%s/order/to_handed_over_to_carrier_status/**", apiPrefix)).hasRole(Role.SHOP)
+
+                            .requestMatchers(POST,
+                                    String.format("%s/order/add_shipping_provider", apiPrefix)).hasRole(Role.SHOP)
+
+                            .requestMatchers(GET,
+                                    String.format("%s/order/get_shipping_provider_order/**", apiPrefix)).hasAnyRole(Role.SHIPPING_PROVIDER, Role.ADMIN)
                             // Cart
                             .requestMatchers(POST,
                                     String.format("%s/cart/add_product_to_cart", apiPrefix)).hasRole(Role.USER)
@@ -325,6 +336,13 @@ public class SecurityConfig {
 
                             .requestMatchers(GET,
                                     String.format("%s/feedback/get_all_feed_back/**", apiPrefix)).permitAll()
+
+                            // shipping provider
+                            .requestMatchers(GET,
+                                    String.format("%s/shipping_provider/get_all", apiPrefix)).hasAnyRole(Role.ADMIN, Role.SHOP)
+
+                            .requestMatchers(POST,
+                                    String.format("%s/change_order_status", apiPrefix)).hasAnyRole(Role.SHIPPING_PROVIDER)
 
                             .anyRequest().authenticated();
 
