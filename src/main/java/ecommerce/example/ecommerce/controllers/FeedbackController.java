@@ -22,14 +22,13 @@ public class FeedbackController {
     @Autowired
     private OwnerService ownerService;
 
-    @PostMapping("/create_feedback/{userId}")
+    @PostMapping("/create_feedback")
     public ResponseEntity<?> createFeedback(
-            @PathVariable("userId") Long userId,
             @RequestBody FeedBackDTO feedBackDTO
     ) {
 
         try {
-            ownerService.checkValidUser(userId);
+            ownerService.checkValidUser(feedBackDTO.getUserId());
             FeedBackResponse feedBackResponse =  feedbackService.createFeedBack(feedBackDTO);
             return ResponseEntity.ok(feedBackResponse);
         } catch(Exception e) {
