@@ -3,6 +3,7 @@ package ecommerce.example.ecommerce.controllers;
 
 import ecommerce.example.ecommerce.dtos.OrderDTO;
 import ecommerce.example.ecommerce.dtos.OrderShippingProviderDTO;
+import ecommerce.example.ecommerce.models.Order;
 import ecommerce.example.ecommerce.responses.CompletingOrderResponse;
 import ecommerce.example.ecommerce.responses.EResponse;
 import ecommerce.example.ecommerce.responses.OrderResponse;
@@ -104,7 +105,8 @@ public class OrderController {
 
     }
 
-    @GetMapping("/to_packaging_status")
+    // api mới
+    @GetMapping("/status/to_packaging_status")
     public ResponseEntity<?> changeOrderStatusToPackagingStatus(
             @RequestParam("shopId") Long shopId,
             @RequestParam("orderId") Long orderId
@@ -112,7 +114,7 @@ public class OrderController {
 
         try {
             ownerService.checkValidShop(shopId);
-            orderService.changeOrderStatusToPackagingStatus(shopId, orderId);
+            orderService.changeOrderStatus(shopId, orderId, Order.PACKAGING);
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
             return ResponseEntity.badRequest()
@@ -124,7 +126,7 @@ public class OrderController {
 
     }
 
-    @GetMapping("/to_handed_over_to_carrier_status")
+    @GetMapping("/status/to_handed_over_to_carrier_status")
     public ResponseEntity<?> changeOrderStatusToHandedOverToCarrier(
             @RequestParam("shopId") Long shopId,
             @RequestParam("orderId") Long orderId
@@ -132,7 +134,7 @@ public class OrderController {
 
         try {
             ownerService.checkValidShop(shopId);
-            orderService.changeOrderStatusToHandedOverToCarrier(shopId, orderId);
+            orderService.changeOrderStatus(shopId, orderId, Order.HANDED_OVER_TO_CARRIER);
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
             return ResponseEntity.badRequest()
@@ -143,6 +145,67 @@ public class OrderController {
         }
 
     }
+
+    @GetMapping("/status/to_shipping")
+    public ResponseEntity<?> changeOrderStatusToShipping(
+            @RequestParam("shopId") Long shopId,
+            @RequestParam("orderId") Long orderId
+    ) {
+
+        try {
+            ownerService.checkValidShop(shopId);
+            orderService.changeOrderStatus(shopId, orderId, Order.SHIPPING);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest()
+                    .body(EResponse.builder()
+                            .name("ERROR")
+                            .message(e.getMessage())
+                            .build());
+        }
+
+    }
+
+    @GetMapping("/status/to_completed")
+    public ResponseEntity<?> changeOrderStatusToCompleted(
+            @RequestParam("shopId") Long shopId,
+            @RequestParam("orderId") Long orderId
+    ) {
+
+        try {
+            ownerService.checkValidShop(shopId);
+            orderService.changeOrderStatus(shopId, orderId, Order.COMPLETED);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest()
+                    .body(EResponse.builder()
+                            .name("ERROR")
+                            .message(e.getMessage())
+                            .build());
+        }
+
+    }
+
+    @GetMapping("/status/to_return")
+    public ResponseEntity<?> changeOrderStatusToReturn(
+            @RequestParam("shopId") Long shopId,
+            @RequestParam("orderId") Long orderId
+    ) {
+
+        try {
+            ownerService.checkValidShop(shopId);
+            orderService.changeOrderStatus(shopId, orderId, Order.RETURNING);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest()
+                    .body(EResponse.builder()
+                            .name("ERROR")
+                            .message(e.getMessage())
+                            .build());
+        }
+
+    }
+
 
 
     @PostMapping("/add_shipping_provider")

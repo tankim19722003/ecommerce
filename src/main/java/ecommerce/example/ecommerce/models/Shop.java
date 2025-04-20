@@ -46,6 +46,9 @@ public class Shop {
     @JoinColumn(name = "village_id")
     private Village village;
 
+    @Column(name = "total_money")
+    private Integer totalMoney;
+
     @Column(name = "specific_address")
     private String specificAddress;
 
@@ -106,6 +109,7 @@ public class Shop {
             this.logo = "shop.png";
         }
 
+        this.totalMoney = 0;
         this.createdAt = LocalDate.now();
         this.updatedAt = LocalDate.now();
     }

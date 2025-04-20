@@ -180,7 +180,6 @@ public class OrderServiceImpl implements OrderService {
 
                 orderDetail.setPrice(subProductCategory.getPrice());
                 int detailPrice = subProductCategory.getPrice() * orderDetail.getQuantity();
-                totalPrice += detailPrice;
                 orderDetailResponse.setProductSubCategoryId(subProductCategory.getId());
                 orderDetailResponse.setProductSubCategoryName(subProductCategory.getName());
 
@@ -188,7 +187,7 @@ public class OrderServiceImpl implements OrderService {
                 if (discountPercent > 0 ) {
                     detailPrice = detailPrice - (detailPrice * discountPercent) / 100;
                 }
-
+                totalPrice += detailPrice;
                 subProductCategory.setQuantity(subProductCategory.getQuantity() - orderDetailDTO.getQuantity());
                 orderDetailResponse.setTotalPrice(detailPrice);
 
@@ -205,13 +204,14 @@ public class OrderServiceImpl implements OrderService {
 
                 int detailPrice = productCategory.getPrice() * orderDetail.getQuantity();
 
-                totalPrice += detailPrice;
                 productCategory.setQuantity(productCategory.getQuantity() - orderDetailDTO.getQuantity());
                 productCategoryRepo.save(productCategory);
 
                 if (discountPercent > 0 ) {
                     detailPrice = detailPrice - (detailPrice * discountPercent) / 100;
                 }
+
+                totalPrice += detailPrice;
 
                 // set detail price for the order
                 orderDetailResponse.setTotalPrice(detailPrice);
@@ -229,12 +229,13 @@ public class OrderServiceImpl implements OrderService {
         }
 
 
+        totalPrice += shippingPrice;
 //        set voucher response
         if (orderDTO.getVoucherId() != null) {
             Optional<Voucher> voucher = voucherRepo.findById(orderDTO.getVoucherId());
             if (voucher.isPresent()) {
                 if (voucher.get().getMinimumOrderValue() < totalPrice) {
-                    totalPrice = totalPrice - totalPrice * (voucher.get().getDiscountPercent() / 100);
+                    totalPrice = totalPrice - (totalPrice * voucher.get().getDiscountPercent()) / 100;
                     orderResponse.setTotalMoney(totalPrice);
 
                     // set voucher discount
@@ -259,7 +260,7 @@ public class OrderServiceImpl implements OrderService {
             }
         }
 
-        totalPrice += shippingPrice;
+
         orderResponse.setTotalMoney(totalPrice);
 
         // set total price for the order
@@ -375,7 +376,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void changeOrderStatusToHandedOverToCarrier(Long shopId, Long orderId) {
+    public void changeOrderStatus(Long shopId, Long orderId, String status) {
 
         Order order = orderRepo.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("Order does not found"));
@@ -383,10 +384,44 @@ public class OrderServiceImpl implements OrderService {
         if (order.getShop().getId() != shopId)
             throw new RuntimeException("You are not allowed to access to this data");
 
-        if (!order.getStatus().equals(Order.PACKAGING))
-            throw new RuntimeException("The order is not packaging status");
+        if(order.getStatus().equals(Order.PENDING) && !status.equals(Order.PACKAGING)) {
+            throw new RuntimeException("Can't change the order status");
+        }
 
-        order.setStatus(Order.HANDED_OVER_TO_CARRIER);
+        if(order.getStatus().equals(Order.PACKAGING) && !status.equals(Order.HANDED_OVER_TO_CARRIER)) {
+            throw new RuntimeException("Can't change the order status");
+        }
+
+        if(order.getStatus().equals(Order.HANDED_OVER_TO_CARRIER) && !status.equals(Order.SHIPPING)) {
+            throw new RuntimeException("Can't change the order status");
+        }
+
+        if(order.getStatus().equals(Order.SHIPPING) && !status.equals(Order.COMPLETED)) {
+            throw new RuntimeException("Can't change the order status");
+        }
+
+        if(order.getStatus().equals(Order.SHIPPING) && !status.equals(Order.RETURNING)) {
+            throw new RuntimeException("Can't change the order status");
+        }
+
+        if (order.getStatus().equals(Order.RETURNING) || order.getStatus().equals(Order.COMPLETED)) {
+            throw new RuntimeException("Can't change the order status");
+        }
+
+
+        // logic to pay the money for shop
+        // get 2 percent per order
+        if (status.equals(Order.COMPLETED)) {
+            Shop shop = shopRepo.findById(order.getShop().getId()).orElseThrow(
+                    () -> new RuntimeException("Can't find the shop")
+            );
+
+            int totalMoney = (int)(shop.getTotalMoney() + order.getTotalPrice() * 0.98);
+            shop.setTotalMoney(totalMoney);
+        }
+
+        order.setStatus(status);
+
         orderRepo.save(order);
 
     }

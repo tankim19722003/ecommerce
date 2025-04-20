@@ -25,7 +25,7 @@ public interface OrderService {
 
     void changeOrderStatusToPackagingStatus(Long shopId, Long orderId);
 
-    void changeOrderStatusToHandedOverToCarrier(Long shopId, Long orderId);
+    void changeOrderStatus(Long shopId, Long orderId, String status);
 
     void addShippingProviderToOrder(
             OrderShippingProviderDTO orderShippingProvider

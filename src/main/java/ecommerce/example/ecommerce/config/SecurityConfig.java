@@ -303,11 +303,23 @@ public class SecurityConfig {
                             .requestMatchers(GET,
                                     String.format("%s/order/get_shop_order_by_status/**", apiPrefix)).hasRole(Role.SHOP)
 
+                            // change order status by shop
                             .requestMatchers(GET,
-                                    String.format("%s/order/to_packaging_status/**", apiPrefix)).hasRole(Role.SHOP)
+                                    String.format("%s/order/status/to_packaging_status/**", apiPrefix)).hasRole(Role.SHOP)
 
                             .requestMatchers(GET,
-                                    String.format("%s/order/to_handed_over_to_carrier_status/**", apiPrefix)).hasRole(Role.SHOP)
+                                    String.format("%s/order/status/to_handed_over_to_carrier_status/**", apiPrefix)).hasRole(Role.SHOP)
+
+                            // change order status by shipping provider
+                            .requestMatchers(GET,
+                                    String.format("%s/order/status/to_shipping/**", apiPrefix)).hasRole(Role.SHIPPING_PROVIDER)
+
+                            .requestMatchers(GET,
+                                    String.format("%s/order/status/to_completed/**", apiPrefix)).hasRole(Role.SHIPPING_PROVIDER)
+
+                            .requestMatchers(GET,
+                                    String.format("%s/order/status/to_return/**", apiPrefix)).hasRole(Role.SHIPPING_PROVIDER)
+
 
                             .requestMatchers(POST,
                                     String.format("%s/order/add_shipping_provider", apiPrefix)).hasRole(Role.SHOP)
