@@ -106,7 +106,7 @@ public class OrderController {
     }
 
     // api mới
-    @GetMapping("/status/to_packaging_status")
+    @GetMapping("/status/to_packaging")
     public ResponseEntity<?> changeOrderStatusToPackagingStatus(
             @RequestParam("shopId") Long shopId,
             @RequestParam("orderId") Long orderId
@@ -148,13 +148,14 @@ public class OrderController {
 
     @GetMapping("/status/to_shipping")
     public ResponseEntity<?> changeOrderStatusToShipping(
-            @RequestParam("shopId") Long shopId,
+            @RequestParam("shippingProviderId") Long shippingProviderId,
             @RequestParam("orderId") Long orderId
     ) {
 
         try {
-            ownerService.checkValidShop(shopId);
-            orderService.changeOrderStatus(shopId, orderId, Order.SHIPPING);
+            // check valid shipping provider
+            ownerService.checkValidShippingProvider(shippingProviderId);
+            orderService.changeOrderStatus(shippingProviderId, orderId, Order.SHIPPING);
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
             return ResponseEntity.badRequest()
@@ -168,13 +169,13 @@ public class OrderController {
 
     @GetMapping("/status/to_completed")
     public ResponseEntity<?> changeOrderStatusToCompleted(
-            @RequestParam("shopId") Long shopId,
+            @RequestParam("shippingProviderId") Long shippingProviderId,
             @RequestParam("orderId") Long orderId
     ) {
 
         try {
-            ownerService.checkValidShop(shopId);
-            orderService.changeOrderStatus(shopId, orderId, Order.COMPLETED);
+            ownerService.checkValidShippingProvider(shippingProviderId);
+            orderService.changeOrderStatus(shippingProviderId, orderId, Order.COMPLETED);
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
             return ResponseEntity.badRequest()
@@ -186,15 +187,35 @@ public class OrderController {
 
     }
 
-    @GetMapping("/status/to_return")
+    @GetMapping("/status/to_returning")
     public ResponseEntity<?> changeOrderStatusToReturn(
-            @RequestParam("shopId") Long shopId,
+            @RequestParam("shippingProviderId") Long shippingProviderId,
             @RequestParam("orderId") Long orderId
     ) {
 
         try {
-            ownerService.checkValidShop(shopId);
-            orderService.changeOrderStatus(shopId, orderId, Order.RETURNING);
+            ownerService.checkValidShippingProvider(shippingProviderId);
+            orderService.changeOrderStatus(shippingProviderId, orderId, Order.RETURNING);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest()
+                    .body(EResponse.builder()
+                            .name("ERROR")
+                            .message(e.getMessage())
+                            .build());
+        }
+
+    }
+
+    @GetMapping("/status/to_completed_returning")
+    public ResponseEntity<?> changeOrderStatusToCompletedReturning(
+            @RequestParam("shippingProviderId") Long shippingProviderId,
+            @RequestParam("orderId") Long orderId
+    ) {
+
+        try {
+            ownerService.checkValidShippingProvider(shippingProviderId);
+            orderService.changeOrderStatus(shippingProviderId, orderId, Order.COMPLETED_RETURNING);
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
             return ResponseEntity.badRequest()

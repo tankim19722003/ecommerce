@@ -68,6 +68,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private ShippingProviderRepo shippingProviderRepo;
 
+    @Autowired
+    private WalletRepo walletRepo;
+
 
     @Override
     @Transactional
@@ -376,13 +379,30 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void changeOrderStatus(Long shopId, Long orderId, String status) {
+    @Transactional
+    public void changeOrderStatus(Long ownerId, Long orderId, String status) {
 
         Order order = orderRepo.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("Order does not found"));
 
-        if (order.getShop().getId() != shopId)
-            throw new RuntimeException("You are not allowed to access to this data");
+        // check is the shop or shipping provider own this order
+       if (    status.equals(Order.PACKAGING) ||
+               status.equals(Order.HANDED_OVER_TO_CARRIER)
+       ) {
+           if (order.getShop().getId() != ownerId)
+               throw new RuntimeException("You are not allowed to access to this data");
+       }
+
+        if (status.equals(Order.SHIPPING) ||
+                status.equals(Order.RETURNING) ||
+                status.equals(Order.COMPLETED_RETURNING)
+        ) {
+            if (order.getShippingProvider().getId() != ownerId)
+                throw new RuntimeException("You are not allowed to access to this data");
+        }
+
+
+
 
         if(order.getStatus().equals(Order.PENDING) && !status.equals(Order.PACKAGING)) {
             throw new RuntimeException("Can't change the order status");
@@ -396,17 +416,21 @@ public class OrderServiceImpl implements OrderService {
             throw new RuntimeException("Can't change the order status");
         }
 
-        if(order.getStatus().equals(Order.SHIPPING) && !status.equals(Order.COMPLETED)) {
+        if(order.getStatus().equals(Order.SHIPPING)) {
+           if (!(status.equals(Order.RETURNING) || status.equals(Order.COMPLETED)))
             throw new RuntimeException("Can't change the order status");
         }
 
-        if(order.getStatus().equals(Order.SHIPPING) && !status.equals(Order.RETURNING)) {
+
+        if (order.getStatus().equals(Order.RETURNING) && !status.equals(Order.COMPLETED_RETURNING)) {
             throw new RuntimeException("Can't change the order status");
         }
 
-        if (order.getStatus().equals(Order.RETURNING) || order.getStatus().equals(Order.COMPLETED)) {
+
+        if (order.getStatus().equals(Order.COMPLETED_RETURNING) || order.getStatus().equals(Order.COMPLETED)) {
             throw new RuntimeException("Can't change the order status");
         }
+
 
 
         // logic to pay the money for shop
@@ -418,6 +442,70 @@ public class OrderServiceImpl implements OrderService {
 
             int totalMoney = (int)(shop.getTotalMoney() + order.getTotalPrice() * 0.98);
             shop.setTotalMoney(totalMoney);
+
+            // increase total money for admin
+            User user = userRepo.findByAccount("admin").orElseThrow(
+                    () -> new RuntimeException("Admin does not found")
+            );
+
+            // set total money for the wallet
+            Wallet wallet = walletRepo.findByUserId(user.getId())
+                    .orElseThrow(() -> new RuntimeException("Wallet does not found"));
+
+            int totalWalletMoney = (int)(wallet.getTotalMoney() + order.getTotalPrice() * 0.2);
+            wallet.setTotalMoney(totalWalletMoney);
+
+            walletRepo.save(wallet);
+
+            // update total sold
+            for (OrderDetail orderDetail : order.getOrderDetails()) {
+                Product product = productRepo.findById(orderDetail.getProduct().getId())
+                        .orElseThrow(() -> new RuntimeException("Product does not found"));
+
+                int productTotalSold = product.getTotalSold() + orderDetail.getQuantity();
+                 product.setTotalSold(productTotalSold);
+
+                 productRepo.save(product);
+
+            }
+
+        }
+
+        // handle for the completed_returning
+        if (status.equals(Order.COMPLETED_RETURNING)) {
+
+            for (OrderDetail orderDetail : order.getOrderDetails()) {
+
+                Product product = productRepo.findById(orderDetail.getProduct().getId())
+                        .orElseThrow(() -> new RuntimeException("Product does not found"));
+
+                // increase the quantity of the product after returning
+                if (orderDetail.getSubProductCategory() != null) {
+
+                    SubProductCategory subProductCategory = subProductCategoryRepo.findById(orderDetail.getSubProductCategory().getId())
+                            .orElseThrow(() -> new RuntimeException("Sub product category does not found"));
+
+                    int quantity = subProductCategory.getQuantity() + orderDetail.getQuantity();
+
+                    subProductCategory.setQuantity(quantity);
+
+                    subProductCategoryRepo.save(subProductCategory);
+
+                } else {
+
+                    ProductCategory productCategory = productCategoryRepo.findById(orderDetail.getProductCategory().getId())
+                            .orElseThrow(() -> new RuntimeException("Product category does not found"));
+
+                    int quantity = productCategory.getQuantity() + orderDetail.getQuantity();
+
+                    productCategory.setQuantity(quantity);
+
+                    productCategoryRepo.save(productCategory);
+
+                }
+            }
+
+
         }
 
         order.setStatus(status);

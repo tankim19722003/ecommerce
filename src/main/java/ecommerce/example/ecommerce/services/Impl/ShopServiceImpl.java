@@ -204,6 +204,7 @@ public class ShopServiceImpl implements ShopService {
         shopResponse.setBehindCccdUrl(shop.getBehindCmndUrl());
         shopResponse.setFrontCccdPublicId(shop.getFrontCmndPublicId());
         shopResponse.setFrontCccdUrl(shop.getFrontCmndUrl());
+        shopResponse.setTotalMoney(shop.getTotalMoney());
 
         return shopResponse;
     }

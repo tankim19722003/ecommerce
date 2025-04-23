@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
 
 public interface UserRepo extends JpaRepository<User, Long> {
@@ -31,4 +32,5 @@ public interface UserRepo extends JpaRepository<User, Long> {
     boolean existsByPhoneNumberAndDifferentUserId(@Param("phoneNumber") String phoneNumber, @Param("id") Long id);
 
     Optional<User> findByAccount(String account);
+
 }

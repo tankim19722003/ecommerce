@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -30,6 +29,9 @@ public class ShippingProvider {
             , fetch = FetchType.LAZY, mappedBy = "shippingProvider")
     private List<Order> orders;
 
+//    @Column(name = "shipping_provider_money")
+//    private int shippingProviderMoney;
+
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -46,4 +48,9 @@ public class ShippingProvider {
                 .name(name)
                 .build();
     }
+
+//    @PrePersist
+//    public void prePersist() {
+//        this.shippingProviderMoney = 0;
+//    }
 }

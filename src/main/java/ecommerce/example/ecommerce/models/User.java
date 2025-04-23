@@ -143,7 +143,10 @@ public class User {
     }
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
-    public ShippingProvider shippingProvider;
+    private ShippingProvider shippingProvider;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    private Wallet wallet;
 //    public UserLoginResponse toUserLoginResponse() {
 //
 //        List<String> roles = getRoles().stream().map(

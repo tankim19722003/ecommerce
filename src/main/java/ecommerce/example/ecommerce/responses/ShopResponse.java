@@ -25,4 +25,7 @@ public class ShopResponse extends ShopBasicInfoResponse{
 
     @Column(name = "behind_cccd_public_id")
     private String behindCccdPublicId;
+
+    @JsonProperty("total_money")
+    private Integer totalMoney;
 }

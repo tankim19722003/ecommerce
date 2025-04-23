@@ -23,6 +23,7 @@ public class Order {
     public static final String COMPLETED = "COMPLETED";
     public static final String CANCEL = "CANCEL";
     public static final String RETURNING = "RETURNING";
+    public static final String COMPLETED_RETURNING = "COMPLETED_RETURNING";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,6 +59,9 @@ public class Order {
     @Column(name = "shipping_fee")
     private int shippingFee;
 
+//    @JsonProperty("shipping_provider_payment_state")
+//    private boolean shippingProviderPaymentState;
+
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -70,9 +74,6 @@ public class Order {
     @JoinColumn(name = "shop_id")
     private Shop shop;
 
-//    @ManyToOne
-//    @JoinColumn(name = "shipping_type_id")
-//    private ShippingType shippingType;
 
     @ManyToOne
     @JoinColumn(name = "product_shipping_type_id", nullable = false)
@@ -92,6 +93,10 @@ public class Order {
     @JoinColumn(name = "voucher_id")
     private Voucher voucher;
 
+//    @PrePersist
+//    public void prePersist() {
+//        this.shippingProviderPaymentState = false;
+//    }
 
 
 }

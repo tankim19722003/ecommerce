@@ -2,6 +2,7 @@ ecommerce\example\ecommerce\services\ProductCategoryService.class
 ecommerce\example\ecommerce\dtos\CartDTO.class
 ecommerce\example\ecommerce\models\SubCategory.class
 ecommerce\example\ecommerce\models\Category$CategoryBuilder.class
+ecommerce\example\ecommerce\models\Wallet.class
 ecommerce\example\ecommerce\responses\SubcategoryAttributeListResponse.class
 ecommerce\example\ecommerce\responses\VillageResponse.class
 ecommerce\example\ecommerce\responses\AttributeValueResponse$AttributeValueResponseBuilder.class
@@ -110,6 +111,7 @@ ecommerce\example\ecommerce\responses\QuantityResponse$QuantityResponseBuilder.c
 ecommerce\example\ecommerce\responses\UserAddressListResponse$UserAddressListResponseBuilder.class
 ecommerce\example\ecommerce\responses\ProductImageResponse$ProductImageResponseBuilder.class
 ecommerce\example\ecommerce\config\CloudinaryConfig.class
+ecommerce\example\ecommerce\Repo\WalletRepo.class
 ecommerce\example\ecommerce\models\ProductCategoryGroup$ProductCategoryGroupBuilder.class
 ecommerce\example\ecommerce\dtos\FeedBackDTO.class
 ecommerce\example\ecommerce\models\District$DistrictBuilder.class
@@ -334,6 +336,7 @@ ecommerce\example\ecommerce\controllers\CartController.class
 ecommerce\example\ecommerce\dtos\SubcategoryAttributeDTO.class
 ecommerce\example\ecommerce\services\Impl\ShopCodeServiceImpl.class
 ecommerce\example\ecommerce\services\ProductShippingService.class
+ecommerce\example\ecommerce\models\Wallet$WalletBuilder.class
 ecommerce\example\ecommerce\models\ProductAttributeValue$ProductAttributeValueBuilder.class
 ecommerce\example\ecommerce\Repo\ShippingTypeProviderRepo.class
 ecommerce\example\ecommerce\responses\ProductCategoryTwoLevelResponse$ProductCategoryTwoLevelResponseBuilder.class

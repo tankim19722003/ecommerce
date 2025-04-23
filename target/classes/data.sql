@@ -48,6 +48,14 @@ VALUES
 ((SELECT id FROM users WHERE account = 'emmath'), (SELECT id FROM roles WHERE name = 'shipping_provider'));
 
 
+-- add the wallet for admin
+INSERT INTO wallets (total_money, user_id)
+VALUES (
+    0,
+    (SELECT id FROM users WHERE account = 'admin')
+);
+
+
 INSERT INTO shipping_providers (status, name, user_id)
 VALUES
 ('ACTIVE', 'Alice Express', (SELECT id FROM users WHERE account = 'alicej')),

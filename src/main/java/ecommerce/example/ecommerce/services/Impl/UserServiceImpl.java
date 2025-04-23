@@ -10,6 +10,7 @@ import ecommerce.example.ecommerce.dtos.UserRegisterDTO;
 import ecommerce.example.ecommerce.models.Role;
 import ecommerce.example.ecommerce.models.User;
 import ecommerce.example.ecommerce.models.UserCode;
+import ecommerce.example.ecommerce.models.Wallet;
 import ecommerce.example.ecommerce.responses.*;
 import ecommerce.example.ecommerce.services.UserService;
 import org.modelmapper.ModelMapper;
@@ -101,6 +102,13 @@ public class UserServiceImpl implements UserService {
 
 
         userRepo.save(user);
+
+        // create the wallet for user
+        Wallet wallet = new Wallet();
+        wallet.setUser(user);
+
+
+
 
         userCodeRepo.deleteByEmail(userResgisterDTO.getAccount());
 
