@@ -181,14 +181,10 @@ public class OrderController {
 
         try {
 
-            Map<String, Integer> totalMoney = new HashMap<>();
             ownerService.checkValidShippingProvider(shippingProviderId);
             orderService.changeOrderStatus(shippingProviderId, orderId, Order.COMPLETED);
 
-            // get shop total money
-            Long shopId = orderService.getShopIdByOrderId(orderId);
-            totalMoney.put("shop_total_money", shopRepo.getShopTotalMoney(shopId));
-            return ResponseEntity.ok(totalMoney);
+            return ResponseEntity.noContent().build();
         } catch (Exception e) {
             return ResponseEntity.badRequest()
                     .body(EResponse.builder()
