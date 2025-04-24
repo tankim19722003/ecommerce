@@ -1,5 +1,6 @@
 package ecommerce.example.ecommerce.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,6 +25,7 @@ public class ShopAddress {
 
     @ManyToOne
     @JoinColumn(name = "shop_id", nullable = false)
+    @JsonBackReference
     private Shop shop;
 
     @ManyToOne

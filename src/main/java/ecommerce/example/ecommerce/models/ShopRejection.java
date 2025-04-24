@@ -1,5 +1,6 @@
 package ecommerce.example.ecommerce.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,5 +26,6 @@ public class ShopRejection {
 
     @OneToOne
     @JoinColumn(name = "shop_id", nullable = false, unique = true)
+    @JsonBackReference
     private Shop shop;
 }

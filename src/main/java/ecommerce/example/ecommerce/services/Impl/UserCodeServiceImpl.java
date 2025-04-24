@@ -39,6 +39,9 @@ public class UserCodeServiceImpl implements UserCodeService {
     public int sendCode(String email) throws MessagingException {
         String subject = "Shop confirmation";
 
+        // delete all code
+        userCodeRepo.deleteByEmail(email);
+
         int code = generateCode();
         String html = generateHTMLMailContent(code);
 
@@ -82,11 +85,6 @@ public class UserCodeServiceImpl implements UserCodeService {
     @Transactional
     public void handleCode(Long userId, String email, Long codePurposeId) throws MessagingException {
 
-//        Boolean isShopEmailExisting = shopRepo.existsByEmail(email);
-//        if (isShopEmailExisting) {
-//            throw new RuntimeException("Email is existing!!");
-//        }
-
         User user = userRepo.findById(userId).orElseThrow(
                 () -> new RuntimeException("User does not found"));
 
@@ -95,7 +93,9 @@ public class UserCodeServiceImpl implements UserCodeService {
                 () -> new RuntimeException("Code purpose does not found")
         );
 
-        // delete all code
+        // delete all user code
+        userCodeRepo.deleteByUserId(userId);
+
         int code = sendCode(email);
 
         UserCode userCode = UserCode.builder()
@@ -110,6 +110,7 @@ public class UserCodeServiceImpl implements UserCodeService {
     }
 
     @Override
+    @Transactional
     public void handleCode(String email, Long codePurposeId) throws MessagingException {
 
         // check email existing

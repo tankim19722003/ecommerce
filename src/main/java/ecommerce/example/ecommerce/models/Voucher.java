@@ -1,5 +1,6 @@
 package ecommerce.example.ecommerce.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import ecommerce.example.ecommerce.responses.VoucherResponse;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -41,6 +42,7 @@ public class Voucher {
 
     @ManyToOne
     @JoinColumn(name = "shop_id")
+    @JsonBackReference
     private Shop shop;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "voucher")

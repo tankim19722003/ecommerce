@@ -1,5 +1,6 @@
 package ecommerce.example.ecommerce.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import ecommerce.example.ecommerce.responses.AddressResponse;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

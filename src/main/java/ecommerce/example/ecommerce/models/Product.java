@@ -1,5 +1,6 @@
 package ecommerce.example.ecommerce.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -55,11 +56,12 @@ public class Product {
     @Column(name = "weight")
     private Float weight;
 
-    @ManyToOne(cascade = {CascadeType.REFRESH})
+    @ManyToOne
     @JoinColumn(name = "shop_id", nullable = false)
+    @JsonBackReference
     private Shop shop;
 
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToOne
     @JoinColumn(name = "sub_category_id", nullable = false)
     private SubCategory subCategory;
 

@@ -1,6 +1,7 @@
 package ecommerce.example.ecommerce.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import ecommerce.example.ecommerce.dtos.ShopDTO;
 import ecommerce.example.ecommerce.responses.AddressResponse;
@@ -42,7 +43,7 @@ public class Shop {
     @Column(name = "logo")
     private String logo;
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne
     @JoinColumn(name = "village_id")
     private Village village;
 
@@ -67,12 +68,11 @@ public class Shop {
     @Column(name = "behind_cmnd_public_id")
     private String behindCmndPublicId;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "shop")
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE}, mappedBy = "shop")
+    @JsonIgnore
     private List<SupplierAddress> supplierAddresses;
-//    @Pattern(regexp = "PENDING|REJECT|COMPLETION", message = "Invalid status value")
-//    private String status;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
@@ -80,27 +80,28 @@ public class Shop {
     @JsonProperty("email")
     private String email;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "shop")
-    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "shop")
+    @JsonManagedReference
     private List<Product> products;
 
-    @OneToOne(mappedBy = "shop", cascade = CascadeType.ALL)
-    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "shop")
+    @JsonManagedReference
     private ShopBanned shopBanned;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "shop")
-    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "shop")
+    @JsonManagedReference
     private ShopRejection shopRejection;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "shop")
-    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "shop")
+    @JsonManagedReference
     private List<Voucher> vouchers;
 
-    @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
+    @OneToMany(mappedBy = "shop", fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<ShopAddress> shopAddress;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "shop")
+    @JsonManagedReference
     private List<Order> orders;
 
     @PrePersist

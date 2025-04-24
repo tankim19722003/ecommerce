@@ -102,8 +102,8 @@ public class ShopServiceImpl implements ShopService {
         }
 
 
-        Shop savedShop = shopRepo.findByUserId(userId)
-                .orElseThrow(() -> new RuntimeException("Failed to create!!"));
+//        Shop savedShop = shopRepo.findByUserId(userId)
+//                .orElseThrow(() -> new RuntimeException("Failed to create!!"));
 
         // set role shop for user
 
@@ -116,7 +116,7 @@ public class ShopServiceImpl implements ShopService {
         // delete code
         userCodeRepo.deleteByUserId(userId);
 
-        return convertShopToShopResponse(savedShop);
+        return convertShopToShopResponse(shop);
 
     }
 
