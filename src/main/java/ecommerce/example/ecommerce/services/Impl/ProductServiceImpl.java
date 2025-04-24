@@ -210,6 +210,7 @@ public class ProductServiceImpl implements ProductService {
                 .subCategory(category)
                 .thumbnailUrl(cloudAvatar.get("imageUrl"))
                 .thumbnailPublicId(cloudAvatar.get("publicId"))
+                .totalSold(0)
                 .shop(shop)
                 .build();
 

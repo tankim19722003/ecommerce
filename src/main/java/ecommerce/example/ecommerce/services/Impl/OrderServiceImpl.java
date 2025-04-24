@@ -101,7 +101,6 @@ public class OrderServiceImpl implements OrderService {
         order.setShop(shop);
         order.setNotes(orderDTO.getNote());
         order.setExpectedReceiveDate(LocalDateTime.now().plusDays(productShippingType.getShippingType().getEstimatedTime()));
-        order.setOrderDate(LocalDateTime.now());
 
         orderRepo.save(order);
 
@@ -309,7 +308,8 @@ public class OrderServiceImpl implements OrderService {
             String shopName = order.getOrderDetails().getFirst().getProduct().getShop().getShopName();
             completingOrderResponse.setShopId(shopId);
             completingOrderResponse.setShopName(shopName);
-
+            completingOrderResponse.setCreatedAt(order.getCreatedAt());
+            completingOrderResponse.setUpdatedAt(order.getUpdatedAt());
 
             // list order responses
             List<OrderDetailResponse> orderDetailResponses = toOrderDetailResponse(order.getOrderDetails());
@@ -544,6 +544,16 @@ public class OrderServiceImpl implements OrderService {
 
         return orderResponses;
 
+    }
+
+    @Override
+    public Long getShopIdByOrderId(Long orderId) {
+        return orderRepo.getShopIdByOrderId(orderId);
+    }
+
+    @Override
+    public int getShopTotalMoney(Long shopId) {
+        return shopRepo.getShopTotalMoney(shopId);
     }
 
     private OrderResponse convertOrderToOrderResponse(Order order) {

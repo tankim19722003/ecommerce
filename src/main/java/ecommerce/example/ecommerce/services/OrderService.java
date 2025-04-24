@@ -35,4 +35,9 @@ public interface OrderService {
             Long shippingProviderId,
             String status
     );
+
+    Long getShopIdByOrderId(Long orderId);
+
+
+    int getShopTotalMoney(Long shopId);
 }

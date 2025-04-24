@@ -376,7 +376,7 @@ public class EcomerceApplication {
 		Order order = new Order();
 
 		// Set attributes
-		order.setOrderDate(LocalDateTime.now());
+//		order.setCreated_at(LocalDateTime.now());
 		order.setTotalPrice(500);
 		order.setPaymentMethod("Credit Card");
 //		order.setPaymentStatus("Paid");

@@ -1,6 +1,7 @@
 package ecommerce.example.ecommerce.controllers;
 
 
+import ecommerce.example.ecommerce.Repo.ShopRepo;
 import ecommerce.example.ecommerce.dtos.OrderDTO;
 import ecommerce.example.ecommerce.dtos.OrderShippingProviderDTO;
 import ecommerce.example.ecommerce.models.Order;
@@ -13,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("${api.prefix}/order")
@@ -24,6 +27,9 @@ public class OrderController {
 
     @Autowired
     private OwnerService ownerService;
+
+    @Autowired
+    private ShopRepo shopRepo;
 
     @PostMapping()
     public ResponseEntity<?> createOrder(
@@ -174,9 +180,15 @@ public class OrderController {
     ) {
 
         try {
+
+            Map<String, Integer> totalMoney = new HashMap<>();
             ownerService.checkValidShippingProvider(shippingProviderId);
             orderService.changeOrderStatus(shippingProviderId, orderId, Order.COMPLETED);
-            return ResponseEntity.noContent().build();
+
+            // get shop total money
+            Long shopId = orderService.getShopIdByOrderId(orderId);
+            totalMoney.put("shop_total_money", shopRepo.getShopTotalMoney(shopId));
+            return ResponseEntity.ok(totalMoney);
         } catch (Exception e) {
             return ResponseEntity.badRequest()
                     .body(EResponse.builder()

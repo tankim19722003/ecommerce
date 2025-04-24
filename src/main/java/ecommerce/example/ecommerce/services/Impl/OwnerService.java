@@ -1,7 +1,6 @@
 package ecommerce.example.ecommerce.services.Impl;
 
 import ecommerce.example.ecommerce.Repo.UserRepo;
-import ecommerce.example.ecommerce.models.Role;
 import ecommerce.example.ecommerce.models.User;
 import ecommerce.example.ecommerce.models.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;

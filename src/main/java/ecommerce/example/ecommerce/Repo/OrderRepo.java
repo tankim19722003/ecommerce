@@ -20,4 +20,7 @@ public interface OrderRepo extends JpaRepository<Order, Long> {
             @Param("shippingProviderId") Long shippingProviderId,
             @Param("status") String status
     );
+
+    @Query("select o.shop.id from Order o where o.id = :orderId")
+    Long getShopIdByOrderId(Long orderId);
 }

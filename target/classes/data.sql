@@ -307,10 +307,6 @@ INSERT INTO villages (id, district_id, name) VALUES
 (41, 84, 'Lê Bình'),
 (42, 84, 'Tân Phú');
 
---INSERT INTO shops
---    (id, shop_name, description, created_at, updated_at, logo, village_id, specific_address, phone_number, user_id, email)
---VALUES
---    (1, 'Baby three', 'A store specializing in tech gadgets', '2024-03-04', '2024-03-04', 'tech_store_logo.png', 1, '123 Tech Street', '0123456789', 5, 'tankim1972@gmail.com');
 
 --INSERT INTO shops
 --    (id, shop_name, description, created_at, updated_at, logo, village_id, specific_address, phone_number, user_id, email)
@@ -401,6 +397,13 @@ INSERT INTO villages (id, district_id, name) VALUES
 ------(30, 6, 5, '15kg');
 
 -- NEW DATA------------------------------------
+
+-- REMOVE WHEN RELEASE
+INSERT INTO shops
+    (id, shop_name, description, created_at, updated_at, logo, village_id, specific_address, phone_number, user_id, email)
+VALUES
+    (1, 'Baby three', 'A store specializing in tech gadgets', '2024-03-04', '2024-03-04', 'tech_store_logo.png', 1, '123 Tech Street', '0123456789', 5, 'tankim1972@gmail.com');
+
 INSERT INTO categories (name, created_at, description) VALUES
 ('Electronics', '2024-03-03', 'Devices, gadgets, and accessories'),
 ('Fashion', '2024-03-03', 'Clothing, footwear, and accessories'),
@@ -477,7 +480,7 @@ INSERT INTO sub_category_attributes (attribute_id, sub_category_id) VALUES
 (6, 1),  (6, 2),  (7, 3),  (7, 4),  (8, 5),
 (9, 6),  (9, 7),  (10, 8), (10, 9);
 
-
+--
 --INSERT INTO products (shop_id, sub_category_id, rating, created_at, updated_at, description, name, thumbnail_public_id, thumbnail_url)
 --VALUES
 --    (1, 1, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Fast performance with long battery life', 'Samsung Galaxy S23','jne7ycbogiqzo0jdjf2r', 'https://res.cloudinary.com/dlvkuz22j/image/upload/v1744432629/jne7ycbogiqzo0jdjf2r.webp'),
@@ -488,7 +491,7 @@ INSERT INTO sub_category_attributes (attribute_id, sub_category_id) VALUES
 --    (1, 6, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Samsung 55-inch 4K Smart TV', 'samsung_55_4k_tv.png','jne7ycbogiqzo0jdjf2r', 'https://res.cloudinary.com/dlvkuz22j/image/upload/v1744432629/jne7ycbogiqzo0jdjf2r.webp'),
 --    (1, 7, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'JBL Tune 130NC TWS', 'jbl_tune_130nc.png','jne7ycbogiqzo0jdjf2r', 'https://res.cloudinary.com/dlvkuz22j/image/upload/v1744432629/jne7ycbogiqzo0jdjf2r.webp');
 --
-
+--
 
 
 

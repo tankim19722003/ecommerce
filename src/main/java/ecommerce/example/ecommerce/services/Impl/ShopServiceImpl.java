@@ -93,6 +93,7 @@ public class ShopServiceImpl implements ShopService {
         shop.setFrontCmndPublicId(frontCmnd.get("publicId"));
         shop.setCreatedAt(LocalDate.now());
         shop.setUpdatedAt(LocalDate.now());
+        shop.setTotalMoney(0);
 
         try {
                 shopRepo.save(shop);

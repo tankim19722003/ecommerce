@@ -30,8 +30,11 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "order_date")
-    private LocalDateTime orderDate;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
     @Column(name = "total_price")
     private int totalPrice;
@@ -95,10 +98,16 @@ public class Order {
     @JoinColumn(name = "voucher_id")
     private Voucher voucher;
 
-//    @PrePersist
-//    public void prePersist() {
-//        this.shippingProviderPaymentState = false;
-//    }
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
 
 
 }

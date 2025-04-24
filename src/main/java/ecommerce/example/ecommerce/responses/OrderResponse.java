@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,12 @@ public class OrderResponse {
 
     @JsonProperty("note")
     private String note;
+//
+//    @JsonProperty("created_at")
+//    private LocalDateTime createdAt;
+//
+//    @JsonProperty("updated_at")
+//    private LocalDateTime updatedAt;
 
     @JsonProperty("voucher_response")
     private VoucherResponse voucherResponse;
